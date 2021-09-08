@@ -30,14 +30,27 @@
                   "언텍트 맞춤선물" 카카오프렌즈 골드라인 그란데 머그 2종 택일
                 </div>
                 <div class="subtitle-box">
-                  <div class="brand-box"></div>
-                  <div class="fundingcount-box"></div>
+                  <div class="brand-box">
+                    카카오 프렌즈
+                  </div>
+                  <div class="fundingcount-box">
+                    누적 펀딩수 : 3300 건
+                  </div>
                 </div>
 
               </div>
               <div class="content-bottom">
                 <div class="bottom-button">
                   <div class="like-box">
+<!--                    <v-btn-->
+<!--                        color="accent"-->
+<!--                        elevation="2"-->
+<!--                        fab-->
+<!--                        icon-->
+<!--                        large-->
+<!--                        tile-->
+<!--                    class="like-button"-->
+<!--                    ></v-btn>-->
                     <button class="like-button">
 
                     </button>
@@ -111,7 +124,8 @@ export default {
 
 /*body*/
 .inner .container-content .content-body .body-detail {
-  border: 1px solid rgb(229 114 0);
+
+  border: 2px solid rgb(229 114 0);
   margin-top: 30px;
 
 }
@@ -136,15 +150,25 @@ export default {
   border-top: 1px solid rgb(229 114 0);
 }
 
+
+.inner .container-content .content-head .head-detail {
+  display: flex;
+  flex-direction: row;
+  padding: 0 10px;
+  justify-content: space-between;
+
+}
+
+
 /*top - left*/
 .inner .container-content .content-head .head-detail .detail-left {
-  width: 50%;
+  width: 45%;
 }
 .inner .container-content .content-head .head-detail .detail-left .left-img {
 
 }
 .inner .container-content .content-head .head-detail .detail-left .left-img .thumb-img{
- height: 500px;
+  width: 100%;
 
 }
 .inner .container-content .content-head .head-detail .detail-left .left-box {
@@ -165,6 +189,36 @@ export default {
 .inner .container-content .content-head .head-detail .detail-left .left-box .box-img .sub-box .sub-img {
   margin: 5px;
   height: 70px;
+  cursor: pointer;
+
+}
+
+
+/*top - right*/
+.inner .container-content .content-head .head-detail .detail-right {
+  width: 50%;
+}
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .title-box {
+  font-size: 35px;
+}
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .brand-box {
+  font-size: 12px;
+  color: rgba(28, 27, 27, 0.6);
+}
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .fundingcount-box {
+  font-size: 15px;
+  color: rgba(28, 27, 27, 0.6);
+}
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .subtitle-box {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
 }
 
