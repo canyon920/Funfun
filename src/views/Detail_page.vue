@@ -40,15 +40,16 @@ export default {
   components: {DetailPageLeft, DetailPageRight},
   data () {
     return{
+      detailData:'',
 
       //콤보박스***
-      select: ['Vuetify'],
-      items: [
-        'Programming',
-        'Design',
-        'Vue',
-        'Vuetify',
-      ],
+      // select: ['Vuetify'],
+      // items: [
+      //   'Programming',
+      //   'Design',
+      //   'Vue',
+      //   'Vuetify',
+      // ],
       //여기까지 콤보박스***
 
       selectContent : '',
@@ -66,6 +67,9 @@ export default {
     },
     changeImg3(){
       this.bodyImg = ""
+    },
+    async getData() {
+      this.$store.dispatch('member/getTokens')
     }
   }
 }

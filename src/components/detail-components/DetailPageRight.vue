@@ -15,25 +15,34 @@
           </div>
         </div>
       </div>
-      <div class="price-box" style="font-size: 50px">
+      <div class="price-box" style="font-size: 80px">
         12800 원
       </div>
 
-      <!--                옵션 있을 때만 보이도록 -->
       <div class="content-center">
-        <v-combobox
-            v-model="select"
-            :items="items"
-            label="옵션선택"
-            outlined
-            dense
-        ></v-combobox>
+        <div class="category-box">
+          <router-link to="/" style="text-decoration: none; color: black;">카테고리 상품들 보러가기 >></router-link>
+        </div>
       </div>
 
+      <!--                옵션 있을 때만 보이도록 -->
+<!--      <div class="content-center">-->
+<!--&lt;!&ndash;        <v-combobox&ndash;&gt;-->
+<!--&lt;!&ndash;            v-model="select"&ndash;&gt;-->
+<!--&lt;!&ndash;            :items="items"&ndash;&gt;-->
+<!--&lt;!&ndash;            label="옵션선택"&ndash;&gt;-->
+<!--&lt;!&ndash;            outlined&ndash;&gt;-->
+<!--&lt;!&ndash;            dense&ndash;&gt;-->
+<!--&lt;!&ndash;        ></v-combobox>&ndash;&gt;-->
+<!--        <div class="category-box">-->
+<!--          카테고리 상품들 보러가기>>-->
+<!--        </div>-->
+<!--      </div>-->
+
 <!--      여기 총가격 옵션선택되어짐에 따라 금액측정     -->
-      <div class="final-check-product" style="font-size: 50px; text-align: end" v-if="select.length">
-        {{ select }}
-      </div>
+<!--      <div class="final-check-product" style="font-size: 50px; text-align: end" v-if="select.length">-->
+<!--        {{ select }}-->
+<!--      </div>-->
 
       <div class="content-bottom">
         <div class="bottom-button">
@@ -97,13 +106,13 @@ export default {
     return{
 
       //콤보박스
-      select: [],
-      items: [
-        'Programming',
-        'Design',
-        'Vue',
-        'Vuetify',
-      ],
+      // select: [],
+      // items: [
+      //   'Programming',
+      //   'Design',
+      //   'Vue',
+      //   'Vuetify',
+      // ],
       //여기까지 콤보박스
 
       selectContent : '',
@@ -147,6 +156,19 @@ export default {
   bottom: 0;
   right: 0;
   margin: 0 auto;
+}
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-center .category-box {
+  font-size: 20px;
+  text-align: center;
+  border: 2px solid rgb(229 114 0);
+  border-radius: 4px;
+  padding: 15px 15px;
+  cursor: pointer;
+  margin-top: 50px;
+}
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-center .category-box:hover {
+  background-color: rgba(229, 114, 0, .1);
+  transition: .2s;
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button {
   display: flex;

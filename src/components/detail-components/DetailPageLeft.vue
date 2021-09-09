@@ -2,19 +2,23 @@
 
   <div class="detail-left">
     <div class="thumb-box left-img">
-      <img class="thumb-img" src="../../assets/example-img/chunsicthum.png" alt="#">
+<!--      <img class="thumb-img" src="../../assets/example-img/chunsicthum.png" alt="#">-->
+      <img class="thumb-img" v-bind:src="thumbUrl" alt="#">
     </div>
     <div class="left-box">
       <!--              <div class="box-img" v-for="(subImg, index) in subImgs" :key="index">      -->
       <div class="box-img" >
         <div class="sub-box box-img-first">
-          <img class="sub-img" src="../../assets/example-img/chunsicsub1.png" alt="#">
+<!--          <img class="sub-img" src="../../assets/example-img/chunsicsub1.png" alt="#">-->
+          <img class="sub-img" v-bind:src="subUrl01" alt="#">
         </div>
         <div class="sub-box box-img-second">
-          <img class="sub-img" src="../../assets/example-img/chunsicsub2.png" alt="#">
+<!--          <img class="sub-img" src="../../assets/example-img/chunsicsub2.png" alt="#">-->
+          <img class="sub-img" v-bind:src="subUrl02" alt="#">
         </div>
         <div class="sub-box box-img-third">
-          <img class="sub-img" src="../../assets/example-img/chunsicsub3.png" alt="#">
+<!--          <img class="sub-img" src="../../assets/example-img/chunsicsub3.png" alt="#">-->
+          <img class="sub-img" v-bind:src="subUrl03" alt="#">
         </div>
       </div>
     </div>
@@ -24,7 +28,15 @@
 
 <script>
 export default {
-  name: "DetailPageLeft"
+  name: "DetailPageLeft",
+  data(){
+    return{
+      thumbUrl:"../../assets/example-img/chunsicthum.png",
+      subUrl01:"../../assets/example-img/chunsicsub1.png",
+      subUrl02:"../../assets/example-img/chunsicsub2.png",
+      subUrl03:"../../assets/example-img/chunsicsub3.png",
+    }
+  }
 }
 </script>
 

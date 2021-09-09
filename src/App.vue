@@ -46,25 +46,60 @@
 
 <script>
 
+import axios from "axios";
+
 export default {
   name: 'App',
 
-  data: () => ({
-    //
-  }),
-
-  methods:{
-
+  data (){
+    return{
+      memberEmail:'kmh1@naver.com',
+      memberPwd: '1234',
+      accessToken: '',
+      refreshToken: ''
+    }
   },
 
-  mounted() {
+  methods:{
+    async getToken () {
+      console.log(this.memberEmail)
+      console.log(this.memberPwd)
+      let form = new FormData();
+      form.append("username", this.memberEmail)
+      form.append("password", this.memberPwd)
+      await axios.post("http://localhost:9090/api/login",form,
+          //     {
+          //   headers:{
+          //     "Content-Type": "application/x-www-form-urlencoded"
+          // }
+          //     }
+          //     {
+          //   params:{
+          //     username:this.memberEmail,
+          //     password:this.memberPwd
+          //   }
+          // }
+      ).then(res => {
+        console.log("응답: "+ res.data.access_token)
+        console.log("응답: "+ res.data.refresh_token)
+        this.accessToken = res.data.access_token
+        this.refreshToken = res.data.refresh_token
+      }).catch(console.log("잘못된 요청입니다."))
+      console.log(this.accessToken)
+      console.log(this.refreshToken)
+    }
+    },
 
+  mounted() {
+    this.getToken()
   }
 };
 </script>
 
 <style>
 #app {
+  /*구글폰트*/
+  font-family: 'Source Sans Pro', sans-serif;
   display: flex;
   flex-direction:column;
   flex-wrap: wrap;
