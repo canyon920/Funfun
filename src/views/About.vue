@@ -15,7 +15,8 @@ export default{
   name: "about",
   data(){
     return{
-
+      memberEmail:'kmh1@naver.com',
+      memberPwd: '1234',
     }
   },
   methods:{
@@ -34,14 +35,12 @@ export default{
       }).catch(e=>{
         console.log(e)
       })
-      if (this.accessToken != null) {
-        window.location("/detail-page")
+      if (this.accessToken.length) {
+        console.log("로그인 성공 이동해야한다")
+        this.$router.push("/detail-page")
       }
     }
   },
-  mounted() {
-    this.getToken()
-  }
 
 }
 
