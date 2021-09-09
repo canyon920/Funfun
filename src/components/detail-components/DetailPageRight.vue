@@ -25,25 +25,6 @@
         </div>
       </div>
 
-      <!--                옵션 있을 때만 보이도록 -->
-<!--      <div class="content-center">-->
-<!--&lt;!&ndash;        <v-combobox&ndash;&gt;-->
-<!--&lt;!&ndash;            v-model="select"&ndash;&gt;-->
-<!--&lt;!&ndash;            :items="items"&ndash;&gt;-->
-<!--&lt;!&ndash;            label="옵션선택"&ndash;&gt;-->
-<!--&lt;!&ndash;            outlined&ndash;&gt;-->
-<!--&lt;!&ndash;            dense&ndash;&gt;-->
-<!--&lt;!&ndash;        ></v-combobox>&ndash;&gt;-->
-<!--        <div class="category-box">-->
-<!--          카테고리 상품들 보러가기>>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      여기 총가격 옵션선택되어짐에 따라 금액측정     -->
-<!--      <div class="final-check-product" style="font-size: 50px; text-align: end" v-if="select.length">-->
-<!--        {{ select }}-->
-<!--      </div>-->
-
       <div class="content-bottom">
         <div class="bottom-button">
           <div class="button-box like-box" >
@@ -51,17 +32,19 @@
             <v-btn
                 color="error"
                 elevation="2"
+                :icon="likeIcon"
                 fab
                 large
                 tile
                 class="like-button"
+                @click="likeWork()"
             >
               <div class="like-button-box">
                 <div class="like-love" style="font-size: 25px">
                   ❤
                 </div>
                 <div class="like-count" style="font-size: 5px">
-                  11,001
+                  {{ likeCount }}
                 </div>
               </div>
 
@@ -100,28 +83,41 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "DetailPageRight",
   data () {
     return{
-
-      //콤보박스
-      // select: [],
-      // items: [
-      //   'Programming',
-      //   'Design',
-      //   'Vue',
-      //   'Vuetify',
-      // ],
-      //여기까지 콤보박스
-
+      likeCount: 0,
+      likeIcon: false,
       selectContent : '',
       bodyImg: "",
       thumbImg: "",
       subImgs:[]
     }
   },
-  methods:{}
+  methods:{
+    likeWork() {
+      if (this.likeIcon == false) {
+        this.likeCount++
+        this.likeIcon = true
+      } else {
+        this.likeCount--
+        this.likeIcon = false
+      }
+    },
+    async transmitLike() {
+      await axios.post("http://localhost:9090/api/like/update",{
+        params:{
+          product_like_count: this.likeCount
+        }
+      })
+    }
+  },
+  beforeDestroy() {
+
+  }
 }
 </script>
 

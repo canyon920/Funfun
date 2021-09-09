@@ -4,13 +4,13 @@
     <div class="body-detail">
       <div class="detail-menu">
         <div class="menu-main">
-          <div class="main-box menu-first" @click="changeImg1">상품설명</div>
-          <div class="main-box menu-second" @click="changeImg3">상세정보</div>
+          <div class="main-box menu-first" @click="mainChangeImg1">상품설명</div>
+          <div class="main-box menu-second" @click="mainChangeImg2">상세정보</div>
         </div>
       </div>
       <!--          여기 동적 처리          -->
       <div class="detail-img">
-        <img src="../../assets/example-img/chunsic.png" alt="#">
+        <img class="img-main" v-bind:src="forchangMainUrl" alt="#">
       </div>
 
     </div>
@@ -20,7 +20,25 @@
 
 <script>
 export default {
-  name: "DetailPageBody"
+  name: "DetailPageBody",
+  data(){
+      return{
+        forchangMainUrl:"",
+        mainImgUrl: require("../../assets/example-img/chunsic.png"),
+        detailImgUrl:require("../../assets/example-img/chunsicdetail.png")
+      }
+  },
+  methods:{
+    mainChangeImg1(){
+      this.forchangMainUrl = this.mainImgUrl
+    },
+    mainChangeImg2() {
+      this.forchangMainUrl = this.detailImgUrl
+    }
+  },
+  mounted() {
+    this.mainChangeImg1()
+  }
 }
 </script>
 
@@ -51,7 +69,11 @@ export default {
   border-right: 2px solid rgb(229 114 0);
 }
 .inner .container-content .content-body .body-detail .detail-img {
+  text-align: center;
   border-top: 1px solid rgb(229 114 0);
+}
+.inner .container-content .content-body .body-detail .detail-img .img-main {
+  width: 1080px;
 }
 
 </style>

@@ -3,30 +3,15 @@
     <div class="container-content">
       <div class="content-head">
         <div class="head-detail">
-<!--          여기 썸네일과 서브 이미지 넘겨줘야함      -->
+<!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개     -->
           <Detail-page-left/>
 
           <!--          여기 동적 처리   상품 , 펀딩 , 펀딩작성     -->
           <Detail-page-right/>
-<!--바디는 컴포넌트화 할지???-->
-
         </div>
       </div>
-      <div class="content-body">
-        <div class="body-detail">
-          <div class="detail-menu">
-            <div class="menu-main">
-              <div class="main-box menu-first" @click="changeImg1">상품설명</div>
-              <div class="main-box menu-second" @click="changeImg2">상세정보</div>
-            </div>
-          </div>
-          <!--          여기 동적 처리          -->
-          <div class="detail-img">
-            <img src="../assets/example-img/chunsic.png" alt="#">
-          </div>
-
-        </div>
-      </div>
+<!--      여기 동적 처리 바디 이미지 바디 상세이미지 넘겨줘야함-->
+      <DetailPageBody/>
     </div>
   </div>
 </template>
@@ -34,10 +19,11 @@
 <script>
 import DetailPageRight from "@/components/detail-components/DetailPageRight";
 import DetailPageLeft from "@/components/detail-components/DetailPageLeft";
+import DetailPageBody from "@/components/detail-components/DetailPageBody";
 
 export default {
   name: "detail_page",
-  components: {DetailPageLeft, DetailPageRight},
+  components: {DetailPageBody, DetailPageLeft, DetailPageRight},
   data () {
     return{
       detailData:'',

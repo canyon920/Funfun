@@ -10,15 +10,15 @@
       <div class="box-img" >
         <div class="sub-box box-img-first">
 <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub1.png" alt="#">-->
-          <img class="sub-img" v-bind:src="subUrl01" alt="#">
+          <img class="sub-img" v-bind:src="subUrl01" @click="sub01Click" alt="#">
         </div>
         <div class="sub-box box-img-second">
 <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub2.png" alt="#">-->
-          <img class="sub-img" v-bind:src="subUrl02" alt="#">
+          <img class="sub-img" v-bind:src="subUrl02" @click="sub02Click" alt="#">
         </div>
         <div class="sub-box box-img-third">
 <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub3.png" alt="#">-->
-          <img class="sub-img" v-bind:src="subUrl03" alt="#">
+          <img class="sub-img" v-bind:src="subUrl03" @click="sub03Click" alt="#">
         </div>
       </div>
     </div>
@@ -31,10 +31,28 @@ export default {
   name: "DetailPageLeft",
   data(){
     return{
-      thumbUrl:"../../assets/example-img/chunsicthum.png",
-      subUrl01:"../../assets/example-img/chunsicsub1.png",
-      subUrl02:"../../assets/example-img/chunsicsub2.png",
-      subUrl03:"../../assets/example-img/chunsicsub3.png",
+      forchangLeftUrl:'',
+      thumbUrl:require("../../assets/example-img/chunsicthum.png"),
+      subUrl01:require("../../assets/example-img/chunsicsub1.png"),
+      subUrl02:require("../../assets/example-img/chunsicsub2.png"),
+      subUrl03:require("../../assets/example-img/chunsicsub3.png"),
+    }
+  },
+  methods:{
+    sub01Click() {
+      this.forchangUrl = this.thumbUrl
+      this.thumbUrl = this.subUrl01
+      this.subUrl01 = this.forchangUrl
+    },
+    sub02Click() {
+      this.forchangUrl = this.thumbUrl
+      this.thumbUrl = this.subUrl02
+      this.subUrl02 = this.forchangUrl
+    },
+    sub03Click() {
+      this.forchangUrl = this.thumbUrl
+      this.thumbUrl = this.subUrl03
+      this.subUrl03 = this.forchangUrl
     }
   }
 }
@@ -49,8 +67,9 @@ export default {
 .inner .container-content .content-head .head-detail .detail-left .left-img {
 
 }
-.inner .container-content .content-head .head-detail .detail-left .left-img .thumb-img{
-  width: 100%;
+.inner .container-content .content-head .head-detail .detail-left .left-img .thumb-img {
+  width: 486px;
+  height: 486px;
 
 }
 .inner .container-content .content-head .head-detail .detail-left .left-box {
