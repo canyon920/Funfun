@@ -32,14 +32,14 @@
 <div class = "second">
 <div class = "search">
 친구를 검색해 주세요.
- <table bgcolor="#FFFFFF">
-<tr>
- <td>
-  <input type=text name=q size=25 maxlength=255 value="" />
- <input type=submit name=btnG value="Google 검색" />
- </td>
-</tr>
-</table>
+<div>
+<v-text-field
+            outlined
+            label="친구찾기"
+            prepend-inner-icon="mdi-map-marker"
+          ></v-text-field>
+
+</div>
 
 
 <p>OO님의 위시리스트</p>
@@ -48,6 +48,26 @@
 </div>
 <div class = "menu">
 메뉴 문구
+<div>
+<div class="container">
+<div class="inner-container">
+<div class= "item"></div>
+<div class= "item">가벼운선물</div>
+<div class= "item">럭셔리선물</div>
+<div class= "item">시원한선물</div>
+<div class= "item">럭셔리선물</div>
+<div class= "item">어른선물</div>
+
+
+<div class= "item">출산선물</div>
+<div class= "item">명품선물</div>
+<div class= "item">결혼/집들이</div>
+<div class= "item">럭셔리선물</div>
+<div class= "item">럭셔리선물</div>
+<div class= "item">럭셔리선물</div>
+</div>
+</div>
+</div>
 </div>
 <div class = "event">
 이벤트 상품
@@ -103,6 +123,19 @@
 }
 .v-window v-item-group theme--dark v-carousel{
 height:250;
+}
+.inner-container{
+ display: flex;
+
+
+}
+
+.item {
+	flex: 1 1 15%;
+	border: 1px solid black;
+    width: 100px;
+    height: 70px;
+    border-radius: 50%;
 }
 
 </style>
