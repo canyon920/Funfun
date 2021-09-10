@@ -4,13 +4,13 @@
     <div class="body-detail">
       <div class="detail-menu">
         <div class="menu-main">
-          <div class="main-box menu-first" @click="mainChangeImg1">상품설명</div>
-          <div class="main-box menu-second" @click="mainChangeImg2">상세정보</div>
+          <div class="main-box menu-first" @click="$emit('bringmainChangeImg1')">상품설명</div>
+          <div class="main-box menu-second" @click="$emit('bringmainChangeImg2')">상세정보</div>
         </div>
       </div>
       <!--          여기 동적 처리          -->
       <div class="detail-img">
-        <img class="img-main" v-bind:src="forchangMainUrl" alt="#">
+        <img class="img-main" v-bind:src="bringBodyInfo.preforchangMainUrl" alt="#">
       </div>
 
     </div>
@@ -21,23 +21,24 @@
 <script>
 export default {
   name: "DetailPageBody",
+  props:{
+    bringBodyInfo:{
+      type:Object
+    }
+  },
+  emits:[
+      'bringmainChangeImg1' , 'bringmainChangeImg2'
+  ],
   data(){
       return{
-        forchangMainUrl:"",
-        mainImgUrl: require("../../assets/example-img/chunsic.png"),
-        detailImgUrl:require("../../assets/example-img/chunsicdetail.png")
+
       }
   },
   methods:{
-    mainChangeImg1(){
-      this.forchangMainUrl = this.mainImgUrl
-    },
-    mainChangeImg2() {
-      this.forchangMainUrl = this.detailImgUrl
-    }
+
   },
   mounted() {
-    this.mainChangeImg1()
+    this.$emit('bringmainChangeImg1')
   }
 }
 </script>

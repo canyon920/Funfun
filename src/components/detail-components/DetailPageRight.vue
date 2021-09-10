@@ -4,19 +4,19 @@
     <div class="right-content">
       <div class="content-top">
         <div class="title-box">
-          "언텍트 맞춤선물" 카카오프렌즈 골드라인 그란데 머그 2종 택일
+          {{ bringRightInfo.productTitle }}
         </div>
         <div class="subtitle-box">
           <div class="brand-box">
-            카카오 프렌즈
+            {{ bringRightInfo.productBrand }}
           </div>
           <div class="fundingcount-box">
-            누적 펀딩수 : 3300 건
+            누적 펀딩수 : {{ bringRightInfo.fundingCount }} 건
           </div>
         </div>
       </div>
       <div class="price-box" style="font-size: 80px">
-        12800 원
+        {{ bringRightInfo.productPrice }} 원
       </div>
 
       <div class="content-center">
@@ -32,19 +32,19 @@
             <v-btn
                 color="error"
                 elevation="2"
-                :icon="likeIcon"
+                :icon="bringRightInfo.likeIcon"
                 fab
                 large
                 tile
                 class="like-button"
-                @click="likeWork()"
+                @click="$emit('likeChange')"
             >
               <div class="like-button-box">
                 <div class="like-love" style="font-size: 25px">
                   ❤
                 </div>
-                <div class="like-count" style="font-size: 5px">
-                  {{ likeCount }}
+                <div class="like-count" style="font-size: 10px">
+                  {{ bringRightInfo.likeCount }}
                 </div>
               </div>
 
@@ -64,7 +64,7 @@
               </v-btn>
             </div>
           </div>
-          <div class="button-box funding-box">
+          <div class="button-box funding-box" @click="$emit('rightEvent')">
             <div class="my-2">
               <v-btn
                   color="error"
@@ -86,34 +86,42 @@
 import axios from "axios";
 
 export default {
+  inheritAttrs: false,
   name: "DetailPageRight",
+
+  props:{
+    showSelectData: {
+      type: Boolean,
+      default: false
+    },
+    bringRightInfo:{
+      type: Object
+    }
+  },
+  emits: [
+    'rightEvent','changeD' , 'likeChange'
+  ],
+
   data () {
     return{
-      likeCount: 0,
-      likeIcon: false,
-      selectContent : '',
-      bodyImg: "",
-      thumbImg: "",
-      subImgs:[]
+
     }
   },
   methods:{
-    likeWork() {
-      if (this.likeIcon == false) {
-        this.likeCount++
-        this.likeIcon = true
-      } else {
-        this.likeCount--
-        this.likeIcon = false
-      }
-    },
+
     async transmitLike() {
       await axios.post("http://localhost:9090/api/like/update",{
         params:{
           product_like_count: this.likeCount
-        }
+        },
+        // headers:{
+        //   `Bearer `
+        // }
       })
-    }
+    },
+    // changeD() {
+    //   this.$emit("rightE", "false");
+    // }
   },
   beforeDestroy() {
 

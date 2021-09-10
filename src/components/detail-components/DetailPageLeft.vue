@@ -3,22 +3,22 @@
   <div class="detail-left">
     <div class="thumb-box left-img">
 <!--      <img class="thumb-img" src="../../assets/example-img/chunsicthum.png" alt="#">-->
-      <img class="thumb-img" v-bind:src="thumbUrl" alt="#">
+      <img class="thumb-img" v-bind:src="bringLeftInfo.prethumbUrl" alt="#">
     </div>
     <div class="left-box">
       <!--              <div class="box-img" v-for="(subImg, index) in subImgs" :key="index">      -->
       <div class="box-img" >
         <div class="sub-box box-img-first">
 <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub1.png" alt="#">-->
-          <img class="sub-img" v-bind:src="subUrl01" @click="sub01Click" alt="#">
+          <img class="sub-img" v-bind:src="bringLeftInfo.presubUrl01" @click="$emit('bringsub01Click')" alt="#">
         </div>
         <div class="sub-box box-img-second">
 <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub2.png" alt="#">-->
-          <img class="sub-img" v-bind:src="subUrl02" @click="sub02Click" alt="#">
+          <img class="sub-img" v-bind:src="bringLeftInfo.presubUrl02" @click="$emit('bringsub02Click')" alt="#">
         </div>
         <div class="sub-box box-img-third">
 <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub3.png" alt="#">-->
-          <img class="sub-img" v-bind:src="subUrl03" @click="sub03Click" alt="#">
+          <img class="sub-img" v-bind:src="bringLeftInfo.presubUrl03" @click="$emit('bringsub03Click')" alt="#">
         </div>
       </div>
     </div>
@@ -29,31 +29,21 @@
 <script>
 export default {
   name: "DetailPageLeft",
+  props:{
+    bringLeftInfo:{
+      type:Object
+    }
+  },
+  emits:[
+      'bringsub01Click', 'bringsub02Click', 'bringsub03Click'
+  ],
   data(){
     return{
-      forchangLeftUrl:'',
-      thumbUrl:require("../../assets/example-img/chunsicthum.png"),
-      subUrl01:require("../../assets/example-img/chunsicsub1.png"),
-      subUrl02:require("../../assets/example-img/chunsicsub2.png"),
-      subUrl03:require("../../assets/example-img/chunsicsub3.png"),
+
     }
   },
   methods:{
-    sub01Click() {
-      this.forchangUrl = this.thumbUrl
-      this.thumbUrl = this.subUrl01
-      this.subUrl01 = this.forchangUrl
-    },
-    sub02Click() {
-      this.forchangUrl = this.thumbUrl
-      this.thumbUrl = this.subUrl02
-      this.subUrl02 = this.forchangUrl
-    },
-    sub03Click() {
-      this.forchangUrl = this.thumbUrl
-      this.thumbUrl = this.subUrl03
-      this.subUrl03 = this.forchangUrl
-    }
+
   }
 }
 </script>

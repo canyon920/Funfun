@@ -1,0 +1,150 @@
+<template>
+
+  <!--      날짜 선택기        -->
+  <v-container>
+    <v-row>
+      <v-col
+          cols="12"
+          lg="6"
+      >
+        <v-menu
+            ref="menu1"
+            v-model="menu1"
+            :close-on-content-click="false"
+            transition="scale-transition"
+            offset-y
+            max-width="290px"
+            min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+                v-model="date1"
+                label="Start-Date"
+                hint="MM/DD/YYYY format"
+                persistent-hint
+                prepend-icon="mdi-calendar"
+                v-bind="attrs"
+                @blur="date1 = parseDate(dateFormatted)"
+                v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+              v-model="date1"
+              no-title
+              @input="menu1 = false"
+          ></v-date-picker>
+        </v-menu>
+        <p>펀딩 시작일: <strong>{{ date1 }}</strong></p>
+      </v-col>
+
+      <v-col
+          cols="12"
+          lg="6"
+      >
+        <v-menu
+            v-model="menu2"
+            :close-on-content-click="false"
+            transition="scale-transition"
+            offset-y
+            max-width="290px"
+            min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+                v-model="date2"
+                label="Expire-Date"
+                hint="MM/DD/YYYY format"
+                persistent-hint
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+              v-model="date2"
+              no-title
+              @input="menu2 = false"
+          ></v-date-picker>
+        </v-menu>
+        <p>펀딩 종료일: <strong>{{ date2 }}</strong></p>
+      </v-col>
+    </v-row>
+  </v-container>
+  <!--      날짜 선택 여기까지      -->
+
+</template>
+
+<script>
+export default {
+  name: "DatePicker",
+  props:{
+    bringDateData:{
+      type:Boolean
+    }
+  },
+  emits:[
+      'bringCheckNot' , 'bringCheckOk'
+  ],
+
+  data: vm => ({
+    date1: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
+    menu1: false,
+    menu2: false,
+  }),
+
+  computed: {
+    finalFundingCount(){
+      let [month1, day1, year1] = this.date1.split('-')
+      let [month2, day2, year2] = this.date2.split('-')
+      // console.log(`${year2}${day2}${month2}` - `${year1}${day1}${month1}`)
+      // console.log(this.bringDateData)
+      let computedDate = (`${year2}${month2}${day2}` - `${year1}${month1}${day1}`)
+      console.log(`${year2}${month2}${day2}` - `${year1}${month1}${day1}`)
+      return computedDate
+    }
+  },
+
+  watch: {
+    date () {
+      this.dateFormatted = this.formatDate(this.date)
+    },
+    finalFundingCount(){
+      let [month1, day1, year1] = this.date1.split('-')
+      let [month2, day2, year2] = this.date2.split('-')
+      let watchDate = (`${year2}${month2}${day2}` - `${year1}${month1}${day1}`)
+      if (watchDate < 0) {
+        this.$emit('bringCheckNot')
+      }
+      if (watchDate == 0) {
+        this.$emit('bringCheckEqual')
+      }
+      if (watchDate > 0) {
+        this.$emit('bringCheckOk');
+      }
+    },
+
+  },
+
+  methods: {
+    formatDate (date) {
+      if (!date) return null
+
+      const [year, month, day] = date.split('-')
+      return `${month}/${day}/${year}`
+    },
+    parseDate (date) {
+      if (!date) return null
+
+      const [month, day, year] = date.split('/')
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
+  },
+}
+</script>
+
+<style scoped>
+
+</style>
