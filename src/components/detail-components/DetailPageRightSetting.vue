@@ -16,18 +16,26 @@
         >
         </v-textarea>
         </v-container>
+        <!--      제목 입력기 여기까지 -->
+
+<!--        이것들이 false 여야 등록가능하도록 로직 짜자       -->
         <div v-if="checkNullTitle" class="titleMaxCount" style="color: red">제목은 필수입니다.</div>
         <div v-if="checkAfterTitle" class="titleMaxCount" style="color: red">제목의 최대 글자수 45자를 넘었습니다.</div>
         <div v-if="checkDate" class="titleMaxCount" style="color: red">종료일이 시작일보다 빠를 수 없습니다.</div>
         <div v-if="checkDateEqual" class="titleMaxCount" style="color: red">펀딩을 할 수 있는 기간은 1일 이상입니다.</div>
-        <!--      제목 입력기 여기까지 -->
+        <div v-if="checkDateStartDay" class="titleMaxCount" style="color: red">펀딩 시작일은 오늘 이전일 수 없습니다.</div>
+        <!--        false 여야 하는 것들 여기까지      -->
+
+<!--    펀딩하기 클릭시    상품 id , 멤버 id , 제목 , 시작일 , 만료일 , 펀딩타입 넘기자 -->
+
 
       </div>
       <div class="price-box" style="font-size: 45px; text-align: end">
         {{ bringRightInfo.productPrice }} 원
       </div>
-
-      <DatePicker :bringDateData="checkDate" @bringCheckNot="checkNotDateMethod" @bringCheckOk="checkOkDateMethod" @bringCheckEqual="checkEqualDateMethod"/>
+<!--    데이트 피커      -->
+      <DatePicker @bringCheckNot="checkNotDateMethod" @bringCheckOk="checkOkDateMethod" @bringCheckEqual="checkEqualDateMethod"
+                  @bringCheckStartDate="checkStartDateMethod" @bringRegistWork="registDateAsEmit"/>
 
       <div class="content-bottom">
         <div class="bottom-button">
@@ -43,7 +51,7 @@
               </v-btn>
             </div>
           </div>
-          <div class="button-box funding-box" @click="checkValandStartFunding">
+          <div class="button-box funding-box" @click="workRegisterFunding">
             <div class="my-2">
               <v-btn
                   color="error"
@@ -62,7 +70,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import DatePicker from "@/components/detail-components/DatePicker";
 export default {
   name: "DetailPageRightSetting",
@@ -74,10 +81,10 @@ export default {
     },
     bringRightInfo:{
       type: Object
-    }
+    },
   },
   emits: [
-    'rightEvent','changeD' , 'likeChange' , 'rightEventBack'
+    'rightEvent','changeD' , 'likeChange' , 'rightEventBack' , 'registFunding'
   ],
 
   data () {
@@ -86,6 +93,7 @@ export default {
       checkAfterTitle: false,
       checkDate: false,
       checkDateEqual: true,
+      checkDateStartDay: false,
       //제목
       setTitle:{
         value: this.bringRightInfo.productTitle,
@@ -93,45 +101,72 @@ export default {
 
     //  날짜
       dateSetting:{
-        startDate: '',
-        expireDate: ''
+        funding_create_time: "",
+        funding_expired_time: ""
       },
+
+    //  펀딩 등록을 위해 부모에게 넘겨줄 객체
+      dataForFunding:{
+        funding_title:'',
+        funding_create_time:'',
+        funding_expired_time:'',
+        funding_target_money:''
+      }
     }
   },
   methods:{
+    //전송할 날짜 여기에 조건 이 충족되었다면 여기에 넣고 변화 시켜보자
+    registDateAsEmit(dateAllOb) {
+      console.log("일단 실행은된다")
+      if (this.checkNullTitle === false && this.checkAfterTitle === false && this.checkDate === false &&
+          this.checkDateEqual === false && this.checkDateStartDay === false) {
+        this.dateSetting.funding_create_time = dateAllOb.startD.replaceAll("-","")
+        this.dateSetting.funding_expired_time = dateAllOb.expireD.replaceAll("-", "")
+        console.log("넘어온 시작날 : ", dateAllOb.startD)
+        console.log("넘어온 종료날 : ", dateAllOb.expireD)
+        console.log("담은 시작날 : ",this.dateSetting.funding_create_time)
+        console.log("담은 종료날 : ",this.dateSetting.funding_expired_time)
+      }
+    },
 
-    async transmitLike() {
-      await axios.post("http://localhost:9090/api/like/update",{
-        params:{
-          product_like_count: this.likeCount
-        },
-        // headers:{
-        //   `Bearer `
-        // }
-      })
+    //펀딩 등록할 값들 넘겨 주기 위함
+    workRegisterFunding() {
+      if (this.checkNullTitle === false && this.checkAfterTitle === false && this.checkDate === false &&
+          this.checkDateEqual === false && this.checkDateStartDay === false) {
+        this.dataForFunding.funding_title = this.setTitle.value
+        this.dataForFunding.funding_create_time = this.dateSetting.funding_create_time
+        this.dataForFunding.funding_expired_time = this.dateSetting.funding_expired_time
+        this.dataForFunding.funding_target_money = this.bringRightInfo.productPrice;
+        this.$emit('registFunding', this.dataForFunding)
+      }
     },
-    checkValandStartFunding() {
-      // console.log(this.setTitle.value.length)
-      // if (this.setTitle.value.length > 45 || (this.dateSetting.expireDate - this.dateSetting.startDate) < 0) {
-      //   this.checkBeforeFunding = true
-      //   return
-      // }
-    },
+
+
+    //조건들 충족되었는지 확인
     checkNotDateMethod() {
+      this.checkDateStartDay = false
       this.checkDateEqual = false
       this.checkDate = true
     },
     checkOkDateMethod() {
+      this.checkDateStartDay = false
       this.checkDateEqual = false
       this.checkDate = false
     },
     checkEqualDateMethod() {
+      this.checkDateStartDay = false
       this.checkDate = false
       this.checkDateEqual = true
+    },
+    checkStartDateMethod() {
+      this.checkDate = false
+      this.checkDateEqual = false
+      this.checkDateStartDay = true
     }
 
   },
   computed:{
+    //계산된 감시 붙임
     checkval(){
       try{
         return this.setTitle.value.length
@@ -142,6 +177,7 @@ export default {
     }
   },
   watch:{
+    //계산된 감시를 감시
     checkval(){
       try{
         if (this.setTitle.value.length === 0) {

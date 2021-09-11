@@ -80,11 +80,11 @@ export default {
   name: "DatePicker",
   props:{
     bringDateData:{
-      type:Boolean
+      type:Object
     }
   },
   emits:[
-      'bringCheckNot' , 'bringCheckOk'
+      'bringCheckNot' , 'bringCheckOk' , 'bringCheckStartDate' , 'bringRegistWork'
   ],
 
   data: vm => ({
@@ -93,14 +93,16 @@ export default {
     dateFormatted: vm.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
     menu1: false,
     menu2: false,
+    dateAllOb : {
+      startD : '',
+      expireD : ''
+    }
   }),
 
   computed: {
     finalFundingCount(){
       let [month1, day1, year1] = this.date1.split('-')
       let [month2, day2, year2] = this.date2.split('-')
-      // console.log(`${year2}${day2}${month2}` - `${year1}${day1}${month1}`)
-      // console.log(this.bringDateData)
       let computedDate = (`${year2}${month2}${day2}` - `${year1}${month1}${day1}`)
       console.log(`${year2}${month2}${day2}` - `${year1}${month1}${day1}`)
       return computedDate
@@ -125,6 +127,41 @@ export default {
         this.$emit('bringCheckOk');
       }
     },
+    date1() {
+      console.log("date1 감시중")
+      let date = new Date()
+      let nowMonth = date.getMonth()+1;
+      let nowday = date.getDate();
+      if (nowMonth.toString().length === 1) {
+        nowMonth = `0${nowMonth}`
+      }
+      if (nowday.toString().lenth === 1) {
+        nowday = `0${nowday}`
+      }
+      let nowDate = `${date.getFullYear()}${nowMonth}${nowday}`
+      let transTargetDate1 = this.date1.replaceAll("-", "")
+      console.log("이게 변환된 오늘 : ",nowDate);
+      console.log("이게 변화된 선택날 : ",transTargetDate1)
+      if ((transTargetDate1 - nowDate) < 0) {
+        console.log("선택된 시작날이 오늘보다 이전이면 안됩니다.");
+        this.$emit('bringCheckStartDate');
+      } else {
+        this.dateAllOb.startD = this.date1;
+        this.dateAllOb.expireD = this.date2
+        console.log("넘기기전 선택된 시작날 : ",this.dateAllOb.startD)
+        console.log("넘기기전 선택된 종료날 : ",this.dateAllOb.expireD)
+        this.$emit('bringRegistWork', this.dateAllOb)
+      }
+
+    },
+    date2(){
+      console.log("date2 감시중")
+      this.dateAllOb.startD = this.date1
+      this.dateAllOb.expireD = this.date2
+      console.log("넘기기전 선택된 시작날 : ",this.dateAllOb.startD)
+      console.log("넘기기전 선택된 종료날 : ",this.dateAllOb.expireD)
+      this.$emit('bringRegistWork', this.dateAllOb)
+    }
 
   },
 

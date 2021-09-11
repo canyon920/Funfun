@@ -6,10 +6,11 @@
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개     -->
           <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>
 
-          <!--          여기 동적 처리   상품 , 펀딩 , 펀딩작성     -->
+          <!--          여기 동적 처리   상품 내용 보여줌     -->
           <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo"/>
 
-          <DetailPageRightSetting v-show="settingView" @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" :bringRightInfo="rightInfo"/>
+          <!--          여기 펀딩 등록 위한 것들 보여줌      -->
+          <DetailPageRightSetting v-show="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" :bringRightInfo="rightInfo" />
 
         </div>
       </div>
@@ -24,6 +25,7 @@ import DetailPageRight from "@/components/detail-components/DetailPageRight";
 import DetailPageLeft from "@/components/detail-components/DetailPageLeft";
 import DetailPageBody from "@/components/detail-components/DetailPageBody";
 import DetailPageRightSetting from "@/components/detail-components/DetailPageRightSetting";
+import axios from "axios";
 
 export default {
   name: "detail_page",
@@ -55,11 +57,21 @@ export default {
         preforchangMainUrl:"",
         premainImgUrl: "http://127.0.0.1:8887/chunsic.png",
         predetailImgUrl:"http://127.0.0.1:8887/chunsicdetail.png"
+      },
+
+      transeDataForFunding : {
+        member_id:'',
+        product_id:'',
+        funding_title:'',
+        funding_create_time: '',
+        funding_expired_time: '',
+        funding_target_money:'',
       }
+
     }
   },
   methods:{
-    // RightMethods
+    // RightMethods store 시도
     async getData() {
       this.$store.dispatch('member/getTokens')
     },
@@ -70,7 +82,6 @@ export default {
     changeRightBack() {
       this.settingView = false
       this.productView = true
-    //  여기에 채운것들도 초기화하는것
     },
     likeWork() {
       if (this.rightInfo.likeIcon == false) {
@@ -105,24 +116,68 @@ export default {
     },
     mainChangeImg2() {
       this.bodyInfo.preforchangMainUrl = this.bodyInfo.predetailImgUrl
+    },
+
+    //좋아요 전송 axios ( 좋아요 수 넘어나는 것은 확인 store 에서 토큰꺼내 보내는 작업 필요
+    async transmitLike() {
+      console.log("라이크 수 : ",this.rightInfo.likeCount, typeof this.rightInfo.likeCount)
+      let form = new FormData()
+      form.append("product_like_count", `${this.rightInfo.likeCount}`)
+      await axios.post("http://localhost:9090/api/like/update",form)
+          .then(res=>{
+        console.log(res)
+      })
+    },
+
+  //  펀딩하기 누르면 전송될 값들 axios <!-- 상품 id(상위 컴포넌트서 받아야함) , 멤버 id(store 에서 꺼내자) , 제목 , 시작일 , 만료일 , 목표금액 , 펀딩타입(이거는 컨트롤러서?) 넘기자 -->
+    async transmitFundingRegist(data) {
+      console.log("하위 컴포넌트로 넘어온 값 : ",data)
+      console.log("값 주워담기 전 : ",this.transeDataForFunding)
+      this.transeDataForFunding.member_id = 2
+      this.transeDataForFunding.product_id = 2
+      this.transeDataForFunding.funding_title = data.funding_title
+      this.transeDataForFunding.funding_create_time = data.funding_create_time
+      this.transeDataForFunding.funding_expired_time = data.funding_expired_time
+      this.transeDataForFunding.funding_target_money = this.rightInfo.productPrice
+      let form = new FormData()
+
+      // form.append("member_id",this.transeDataForFunding.member_id)
+      // form.append("product_id",this.transeDataForFunding.product_id)
+      // form.append("funding_title",this.transeDataForFunding.funding_title)
+      // form.append("funding_create_time",this.transeDataForFunding.funding_create_time)
+      // form.append("funding_expired_time",this.transeDataForFunding.funding_expired_time)
+      // form.append("funding_target_money",this.transeDataForFunding.funding_target_money)
+
+      form.append("fundingDataForRegist",this.transeDataForFunding)
+      // form.append("fundingDataForRegist",JSON.stringify(this.transeDataForFunding))
+      await axios.post("http://localhost:9090/api/fundingregist",form
+          // ,
+        //    {headers: {
+        // // Overwrite Axios's automatically set Content-Type
+        // 'Content-Type': 'application/json'
+        // //       'Content-type': 'multipart/form-data; charset=utf-8'
+        //   }}
+      )
+        .then(res => {
+          console.log("응답에대한 답 : ",res)
+        })
     }
+  },
+  // 페이지 사라지기전 라이크수 전송
+  beforeDestroy() {
+    this.transmitLike()
   }
 }
 
-// //콤보박스
-// export default {
-//   data () {
-//     return {
-//
-//     }
-//   },
-// }
 </script>
 
 <style scoped>
 
 .inner {
-  width: 1100px;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .inner .container-content .content-head .head-detail {

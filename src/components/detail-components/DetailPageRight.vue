@@ -28,7 +28,7 @@
       <div class="content-bottom">
         <div class="bottom-button">
           <div class="button-box like-box" >
-            <!--                    이버튼에 클릭하면 icon 사라지도록 -->
+            <!--                    이버튼에 클릭하면 icon 사라지도록                    -->
             <v-btn
                 color="error"
                 elevation="2"
@@ -52,6 +52,8 @@
             </v-btn>
 
           </div>
+
+          <!--        나에게 선물하기 클릭시 결재창으로 넘어가자!!!   상품 id , 멤버 id 넘기자    -->
           <div class="button-box giveme-box">
             <div class="my-2">
               <v-btn
@@ -64,6 +66,7 @@
               </v-btn>
             </div>
           </div>
+
           <div class="button-box funding-box" @click="$emit('rightEvent')">
             <div class="my-2">
               <v-btn
@@ -83,7 +86,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   inheritAttrs: false,
@@ -109,23 +111,10 @@ export default {
   },
   methods:{
 
-    async transmitLike() {
-      await axios.post("http://localhost:9090/api/like/update",{
-        params:{
-          product_like_count: this.likeCount
-        },
-        // headers:{
-        //   `Bearer `
-        // }
-      })
-    },
     // changeD() {
     //   this.$emit("rightE", "false");
     // }
   },
-  beforeDestroy() {
-
-  }
 }
 </script>
 
