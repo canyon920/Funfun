@@ -10,13 +10,20 @@
           <div class="brand-box">
             {{ bringRightInfo.productBrand }}
           </div>
+
           <div class="fundingcount-box">
-            20% 달성 시 참여 인원 수 공개 / 마지막 날 참여 인원 공개
+            <div style="text-align: end">
+              참여한 펀딩 금액은 공개되지 않습니다.
+            </div>
+            20% 달성 시 참여 인원 수 공개 / 만료되는 날 참여 인원 공개
           </div>
         </div>
       </div>
       <div class="price-box" style="font-size: 40px">
-        {{ bringRightInfo.remainingPeriod }}일  남음
+        <span style="font-size: 30px">목표</span> {{ bringRightInfo.productPrice }}
+        <span style="font-size: 30px">원 /</span>
+        {{ bringRightInfo.remainingPeriod }}
+        <span style="font-size: 30px">일  남음</span>
       </div>
 
 
@@ -37,31 +44,19 @@
 
         <div class="assemble-price">
           <div class="price-div" style="font-size: 35px">
-            {{ bringRightInfo.assemblePrice }} <span style="font-size: 20px; font-weight: 700">원 펀딩</span>
+            {{ bringRightInfo.assemblePrice }} <span style="font-size: 20px; font-weight: 700">원 달성</span>
           </div>
         </div>
 
         <div class="join-support-div" >
-          <div class="support-div" style="font-size: 35px" v-if="bringRightInfo.joinSupporter">
+          <div class="support-div" style="font-size: 35px" v-show="bringRightInfo.joinSupporter">
             {{ bringRightInfo.joinSupporter }} <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
           </div>
-          <div class="support-div" style="font-size: 35px" v-if="!bringRightInfo.joinSupporter">
+          <div class="support-div" style="font-size: 35px" v-show="!bringRightInfo.joinSupporter">
             ? <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
           </div>
 
-          <div class="funding-button-div">
-            <div class="my-2">
-              <v-btn
-                  color="error"
-                  dark
-                  x-large
-                  class="giveme-button"
-                  style="width: 300px"
-              >
-                😍 참여하기
-              </v-btn>
-            </div>
-          </div>
+
 
         </div>
 
@@ -70,6 +65,19 @@
 
 
       <div class="content-bottom">
+        <div class="funding-button-div">
+          <div class="my-2">
+            <v-btn
+                color="error"
+                dark
+                x-large
+                class="giveme-button"
+                style="width: 300px"
+            >
+              😍 참여하기
+            </v-btn>
+          </div>
+        </div>
         <div class="bottom-button">
           <div class="button-box like-box" >
             <!--                    이버튼에 클릭하면 icon 사라지도록                    -->
@@ -125,10 +133,12 @@
           공유하기
         </v-card-title>
         <v-card-text>
+<!--          카카오톡 공유하기 버튼은 카카오 로그인 사용자만 사용할 수 있도록 하자         -->
           <v-btn
               color="rgb(229, 114, 0)"
               dark
               @click="dialog3 = !dialog3"
+              v-show="isKakaoUser"
           >
             카카오톡 공유하기
           </v-btn>
@@ -186,6 +196,7 @@ export default {
     return{
       dialog2: false,
       isEditing: false,
+      isKakaoUser: false,
       thisUrl: window.location.href,
     }
   },
@@ -226,7 +237,7 @@ export default {
   align-items: start;
   font-size: 15px;
   color: rgba(28, 27, 27, 0.6);
-  margin-top: 4%;
+  margin-top: 2%;
 
 }
 
@@ -255,8 +266,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.inner .container-content .content-head .head-detail .detail-right .right-content .content-center .funding-button-div {
-}
+
 
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom {
   position: absolute;

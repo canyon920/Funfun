@@ -134,7 +134,7 @@ export default {
     },
 
     // 펀딩하기 누르면 전송될 값들 axios <!-- 상품 id(상위 컴포넌트서 받아야함) , 멤버 id(store 에서 꺼내자) , 제목 , 시작일 , 만료일 , 목표금액 , 펀딩타입(이거는 컨트롤러서?) 넘기자 -->
-// ---> 리스펀스로 저장이되었다면 펀딩 아이디를 받아서 스토어에 저장한뒤 넘어가서 불러오는식으로하자
+// ---> 리스펀스로 저장이되었다면 펀딩 아이디를 받아서 라우터 파람으로 다음페이지 넘어가도록 해야할듯
     async transmitFundingRegist(data) {
       console.log("하위 컴포넌트로 넘어온 값 : ", data)
       console.log("값 주워담기 전 : ", this.transeDataForFunding)

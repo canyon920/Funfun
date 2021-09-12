@@ -43,7 +43,7 @@ export default {
         likeIcon: false,
         likeCount: 5,
         beforeLikeCount: 5,
-        productTitle: '"언텍트 시대" 춘식이와 라이언의 사랑이야기',
+        productTitle: '""언텍트 시대" 춘식이와 라이언의 사랑이야기 일단 사십오자 넘는것을 봐보자어디까지',
         productBrand: '카카오프렌즈',
         remainingPeriod: 21,
         remainSuccessPercent: 51,

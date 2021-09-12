@@ -22,11 +22,11 @@
         <!--      제목 입력기 여기까지 -->
 
 <!--        이것들이 false 여야 등록가능하도록 로직 짜자       -->
-        <div v-if="checkNullTitle" class="titleMaxCount" style="color: red">제목은 필수입니다.</div>
-        <div v-if="checkAfterTitle" class="titleMaxCount" style="color: red">제목의 최대 글자수 45자를 넘었습니다.</div>
-        <div v-if="checkDate" class="titleMaxCount" style="color: red">종료일이 시작일보다 빠를 수 없습니다.</div>
-        <div v-if="checkDateEqual" class="titleMaxCount" style="color: red">펀딩을 할 수 있는 기간은 1일 이상입니다.</div>
-        <div v-if="checkDateStartDay" class="titleMaxCount" style="color: red">펀딩 시작일은 오늘 이전일 수 없습니다.</div>
+        <div v-show="checkNullTitle" class="titleMaxCount" style="color: red">제목은 필수입니다.</div>
+        <div v-show="checkAfterTitle" class="titleMaxCount" style="color: red">제목의 최대 글자수 45자를 넘었습니다.</div>
+        <div v-show="checkDate" class="titleMaxCount" style="color: red">종료일이 시작일보다 빠를 수 없습니다.</div>
+        <div v-show="checkDateEqual" class="titleMaxCount" style="color: red">펀딩을 할 수 있는 기간은 1일 이상입니다.</div>
+        <div v-show="checkDateStartDay" class="titleMaxCount" style="color: red">펀딩 시작일은 오늘 이전일 수 없습니다.</div>
         <!--        false 여야 하는 것들 여기까지      -->
 
 <!--    펀딩하기 클릭시    상품 id , 멤버 id , 제목 , 시작일 , 만료일 , 펀딩타입 넘기자 -->

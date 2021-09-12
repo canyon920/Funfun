@@ -20,9 +20,11 @@
       </div>
 
       <div class="content-center">
+        <router-link to="/" style="text-decoration: none; color: black;">
         <div class="category-box">
-          <router-link to="/" style="text-decoration: none; color: black;">카테고리 상품들 보러가기 >></router-link>
+          카테고리 상품들 보러가기 >>
         </div>
+        </router-link>
       </div>
 
       <div class="content-bottom">
