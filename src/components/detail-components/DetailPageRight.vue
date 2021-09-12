@@ -111,9 +111,6 @@ export default {
   },
   methods:{
 
-    // changeD() {
-    //   this.$emit("rightE", "false");
-    // }
   },
 }
 </script>
@@ -128,19 +125,21 @@ export default {
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-top .title-box {
   font-size: 35px;
 }
-.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .brand-box {
-  font-size: 12px;
-  color: rgba(28, 27, 27, 0.6);
-}
-.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .fundingcount-box {
-  font-size: 15px;
-  color: rgba(28, 27, 27, 0.6);
-}
+
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-top .subtitle-box {
   display: flex;
   flex-direction: column;
   align-items: end;
 }
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .subtitle-box .brand-box {
+  font-size: 12px;
+  color: rgba(28, 27, 27, 0.6);
+}
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .subtitle-box .fundingcount-box {
+  font-size: 15px;
+  color: rgba(28, 27, 27, 0.6);
+}
+
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center {
   margin-top: 20px;
 }
@@ -153,7 +152,7 @@ export default {
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center .category-box {
   font-size: 20px;
   text-align: center;
-  border: 2px solid rgb(229 114 0);
+  border: 2px solid rgb(229, 114, 0);
   border-radius: 4px;
   padding: 15px 15px;
   cursor: pointer;

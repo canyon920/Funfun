@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "DetailPageBody",
+  name: "DetailFundingPageBody",
   props:{
     bringBodyInfo:{
       type:Object
@@ -47,7 +47,6 @@ export default {
 
 /*body*/
 .inner .container-content .content-body .body-detail {
-
   border: 2px solid rgb(229, 114, 0);
   margin-top: 30px;
 

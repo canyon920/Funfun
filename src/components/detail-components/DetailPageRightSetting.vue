@@ -3,6 +3,9 @@
   <div class="detail-right">
     <div class="right-content">
       <div class="content-top">
+        <div class="title-revise">
+          주변에 알릴 문구를 입력해주세요
+        </div>
         <!--      제목 입력기        -->
         <v-container fluid >
         <v-textarea
@@ -34,7 +37,7 @@
         {{ bringRightInfo.productPrice }} 원
       </div>
 <!--    데이트 피커      -->
-      <DatePicker @bringCheckNot="checkNotDateMethod" @bringCheckOk="checkOkDateMethod" @bringCheckEqual="checkEqualDateMethod"
+      <Date-picker @bringCheckNot="checkNotDateMethod" @bringCheckOk="checkOkDateMethod" @bringCheckEqual="checkEqualDateMethod"
                   @bringCheckStartDate="checkStartDateMethod" @bringRegistWork="registDateAsEmit"/>
 
       <div class="content-bottom">
@@ -216,19 +219,21 @@ export default {
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-top .title-box {
   font-size: 35px;
 }
-.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .brand-box {
-  font-size: 12px;
-  color: rgba(28, 27, 27, 0.6);
-}
-.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .fundingcount-box {
-  font-size: 15px;
-  color: rgba(28, 27, 27, 0.6);
-}
+
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-top .subtitle-box {
   display: flex;
   flex-direction: column;
   align-items: end;
 }
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .subtitle-box .brand-box {
+  font-size: 12px;
+  color: rgba(28, 27, 27, 0.6);
+}
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-top .subtitle-box .fundingcount-box {
+  font-size: 15px;
+  color: rgba(28, 27, 27, 0.6);
+}
+
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center {
   margin-top: 20px;
 }
@@ -241,7 +246,7 @@ export default {
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center .category-box {
   font-size: 20px;
   text-align: center;
-  border: 2px solid rgb(229 114 0);
+  border: 2px solid rgb(229, 114, 0);
   border-radius: 4px;
   padding: 15px 15px;
   cursor: pointer;
