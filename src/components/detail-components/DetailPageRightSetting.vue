@@ -4,7 +4,7 @@
     <div class="right-content">
       <div class="content-top">
         <div class="title-revise">
-          주변에 알릴 문구를 입력해주세요
+          펀딩 제목을 입력해주세요
         </div>
         <!--      제목 입력기        -->
         <v-container fluid >
