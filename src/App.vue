@@ -45,20 +45,11 @@
 
 <script>
 
-
 export default {
   name: 'App',
 
   data: () => ({
-
+    //
   }),
 };
 </script>
-<style>
-#app {
-  display: flex;
-  flex-direction:column;
-  flex-wrap: wrap;
-  align-items: center;
-}
-</style>

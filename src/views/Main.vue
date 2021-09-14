@@ -21,7 +21,7 @@
               justify="center"
           >
             <div class="text-h2">
-              {{ slide }} Slide
+              {{ slide }}
             </div>
           </v-row>
         </v-sheet>
@@ -30,136 +30,58 @@
     <v-container>
       <!-- 사이즈 조정 디브  -->
       <div class = "second">
-        <div class = "search">
-          친구를 검색해 주세요.
-          <div>
-            <v-text-field
-                outlined
-                label="친구찾기"
-                prepend-inner-icon="mdi-map-marker">
-
-            </v-text-field>
-          </div>
-
-          <div class = wishlist>OO님의 위시리스트</div>
-          <div class = no-merchandise>펀딩중인 상품이 없어요
-          </div>
-          <p>더보기 </p>
-
-          <div class="text-center">
-          <v-btn  depressed elevation="2">♡친구에게 보여주기</v-btn>
-          </div>
+        <div class ="search">
+          <MainSearch/>
         </div>
         <div class = "menu">
           메뉴 문구
-          <div>
-            <div class="container">
-              <div class="inner-container">
-                <div class= "item-box">
-                  <div class = "item-box-item item-box-inner1">
-                    <div class= "item img1"></div>
-                    가벼운선물
-                  </div>
-                  <div class = "item-box-item item-box-inner2">
-                    <div class= "item img2"></div>
-                    럭셔리선물
-                  </div>
-                  <div class = "item-box-item item-box-inner3">
-                    <div class= "item"></div>
-                    시원한선물
-                  </div>
-                  <div class = "item-box-item item-box-inner4">
-                    <div class= "item"></div>
-                    럭셔리선물
-                  </div>
-                  <div class = "item-box-item item-box-inner5">
-                    <div class= "item"></div>
-                    어른선물
-                  </div>
-                  <div class = "item-box-item item-box-inner6">
-                    <div class= "item"></div>
-                    출산선물
-                  </div>
-                  <div class = "item-box-item item-box-inner7">
-                    <div class= "item"></div>
-                    명품선물
-                  </div>
-                  <div class = "item-box-item item-box-inner8">
-                    <div class= "item"></div>
-                    결혼/집들이
-                  </div>
-                  <div class = "item-box-item item-box-inner9">
-                    <div class= "item"></div>
-                    럭셔리선물
-                  </div>
-                  <div class = "item-box-item item-box-inner10">
-                    <div class= "item"></div>
-                    쓸모없는선물
-                  </div>
-                  <div class = "item-box-item item-box-inner11">
-                    <div class= "item"></div>
-                    배달선물
-                  </div>
-                  <div class = "item-box-item item-box-inner12">
-                    <div class= "item"></div>
-                    남다른선물
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <Mainmenu />
         </div>
-        <div class = "event">
+        <div class = "coverevent">
           이벤트 상품
-          <div class="event-second-div">
-            <div class="event-main">
-              <div class = "event-img event-1">
-              </div>
-              <div class = "event-sub-title">
-                8월에태어난 어쩌구
-              </div>
-              <div class = "event-sub">
-                내용ㅇㅇㅇㅇ
-              </div>
-            </div>
-            <div class="event-main">
-              <div class = "event-img event-2">
-              </div>
-              <div class = "event-sub-title">
-                10월에태어난 어쩌구
-              </div>
-              <div class = "event-sub">
-                내용 ㅇㅇㅇㅇ
-              </div>
-            </div>
-          </div>
+          <Mainevent :bringmainEvent="mainEvent" @bringsimg01Click="img01Click"  @bringsimg02Click="img02Click"/>
+
         </div>
-      <v-container>
+
         <div class = "deadline">
           마감예정인 상품
+          <Deadline :bringmainDeadline="mainDeadline" @bringdeadimg01Click="deadimg01Click"
+                    @bringdeadimg02Click="deadimg02Click" @bringdeadimg03Click="deadimg03Click"
+                    @bringdeadimg04Click="deadimg04Click"/>
         </div>
-      </v-container>
+
         <div class = "join">
           내가 참여한 선물
+          <JoinGift :bringmainJoin="mainJoin" @bringJoinimg01Click="deadimg01Click"
+                    @bringJoinimg02Click="Joinimg02Click" @bringJoinimg03Click="Joinimg03Click"
+                    @bringJoinimg04Click="Joinimg04Click" />
         </div>
         <div class = "giboo">
           나눔을 전하세요
+          <Gibooline/>
 
         </div>
       </div>
-
     </v-container>
-  </div>
+    </div>
 </template>
 <script>
 
 
 
-
-import Deadline from "@/components/layout/Deadline";
-
+import Deadline from '../components/layout/Deadline'
+import Gibooline from '../components/layout/Gibooline'
+import JoinGift from '../components/layout/Joingift'
+import Mainmenu from '../components/layout/Main-menu'
+import Mainevent from '../components/layout/Main-event'
+import MainSearch from "../components/layout/Main-search";
 export default {
   name: 'Main',
+  components: {
+
+    Mainmenu,MainSearch,Mainevent,Deadline, JoinGift,Gibooline,
+
+  },
 
   data () {
     return {
@@ -172,20 +94,66 @@ export default {
         'deep-purple accent-4',
       ],
       slides: [
-        '광고',
-        '광고',
+        '광고1',
+        '광고2',
         '광고',
         '광고',
         '광고',
       ],
+      mainEvent: {
+        preforchangeventUrl:'',
+        presimgUrl01:"http://127.0.0.1:8887/cake.jpg",
+        presimgUrl02:"http://127.0.0.1:8887/cake.jpg",
+
+      },
+      mainDeadline:{
+        preforchandeadUrl:'',
+        fundingTitle01: '펀딩타이틀1',
+        fundinging01: '진행중',
+        fundingname01: '신혜림',
+        fundingMoney01: 3000,
+
+        fundingTitle02: '펀딩타이틀2',
+        fundinging02: '진행중',
+        fundingname02: '신혜림',
+        fundingMoney02: 3000,
+
+        fundingTitle03: '펀딩타이틀3',
+        fundinging03: '진행중',
+        fundingname03: '신혜림',
+        fundingMoney03: 3000,
+
+        fundingTitle04: '펀딩타이틀4',
+        fundinging04: '진행중',
+        fundingname04: '신혜림',
+        fundingMoney04: 3000,
+        presdeadimgUrl01:"http://127.0.0.1:8887/cake.jpg",
+        presdeadimgUrl02:"http://127.0.0.1:8887/cake.jpg",
+        presdeadimgUrl03:"http://127.0.0.1:8887/cake.jpg",
+        presdeadimgUrl04:"http://127.0.0.1:8887/cake.jpg",
+
+      },
+      mainJoin:{
+        presJoinUrl01:"http://127.0.0.1:8887/cake.jpg",
+
+      },
+      methods: {
+        img01Click(){
+          this.preforchangeventUrl=this.mainEvent.presimgUrl01
+          this.mainEvent.presimgUrl01 = this.mainEvent.presimgUrl02
+          this.mainEvent.presimgUrl02 =  this.preforchangeventUrl
+        },
+        img02Click(){
+          this.preforchangeventUrl=this.mainEvent.presimgUrl01
+          this.mainEvent.presimgUrl01 = this.mainEvent.presimgUrl02
+          this.mainEvent.presimgUrl02 = this.mainEvent.presimgUrl01
+        },
+
+      }
+
     }
   },
-  components: {
-    Deadline,
 
-
-
-  },
 }
 
 
@@ -193,26 +161,13 @@ export default {
 <style>
 
 .second{
-  max-width: 1100px;
-}
-.search{
 
-}
-.search .no-merchandise{
-  height: 200px;
+  max-width:1100px; left:0; right:0; margin-left:auto; margin-right:auto;
 
 
 
 }
-.search .text-center{
- text-align: center;
-}
-.search .wishlist{
-  text-align: center;
-}
-.search .no-merchandise{
-  text-align: center;
-}
+
 .v-window v-item-group theme--dark v-carousel{
   height: 250px;
 }
@@ -253,35 +208,7 @@ export default {
   background-image: url(https://img.allurekorea.com/allure/2019/08/style_5d43859e4640d.jpg);
   background-size:70px 70px;
 }
-.event{
 
-}
-.event .event-second-div{
-
-}
-.event .event-second-div .event-main{
- float: left;
-  width: 50%;
-}
-.event .event-second-div .event-main .event-img{
-  width : 200px;
-  height : 200px;
-
-}
-.event .event-second-div .event-main .event-1{
-  background-image: url(https://img.allurekorea.com/allure/2019/08/style_5d43859e4640d.jpg);
-  background-size: 200px 200px;
-}
-.event .event-second-div .event-main .event-2{
-  background-image: url(https://img.allurekorea.com/allure/2019/08/style_5d43859e4640d.jpg);
-  background-size: 200px 200px;
-}
-.event .event-second-div .event-main .event-sub-title{
-  font-weight: bold;
-}
-.event .event-second-div .event-main .event-sub{
-
-}
 
 
 
