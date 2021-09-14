@@ -46,7 +46,7 @@
 
 <script>
 
-import axios from "axios";
+// import axios from "axios";
 // const cors = require("cors")
 
 export default {
@@ -62,38 +62,38 @@ export default {
   },
 
   methods:{
-    async getToken () {
-      console.log(this.memberEmail)
-      console.log(this.memberPwd)
-      let form = new FormData();
-      form.append("username", this.memberEmail)
-      form.append("password", this.memberPwd)
-      await axios.post("http://localhost:9090/api/login", form,
-          //     {
-          //   headers:{
-          //     "Content-Type": "application/x-www-form-urlencoded"
-          // }
-          //     }
-          //     {
-          //   params:{
-          //     username:this.memberEmail,
-          //     password:this.memberPwd
-          //   }
-          // }
-      ).then(res => {
-        console.log("응답: " + res.data.access_token)
-        console.log("응답: " + res.data.refresh_token)
-        this.accessToken = res.data.access_token
-        this.refreshToken = res.data.refresh_token
-      }).catch(e=>{
-        console.log("에러발생"+e)
-      })
-    }
+    // async getToken () {
+    //   console.log(this.memberEmail)
+    //   console.log(this.memberPwd)
+    //   let form = new FormData();
+    //   form.append("username", this.memberEmail)
+    //   form.append("password", this.memberPwd)
+    //   await axios.post("http://localhost:9090/api/login", form,
+    //       //     {
+    //       //   headers:{
+    //       //     "Content-Type": "application/x-www-form-urlencoded"
+    //       // }
+    //       //     }
+    //       //     {
+    //       //   params:{
+    //       //     username:this.memberEmail,
+    //       //     password:this.memberPwd
+    //       //   }
+    //       // }
+    //   ).then(res => {
+    //     console.log("응답: " + res.data.access_token)
+    //     console.log("응답: " + res.data.refresh_token)
+    //     this.accessToken = res.data.access_token
+    //     this.refreshToken = res.data.refresh_token
+    //   }).catch(e=>{
+    //     console.log("에러발생"+e)
+    //   })
+    // }
     },
 
-  mounted() {
-    this.getToken()
-  }
+  // mounted() {
+  //   this.getToken()
+  // }
 };
 </script>
 
@@ -105,5 +105,6 @@ export default {
   flex-direction:column;
   flex-wrap: wrap;
   align-items: center;
+
 }
 </style>

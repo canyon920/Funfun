@@ -4,6 +4,7 @@
     <div class="container-content">
       <div class="content-head">
         <div class="head-detail">
+
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개     -->
           <Detail-funding-page-left  :bringLeftInfo="leftInfo"  @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>
 
@@ -15,7 +16,14 @@
       <!--      여기 동적 처리 바디 이미지 바디 상세이미지 넘겨줘야함-->
       <Detail-funding-page-body :bringBodyInfo="bodyInfo" @bringmainChangeImg1="mainChangeImg1" @bringmainChangeImg2="mainChangeImg2"/>
     </div>
+
+<!--    <Loder-->
+<!--    :size="3"-->
+<!--    :z-index="9"-->
+<!--    :fixed="true"/>-->
+
   </div>
+
 
 </template>
 

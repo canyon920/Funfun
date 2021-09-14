@@ -20,21 +20,22 @@
             <v-text-field
                 v-model="date1"
                 label="Start-Date"
-                hint="MM/DD/YYYY format"
                 persistent-hint
                 prepend-icon="mdi-calendar"
                 v-bind="attrs"
                 @blur="date1 = parseDate(dateFormatted)"
                 v-on="on"
+                style="font-size: 20px"
             ></v-text-field>
           </template>
           <v-date-picker
               v-model="date1"
               no-title
               @input="menu1 = false"
+              style="font-size: 20px"
           ></v-date-picker>
         </v-menu>
-        <p>펀딩 시작일: <strong>{{ date1 }}</strong></p>
+        <p style="font-size: 20px">펀딩 시작일: <strong>{{ date1 }}</strong></p>
       </v-col>
 
       <v-col
@@ -53,21 +54,22 @@
             <v-text-field
                 v-model="date2"
                 label="Expire-Date"
-                hint="MM/DD/YYYY format"
                 persistent-hint
                 prepend-icon="mdi-calendar"
                 readonly
                 v-bind="attrs"
                 v-on="on"
+                style="font-size: 20px"
             ></v-text-field>
           </template>
           <v-date-picker
               v-model="date2"
               no-title
               @input="menu2 = false"
+              style="font-size: 20px"
           ></v-date-picker>
         </v-menu>
-        <p>펀딩 종료일: <strong>{{ date2 }}</strong></p>
+        <p style="font-size: 20px">펀딩 종료일: <strong>{{ date2 }}</strong></p>
       </v-col>
     </v-row>
   </v-container>

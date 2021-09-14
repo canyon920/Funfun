@@ -4,6 +4,14 @@
       <button @click="getToken">Detail Page</button> |
     </h1>
 
+    <h1>
+      <router-link @click="getToken" :to="{name: 'detail_page_Q', query:{memberId: memberPwd}}">쿼리로 받기</router-link>
+    </h1>
+
+    <h1>
+      <router-link :to="{name:'detail_page_P', params:{memberId: memberPwd}}">파람으로 받기</router-link>
+    </h1>
+
     <div>
       <a href="https://Kauth.kakao.com/oauth/authorize?client_id=c567ff70b09b303d37db90e3edcc4f37&redirect_uri=http://localhost:8080&response_type=code&state=state&prompt=login">
         <h1>카카오 코드인가 (로그인창띄움) 받기</h1>
@@ -25,7 +33,6 @@
 
 <script>
 
-import axios from "axios";
 
 export default{
   name: "about",
@@ -35,26 +42,27 @@ export default{
       memberPwd: '1234',
     }
   },
+  computed:{
+    getMemberId(){
+      return this.$store.state.member.memberId
+    }
+  },
   methods:{
     async getToken () {
-      console.log(this.memberEmail)
-      console.log(this.memberPwd)
-      let form = new FormData();
-      form.append("username", this.memberEmail)
-      form.append("password", this.memberPwd)
-      await axios.post("http://localhost:9090/api/login",form,
-      ).then(res => {
-        console.log("About 응답: "+ res.data.access_token)
-        console.log("About 응답: "+ res.data.refresh_token)
-        this.accessToken = res.data.access_token
-        this.refreshToken = res.data.refresh_token
-      }).catch(e=>{
-        console.log(e)
-      })
-      if (this.accessToken.length) {
-        console.log("로그인 성공 이동해야한다")
-        this.$router.push("/detail-page")
-      }
+      console.log("메소드 실행")
+      this.$store.dispatch('member/normalLogin', {
+        memberEmail: this.memberEmail,
+        memberPwd: this.memberPwd
+      }).then(
+          this.$router.push("/detail-page")
+      )
+
+
+
+      // if (this.accessToken.length) {
+      //   console.log("로그인 성공 이동해야한다")
+      //   this.$router.push("/detail-page")
+      // }
     }
   },
 

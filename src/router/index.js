@@ -21,6 +21,17 @@ const routes = [
   {
     path: '/detail-page',
     name: 'detail_page',
+
+    component: () => import(/* webpackChunkName: "about" */ '../views/Detail_page.vue')
+  },
+  {
+    path: '/detail-page',
+    name: 'detail_page_Q',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Detail_page.vue')
+  },
+  {
+    path: '/detail-page/:memberId',
+    name: 'detail_page_P',
     component: () => import(/* webpackChunkName: "about" */ '../views/Detail_page.vue')
   },
   {
