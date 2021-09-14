@@ -28,7 +28,23 @@ const routes = [
     path:'/auth',
     name:'Auth',
     component: () =>import('../views/Auth.vue')
-  }
+  },
+  {
+    path:'/funlogin',
+    name:'LoginFunfun',
+    component: () =>import('../components/login/LoginFunfun.vue')
+  },
+  {
+    path:'/loginkakao',
+    name:'LoginKakao',
+    component: () =>import('../components/login/LoginKakao.vue')
+  },
+  {
+    path:'/loginnaver',
+    name:'LoginNaver',
+    component: () =>import('../components/login/LoginNaverCallback.vue')
+  },
+
 ]
 
 const router = new VueRouter({

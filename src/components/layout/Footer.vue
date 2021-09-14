@@ -9,9 +9,9 @@
         <div class="footer_btn">
           <v-btn to="/" text rounded plain color="grey">Home</v-btn>
           <v-btn x-small plain disabled color="black">|</v-btn>
-          <v-btn to="/about" text rounded plain color="grey">About</v-btn>
+          <v-btn to="#" text rounded plain color="grey">Trello</v-btn>
           <v-btn x-small plain disabled color="black">|</v-btn>
-          <v-btn to="/" text rounded plain color="grey">Email</v-btn>
+          <v-btn to="/" text rounded plain color="grey">GitHub</v-btn>
         </div>
 
       <v-container fluid class="footer_content">

@@ -16,10 +16,14 @@
         </v-list-item>
         <div class="pt-5">
           <div class="login_option">
+<!--            <div class="naverlogin" @click="document.getElementById('naver_id_login_anchor').click()">
+              <v-btn class="mx-5 ml-10" fab large color ="light-green"><strong style="font-size: large ">N</strong></v-btn>
+            </div>-->
 <!--            <v-btn class="mx-5 ml-10" fab large color ="light-green"><strong>N</strong></v-btn>-->
             <login-naver></login-naver>
             <login-google></login-google>
-            <v-btn class="mx-5" fab large color ="rgba(229, 114, 0)"><strong>H</strong></v-btn>
+<!--            <login-funfun></login-funfun>-->
+            <v-btn class="mx-5" fab large color ="rgba(229, 114, 0)" to="funlogin"><strong>H</strong></v-btn>
 
           </div>
         </div>
@@ -49,5 +53,6 @@ export default {
 <style>
 .login_option{
   font-size: 15px;
+  display: flex;
 }
 </style>
