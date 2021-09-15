@@ -4,6 +4,7 @@
     <div class="container-content">
       <div class="content-head">
         <div class="head-detail">
+          {{$store.state.member.memberId}}
 
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개     -->
           <Detail-funding-page-left  :bringLeftInfo="leftInfo"  @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>

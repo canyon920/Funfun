@@ -3,6 +3,8 @@
     <div class="container-content">
       <div class="content-head">
         <div class="head-detail">
+          <h1>{{$store.state.member.memberId}}</h1>
+
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개        -->
           <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>
           <!--          여기 동적 처리   상품 내용 보여줌        -->
