@@ -129,7 +129,6 @@ export default {
   //   this.getNickname();
   // }
 };
-
 </script>
 
 <style>
