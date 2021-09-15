@@ -1,5 +1,6 @@
 <template>
   <div class = "event">
+    <h2>이벤트 상품</h2>
       <div class="event-second-div">
       <div class="event-main">
         <div class = "event-img event-1">
@@ -50,10 +51,12 @@ export default {
 </script>
 <style>
 .event{
+  margin-bottom: 300px;
 
 
 }
 .event .event-second-div{
+  padding-top: 30px;
 
 }
 .event .event-second-div .event-main{
@@ -63,18 +66,18 @@ export default {
 
 }
 .event .event-second-div .event-main .event-img{
-  width : 200px;
+  width : 300px;
   height : 200px;
   left:0; right:0; margin-left:auto; margin-right:auto;
 
 }
 .event .event-second-div .event-main .event-1{
 
-
+  background-size: 300px 200px;
 }
 .event .event-second-div .event-main .event-2{
 
-  background-size: 200px 200px;
+  background-size: 300px 200px;
 }
 .event .event-second-div .event-main .event-sub-title{
   font-weight: bold;
@@ -83,7 +86,7 @@ export default {
 
 }
 .sub-img{
-  width: 200px;
+  width: 400px;
   height: 200px;
 }
 </style>

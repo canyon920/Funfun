@@ -31,33 +31,33 @@
       <!-- 사이즈 조정 디브  -->
       <div class = "second">
         <div class ="search">
-          <MainSearch/>
+          <MainSearch :bringmainsearch="mainSearch"/>
         </div>
         <div class = "menu">
-          메뉴 문구
+
         <Mainmenu />
         </div>
         <div class = "coverevent">
-          이벤트 상품
+
           <Mainevent :bringmainEvent="mainEvent" @bringsimg01Click="img01Click"  @bringsimg02Click="img02Click"/>
 
         </div>
 
         <div class = "deadline">
-          마감예정인 상품
+
           <Deadline :bringmainDeadline="mainDeadline" @bringdeadimg01Click="deadimg01Click"
                     @bringdeadimg02Click="deadimg02Click" @bringdeadimg03Click="deadimg03Click"
                     @bringdeadimg04Click="deadimg04Click"/>
         </div>
 
         <div class = "join">
-          내가 참여한 선물
+
           <JoinGift :bringmainJoin="mainJoin" @bringJoinimg01Click="deadimg01Click"
                     @bringJoinimg02Click="Joinimg02Click" @bringJoinimg03Click="Joinimg03Click"
                     @bringJoinimg04Click="Joinimg04Click" />
         </div>
         <div class = "giboo">
-          나눔을 전하세요
+
           <Gibooline/>
 
         </div>
@@ -100,6 +100,10 @@ export default {
         '광고',
         '광고',
       ],
+      mainSearch:{
+        username:"춘식",
+        fundinglist:"펀딩중인 상품이 없어요",
+      },
       mainEvent: {
         preforchangeventUrl:'',
         presimgUrl01:"http://127.0.0.1:8887/cake.jpg",
@@ -109,23 +113,27 @@ export default {
       mainDeadline:{
         preforchandeadUrl:'',
         fundingTitle01: '펀딩타이틀1',
-        fundinging01: '진행중',
-        fundingname01: '신혜림',
+        fundinging01: '진행률',
+        progressBarPercent01:10,
+        fundingname01: '신가비',
         fundingMoney01: 3000,
 
         fundingTitle02: '펀딩타이틀2',
         fundinging02: '진행중',
-        fundingname02: '신혜림',
+        progressBarPercent02:30,
+        fundingname02: '피넛',
         fundingMoney02: 3000,
 
         fundingTitle03: '펀딩타이틀3',
         fundinging03: '진행중',
-        fundingname03: '신혜림',
+        progressBarPercent03:20,
+        fundingname03: '요니제이',
         fundingMoney03: 3000,
 
         fundingTitle04: '펀딩타이틀4',
         fundinging04: '진행중',
-        fundingname04: '신혜림',
+        progressBarPercent04:50,
+        fundingname04: '허니제이',
         fundingMoney04: 3000,
         presdeadimgUrl01:"http://127.0.0.1:8887/cake.jpg",
         presdeadimgUrl02:"http://127.0.0.1:8887/cake.jpg",
@@ -135,6 +143,33 @@ export default {
       },
       mainJoin:{
         presJoinUrl01:"http://127.0.0.1:8887/cake.jpg",
+        presJoinUrl02:"http://127.0.0.1:8887/cake.jpg",
+        presJoinUrl03:"http://127.0.0.1:8887/cake.jpg",
+        presJoinUrl04:"http://127.0.0.1:8887/cake.jpg",
+        funding_title01:'농식품 펀딩 전용관',
+        fundinging01:'진행중',
+        progressBarPercent01:30,
+        fundingname01:'김춘식',
+        fundingMoney01:'3500',
+
+        funding_title02:'b',
+        fundinging02:'진행중',
+        progressBarPercent02:50,
+        fundingname02:'라이언',
+        fundingMoney02:'555',
+
+        funding_title03:'c',
+        fundinging03:'진행중',
+        progressBarPercent03:40,
+        fundingname03:'라둥이',
+        fundingMoney03:'66600',
+
+        funding_title04:'d',
+        fundinging04:'진행중',
+        progressBarPercent04:80,
+        fundingname04:'김삼식',
+        fundingMoney04:'20000',
+
 
       },
       methods: {
@@ -164,8 +199,6 @@ export default {
 
   max-width:1100px; left:0; right:0; margin-left:auto; margin-right:auto;
 
-
-
 }
 
 .v-window v-item-group theme--dark v-carousel{
@@ -174,43 +207,6 @@ export default {
 .menu{
    text-align: center;
 }
-.menu .container{}
-.menu .container .inner-container{
-  display: flex;
-
-
-}
-.menu .container .inner-container .item-box{
-  display: flex;
-  flex-wrap: wrap;
-  border: 1px solid black;
-  border-radius: 20px;
-}
-.menu .container .inner-container .item-box .item-box-item {
-  flex: 1 1 15%;
-  padding:20px;
-}
-.menu .container .inner-container .item-box .item {
-  flex: 1;
-  border: 1px solid black;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-
-
-
-}
-.menu .container .inner-container .item-box .img1{
-  background-image: url(https://img.allurekorea.com/allure/2019/08/style_5d43859e4640d.jpg);
-  background-size:70px 70px;
-}
-.menu .container .inner-container .item-box .img2{
-  background-image: url(https://img.allurekorea.com/allure/2019/08/style_5d43859e4640d.jpg);
-  background-size:70px 70px;
-}
-
-
-
 
 
 </style>
