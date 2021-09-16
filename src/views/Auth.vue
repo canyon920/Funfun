@@ -3,7 +3,7 @@
 </template>
 
 <script>
-
+import {naverService} from "../service/login";
 export default {
   methods: {
     kakaoLogin(){
@@ -57,8 +57,14 @@ export default {
       console.log("ㄴㅇㄹㄴㅇㄹ",parts);
       if (parts.length === 2) return parts.pop().split(";").shift();
     },
+    getInfo(){
+      naverService().getUserInfo();
+    }
   },
   mounted() {
+    if(this.$route.hash){
+      naverService().getUserInfo();
+    }
     // this.displayToken()
     // this.kakaoLogin()
   },
@@ -66,51 +72,3 @@ export default {
 };
 </script>
 
-
-<!--<script>
-export default {
-  methods: {
-    getParameterByName: function (name) {
-      name = name.replace(/[[]/, "\\[").replace(/[\]]/, "\\]");
-      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-          results = regex.exec(location.search);
-      return results == null
-          ? ""
-          : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-  },
-  beforeMount() {
-    const code = this.getParameterByName("code");
-    alert(code);
-    var details = {
-      grant_type: "authorization_code",
-      client_id: "08cab2069b3bd09e1d21ad0b6746e4d9",
-      redirect_uri: "http://localhost:8080/auth",
-      code: code,
-    };
-    var formBody = [];
-    for (var property in details) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(details[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-    fetch("https://kauth.kakao.com/oauth/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-      },
-      body: formBody,
-    })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(JSON.stringify(data));
-          alert(JSON.stringify(data));
-          window.Kakao.Auth.setAccessToken(data.access_token);
-          // test : Token
-          alert(window.Kakao.Auth.getAccessToken());
-          location.href = "/"
-        });
-  },
-};
-</script>-->

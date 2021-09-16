@@ -9,9 +9,9 @@
         <div class="footer_btn">
           <v-btn to="/" text rounded plain color="grey">Home</v-btn>
           <v-btn x-small plain disabled color="black">|</v-btn>
-          <v-btn to="#" text rounded plain color="grey">Trello</v-btn>
+          <v-btn text rounded plain color="grey" @click="onClickRedirect1">Trello</v-btn>
           <v-btn x-small plain disabled color="black">|</v-btn>
-          <v-btn to="/" text rounded plain color="grey">GitHub</v-btn>
+          <v-btn text rounded plain color="grey" @click="onClickRedirect2">GitHub</v-btn>
         </div>
 
       <v-container fluid class="footer_content">
@@ -36,6 +36,14 @@ export default {
   data: () => ({
 
   }),
+  methods:{
+    onClickRedirect1(){
+      window.open("https://trello.com/b/0LoAcpB0/funfun%ED%95%B4%EC%A4%98", "_blank");
+    },
+    onClickRedirect2(){
+      window.open("https://trello.com/b/0LoAcpB0/funfun%ED%95%B4%EC%A4%98", "_blank");
+    }
+  }
 }
 </script>
 <style>
