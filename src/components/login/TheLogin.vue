@@ -5,21 +5,19 @@
       outlined
   >
     <div class="login">
-      <div class="pl-5 pr-5 pt-2">
+      <div class="pl-5 pr-5 pt-6">
         <v-list-item >
           <v-list-item-content>
-            <div class="kakao login">
-              <login-kakao></login-kakao>
+            <div class="pb-7">
+              <div class="kakao login">
+                <login-kakao></login-kakao>
+              </div>
             </div>
-            <v-list-item-subtitle class="text-center">-------------------or-------------------</v-list-item-subtitle>
+            <v-list-item-subtitle class="text-center">-----------------------------------  or  -----------------------------------</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <div class="pt-5">
           <div class="login_option">
-<!--            <div class="naverlogin" @click="document.getElementById('naver_id_login_anchor').click()">
-              <v-btn class="mx-5 ml-10" fab large color ="light-green"><strong style="font-size: large ">N</strong></v-btn>
-            </div>-->
-<!--            <v-btn class="mx-5 ml-10" fab large color ="light-green"><strong>N</strong></v-btn>-->
             <login-naver></login-naver>
             <login-google></login-google>
 <!--            <login-funfun></login-funfun>-->

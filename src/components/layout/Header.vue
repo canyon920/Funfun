@@ -8,7 +8,7 @@
     </div>
     <div class="navbar-menu1">
       <div class="link-div"><router-link style="color: black" class="router-link" to="/">Home</router-link></div>
-      <div class="link-div">Shop</div>
+      <div class="link-div"><router-link style="color: black" class="router-link" to="/shop">Shop</router-link></div>
       <div class="link-div"><router-link style="color: black" class="router-link" to="/about">About</router-link></div>
 
     </div>
@@ -21,7 +21,7 @@
       <div class="link-div"><router-link style="color: black" class="router-link" to="/login" v-if="accessToken==null ">Login</router-link></div>
       <div class="link-div"><router-link style="color: black" class="router-link" to="/join" v-if="accessToken==null ">Join</router-link></div>
       <router-link to="#" v-show="accessToken" v-on:click.native="unlink()"> Kakao Unlink</router-link>
-      <div class="link-div">Help</div>
+      <div class="link-div"><router-link style="color: black" class="router-link" to="/help">Help</router-link></div>
     </div>
       <div class="mr-lg-16">
         <div class="navbar-search">
@@ -57,11 +57,7 @@ export default {
   data()  {
     return{
       accessToken: window.Kakao.Auth.getAccessToken(),
-      // accessTokenN: window.naver.getAccessToken(),
       reloadPage:true,
-      // name: this.getNickname().kakaoNicname
-
-     // name : this.getNickname()
     }
   },
   methods: {

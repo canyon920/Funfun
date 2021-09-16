@@ -39,11 +39,7 @@ const routes = [
     name:'LoginKakao',
     component: () =>import('../components/login/LoginKakao.vue')
   },
-  {
-    path:'/loginnaver',
-    name:'LoginNaver',
-    component: () =>import('../components/login/LoginNaverCallback.vue')
-  },
+
 
 ]
 

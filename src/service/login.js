@@ -8,7 +8,7 @@ const naverService = () => {
     const naverLogin = new window.naver.LoginWithNaverId({
         clientId: "JQ9euvEXzku2NPp27QzO",
         callbackUrl: "http://localhost:8080/auth",
-        isPopup: false
+        isPopup: true
     });
 
     const setNaver = () => {
@@ -17,11 +17,13 @@ const naverService = () => {
 
     const getUserInfo = () => {
         setNaver();
+        console.log(naverLogin);
         naverLogin.getLoginStatus((status) => {
             if (status) {
                 const email =naverLogin.user.email;
                 console.log(email);
                 console.log(naverLogin.user);
+                console.log(naverLogin.accessToken);
             } else {
                 console.log("AccessToken이 올바르지 않습니다.");
             }
@@ -32,6 +34,8 @@ const naverService = () => {
         getUserInfo,
     };
 };
+
+
 export {
     naverService,
 }
