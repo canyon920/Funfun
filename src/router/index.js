@@ -45,29 +45,28 @@ const routes = [
     name:'LoginKakao',
     component: () =>import('../components/login/LoginKakao.vue')
   },
-
-
-  },
   {
     path: '/detail-page',
     name: 'detail_page',
 
-    component: () => import(/* webpackChunkName: "about" */ '../views/Detail_page.vue')
+    component: () => import('../views/Detail_page.vue')
   },
+  //  라우터 쿼리 / 파람 예시
   {
     path: '/detail-page',
     name: 'detail_page_Q',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Detail_page.vue')
+    component: () => import('../views/Detail_page.vue')
   },
   {
     path: '/detail-page/:memberId',
     name: 'detail_page_P',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Detail_page.vue')
+    component: () => import('../views/Detail_page.vue')
   },
+  //  라우터 쿼리 / 파람 예시 여기까지
   {
     path: '/funding-detail-page',
     name: 'DetailFundingPage',
-    component: () => import(/* webpackChunkName: "about" */ '../views/DetailFundingPage')
+    component: () => import('../views/DetailFundingPage')
   }
 ]
 

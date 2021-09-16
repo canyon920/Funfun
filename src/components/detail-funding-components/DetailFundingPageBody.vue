@@ -5,7 +5,7 @@
       <div class="detail-menu">
         <div class="menu-main">
           <div class="main-box menu-first" @click="$emit('bringmainChangeImg1')">상품설명</div>
-          <div class="main-box menu-second" @click="$emit('bringmainChangeImg2')">상세정보</div>
+<!--          <div class="main-box menu-second" @click="$emit('bringmainChangeImg2')">상세정보</div>-->
         </div>
       </div>
       <!--          여기 동적 처리          -->
@@ -63,10 +63,10 @@ export default {
 .inner .container-content .content-body .body-detail .detail-menu .menu-main .main-box {
   padding-left: 10%;
   padding-right: 10%;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 .inner .container-content .content-body .body-detail .detail-menu .menu-main .menu-first {
-  border-right: 2px solid rgb(229, 114, 0);
+  /*border-right: 2px solid rgb(229, 114, 0);*/
 }
 .inner .container-content .content-body .body-detail .detail-img {
   text-align: center;

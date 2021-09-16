@@ -38,10 +38,10 @@ export default {
 
       leftInfo: {
         preforchangUrl: '',
-        prethumbUrl: "http://127.0.0.1:8887/chunsicthum.png",
-        presubUrl01: "http://127.0.0.1:8887/chunsicsub1.png",
-        presubUrl02: "http://127.0.0.1:8887/chunsicsub2.png",
-        presubUrl03: "http://127.0.0.1:8887/chunsicsub3.png",
+        prethumbUrl:require("@/assets/example-img/chunsicthum.png"),
+        presubUrl01:require("@/assets/example-img/chunsicsub1.png"),
+        presubUrl02:require("@/assets/example-img/chunsicsub2.png"),
+        presubUrl03:require("@/assets/example-img/chunsicsub3.png"),
       },
 
       rightInfo: {
@@ -56,8 +56,8 @@ export default {
 
       bodyInfo: {
         preforchangMainUrl: "",
-        premainImgUrl: "http://127.0.0.1:8887/chunsic.png",
-        predetailImgUrl: "http://127.0.0.1:8887/chunsicdetail.png"
+        premainImgUrl: require("@/assets/example-img/chunsic.png"),
+        predetailImgUrl: require("@/assets/example-img/chunsicdetail.png")
       },
 
       transeDataForFunding: {

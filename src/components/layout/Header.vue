@@ -2,8 +2,10 @@
   <nav class="navbar">
     <div class="navbar-logo">
       <div class="ml-lg-16">
+        <router-link to="/">
         <v-img class="ml-lg-4" max-height="60"
                max-width="200" src="@/assets//logo/logo1.jpg"></v-img>
+        </router-link>
       </div>
     </div>
     <div class="navbar-menu1">
