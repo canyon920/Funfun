@@ -3,7 +3,7 @@
     <v-footer color="#e6e6e6" padless>
         <div class="footer_logo">
           <v-img class="ml-lg-16" max-height="80"
-                 max-width="180" src="@/assets/footerlogo2.png"></v-img>
+                 max-width="180" src="@/assets/logo/footerlogo2.png"></v-img>
         </div>
       <v-spacer></v-spacer>
         <div class="footer_btn">
