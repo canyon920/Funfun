@@ -7,7 +7,7 @@
 
 <script>
 
-import router from "../../router";
+// import router from "../../router";
 
 export default {
   name: "LoginKakao",
@@ -32,8 +32,9 @@ export default {
               const kakao_account = res.kakao_account;
               // const kakaoNicname = res.properties.nickname
 
-              console.log(kakao_account);
-              router.go("/")
+              console.log("#2",kakao_account);
+              // router.go("/")
+              console.log("#2.5",document.cookie);
             },
             fail: function(error) {
               console.log(
@@ -49,30 +50,30 @@ export default {
       })
 
     },
-    displayToken() {
-      console.log("디스플레이토큰실행")
-      const token = this.getCookie('authorize-access-token')
-      if(token) {
-        window.Kakao.Auth.setAccessToken(token)
-        window.Kakao.Auth.getStatusInfo(({ status }) => {
-          if(status === 'connected') {
-            console.log(token)
-            document.getElementById('token-result').innerText = 'login success. token: ' + window.Kakao.Auth.getAccessToken()
-          } else {
-            window.Kakao.Auth.setAccessToken(null)
-          }
-        })
-      }
-    },
-    getCookie:function (name){
-      const value = "; " + document.cookie;
-      const parts = value.split("; " + name + "=");
-      if (parts.length === 2) return parts.pop().split(";").shift();
-    }
-  },
+  //   displayToken() {
+  //     console.log("디스플레이토큰실행")
+  //     const token = this.getCookie('authorize-access-token')
+  //     if(token) {
+  //       window.Kakao.Auth.setAccessToken(token)
+  //       window.Kakao.Auth.getStatusInfo(({ status }) => {
+  //         if(status === 'connected') {
+  //           console.log(token)
+  //           document.getElementById('token-result').innerText = 'login success. token: ' + window.Kakao.Auth.getAccessToken()
+  //         } else {
+  //           window.Kakao.Auth.setAccessToken(null)
+  //         }
+  //       })
+  //     }
+  //   },
+  //   getCookie:function (name){
+  //     const value = "; " + document.cookie;
+  //     const parts = value.split("; " + name + "=");
+  //     if (parts.length === 2) return parts.pop().split(";").shift();
+  //   }
+  // },
   // mounted() {
   //   this.kakaoLogin();
-  // }
+  }
 
 };
 

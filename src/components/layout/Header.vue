@@ -8,14 +8,14 @@
         </router-link>
       </div>
     </div>
-    <div class="navbar-menu1">
+    <div class="navbar-menu1" :class="{active : booleanMenu1}">
       <div class="link-div"><router-link style="color: black" class="router-link" to="/">Home</router-link></div>
       <div class="link-div"><router-link style="color: black" class="router-link" to="/shop">Shop</router-link></div>
       <div class="link-div"><router-link style="color: black" class="router-link" to="/about">About</router-link></div>
 
     </div>
     <v-spacer></v-spacer>
-    <div class="navbar-menu2">
+    <div class="navbar-menu2" :class="{active : booleanMenu2}">
 <!--      <div class="memberdetail"><router-link style="color: black" class="router-link" to="/memberdetail" v-if="accessToken != null"><v-icon>mdi-account-circle</v-icon></router-link></div>-->
 <!--      <div class="name" id="name" v-if="accessToken != null"></div>-->
 <!--      <input type="text" class="name" value="name" v-if="accessToken != null" />-->
@@ -36,9 +36,9 @@
           ></v-text-field>
         </div>
       </div>
-      <div class="nav_toggle">
+      <div class="nav_toggle" @click="toggleDown">
         <v-btn icon >
-          <v-icon @click="toggleDown" >mdi-dots-vertical</v-icon>
+          <v-icon  >mdi-dots-vertical</v-icon>
         </v-btn>
       </div>
     <div class="name">
@@ -52,7 +52,7 @@
 
 <script>
 
-import router from "../../router";
+// import router from "../../router";
 
 export default {
   name:"Header",
@@ -60,29 +60,27 @@ export default {
     return{
       accessToken: window.Kakao.Auth.getAccessToken(),
       reloadPage:true,
+      booleanMenu1: false,
+      booleanMenu2: false,
     }
   },
   methods: {
     toggleDown() {
-      const nav_toggle = document.querySelector('.nav_toggle');
-      const menu1 = document.querySelector('.navbar-menu1');
-      const menu2 = document.querySelector('.navbar-menu2');
-
-      nav_toggle.addEventListener('click', () => {
-        menu1.classList.toggle('active');
-        menu2.classList.toggle('active');
-      });
+      this.booleanMenu1 = !this.booleanMenu1
+      this.booleanMenu2 = !this.booleanMenu2
     },
     logout(type) { // 카카오 로그아웃
       window.Kakao.Auth.logout(function () {
         if (type) { // "unlink"
-          alert("Unlinked Kakao Account!");
+          console.log("#4 : Unlinked Kakao Account!");
         } else {
-          alert("Logout Account!");
+          console.log("#3 : Logout Account!");
         }
         // router.push("login");
         // this.$nextTick( router.push("login"));
-        router.go(router.currentRoute)
+
+        // 로그아웃 되고 갈곳
+        // router.go(router.currentRoute)
 
 
       });
