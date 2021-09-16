@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div >
 <!--  <v-btn block large outlined @click="kakaoLogin"><strong>카카오계정으로 로그인</strong></v-btn>-->
-  <v-img class="kakao_btn" src="@/assets/kakao_login.png" @click="kakaoLogin"></v-img>
+  <v-img style="cursor:pointer;" class="kakao_btn" src="@/assets/login/kakao_login.png" @click="kakaoLogin"></v-img>
   </div>
 </template>
 

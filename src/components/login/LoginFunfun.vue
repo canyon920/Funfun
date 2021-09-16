@@ -6,7 +6,7 @@
   >
     <div class="loginimg">
       <v-img max-height="60"
-             max-width="140" src="@/assets/login.png"></v-img>
+             max-width="140" src="@/assets/login/login.png"></v-img>
     </div>
     <div class="pl-5 pr-5 pt-3">
       <div class="pb-5">

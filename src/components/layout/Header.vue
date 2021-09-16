@@ -3,7 +3,7 @@
     <div class="navbar-logo">
       <div class="ml-lg-16">
         <v-img class="ml-lg-4" max-height="60"
-               max-width="200" src="@/assets/logo1.jpg"></v-img>
+               max-width="200" src="@/assets//logo/logo1.jpg"></v-img>
       </div>
     </div>
     <div class="navbar-menu1">
@@ -53,7 +53,7 @@
 import router from "../../router";
 
 export default {
-  name:"header",
+  name:"Header",
   data()  {
     return{
       accessToken: window.Kakao.Auth.getAccessToken(),

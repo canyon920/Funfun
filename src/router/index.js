@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import First from "@/components/First";
+import First from "@/components/about/First";
 
 
 Vue.use(VueRouter)

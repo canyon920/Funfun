@@ -89,7 +89,7 @@
                         large
                     >
                       <span class="orange--text text--darken-2 font-weight-bold">
-                        바로가기
+                        시작하기
                       </span>
                     </v-btn>
                 </v-row>
