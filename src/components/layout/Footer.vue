@@ -48,7 +48,8 @@ export default {
 }
 </script>
 <style>
-
+.footer {
+}
 .footer_btn{
   padding-right: 80px;
   padding-top: 20px;
