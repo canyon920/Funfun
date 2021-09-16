@@ -2,18 +2,21 @@
   <div class = "event">
     <h2>이벤트 상품</h2>
       <div class="event-second-div">
+        <div v-for="event in bringmainEvent" :key="event">
       <div class="event-main">
         <div class = "event-img event-1">
-          <img class="sub-img" v-bind:src="bringmainEvent.presimgUrl01" @click="$emit('bringsimg01Click')" alt="#">
+          <router-link :to="{name:'mainEvent', params:{eventTitle:subTitle}}">
+          <img class="sub-img" v-bind:src="event.presimgUrl" >
+          </router-link>
         </div>
         <div class = "event-sub-title">
-          8월에태어난 어쩌구
+          {{event.eventTitle}}
         </div>
         <div class = "event-sub">
-          내용ㅇㅇㅇㅇ
+        {{event.subTitle}}
         </div>
       </div>
-      <div class="event-main">
+<!--      <div class="event-main">
         <div class = "event-img event-2">
           <img class="sub-img" v-bind:src="bringmainEvent.presimgUrl02" @click="$emit('bringsimg02Click')" alt="#">
         </div>
@@ -23,7 +26,8 @@
         <div class = "event-sub">
           내용 ㅇㅇㅇㅇ
         </div>
-      </div>
+      </div>-->
+        </div>
       </div>
   </div>
 </template>
@@ -81,12 +85,14 @@ export default {
 }
 .event .event-second-div .event-main .event-sub-title{
   font-weight: bold;
+  left:0; right:0; margin-left:auto; margin-right:auto;
+  text-align: center;
 }
 .event .event-second-div .event-main .event-sub{
 
 }
 .sub-img{
-  width: 400px;
+  width: 300px;
   height: 200px;
 }
 </style>

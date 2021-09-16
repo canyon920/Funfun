@@ -3,139 +3,42 @@
     <div class="fonttext">
       <h2>마감예정인 상품</h2>
     </div>
+
   <carousel :autoplay="true" :nav="false" >
 <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
-
+    <a v-for="value in bringmainDeadline" :key="value">
     <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
-    <v-card
+
+      <v-card
         class="mx-auto"
-        max-width="300px"
-
-
-    >
-
+        max-width="300px" >
       <img
           class="white--text align-end"
           height="200px"
-          v-bind:src="bringmainDeadline.presdeadimgUrl01" @click="$emit('bringdeadimg01Click')" alt="#"
-      >
+          v-bind:src="value.presdeadimgUrl">
 
-
-      <v-card-title>{{bringmainDeadline.fundingTitle01}}</v-card-title>
+      <v-card-title>{{value.fundingTitle}}</v-card-title>
 
       <v-card-subtitle class="pb-0">
-        {{bringmainDeadline.fundinging01}}
+        {{value.fundinging}}
       </v-card-subtitle>
         <div class="progressBar-div">
-          <div class="progressBar" :style="{width : bringmainDeadline.progressBarPercent01 +'%'}">
+          <div class="progressBar" :style="{width : value.progressBarPercent +'%'}">
           <!--            프로그래스 바            -->
           </div>
         </div>
 
-
       <v-card-text class="text--primary">
-        <div class ="fundingname">{{bringmainDeadline.fundingname01}}님의 펀딩 상품</div>
+        <div class ="fundingname">{{value.fundingname}}님의 펀딩 상품</div>
 
-        <div class="fundingmoeny">{{bringmainDeadline.fundingMoney01}}원 펀딩</div>
+        <div class="fundingmoeny">{{value.fundingMoney}}원 펀딩</div>
       </v-card-text>
 
     </v-card>
+
     </div>
-<!--    두번쨰 사진-->
-    <v-card
-        class="mx-auto"
-        max-width="300"
+    </a>
 
-    >
-      <img
-          class="white--text align-end"
-          height="200px"
-          v-bind:src="bringmainDeadline.presdeadimgUrl02" @click="$emit('bringdeadimg02Click')" alt="#"
-      >
-        <v-card-title>{{bringmainDeadline.fundingTitle02}}</v-card-title>
-
-
-      <v-card-subtitle class="pb-0">
-        {{bringmainDeadline.fundinging02}}
-      </v-card-subtitle>
-      <div class="progressBar-div">
-        <div class="progressBar" :style="{width : bringmainDeadline.progressBarPercent02 +'%'}">
-          <!--            프로그래스 바            -->
-        </div>
-      </div>
-
-
-      <v-card-text class="text--primary">
-        <div class ="fundingname">{{bringmainDeadline.fundingname02}}님의 펀딩 상품</div>
-
-        <div class="fundingmoeny"> {{bringmainDeadline. fundingMoney02}} 원 펀딩</div>
-      </v-card-text>
-
-    </v-card>
-<!--    세번쨰 사진-->
-
-    <v-card
-        class="mx-auto"
-        max-width="300"
-
-    >
-      <img
-          class="white--text align-end"
-          height="200px"
-          v-bind:src="bringmainDeadline.presdeadimgUrl03" @click="$emit('bringdeadimg03Click')" alt="#"
-      >
-        <v-card-title>{{bringmainDeadline.fundingTitle03}}</v-card-title>
-
-
-      <v-card-subtitle class="pb-0">
-       {{bringmainDeadline.fundinging03}}
-      </v-card-subtitle>
-      <div class="progressBar-div">
-        <div class="progressBar" :style="{width : bringmainDeadline.progressBarPercent03 +'%'}">
-          <!--            프로그래스 바            -->
-        </div>
-      </div>
-
-
-      <v-card-text class="text--primary">
-        <div class ="fundingname">{{bringmainDeadline.fundingname03}}님의 펀딩 상품</div>
-
-        <div class="fundingmoeny">{{bringmainDeadline.fundingMoney03}} 원 펀딩</div>
-      </v-card-text>
-
-    </v-card>
-<!--    네번째 사진-->
-
-    <v-card
-        class="mx-auto"
-        max-width="300"
-
-    >
-      <img
-          class="white--text align-end"
-          height="200px"
-          v-bind:src="bringmainDeadline.presdeadimgUrl04" @click="$emit('bringdeadimg04Click')" alt="#"
-      >
-        <v-card-title>{{bringmainDeadline.fundingTitle04}}</v-card-title>
-
-
-      <v-card-subtitle class="pb-0">
-        {{bringmainDeadline.fundinging04}}
-      </v-card-subtitle>
-      <div class="progressBar-div">
-        <div class="progressBar" :style="{width : bringmainDeadline.progressBarPercent04 +'%'}">
-          <!--            프로그래스 바            -->
-        </div>
-      </div>
-
-
-      <v-card-text class="text--primary">
-        <div class ="fundingname">{{bringmainDeadline.fundingname04}}님의 펀딩 상품</div>
-
-        <div class="fundingmoeny">{{bringmainDeadline.fundingMoney04}} 원 펀딩</div>
-      </v-card-text>
-
-    </v-card>
 <!--    <template slot="next"><span class="next">next</span></template>-->
   </carousel>
   </div>

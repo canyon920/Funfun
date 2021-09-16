@@ -31,7 +31,24 @@
       <!-- 사이즈 조정 디브  -->
       <div class = "second">
         <div class ="search">
-          <MainSearch :bringmainsearch="mainSearch"/>
+
+          <div class ="search-second">
+            <h2>친구를 검색해 주세요.</h2>
+            <v-text-field
+                outlined
+                label="친구찾기"
+                prepend-inner-icon="mdi-map-marker" v-model="friendName" >
+              <v-icon>fas fa-search</v-icon>
+            </v-text-field>
+            <ul>
+              <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
+              <div v-for="friend in friends" :key="friend" v-if="friend.name.includes(friendName)">
+                {{friend.name}}
+              </div>
+            </ul>
+          </div>
+          <MainSearch :bringmainsearch="mainSearch" />
+
         </div>
         <div class = "menu">
 
@@ -104,74 +121,74 @@ export default {
         username:"춘식",
         fundinglist:"펀딩중인 상품이 없어요",
       },
-      mainEvent: {
-        preforchangeventUrl:'',
-        presimgUrl01:"http://127.0.0.1:8887/cake.jpg",
-        presimgUrl02:"http://127.0.0.1:8887/cake.jpg",
+      friends: [
+            {name: '춘식이'},
+            {name: '라이언'},
+            {name: '티코'},
+            {name: '라둥이'},
+          ],
+          friend: {
+            name: '',
+          },
+          friendName: '',
 
-      },
-      mainDeadline:{
-        preforchandeadUrl:'',
-        fundingTitle01: '펀딩타이틀1',
-        fundinging01: '진행률',
-        progressBarPercent01:10,
-        fundingname01: '신가비',
-        fundingMoney01: 3000,
-
-        fundingTitle02: '펀딩타이틀2',
-        fundinging02: '진행중',
-        progressBarPercent02:30,
-        fundingname02: '피넛',
-        fundingMoney02: 3000,
-
-        fundingTitle03: '펀딩타이틀3',
-        fundinging03: '진행중',
-        progressBarPercent03:20,
-        fundingname03: '요니제이',
-        fundingMoney03: 3000,
-
-        fundingTitle04: '펀딩타이틀4',
-        fundinging04: '진행중',
-        progressBarPercent04:50,
-        fundingname04: '허니제이',
-        fundingMoney04: 3000,
-        presdeadimgUrl01:"http://127.0.0.1:8887/cake.jpg",
-        presdeadimgUrl02:"http://127.0.0.1:8887/cake.jpg",
-        presdeadimgUrl03:"http://127.0.0.1:8887/cake.jpg",
-        presdeadimgUrl04:"http://127.0.0.1:8887/cake.jpg",
-
-      },
-      mainJoin:{
-        presJoinUrl01:"http://127.0.0.1:8887/cake.jpg",
-        presJoinUrl02:"http://127.0.0.1:8887/cake.jpg",
-        presJoinUrl03:"http://127.0.0.1:8887/cake.jpg",
-        presJoinUrl04:"http://127.0.0.1:8887/cake.jpg",
-        funding_title01:'농식품 펀딩 전용관',
-        fundinging01:'진행중',
-        progressBarPercent01:30,
-        fundingname01:'김춘식',
-        fundingMoney01:'3500',
-
-        funding_title02:'b',
-        fundinging02:'진행중',
-        progressBarPercent02:50,
-        fundingname02:'라이언',
-        fundingMoney02:'555',
-
-        funding_title03:'c',
-        fundinging03:'진행중',
-        progressBarPercent03:40,
-        fundingname03:'라둥이',
-        fundingMoney03:'66600',
-
-        funding_title04:'d',
-        fundinging04:'진행중',
-        progressBarPercent04:80,
-        fundingname04:'김삼식',
-        fundingMoney04:'20000',
+      mainEvent: [
+          {
+            presimgUrl:"http://127.0.0.1:8887/cake.jpg",
+            eventTitle:"8월에 태어난 친구에게 추천선물",subTitle:"부연설명"},
+          {  presimgUrl:"http://127.0.0.1:8887/cake.jpg",
+          eventTitle:"10월에 태어난 ",subTitle:"부연설명"},
+      ],
+      preforchangeventUrl:'',
 
 
-      },
+      mainDeadline:[
+          {
+            presdeadimgUrl:"http://127.0.0.1:8887/cake.jpg",
+            fundingTitle:'펀딩타이틀1',fundinging: '진행중',
+            progressBarPercent: 20, fundingname: 'ㅇㅇ',fundingMoney: 3000,
+          },
+        {
+          presdeadimgUrl:"http://127.0.0.1:8887/cake.jpg",
+          fundingTitle:'펀딩타이틀2',fundinging: '진행중', progressBarPercent: 20,
+          fundingname: '코코',fundingMoney: 3000,
+        },
+        {
+          presdeadimgUrl:"http://127.0.0.1:8887/cake.jpg",
+          fundingTitle:'펀딩타이틀3',fundinging: '진행중',
+          progressBarPercent: 50, fundingname: '곽두팔',fundingMoney: 3000,
+        },
+        {
+          presdeadimgUrl:"http://127.0.0.1:8887/cake.jpg",
+          fundingTitle:'펀딩타이틀4',fundinging: '진행중',
+          progressBarPercent: 80, fundingname: '두팔',fundingMoney: 3000,
+        },
+
+      ],
+
+      mainJoin:[
+        {
+          presJoinUrl:"http://127.0.0.1:8887/cake.jpg",
+          funding_title:'펀딩타이틀1',fundinging: '진행중',
+          progressBarPercent: 20, fundingname: '두팔',fundingMoney: 3000,
+        },
+        {
+          presJoinUrl:"http://127.0.0.1:8887/cake.jpg",
+          funding_title:'펀딩타이틀2',fundinging: '진행중', progressBarPercent: 20,
+          fundingname: '춘식',fundingMoney: 3000,
+        },
+        {
+          presJoinUrl:"http://127.0.0.1:8887/cake.jpg",
+          funding_title:'펀딩타이틀3',fundinging: '진행중',
+          progressBarPercent: 50, fundingname: '라둥',fundingMoney: 3000,
+        },
+        {
+          presJoinUrl:"http://127.0.0.1:8887/cake.jpg",
+          funding_title:'펀딩타이틀4',fundinging: '진행중',
+          progressBarPercent: 80, fundingname: '라이언',fundingMoney: 3000,
+        },
+
+      ],
       methods: {
         img01Click(){
           this.preforchangeventUrl=this.mainEvent.presimgUrl01
@@ -207,6 +224,11 @@ export default {
 .menu{
    text-align: center;
 }
-
+.search-second{
+  margin-top:50px;
+}
+.search-second h2{
+  padding-bottom: 30px;
+}
 
 </style>
