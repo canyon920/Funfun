@@ -5,7 +5,7 @@
         <v-row no-gutters>
           <v-img
               :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
-              src="https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80"
+              src="@/assets/first/first2.jpg"
           >
             <v-theme-provider dark>
               <v-container fill-height>
@@ -39,7 +39,7 @@
 
                   <v-btn
                       class="align-self-end"
-                      color="orange darken-2"
+                      color="white"
                       fab
                       outlined
                       @click="$vuetify.goTo('#about-me')"
@@ -54,44 +54,49 @@
       </section>
 
       <section id="about-me">
-        <div class="py-12"></div>
-
-        <v-container class="text-center">
-          <h2 class="display-2 font-weight-bold mb-3">간략 설명 및 바로가기</h2>
-
-          <v-responsive
-              class="mx-auto mb-8"
-              width="56"
+        <v-row no-gutters>
+          <v-img
+              :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
+              src="@/assets/first/first3.jpg"
           >
-            <v-divider class="mb-1"></v-divider>
+            <v-theme-provider dark>
+              <v-container fill-height>
+                <v-row
+                    align="center"
+                    class="white--text mx-auto"
+                    justify="center"
+                >
+                  <v-col
+                      class="white--text text-center"
+                      cols="12"
+                      tag="h1"
+                  >
+                    <span
+                        :class="[$vuetify.breakpoint.smAndDown ? 'display-1' : 'display-2']"
+                        class="font-weight-light"
+                    >
+                      지금 바로 시작하세요
+                    </span>
 
-            <v-divider></v-divider>
-          </v-responsive>
+                    <br>
 
-          <v-responsive
-              class="mx-auto title font-weight-light mb-8"
-              max-width="720"
-          >
-            배경 이미지 삽입 또는 설명
-          </v-responsive>
+                  </v-col>
 
-
-
-          <div></div>
-
-          <v-btn
-              color="orange darken-2"
-              to = "/Login"
-              outlined
-              large
-          >
-            <span class="orange--text text--darken-2 font-weight-bold">
-              바로가기
-            </span>
-          </v-btn>
-        </v-container>
-
-        <div class="py-12"></div>
+                    <v-btn
+                        color="orange darken-2"
+                        to = "/Login"
+                        outlined
+                        large
+                    >
+                      <span class="orange--text text--darken-2 font-weight-bold">
+                        바로가기
+                      </span>
+                    </v-btn>
+                </v-row>
+              </v-container>
+            </v-theme-provider>
+          </v-img>
+        </v-row>
       </section>
 
       <section id="blog">
@@ -143,7 +148,7 @@
       <section id="stats">
         <v-parallax
             :height="$vuetify.breakpoint.smAndDown ? 700 : 500"
-            src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+            src="@/assets/first/first5.jpg"
         >
           <v-container fill-height>
             <v-row class="mx-auto">
@@ -186,26 +191,26 @@ export default {
     return {
       articles: [
         {
-          src: 'https://images.unsplash.com/photo-1423784346385-c1d4dac9893a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
-          title: '제목',
-          text: '설명',
+          src: 'https://images.unsplash.com/photo-1593510987760-2d895bc8109d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
+          title: '쉽고 간편하게 하세요',
+          text: '어렵게 생각하지 마세요. 원하는 상품을 언제나 쉽고 간편하게 펀딩할 수 있습니다',
         },
         {
-          src: 'https://images.unsplash.com/photo-1475938476802-32a7e851dad1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
-          title: '제목',
-          text: '설명',
+          src: 'https://images.unsplash.com/photo-1579208575657-c595a05383b7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
+          title: '친구에게 알려보세요',
+          text: '자신이 신청한 펀딩을 많은 친구들에게 간편하게 공유하세요.',
         },
         {
-          src: 'https://images.unsplash.com/photo-1416339442236-8ceb164046f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1892&q=80',
-          title: '제목',
-          text: '설명',
+          src: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
+          title: '다양한 상품이 준비되어 있습니다',
+          text: '여러 카테고리의 다양한 상품 중 마음에 드는 것을 골라보세요.',
         },
       ],
       stats: [
         ['펀딩', '누구나 할 수 있습니다'],
         ['선물', '자신에게 선물해보세요'],
         ['공유', '친구에게 알리세요'],
-        ['제품 ', '다양한 제품들이 준비되어 있습니다'],
+        ['상품 ', '다양한 상품들이 준비되어 있습니다'],
       ],
     }
   }
