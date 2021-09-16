@@ -7,9 +7,9 @@
 </template>
 
 <script>
+
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-
 export default {
   name: 'App',
   components: {Footer, Header},
@@ -20,8 +20,6 @@ export default {
 </script>
 <style>
 #app {
-
-
   display: flex;
   flex-direction:column;
   flex-wrap: wrap;

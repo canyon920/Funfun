@@ -2,35 +2,34 @@
   <nav class="navbar">
     <div class="navbar-logo">
       <div class="ml-lg-16">
-        <router-link to="/">
-          <v-img class="ml-lg-4" max-height="60"
-               max-width="200" src="@/assets/logo/logo1.jpg"></v-img>
-        </router-link>
+        <v-img class="ml-lg-4" max-height="60"
+               max-width="200" src="@/assets/logo1.jpg"></v-img>
       </div>
     </div>
     <div class="navbar-menu1">
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/Home">Home</router-link></div>
+      <div class="link-div"><router-link style="color: black" class="router-link" to="/">Home</router-link></div>
       <div class="link-div">Shop</div>
       <div class="link-div"><router-link style="color: black" class="router-link" to="/about">About</router-link></div>
 
     </div>
     <v-spacer></v-spacer>
     <div class="navbar-menu2">
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/memberdetail" v-if="accessToken != null"><v-icon>mdi-account-circle</v-icon></router-link></div>
-      <div v-if="accessToken != null">UserName</div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="#" v-if="accessToken != null" v-on:click.native="logout()">Logout</router-link></div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/login" v-if="accessToken==null">Login</router-link></div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/join" v-if="accessToken==null">Join</router-link></div>
-      <router-link to="#" v-show="accessToken" v-on:click.native="unlink()"> | Kakao Unlink</router-link>
+<!--      <div class="memberdetail"><router-link style="color: black" class="router-link" to="/memberdetail" v-if="accessToken != null"><v-icon>mdi-account-circle</v-icon></router-link></div>-->
+<!--      <div class="name" id="name" v-if="accessToken != null"></div>-->
+<!--      <input type="text" class="name" value="name" v-if="accessToken != null" />-->
+      <div class="link-div"><router-link style="color: black" class="router-link" to="#" v-if="accessToken != null " v-on:click.native="logout()">Logout</router-link></div>
+      <div class="link-div"><router-link style="color: black" class="router-link" to="/login" v-if="accessToken==null ">Login</router-link></div>
+      <div class="link-div"><router-link style="color: black" class="router-link" to="/join" v-if="accessToken==null ">Join</router-link></div>
+      <router-link to="#" v-show="accessToken" v-on:click.native="unlink()"> Kakao Unlink</router-link>
       <div class="link-div">Help</div>
-      </div>
+    </div>
       <div class="mr-lg-16">
         <div class="navbar-search">
           <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>
           <v-text-field class="mt-lg-5 mt-md-5"
                         placeholder="친구검색"
                         rounded
-                        filled
+                        filled="#ffcc99"
                         dense
           ></v-text-field>
         </div>
@@ -40,6 +39,12 @@
           <v-icon @click="toggleDown" >mdi-dots-vertical</v-icon>
         </v-btn>
       </div>
+    <div class="name">
+      <div class="name pr-2" id="name" v-if="accessToken != null ">name</div>
+    </div>
+    <div class="memberdetail">
+      <div class="memberdetail"><router-link style="color: black" class="router-link" to="/memberdetail" v-if="accessToken != null"><v-icon>mdi-account-circle</v-icon></router-link></div>
+    </div>
   </nav>
 </template>
 
@@ -48,19 +53,24 @@
 import router from "../../router";
 
 export default {
+  name:"header",
   data()  {
     return{
       accessToken: window.Kakao.Auth.getAccessToken(),
-      reloadPage:true
+      accessTokenN: window.naver.getAccessToken(),
+      reloadPage:true,
+      // name: this.getNickname().kakaoNicname
+
+     // name : this.getNickname()
     }
   },
-  methods:{
-    toggleDown(){
+  methods: {
+    toggleDown() {
       const nav_toggle = document.querySelector('.nav_toggle');
       const menu1 = document.querySelector('.navbar-menu1');
       const menu2 = document.querySelector('.navbar-menu2');
 
-      nav_toggle.addEventListener('click',()=>{
+      nav_toggle.addEventListener('click', () => {
         menu1.classList.toggle('active');
         menu2.classList.toggle('active');
       });
@@ -94,8 +104,32 @@ export default {
         },
       });
     },
-  }
+    /*getNickname() {
+      window.Kakao.API.request({
+        url: '/v2/user/me',
+        success: res => {
+          const kakaoNicname = res.properties.nickname
+          console.log(kakaoNicname);
+          // document.getElementById("name").value = kakaoNicname;
+          var element = document.getElementById("name");
+          console.log("$$$$",element);
+          element.innerText=kakaoNicname;
+          document.write(element.innerText);
+        },
+        fail: function (error) {
+          console.log(
+              'login success, but failed to request user information: ' +
+              JSON.stringify(error)
+          )
+        },
+      })
+    },*/
+  },
+  // updated() {
+  //   this.getNickname();
+  // }
 };
+
 </script>
 
 <style>
@@ -143,13 +177,24 @@ body{
 .navbar-search{
   display: flex;
   align-items: center;
-  padding-right: 10px;
+  padding-right: 75px;
   padding-top: 7px;
 }
 .nav_toggle{
   position: absolute;
   right: 22px;
   top: 15px;
+  display: none;
+}
+.memberdetail{
+  position: absolute;
+  right: 25px;
+  top:10px
+}
+.name{
+  position: absolute;
+  right: 40px;
+  top: 10px;
   display: none;
 }
 
@@ -182,6 +227,15 @@ body{
   .navbar-menu2.active{
     display: flex;
   }
+  .memberdetail{
+    position: absolute;
+    right: 25px;
+    top:10px
+  }
+  .name{
+    display: none;
+  }
+
 
 
 }
