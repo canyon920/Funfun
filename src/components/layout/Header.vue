@@ -30,7 +30,7 @@
           <v-text-field class="mt-lg-5 mt-md-5"
                         placeholder="친구검색"
                         rounded
-                        filled="#ffcc99"
+                        filled
                         dense
           ></v-text-field>
         </div>
@@ -48,7 +48,6 @@
 import router from "../../router";
 
 export default {
-  name:"header",
   data()  {
     return{
       accessToken: window.Kakao.Auth.getAccessToken(),
