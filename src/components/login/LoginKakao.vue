@@ -6,35 +6,46 @@
 </template>
 
 <script>
-
+import {OauthSendServerData} from "@/service/kakao-login";
+import {bringMemberLoginDatafromSerber} from "@/service/kakao-login";
 // import router from "../../router";
 
 export default {
   name: "LoginKakao",
+  data(){
+    return{
+      // sendServerData:{
+      //   sendMemberEmail : "dkskak",
+      //   sendMemberNicname : '',
+      //   sendMemberApi : '',
+      //   sendMemberProfile : '',
+      // }
+    }
+  },
   methods: {
-    loginWithKakao:function () {
-      window.Kakao.Auth.authorize({
-        redirectUri:"http://localhost:8080/auth",
-      });
-      console.log('카카오 인증 코드', this.$route.query.code);
-
-
-    },
-    kakaoLogin(){
-      console.log("#카카오로그인메소드")
+     kakaoLogin(){
       window.Kakao.Auth.login({
         scope: 'account_email, profile_image, profile_nickname',
         success: function(authObj) {
-          console.log("#1",authObj);
+
+          // 카카오톡에 토큰 할당
+          window.Kakao.Auth.setAccessToken(authObj.access_token)
+          // 카카오톡 리프레시 토큰 세션에 저장
+          window.sessionStorage.setItem("kakao_refresh_token", authObj.refresh_token)
+
+          console.log("카카오에 할당한 토큰 : ",window.Kakao.Auth.getAccessToken())
+          console.log("세션에 저장한 토큰 : ",window.sessionStorage.getItem("kakao_refresh_token"))
+
           window.Kakao.API.request({
             url: '/v2/user/me',
             success: res => {
-              const kakao_account = res.kakao_account;
-              // const kakaoNicname = res.properties.nickname
-
-              console.log("#2",kakao_account);
-              // router.go("/")
-              console.log("#2.5",document.cookie);
+              // const kakao_account = res.kakao_account;
+              OauthSendServerData.sendMemberEmail = res.kakao_account.email
+              OauthSendServerData.sendMemberNicname = res.properties.nickname
+              OauthSendServerData.sendMemberApi = "Kakao"
+              OauthSendServerData.sendMemberProfile = res.properties.profile_image
+              console.log(OauthSendServerData.sendMemberEmail)
+              bringMemberLoginDatafromSerber()
             },
             fail: function(error) {
               console.log(
@@ -48,31 +59,8 @@ export default {
           console.log(JSON.stringify(err))
         },
       })
-
     },
-  //   displayToken() {
-  //     console.log("디스플레이토큰실행")
-  //     const token = this.getCookie('authorize-access-token')
-  //     if(token) {
-  //       window.Kakao.Auth.setAccessToken(token)
-  //       window.Kakao.Auth.getStatusInfo(({ status }) => {
-  //         if(status === 'connected') {
-  //           console.log(token)
-  //           document.getElementById('token-result').innerText = 'login success. token: ' + window.Kakao.Auth.getAccessToken()
-  //         } else {
-  //           window.Kakao.Auth.setAccessToken(null)
-  //         }
-  //       })
-  //     }
-  //   },
-  //   getCookie:function (name){
-  //     const value = "; " + document.cookie;
-  //     const parts = value.split("; " + name + "=");
-  //     if (parts.length === 2) return parts.pop().split(";").shift();
-  //   }
-  // },
-  // mounted() {
-  //   this.kakaoLogin();
+
   }
 
 };

@@ -71,6 +71,8 @@ export default {
     },
     logout(type) { // 카카오 로그아웃
       window.Kakao.Auth.logout(function () {
+        window.localStorage.clear()
+        window.sessionStorage.clear()
         if (type) { // "unlink"
           console.log("#4 : Unlinked Kakao Account!");
         } else {

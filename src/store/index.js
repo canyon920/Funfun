@@ -15,6 +15,7 @@ export default new Vuex.Store({
   modules: {
     member
   },
+  // localStorage 에 저장
   plugins:[
       createPersistedState({
         paths:["member"]

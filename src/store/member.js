@@ -6,12 +6,12 @@ export default {
     // data
     state: function () {
         return {
-            accessToken: '',
-            refreshToken: '',
             memberId: '',
             memberEmail:'',
+            memberNicname:'',
             memberApi:'',
-            memberNicname:''
+            memberRole:'',
+            memberProfile:''
         }
     },
     // cpomputed
@@ -21,41 +21,63 @@ export default {
     mutations: {
         setMember(state, res){
             console.log(res)
-            state.accessToken = res.data.access_token
-            state.refreshToken = res.data.refresh_token
-            state.memberId = res.data.member_id
-            state.memberEmail = res.data.member_email
-            state.memberApi = "normal"
-            state.memberNicname = res.data.member_nic_name
+            state.memberId = res.data.id
+            state.memberEmail = res.data.email
+            state.memberNicname = res.data.nic_name
+            state.memberApi = res.data.login_api
+            state.memberRole = res.data.role
+            state.memberProfile = res.data.profileImg
             return true
         }
     },
-    // 비동기 메소드
+    // 비동기 메소드 => dispatch
     actions: {
-        async normalLogin ({ commit }, payload) {
-            console.log("뷰x 로 실행")
-            const { memberEmail, memberPwd } = payload
-            let form = new FormData();
-            form.append("username", memberEmail)
-            form.append("password", memberPwd)
-            console.log("아시오스 전송 전")
-            await axios.post("http://localhost:9090/api/login",form,
-            ).then(res =>{
-                console.log(res)
-                commit('setMember', res)
-                }
-            ).catch(e=>{
-                console.log("아시오스 전송 실패")
-                console.log(e)
-                console.log(e.status)
-                console.log(e.statusMessage)
-                console.log(e.statusCode)
-            })
+
+        async oauthApiLogin(context, payload) {
+            console.log("# oauthApiLogin()  실행")
+            const {memberEmail, memberNicname, memberApi, memberProfile} = payload
+            let form = new FormData()
+            form.append("email", memberEmail)
+            form.append("nic_name", memberNicname)
+            form.append("login_api", memberApi)
+            form.append("file_src", memberProfile)
+            await axios.post("http://localhost:9090/api/login/oauth/save/member", form)
+                .then(res => {
+                    console.log(res)
+                    context.commit('setMember',res)
+                }).catch(e =>{
+                    console.log(e)
+                    alert("로그인 통신 오류입니다.")
+                    window.Kakao.Auth.logout(
+                        this.$router.push("/")
+                    )
+                })
+        },
+
+        // async normalLogin ({ commit }, payload) {
+        //     console.log("뷰x 로 실행")
+        //     const { memberEmail, memberPwd } = payload
+        //     let form = new FormData();
+        //     form.append("username", memberEmail)
+        //     form.append("password", memberPwd)
+        //     console.log("아시오스 전송 전")
+        //     await axios.post("http://localhost:9090/api/login",form,
+        //     ).then(res =>{
+        //         console.log(res)
+        //         commit('setMember', res)
+        //         }
+        //     ).catch(e=>{
+        //         console.log("아시오스 전송 실패")
+        //         console.log(e)
+        //         console.log(e.status)
+        //         console.log(e.statusMessage)
+        //         console.log(e.statusCode)
+        //     })
             // if (this.accessToken.length) {
             //     console.log("로그인 성공 이동해야한다")
             //     this.$router.push("/detail-page")
             // }
-        }
+        // }
 
         /*
         * setMember(state, payload){
