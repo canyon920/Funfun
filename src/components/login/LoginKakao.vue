@@ -6,20 +6,15 @@
 </template>
 
 <script>
-import {OauthSendServerData} from "@/service/kakao-login";
-import {bringMemberLoginDatafromSerber} from "@/service/kakao-login";
+import {OauthSendServerData} from "@/service/member-login";
+import {bringMemberLoginDatafromSerber} from "@/service/member-login";
 // import router from "../../router";
 
 export default {
   name: "LoginKakao",
   data(){
     return{
-      // sendServerData:{
-      //   sendMemberEmail : "dkskak",
-      //   sendMemberNicname : '',
-      //   sendMemberApi : '',
-      //   sendMemberProfile : '',
-      // }
+
     }
   },
   methods: {
@@ -33,8 +28,8 @@ export default {
           // 카카오톡 리프레시 토큰 세션에 저장
           window.sessionStorage.setItem("kakao_refresh_token", authObj.refresh_token)
 
-          console.log("카카오에 할당한 토큰 : ",window.Kakao.Auth.getAccessToken())
-          console.log("세션에 저장한 토큰 : ",window.sessionStorage.getItem("kakao_refresh_token"))
+          // console.log("카카오에 할당한 토큰 : ",window.Kakao.Auth.getAccessToken())
+          // console.log("세션에 저장한 토큰 : ",window.sessionStorage.getItem("kakao_refresh_token"))
 
           window.Kakao.API.request({
             url: '/v2/user/me',
@@ -44,7 +39,7 @@ export default {
               OauthSendServerData.sendMemberNicname = res.properties.nickname
               OauthSendServerData.sendMemberApi = "Kakao"
               OauthSendServerData.sendMemberProfile = res.properties.profile_image
-              console.log(OauthSendServerData.sendMemberEmail)
+              // console.log(OauthSendServerData.sendMemberEmail)
               bringMemberLoginDatafromSerber()
             },
             fail: function(error) {

@@ -18,6 +18,11 @@ export var memberObj = {
     memberProfile : ''
 }
 
+export var funTokens = {
+    access_token: '',
+    refresh_token: '',
+}
+
 // API 로그인 시도 => 새로고침시 로그인 정보 유지할 수 있도록 로컬스트로지에 저장
 export async function bringMemberLoginDatafromSerber() {
     let form = new FormData()
@@ -33,16 +38,34 @@ export async function bringMemberLoginDatafromSerber() {
             memberObj.memberApi = res.data.login_api
             memberObj.memberRole = res.data.role
             memberObj.memberProfile = res.data.profileImg
+
             let login_member = JSON.stringify(memberObj)
             window.localStorage.setItem('login_member', login_member)
-            console.log("로컬에 저장된 값 : ",JSON.parse(window.localStorage.getItem('login_member')))
-            router.push('/')
+
+            bringFunTokens().then(
+                console.log("가기전 : ",funTokens.access_token)
+            )
+            // console.log("로컬에 저장된 값 : ",JSON.parse(window.localStorage.getItem('login_member')))
+            // router.go("/")
 
         }).catch(e=>{
             console.log(e)
             window.Kakao.Auth.logout(()=>{
                 alert("현재 로그인을 할 수 없습니다..")
                 router.push('/')
+
             })
+        })
+}
+
+export async function bringFunTokens() {
+    let form = new FormData()
+    form.append('email', memberObj.memberEmail);
+    await axios.post("http://localhost:9090/api/login/oauth/get/tokens",form)
+        .then(res => {
+            console.log("응답 : ", res)
+            funTokens.access_token = res.data.access_token
+            funTokens.refresh_token = res.data.refresh_token
+            window.sessionStorage.setItem('refresh_token',funTokens.refresh_token)
         })
 }

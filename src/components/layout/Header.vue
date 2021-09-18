@@ -3,8 +3,8 @@
     <div class="navbar-logo">
       <div class="ml-lg-16">
         <router-link to="/">
-        <v-img class="ml-lg-4" max-height="60"
-               max-width="200" src="@/assets//logo/logo1.jpg"></v-img>
+          <v-img class="ml-lg-4" max-height="60"
+                 max-width="200" src="@/assets//logo/logo1.jpg"></v-img>
         </router-link>
       </div>
     </div>
@@ -16,50 +16,56 @@
     </div>
     <v-spacer></v-spacer>
     <div class="navbar-menu2" :class="{active : booleanMenu2}">
-<!--      <div class="memberdetail"><router-link style="color: black" class="router-link" to="/memberdetail" v-if="accessToken != null"><v-icon>mdi-account-circle</v-icon></router-link></div>-->
-<!--      <div class="name" id="name" v-if="accessToken != null"></div>-->
-<!--      <input type="text" class="name" value="name" v-if="accessToken != null" />-->
-      <div class="link-div"><router-link style="color: black" class="router-link" to="#" v-if="accessToken != null " v-on:click.native="logout()">Logout</router-link></div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/login" v-if="accessToken==null ">Login</router-link></div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/join" v-if="accessToken==null ">Join</router-link></div>
-      <router-link to="#" v-show="accessToken" v-on:click.native="unlink()"> Kakao Unlink</router-link>
+      <div class="link-div" v-show="memberInfo.memberApi === 'Kakao'" @click="Klogout()"><router-link style="color: black" class="router-link" to="#" >KLogout</router-link></div>
+      <div class="link-div" v-show="memberInfo.memberApi === 'Google'" @click="Glogout()"><router-link style="color: black" class="router-link" to="#" >GLogout</router-link></div>
+      <div class="link-div" v-show="memberInfo.memberApi === 'Naver'" @click="Nlogout()"><router-link style="color: black" class="router-link" to="#" >NLogout</router-link></div>
+      <div class="link-div" v-show="memberInfo.memberApi === 'Email'" @click="Flogout()"><router-link style="color: black" class="router-link" to="#" >FLogout</router-link></div>
+      <div class="link-div" v-show="!loginStatus"><router-link style="color: black" class="router-link" to="/login" >Login</router-link></div>
+      <div class="link-div" v-show="!loginStatus"><router-link style="color: black" class="router-link" to="/join" >Join</router-link></div>
+      <!--      <router-link to="#" v-show="loginStatus" v-on:click.native="unlink()"> Kakao Unlink</router-link>-->
       <div class="link-div"><router-link style="color: black" class="router-link" to="/help">Help</router-link></div>
     </div>
-      <div class="mr-lg-16">
-        <div class="navbar-search">
-          <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>
-          <v-text-field class="mt-lg-5 mt-md-5"
-                        placeholder="친구검색"
-                        rounded
-                        filled
-                        dense
-          ></v-text-field>
-        </div>
+    <div class="mr-lg-16">
+      <div class="navbar-search">
+        <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>
+        <v-text-field class="mt-lg-5 mt-md-5"
+                      placeholder="친구검색"
+                      rounded
+                      filled
+                      dense
+        ></v-text-field>
       </div>
-      <div class="nav_toggle" @click="toggleDown">
-        <v-btn icon >
-          <v-icon  >mdi-dots-vertical</v-icon>
-        </v-btn>
-      </div>
+    </div>
+    <div class="nav_toggle" @click="toggleDown">
+      <v-btn icon >
+        <v-icon  >mdi-dots-vertical</v-icon>
+      </v-btn>
+    </div>
     <div class="name">
-      <div class="name pr-2" id="name" v-if="accessToken != null ">name</div>
+      <div class="name pr-2" id="name" v-show="loginStatus">name</div>
     </div>
     <div class="memberdetail">
-      <div class="memberdetail"><router-link style="color: black" class="router-link" to="/memberdetail" v-if="accessToken != null"><v-icon>mdi-account-circle</v-icon></router-link></div>
+      <div class="memberdetail"><router-link style="color: black" class="router-link" to="/memberdetail" v-show="loginStatus"><v-icon>mdi-account-circle</v-icon></router-link></div>
     </div>
   </nav>
 </template>
 
 <script>
+import router from "@/router";
+// import {funTokens} from "@/service/member-login";
 
-// import router from "../../router";
 
 export default {
   name:"Header",
   data()  {
     return{
-      accessToken: window.Kakao.Auth.getAccessToken(),
-      reloadPage:true,
+      loginStatus: this.$store.state.member.memberId,
+      memberInfo:{
+        memberNicname : '',
+        memberApi : '',
+        memberRole : '',
+      },
+      // reloadPage:true,
       booleanMenu1: false,
       booleanMenu2: false,
     }
@@ -69,63 +75,58 @@ export default {
       this.booleanMenu1 = !this.booleanMenu1
       this.booleanMenu2 = !this.booleanMenu2
     },
-    logout(type) { // 카카오 로그아웃
+    Klogout() { // 카카오 로그아웃
       window.Kakao.Auth.logout(function () {
         window.localStorage.clear()
         window.sessionStorage.clear()
-        if (type) { // "unlink"
-          console.log("#4 : Unlinked Kakao Account!");
-        } else {
-          console.log("#3 : Logout Account!");
-        }
-        // router.push("login");
-        // this.$nextTick( router.push("login"));
+      })
+      router.push("/",this.isLogin())
 
-        // 로그아웃 되고 갈곳
-        // router.go(router.currentRoute)
-
-
-      });
+      // window.location.href("http://localhost:8080/")
     },
     unlink() {  // 카카오 계정 연결끊기
       let logout = this.logout;
       window.Kakao.API.request({
         url: "/v1/user/unlink",
         success: function (response) {
-          console.log(response);
-          logout("unlink");
+          console.log(response)
+          logout()
         },
         fail: function (error) {
-          console.log(error);
-          alert(error);
-          return;
+          console.log(error)
+          alert(error)
+          return
         },
       });
     },
-    /*getNickname() {
-      window.Kakao.API.request({
-        url: '/v2/user/me',
-        success: res => {
-          const kakaoNicname = res.properties.nickname
-          console.log(kakaoNicname);
-          // document.getElementById("name").value = kakaoNicname;
-          var element = document.getElementById("name");
-          console.log("$$$$",element);
-          element.innerText=kakaoNicname;
-          document.write(element.innerText);
-        },
-        fail: function (error) {
-          console.log(
-              'login success, but failed to request user information: ' +
-              JSON.stringify(error)
-          )
-        },
+    Glogout() {
+      const authInst = window.gapi.auth2.getAuthInstance();
+      authInst.signOut().then(() => {
+        console.log("User Signed Out!")
+        window.localStorage.clear()
+        window.sessionStorage.clear()
       })
-    },*/
+    },
+    isLogin() {
+      if (localStorage.getItem('login_member') !== null) {
+        this.memberInfo = JSON.parse(localStorage.getItem('login_member'))
+        this.loginStatus = true
+        console.log(this.loginStatus)
+        console.log(this.memberInfo)
+      } else {
+        this.loginStatus = false
+        console.log(this.loginStatus)
+      }
+    }
   },
-  // updated() {
-  //   this.getNickname();
-  // }
+  mounted() {
+    // this.isLogin(),
+    //     console.log("access toeken : ",funTokens.access_token)
+    // // function authInst () {
+    // //   console.log("sss",window.gapi.auth2.getAuthInstance());
+    // // }
+  }
+
 };
 </script>
 
