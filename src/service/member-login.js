@@ -41,6 +41,7 @@ export async function bringMemberLoginDatafromSerber() {
             memberObj.memberProfile = res.data.profileImg
 
             let login_member = JSON.stringify(memberObj)
+            //로컬스토리지에 -> 로그인사용자정보저장
             window.localStorage.setItem('login_member', login_member)
 
             bringFunTokens().then(
@@ -67,6 +68,11 @@ export async function bringFunTokens() {
             console.log("응답 : ", res)
             funTokens.access_token = res.data.access_token
             funTokens.refresh_token = res.data.refresh_token
-            window.sessionStorage.setItem('refresh_token',funTokens.refresh_token)
+            //세션스토리지에 -> 엑세스토큰저장
+            window.sessionStorage.setItem('access_token',funTokens.access_token)
+            //로컬스토리지에 -> 리프레시토큰저장
+            window.localStorage.setItem('refresh_token',funTokens.refresh_token)
+        }).catch(e=>{
+            console.log(e)
         })
 }

@@ -54,7 +54,6 @@
 
 <script>
 // import router from "@/router";
-import {funTokens} from "@/service/member-login";
 
 export default {
   name:"Header",
@@ -108,7 +107,6 @@ export default {
       })
     },
     isLogin() {
-      console.log("엑세스 토큰 : ",funTokens.access_token)
       if (localStorage.getItem('login_member') !== null) {
         this.memberInfo = JSON.parse(localStorage.getItem('login_member'))
         document.getElementById("join-div").hidden = true

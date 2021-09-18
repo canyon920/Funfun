@@ -23,10 +23,10 @@ export default {
         scope: 'account_email, profile_image, profile_nickname',
         success: function(authObj) {
 
-          // 카카오톡에 토큰 할당
+          // 카카오톡에 토큰 할당 ( 카카오에 따로 할당하는 것으로 봐선 추후에 엑세스토큰 알아서 가져다 쓰는듯 아니라면 우리가 로컬에저장후 쓰자 )
           window.Kakao.Auth.setAccessToken(authObj.access_token)
-          // 카카오톡 리프레시 토큰 세션에 저장
-          window.sessionStorage.setItem("kakao_refresh_token", authObj.refresh_token)
+          //세션스토리지에 -> 카카오 리프레시 토큰 저장
+          window.localStorage.setItem("kakao_refresh_token", authObj.refresh_token)
 
           // console.log("카카오에 할당한 토큰 : ",window.Kakao.Auth.getAccessToken())
           // console.log("세션에 저장한 토큰 : ",window.sessionStorage.getItem("kakao_refresh_token"))
