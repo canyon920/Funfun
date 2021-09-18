@@ -16,13 +16,15 @@
     </div>
     <v-spacer></v-spacer>
     <div class="navbar-menu2" :class="{active : booleanMenu2}">
-      <div class="link-div" v-show="memberInfo.memberApi === 'Kakao'" @click="Klogout()"><router-link style="color: black" class="router-link" to="#" >KLogout</router-link></div>
-      <div class="link-div" v-show="memberInfo.memberApi === 'Google'" @click="Glogout()"><router-link style="color: black" class="router-link" to="#" >GLogout</router-link></div>
-      <div class="link-div" v-show="memberInfo.memberApi === 'Naver'" @click="Nlogout()"><router-link style="color: black" class="router-link" to="#" >NLogout</router-link></div>
-      <div class="link-div" v-show="memberInfo.memberApi === 'Email'" @click="Flogout()"><router-link style="color: black" class="router-link" to="#" >FLogout</router-link></div>
-      <div class="link-div" v-show="!loginStatus"><router-link style="color: black" class="router-link" to="/login" >Login</router-link></div>
-      <div class="link-div" v-show="!loginStatus"><router-link style="color: black" class="router-link" to="/join" >Join</router-link></div>
-      <!--      <router-link to="#" v-show="loginStatus" v-on:click.native="unlink()"> Kakao Unlink</router-link>-->
+      <div class="link-div" id="kakao-div" @click="Klogout()" hidden>KLogout</div>
+      <div class="link-div" id="google-div" @click="Glogout()" hidden>GLogout</div>
+      <div class="link-div" id="naver-div" @click="Nlogout()" hidden>NLogout</div>
+      <div class="link-div" id="email-div" @click="Flogout()" hidden>FLogout</div>
+      <div class="link-div" id="login-div"><router-link style="color: black" class="router-link" to="/login" >Login</router-link></div>
+      <div class="link-div" id="join-div"><router-link style="color: black" class="router-link" to="/join" >Join</router-link></div>
+      <!--      <router-link to="#" v-on:click.native="unlink()"> Kakao Unlink</router-link>-->
+
+
       <div class="link-div"><router-link style="color: black" class="router-link" to="/help">Help</router-link></div>
     </div>
     <div class="mr-lg-16">
@@ -41,25 +43,23 @@
         <v-icon  >mdi-dots-vertical</v-icon>
       </v-btn>
     </div>
-    <div class="name">
-      <div class="name pr-2" id="name" v-show="loginStatus">name</div>
+    <router-link id="header-go-mypage" style="color: black" class="router-link" to="/memberdetail">
+    <div class="logininfo" id="login-info-div" style="display: none">
+      <div class="memberdetail"><v-icon>mdi-account-circle</v-icon></div>
+      <div class="name pr-2" style="font-size: 5px" id="name-div"></div>
     </div>
-    <div class="memberdetail">
-      <div class="memberdetail"><router-link style="color: black" class="router-link" to="/memberdetail" v-show="loginStatus"><v-icon>mdi-account-circle</v-icon></router-link></div>
-    </div>
+    </router-link>
   </nav>
 </template>
 
 <script>
-import router from "@/router";
-// import {funTokens} from "@/service/member-login";
-
+// import router from "@/router";
+import {funTokens} from "@/service/member-login";
 
 export default {
   name:"Header",
   data()  {
     return{
-      loginStatus: this.$store.state.member.memberId,
       memberInfo:{
         memberNicname : '',
         memberApi : '',
@@ -76,13 +76,12 @@ export default {
       this.booleanMenu2 = !this.booleanMenu2
     },
     Klogout() { // 카카오 로그아웃
+      let router = this.$router
       window.Kakao.Auth.logout(function () {
         window.localStorage.clear()
         window.sessionStorage.clear()
+        router.go(0)
       })
-      router.push("/",this.isLogin())
-
-      // window.location.href("http://localhost:8080/")
     },
     unlink() {  // 카카오 계정 연결끊기
       let logout = this.logout;
@@ -105,28 +104,70 @@ export default {
         console.log("User Signed Out!")
         window.localStorage.clear()
         window.sessionStorage.clear()
+        this.memberInfo = JSON.parse(localStorage.getItem('login_member'))
       })
     },
     isLogin() {
+      console.log("엑세스 토큰 : ",funTokens.access_token)
       if (localStorage.getItem('login_member') !== null) {
         this.memberInfo = JSON.parse(localStorage.getItem('login_member'))
-        this.loginStatus = true
-        console.log(this.loginStatus)
-        console.log(this.memberInfo)
-      } else {
-        this.loginStatus = false
-        console.log(this.loginStatus)
+        document.getElementById("join-div").hidden = true
+        document.getElementById("login-div").hidden = true
+        if (this.memberInfo.memberNicname) {
+          document.getElementById("login-info-div").style.display = 'flex';
+          document.getElementById("name-div").innerText = `${this.memberInfo.memberNicname}님 안녕하세요.`
+        }
+        if (this.memberInfo.memberApi === 'Kakao') {
+          document.getElementById("kakao-div").hidden = false
+        }else if (this.memberInfo.memberApi === 'Naver') {
+          document.getElementById("naver-div").hidden = false
+        }else if (this.memberInfo.memberApi === 'Google') {
+          document.getElementById("google-div").hidden = false
+        }else if (this.memberInfo.memberApi === 'Email') {
+          document.getElementById("email-div").hidden = false
+        }
+      } else if (localStorage.getItem('login_member') === null) {
+        document.getElementById("join-div").hidden = false
+        document.getElementById("login-div").hidden = false
+        if (this.memberInfo.memberNicname) {
+          document.getElementById("login-info-div").style.display = 'none';
+        }
+        document.getElementById("login-info-div").hidden = true
+        document.getElementById("kakao-div").hidden = true
+        document.getElementById("naver-div").hidden = true
+        document.getElementById("google-div").hidden = true
+        document.getElementById("email-div").hidden = true
+
       }
     }
+
   },
+  // computed:{
+  //   statusModify(){
+  //     if (localStorage.getItem('login_member') !== null) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   }
+  //
+  // },
+  // watch:{
+  //   statusModify() {
+  //     if (localStorage.getItem('login_member') !== null) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   }
+  // },
   mounted() {
-    // this.isLogin(),
+    this.isLogin()
     //     console.log("access toeken : ",funTokens.access_token)
     // // function authInst () {
     // //   console.log("sss",window.gapi.auth2.getAuthInstance());
     // // }
   }
-
 };
 </script>
 
@@ -175,7 +216,7 @@ body{
 .navbar-search{
   display: flex;
   align-items: center;
-  padding-right: 75px;
+  padding-right: 10px;
   padding-top: 7px;
 }
 .nav_toggle{
@@ -185,15 +226,24 @@ body{
   display: none;
 }
 .memberdetail{
-  position: absolute;
-  right: 25px;
-  top:10px
+
+  /*position: absolute;*/
+  /*right: 25px;*/
+  /*top:10px*/
 }
 .name{
-  position: absolute;
-  right: 40px;
-  top: 10px;
-  display: none;
+  /*position: absolute;*/
+  /*right: 40px;*/
+  /*top: 10px;*/
+  /*display: none;*/
+}
+.logininfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#header-go-mypage {
+  margin-right: 4%;
 }
 
 @media screen and (max-width: 1000px ) {
@@ -225,14 +275,9 @@ body{
   .navbar-menu2.active{
     display: flex;
   }
-  .memberdetail{
-    position: absolute;
-    right: 25px;
-    top:10px
-  }
-  .name{
-    display: none;
-  }
+.logininfo {
+  display: none !important;
+}
 
 
 

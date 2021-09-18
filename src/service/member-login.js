@@ -1,6 +1,7 @@
 // 여기 변수들도 새로고침시 초기화 된다.
 import axios from "axios";
 import router from "@/router";
+import Header from "@/components/layout/Header";
 
 export var OauthSendServerData = {
     sendMemberEmail : "",
@@ -46,13 +47,13 @@ export async function bringMemberLoginDatafromSerber() {
                 console.log("가기전 : ",funTokens.access_token)
             )
             // console.log("로컬에 저장된 값 : ",JSON.parse(window.localStorage.getItem('login_member')))
-            // router.go("/")
+            router.push("/",Header.methods.isLogin())
 
         }).catch(e=>{
             console.log(e)
             window.Kakao.Auth.logout(()=>{
                 alert("현재 로그인을 할 수 없습니다..")
-                router.push('/')
+                router.push('/',Header.methods.isLogin())
 
             })
         })
