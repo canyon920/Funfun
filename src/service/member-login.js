@@ -61,7 +61,6 @@ export async function bringFunTokens() {
     form.append('email', memberObj.memberEmail);
     await axios.post("http://localhost:9090/api/login/oauth/get/tokens",form)
         .then(res => {
-            console.log("응답 : ", res)
             funTokens.access_token = res.data.access_token
             funTokens.refresh_token = res.data.refresh_token
             //세션스토리지에 -> 엑세스토큰저장
