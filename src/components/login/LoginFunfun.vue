@@ -35,7 +35,7 @@
           </div>
       </div>
       <div class="pb-5">
-        <div class="loginbtn">
+        <div class="loginbtn" @click="tryLogin">
           <v-btn block large color ="rgba(229, 114, 0)"><strong style="color: white">Login</strong></v-btn>
         </div>
       </div>
@@ -43,13 +43,16 @@
         <p style="padding-right: 5px">Not a member?</p>
         <router-link style="color: orange" class="router-link" to="/join">Signup Now</router-link>
       </div>
+      <div>
+        <button @click="bringEmailLoginMemberInfo">요청</button>
+      </div>
 
     </div>
   </v-card>
 </template>
 <script>
 import axios from "axios";
-import {funTokens} from "@/service/member-login";
+import {funTokens, memberObj} from "@/service/member-login";
 
 export default {
   data(){
@@ -78,6 +81,9 @@ export default {
         window.sessionStorage.setItem('access_token',funTokens.access_token)
         //로컬스토리지에 -> 리프레시토큰저장
         window.localStorage.setItem('refresh_token',funTokens.refresh_token)
+        console.log("세션 엑세스 : ",window.sessionStorage.getItem('access_token'))
+        console.log("세션 리프레시",window.localStorage.getItem('refresh_token'))
+
       }).catch(e=>{
         console.log(e)
       })
@@ -86,8 +92,29 @@ export default {
      * 여기서부터 이메일로그인시 멤버정보들 가져오도록 작성하자( 헤더에 위에서 받은 엑세스토큰받아서 날릴수 있도록 작성 후 실제 적용해 보자 )
      * */
     async bringEmailLoginMemberInfo() {
+      console.log("멤버가져올것 날릴거다 : ",this.email)
       let form = new FormData()
       form.append('email', this.email)
+      let access_token = window.sessionStorage.getItem('access_token')
+      let cofig = {
+        headers:{
+          Authorization : `Bearer ${access_token}`
+        }
+      }
+      // axios.defaults.headers.common['Authorization'] = `${window.sessionStorage.getItem('access_token')}`
+      console.log(`${window.sessionStorage.getItem('access_token')}`)
+      await axios.post("http://localhost:9090/api/fun/get/memberInfo",form,cofig).then(res => {
+        memberObj.memberId = res.data.id
+        memberObj.memberEmail = res.data.email
+        memberObj.memberNicname = res.data.nic_name
+        memberObj.memberApi = res.data.login_api
+        memberObj.memberRole = res.data.role
+        memberObj.memberProfile = res.data.profileImg
+        console.log("받아온 멤버 : ",memberObj)
+        if (memberObj.memberId == null) {
+          this.bringEmailLoginMemberInfo()
+        }
+      })
     }
   },
   mounted() {
