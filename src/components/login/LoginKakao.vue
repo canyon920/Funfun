@@ -7,8 +7,7 @@
 
 <script>
 import {OauthSendServerData} from "@/service/member-login";
-import {bringMemberLoginDatafromSerber} from "@/service/member-login";
-// import router from "../../router";
+import {bringMemberLoginDataFromServer} from "@/service/member-login";
 
 export default {
   name: "LoginKakao",
@@ -28,19 +27,14 @@ export default {
           //세션스토리지에 -> 카카오 리프레시 토큰 저장
           window.localStorage.setItem("kakao_refresh_token", authObj.refresh_token)
 
-          // console.log("카카오에 할당한 토큰 : ",window.Kakao.Auth.getAccessToken())
-          // console.log("세션에 저장한 토큰 : ",window.sessionStorage.getItem("kakao_refresh_token"))
-
           window.Kakao.API.request({
             url: '/v2/user/me',
             success: res => {
-              // const kakao_account = res.kakao_account;
               OauthSendServerData.sendMemberEmail = res.kakao_account.email
               OauthSendServerData.sendMemberNicname = res.properties.nickname
               OauthSendServerData.sendMemberApi = "Kakao"
               OauthSendServerData.sendMemberProfile = res.properties.profile_image
-              // console.log(OauthSendServerData.sendMemberEmail)
-              bringMemberLoginDatafromSerber()
+              bringMemberLoginDataFromServer()
             },
             fail: function(error) {
               console.log(

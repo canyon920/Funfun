@@ -13,7 +13,7 @@
 
 <script>
 import {OauthSendServerData} from "@/service/member-login";
-import {bringMemberLoginDatafromSerber} from "@/service/member-login";
+import {bringMemberLoginDataFromServer} from "@/service/member-login";
 
 export default {
   mounted() {
@@ -34,7 +34,7 @@ export default {
       OauthSendServerData.sendMemberNicname = profile.getName()
       OauthSendServerData.sendMemberApi = "Google"
       OauthSendServerData.sendMemberProfile = profile.getImageUrl()
-      bringMemberLoginDatafromSerber()
+      bringMemberLoginDataFromServer()
     },
     handleGoogleLogin(){
       if(document && document?.querySelector("#google-signin-button")?.firstChild &&

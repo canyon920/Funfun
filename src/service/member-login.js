@@ -25,7 +25,7 @@ export var funTokens = {
 }
 
 // API 로그인 시도 => 새로고침시 로그인 정보 유지할 수 있도록 로컬스트로지에 저장
-export async function bringMemberLoginDatafromSerber() {
+export async function bringMemberLoginDataFromServer() {
     let form = new FormData()
     form.append("email", OauthSendServerData.sendMemberEmail)
     form.append("nic_name", OauthSendServerData.sendMemberNicname)
@@ -44,11 +44,7 @@ export async function bringMemberLoginDatafromSerber() {
             //로컬스토리지에 -> 로그인사용자정보저장
             window.localStorage.setItem('login_member', login_member)
 
-            bringFunTokens().then(
-                console.log("가기전 : ",funTokens.access_token)
-            )
-            // console.log("로컬에 저장된 값 : ",JSON.parse(window.localStorage.getItem('login_member')))
-            router.push("/",Header.methods.isLogin())
+            bringFunTokens()
 
         }).catch(e=>{
             console.log(e)
@@ -72,6 +68,9 @@ export async function bringFunTokens() {
             window.sessionStorage.setItem('access_token',funTokens.access_token)
             //로컬스토리지에 -> 리프레시토큰저장
             window.localStorage.setItem('refresh_token',funTokens.refresh_token)
+
+            router.push("/",Header.methods.isLogin())
+
         }).catch(e=>{
             console.log(e)
         })

@@ -44,10 +44,10 @@
       </v-btn>
     </div>
     <router-link id="header-go-mypage" style="color: black" class="router-link" to="/memberdetail">
-    <div class="logininfo" id="login-info-div" style="display: none">
-      <div class="memberdetail"><v-icon>mdi-account-circle</v-icon></div>
-      <div class="name pr-2" style="font-size: 5px" id="name-div"></div>
-    </div>
+      <div class="logininfo" id="login-info-div" style="display: none">
+        <div class="memberdetail"><v-icon>mdi-account-circle</v-icon></div>
+        <div class="name pr-2" style="font-size: 5px" id="name-div"></div>
+      </div>
     </router-link>
   </nav>
 </template>
@@ -73,6 +73,11 @@ export default {
     toggleDown() {
       this.booleanMenu1 = !this.booleanMenu1
       this.booleanMenu2 = !this.booleanMenu2
+    },
+    Flogout(){
+      window.localStorage.clear()
+      window.sessionStorage.clear()
+      this.$router.go(0)
     },
     Klogout() { // 카카오 로그아웃
       let router = this.$router
@@ -127,10 +132,7 @@ export default {
       } else if (localStorage.getItem('login_member') === null) {
         document.getElementById("join-div").hidden = false
         document.getElementById("login-div").hidden = false
-        if (this.memberInfo.memberNicname) {
-          document.getElementById("login-info-div").style.display = 'none';
-        }
-        document.getElementById("login-info-div").hidden = true
+        document.getElementById("login-info-div").style.display = 'none';
         document.getElementById("kakao-div").hidden = true
         document.getElementById("naver-div").hidden = true
         document.getElementById("google-div").hidden = true
@@ -273,9 +275,9 @@ body{
   .navbar-menu2.active{
     display: flex;
   }
-.logininfo {
-  display: none !important;
-}
+  .logininfo {
+    display: none !important;
+  }
 
 
 
