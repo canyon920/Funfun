@@ -103,12 +103,13 @@ export default {
       });
     },
     Glogout() {
+      let router = this.$router
       const authInst = window.gapi.auth2.getAuthInstance();
       authInst.signOut().then(() => {
         console.log("User Signed Out!")
         window.localStorage.clear()
         window.sessionStorage.clear()
-        this.memberInfo = JSON.parse(localStorage.getItem('login_member'))
+        router.go(0)
       })
     },
     isLogin() {

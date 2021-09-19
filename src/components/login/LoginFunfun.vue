@@ -41,9 +41,9 @@
         <p style="padding-right: 5px">Not a member?</p>
         <router-link style="color: orange" class="router-link" to="/join">Signup Now</router-link>
       </div>
-      <div>
-        <button @click="bringEmailLoginMemberInfo">요청</button>
-      </div>
+      <!--      <div>-->
+      <!--        <button @click="bringEmailLoginMemberInfo">요청</button>-->
+      <!--      </div>-->
 
     </div>
   </v-card>
@@ -85,6 +85,8 @@ export default {
           })
           .catch(e=>{
             console.log(e)
+            alert("로그인 할 수 없습니다.")
+            this.$router.push("/",Header.methods.isLogin())
           })
     },
     async bringEmailLoginMemberInfo() {
@@ -109,8 +111,12 @@ export default {
 
         this.$router.push("/",Header.methods.isLogin())
 
-      }).catch(e=>
-          console.log(e))
+      }).catch(e=>{
+            console.log(e)
+            alert("로그인 할 수 없습니다.")
+            this.$router.push("/",Header.methods.isLogin())
+          }
+      )
     }
   },
   mounted() {
