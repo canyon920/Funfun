@@ -6,7 +6,7 @@
 
   <carousel :autoplay="true" :nav="false" >
 <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
-    <a v-for="value in bringmainDeadline" :key="value">
+    <a v-for="(value,vkey) in bringmainDeadline" :key="vkey">
     <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
       <v-card
@@ -53,7 +53,7 @@ export default {
   components: { carousel },
   props: {
     bringmainDeadline : {
-      type: Object
+      type: Array
     }
   },
   emits:[

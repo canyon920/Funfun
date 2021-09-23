@@ -43,7 +43,7 @@
 
             <ul>
               <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-              <div v-for="friend in friends" :key="friend" v-if="friend.name.includes(friendName)">
+              <div v-for="(friend, fkey) in friends" :key="fkey" v-if="friend.name.includes(friendName)">
                 {{friend.name}}
               </div>
             </ul>

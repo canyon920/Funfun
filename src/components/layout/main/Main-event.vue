@@ -2,10 +2,10 @@
   <div class = "event">
     <h2>이벤트 상품</h2>
       <div class="event-second-div">
-        <div v-for="event in bringmainEvent" :key="event">
+        <div v-for="(event, ekey) in bringmainEvent" :key="ekey">
       <div class="event-main">
         <div class = "event-img event-1">
-          <router-link :to="{name:'mainEvent', params:{eventTitle:subTitle}}">
+          <router-link :to="{name:'mainEvent', params:{eventTitle:event.subTitle}}">
           <img class="sub-img" v-bind:src="event.presimgUrl" >
           </router-link>
         </div>
@@ -39,7 +39,7 @@ export default {
   name: 'Main-event',
   props:{
     bringmainEvent:{
-      type: Object
+      type: Array
     }
   },
   emits:[

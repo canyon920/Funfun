@@ -5,7 +5,7 @@
    </div>
   <carousel :autoplay="true" :nav="false">
 <!--    <template slot="prev"><span class="prev">prev</span></template>-->
-    <a v-for="join in bringmainJoin" :key="join">
+    <a v-for="(join, jkey) in bringmainJoin" :key="jkey">
     <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
     <v-card
         class="mx-auto"
@@ -56,7 +56,7 @@ export default {
   components: { carousel },
   props: {
     bringmainJoin : {
-      type: Object
+      type: Array
     }
   },
   emits:[
