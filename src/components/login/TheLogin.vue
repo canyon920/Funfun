@@ -1,4 +1,5 @@
 <template>
+  <div class="parent-box-login">
   <v-card
       class="mx-auto mt-10 mb-16 pb-16"
       max-width="400"
@@ -21,13 +22,14 @@
             <login-naver></login-naver>
             <login-google></login-google>
 <!--            <login-funfun></login-funfun>-->
-            <v-btn class="mx-5" fab large color ="rgba(229, 114, 0)" to="funlogin"><strong>H</strong></v-btn>
+            <v-btn class="mx-5" fab large color ="rgba(229, 114, 0)" to="funlogin"><strong>F</strong></v-btn>
 
           </div>
         </div>
       </div>
     </div>
   </v-card>
+  </div>
 </template>
 <script>
 
@@ -49,6 +51,13 @@ export default {
 
 </script>
 <style>
+.parent-box-login {
+  /*margin-bottom: 25vh;*/
+}
+.login {
+  margin-top: 2%;
+  margin-bottom: 12%;
+}
 .login_option{
   font-size: 15px;
   display: flex;

@@ -2,128 +2,173 @@
   <nav class="navbar">
     <div class="navbar-logo">
       <div class="ml-lg-16">
-        <v-img class="ml-lg-4" max-height="60"
-               max-width="200" src="@/assets/logo1.jpg"></v-img>
+        <router-link to="/">
+          <v-img class="ml-lg-4" max-height="60"
+                 max-width="200" src="@/assets//logo/logo1.jpg"></v-img>
+        </router-link>
       </div>
     </div>
-    <div class="navbar-menu1">
+    <div class="navbar-menu1" :class="{active : booleanMenu1}">
       <div class="link-div"><router-link style="color: black" class="router-link" to="/">Home</router-link></div>
       <div class="link-div"><router-link style="color: black" class="router-link" to="/shop">Shop</router-link></div>
       <div class="link-div"><router-link style="color: black" class="router-link" to="/about">About</router-link></div>
 
     </div>
     <v-spacer></v-spacer>
-    <div class="navbar-menu2">
-<!--      <div class="memberdetail"><router-link style="color: black" class="router-link" to="/memberdetail" v-if="accessToken != null"><v-icon>mdi-account-circle</v-icon></router-link></div>-->
-<!--      <div class="name" id="name" v-if="accessToken != null"></div>-->
-<!--      <input type="text" class="name" value="name" v-if="accessToken != null" />-->
-      <div class="link-div"><router-link style="color: black" class="router-link" to="#" v-if="accessToken != null " v-on:click.native="logout()">Logout</router-link></div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/login" v-if="accessToken==null ">Login</router-link></div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/join" v-if="accessToken==null ">Join</router-link></div>
-      <router-link to="#" v-show="accessToken" v-on:click.native="unlink()"> Kakao Unlink</router-link>
+    <div class="navbar-menu2" :class="{active : booleanMenu2}">
+      <div class="link-div" id="kakao-div" @click="Klogout()" hidden>KLogout</div>
+      <div class="link-div" id="google-div" @click="Glogout()" hidden>GLogout</div>
+      <div class="link-div" id="naver-div" @click="Nlogout()" hidden>NLogout</div>
+      <div class="link-div" id="email-div" @click="Flogout()" hidden>FLogout</div>
+      <div class="link-div" id="login-div"><router-link style="color: black" class="router-link" to="/login" >Login</router-link></div>
+      <div class="link-div" id="join-div"><router-link style="color: black" class="router-link" to="/join" >Join</router-link></div>
+      <!--      <router-link to="#" v-on:click.native="unlink()"> Kakao Unlink</router-link>-->
+
+
       <div class="link-div"><router-link style="color: black" class="router-link" to="/help">Help</router-link></div>
     </div>
-      <div class="mr-lg-16">
-        <div class="navbar-search">
-          <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>
-          <v-text-field class="mt-lg-5 mt-md-5"
-                        placeholder="친구검색"
-                        rounded
-                        filled="#ffcc99"
-                        dense
-          ></v-text-field>
-        </div>
+    <div class="mr-lg-16">
+      <div class="navbar-search">
+        <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>
+        <v-text-field class="mt-lg-5 mt-md-5"
+                      placeholder="친구검색"
+                      rounded
+                      filled
+                      dense
+        ></v-text-field>
       </div>
-      <div class="nav_toggle">
-        <v-btn icon >
-          <v-icon @click="toggleDown" >mdi-dots-vertical</v-icon>
-        </v-btn>
+    </div>
+    <div class="nav_toggle" @click="toggleDown">
+      <v-btn icon >
+        <v-icon  >mdi-dots-vertical</v-icon>
+      </v-btn>
+    </div>
+    <router-link id="header-go-mypage" style="color: black" class="router-link" to="/memberdetail">
+      <div class="logininfo" id="login-info-div" style="display: none">
+        <div class="memberdetail"><v-icon>mdi-account-circle</v-icon></div>
+        <div class="name pr-2" style="font-size: 5px" id="name-div"></div>
       </div>
-    <div class="name">
-      <div class="name pr-2" id="name" v-if="accessToken != null ">name</div>
-    </div>
-    <div class="memberdetail">
-      <div class="memberdetail"><router-link style="color: black" class="router-link" to="/memberdetail" v-if="accessToken != null"><v-icon>mdi-account-circle</v-icon></router-link></div>
-    </div>
+    </router-link>
   </nav>
 </template>
 
 <script>
-
-import router from "../../router";
+// import router from "@/router";
 
 export default {
-  name:"header",
+  name:"Header",
   data()  {
     return{
-      accessToken: window.Kakao.Auth.getAccessToken(),
-      reloadPage:true,
+      memberInfo:{
+        memberNicname : '',
+        memberApi : '',
+        memberRole : '',
+      },
+      // reloadPage:true,
+      booleanMenu1: false,
+      booleanMenu2: false,
     }
   },
   methods: {
     toggleDown() {
-      const nav_toggle = document.querySelector('.nav_toggle');
-      const menu1 = document.querySelector('.navbar-menu1');
-      const menu2 = document.querySelector('.navbar-menu2');
-
-      nav_toggle.addEventListener('click', () => {
-        menu1.classList.toggle('active');
-        menu2.classList.toggle('active');
-      });
+      this.booleanMenu1 = !this.booleanMenu1
+      this.booleanMenu2 = !this.booleanMenu2
     },
-    logout(type) { // 카카오 로그아웃
+    Flogout(){
+      window.localStorage.clear()
+      window.sessionStorage.clear()
+      this.$router.go(0)
+    },
+    Klogout() { // 카카오 로그아웃
+      let router = this.$router
       window.Kakao.Auth.logout(function () {
-        if (type) { // "unlink"
-          alert("Unlinked Kakao Account!");
-        } else {
-          alert("Logout Account!");
-        }
-        // router.push("login");
-        // this.$nextTick( router.push("login"));
-        router.go(router.currentRoute)
-
-
-      });
+        window.localStorage.clear()
+        window.sessionStorage.clear()
+        router.go(0)
+      })
     },
     unlink() {  // 카카오 계정 연결끊기
       let logout = this.logout;
       window.Kakao.API.request({
         url: "/v1/user/unlink",
         success: function (response) {
-          console.log(response);
-          logout("unlink");
+          console.log(response)
+          logout()
         },
         fail: function (error) {
-          console.log(error);
-          alert(error);
-          return;
+          console.log(error)
+          alert(error)
+          return
         },
       });
     },
-    /*getNickname() {
-      window.Kakao.API.request({
-        url: '/v2/user/me',
-        success: res => {
-          const kakaoNicname = res.properties.nickname
-          console.log(kakaoNicname);
-          // document.getElementById("name").value = kakaoNicname;
-          var element = document.getElementById("name");
-          console.log("$$$$",element);
-          element.innerText=kakaoNicname;
-          document.write(element.innerText);
-        },
-        fail: function (error) {
-          console.log(
-              'login success, but failed to request user information: ' +
-              JSON.stringify(error)
-          )
-        },
+    Glogout() {
+      let router = this.$router
+      const authInst = window.gapi.auth2.getAuthInstance();
+      authInst.signOut().then(() => {
+        console.log("User Signed Out!")
+        window.localStorage.clear()
+        window.sessionStorage.clear()
+        router.go(0)
       })
-    },*/
+    },
+    isLogin() {
+      if (localStorage.getItem('login_member') !== null) {
+        this.memberInfo = JSON.parse(localStorage.getItem('login_member'))
+        document.getElementById("join-div").hidden = true
+        document.getElementById("login-div").hidden = true
+        if (this.memberInfo.memberNicname) {
+          document.getElementById("login-info-div").style.display = 'flex';
+          document.getElementById("name-div").innerText = `${this.memberInfo.memberNicname}님 안녕하세요.`
+        }
+        if (this.memberInfo.memberApi === 'Kakao') {
+          document.getElementById("kakao-div").hidden = false
+        }else if (this.memberInfo.memberApi === 'Naver') {
+          document.getElementById("naver-div").hidden = false
+        }else if (this.memberInfo.memberApi === 'Google') {
+          document.getElementById("google-div").hidden = false
+        }else if (this.memberInfo.memberApi === 'Email') {
+          document.getElementById("email-div").hidden = false
+        }
+      } else if (localStorage.getItem('login_member') === null) {
+        document.getElementById("join-div").hidden = false
+        document.getElementById("login-div").hidden = false
+        document.getElementById("login-info-div").style.display = 'none';
+        document.getElementById("kakao-div").hidden = true
+        document.getElementById("naver-div").hidden = true
+        document.getElementById("google-div").hidden = true
+        document.getElementById("email-div").hidden = true
+
+      }
+    }
+
   },
-  // updated() {
-  //   this.getNickname();
-  // }
+  // computed:{
+  //   statusModify(){
+  //     if (localStorage.getItem('login_member') !== null) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   }
+  //
+  // },
+  // watch:{
+  //   statusModify() {
+  //     if (localStorage.getItem('login_member') !== null) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   }
+  // },
+  mounted() {
+    this.isLogin()
+    //     console.log("access toeken : ",funTokens.access_token)
+    // // function authInst () {
+    // //   console.log("sss",window.gapi.auth2.getAuthInstance());
+    // // }
+  }
 };
 </script>
 
@@ -172,7 +217,7 @@ body{
 .navbar-search{
   display: flex;
   align-items: center;
-  padding-right: 75px;
+  padding-right: 10px;
   padding-top: 7px;
 }
 .nav_toggle{
@@ -182,15 +227,24 @@ body{
   display: none;
 }
 .memberdetail{
-  position: absolute;
-  right: 25px;
-  top:10px
+
+  /*position: absolute;*/
+  /*right: 25px;*/
+  /*top:10px*/
 }
 .name{
-  position: absolute;
-  right: 40px;
-  top: 10px;
-  display: none;
+  /*position: absolute;*/
+  /*right: 40px;*/
+  /*top: 10px;*/
+  /*display: none;*/
+}
+.logininfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#header-go-mypage {
+  margin-right: 4%;
 }
 
 @media screen and (max-width: 1000px ) {
@@ -222,13 +276,8 @@ body{
   .navbar-menu2.active{
     display: flex;
   }
-  .memberdetail{
-    position: absolute;
-    right: 25px;
-    top:10px
-  }
-  .name{
-    display: none;
+  .logininfo {
+    display: none !important;
   }
 
 

@@ -3,11 +3,11 @@
     <v-footer color="#e6e6e6" padless>
         <div class="footer_logo">
           <v-img class="ml-lg-16" max-height="80"
-                 max-width="180" src="@/assets/footerlogo2.png"></v-img>
+                 max-width="180" src="@/assets/logo/footerlogo2.png"></v-img>
         </div>
       <v-spacer></v-spacer>
         <div class="footer_btn">
-          <v-btn to="/" text rounded plain color="grey">Home</v-btn>
+          <v-btn to="/home" text rounded plain color="grey">Home</v-btn>
           <v-btn x-small plain disabled color="black">|</v-btn>
           <v-btn text rounded plain color="grey" @click="onClickRedirect1">Trello</v-btn>
           <v-btn x-small plain disabled color="black">|</v-btn>
@@ -33,6 +33,7 @@
 </template>
 <script>
 export default {
+  name: 'Footer',
   data: () => ({
 
   }),
@@ -47,7 +48,8 @@ export default {
 }
 </script>
 <style>
-
+.footer {
+}
 .footer_btn{
   padding-right: 80px;
   padding-top: 20px;

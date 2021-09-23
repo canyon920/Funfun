@@ -2,15 +2,18 @@
   <v-app>
     <Header/>
     <router-view></router-view>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <Footer/>
   </v-app>
 </template>
 
 <script>
 
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+
+
+
 export default {
   name: 'App',
   components: {Footer, Header},
