@@ -11,7 +11,7 @@
     <div class="navbar-menu1" :class="{active : booleanMenu1}">
       <div class="link-div"><router-link style="color: black" class="router-link" to="/">Home</router-link></div>
       <div class="link-div"><router-link style="color: black" class="router-link" to="/shop">Shop</router-link></div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/about">About</router-link></div>
+      <div class="link-div"><router-link style="color: black" class="router-link" to="/aboutpage">About</router-link></div>
 
     </div>
     <v-spacer></v-spacer>

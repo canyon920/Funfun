@@ -185,7 +185,7 @@
 
 
 export default {
-  name: 'First',
+  name: 'AboutPage',
   components: {},
   data () {
     return {

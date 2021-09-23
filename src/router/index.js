@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Main from "@/views/Main";
 import Home from "@/views/Home";
 import About from "@/views/About";
+import Singup from "@/views/Singup";
+import AboutPage from "@/components/about/AboutPage";
+import Login from "@/views/Login";
 
 Vue.use(VueRouter)
 
@@ -18,17 +21,24 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'First',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../components/about/First')
+    path: '/aboutpage',
+    name: 'AboutPage',
+    component: AboutPage
   },
   {
     path: '/menu',
     name: 'about',
     component: About
+  },
+  {
+    path: '/join',
+    name: 'Signup',
+    component: Singup
+  },
+  {
+    path:'/login',
+    name:'Login',
+    component: Login
   },
   {
     path: '/event:eventTitle',
@@ -42,25 +52,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/FundingList.vue')
   },
   {
-    path:'/login',
-    name:'Login',
-    component: () =>import('../views/Login.vue')
-  },
-  {
-    path:'/auth',
-    name:'Auth',
-    component: () =>import('../views/Auth.vue')
-  },
-  {
     path:'/funlogin',
     name:'LoginFunfun',
     component: () =>import('../components/login/LoginFunfun.vue')
   },
-  {
-    path:'/loginkakao',
-    name:'LoginKakao',
-    component: () =>import('../components/login/LoginKakao.vue')
-  },
+
   {
     path: '/detail-page',
     name: 'detail_page',
