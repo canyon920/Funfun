@@ -2,7 +2,7 @@
 <div class="signup">
 <div class="content-signup">
   <div class="img-signup">
-    <div class="loginimg">
+    <div class="loginimg-join">
       <v-img max-height="60"
              max-width="140" src="@/assets/login/signup.png"></v-img>
     </div>
