@@ -34,12 +34,13 @@
 
           <div class ="search-second">
             <h2>친구를 검색해 주세요.</h2>
+            <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>
             <v-text-field
                 outlined
                 label="친구찾기"
-                prepend-inner-icon="mdi-map-marker" v-model="friendName" >
-              <v-icon>fas fa-search</v-icon>
+                v-model="friendName" >
             </v-text-field>
+
             <ul>
               <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
               <div v-for="friend in friends" :key="friend" v-if="friend.name.includes(friendName)">
@@ -56,22 +57,18 @@
         </div>
         <div class = "coverevent">
 
-          <Mainevent :bringmainEvent="mainEvent" @bringsimg01Click="img01Click"  @bringsimg02Click="img02Click"/>
+          <Mainevent :bringmainEvent="mainEvent" />
 
         </div>
 
         <div class = "deadline">
 
-          <Deadline :bringmainDeadline="mainDeadline" @bringdeadimg01Click="deadimg01Click"
-                    @bringdeadimg02Click="deadimg02Click" @bringdeadimg03Click="deadimg03Click"
-                    @bringdeadimg04Click="deadimg04Click"/>
+          <Deadline :bringmainDeadline="mainDeadline" />
         </div>
 
         <div class = "join">
 
-          <JoinGift :bringmainJoin="mainJoin" @bringJoinimg01Click="deadimg01Click"
-                    @bringJoinimg02Click="Joinimg02Click" @bringJoinimg03Click="Joinimg03Click"
-                    @bringJoinimg04Click="Joinimg04Click" />
+          <JoinGift :bringmainJoin="mainJoin" />
         </div>
         <div class = "giboo">
 
@@ -86,12 +83,12 @@
 
 
 
-import Deadline from '../components/layout/Deadline'
-import Gibooline from '../components/layout/Gibooline'
-import JoinGift from '../components/layout/Joingift'
-import Mainmenu from '../components/layout/Main-menu'
-import Mainevent from '../components/layout/Main-event'
-import MainSearch from "../components/layout/Main-search";
+import Deadline from '../components/layout/main/Deadline'
+import Gibooline from '../components/layout/main/Gibooline'
+import JoinGift from '../components/layout/main/Joingift'
+import Mainmenu from '../components/layout/main/Main-menu'
+import Mainevent from '../components/layout/main/Main-event'
+import MainSearch from "../components/layout/main/Main-search";
 export default {
   name: 'Main',
   components: {
@@ -190,16 +187,7 @@ export default {
 
       ],
       methods: {
-        img01Click(){
-          this.preforchangeventUrl=this.mainEvent.presimgUrl01
-          this.mainEvent.presimgUrl01 = this.mainEvent.presimgUrl02
-          this.mainEvent.presimgUrl02 =  this.preforchangeventUrl
-        },
-        img02Click(){
-          this.preforchangeventUrl=this.mainEvent.presimgUrl01
-          this.mainEvent.presimgUrl01 = this.mainEvent.presimgUrl02
-          this.mainEvent.presimgUrl02 = this.mainEvent.presimgUrl01
-        },
+
 
       }
 
