@@ -39,6 +39,11 @@ const routes = [
     name:'LoginKakao',
     component: () =>import('../components/login/LoginKakao.vue')
   },
+  {
+    path:'/join',
+    name:'join',
+    component: () =>import('../views/join')
+  },
 
 
 ]
