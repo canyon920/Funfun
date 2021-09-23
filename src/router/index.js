@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from "@/views/Main";
 import About from "@/views/About";
+import First from "@/components/about/First";
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
     name: 'mainEvent',
     component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
 
+  },
+  {
+    path: '/fundinglist',
+    name: 'FundingList',
+    component: () => import(/* webpackChunkName: "about" */ '../views/FundingList.vue')
   },
   {
     path:'/login',
