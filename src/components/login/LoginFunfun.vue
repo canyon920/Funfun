@@ -41,9 +41,9 @@
         <p style="padding-right: 5px">Not a member?</p>
         <router-link style="color: orange" class="router-link" to="/join">Signup Now</router-link>
       </div>
-      <!--      <div>-->
+      <!--      <div>    -->
       <!--        <button @click="bringEmailLoginMemberInfo">요청</button>-->
-      <!--      </div>-->
+      <!--      </div>    -->
 
     </div>
   </v-card>
@@ -93,12 +93,12 @@ export default {
       let form = new FormData()
       form.append('email', this.email)
       let access_token = window.sessionStorage.getItem('access_token')
-      let cofig = {
+      let config = {
         headers:{
           Authorization : `Bearer ${access_token}`
         }
       }
-      await axios.post("http://localhost:9090/api/fun/get/memberInfo",form,cofig).then(res => {
+      await axios.post("http://localhost:9090/api/fun/get/memberInfo",form,config).then(res => {
         memberObj.memberId = res.data.id
         memberObj.memberEmail = res.data.email
         memberObj.memberNicname = res.data.nic_name
