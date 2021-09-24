@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
 /dist
-
+/src/service/sense.js
+/src/service/sensemsg.js
 
 # local env files
 .env.local

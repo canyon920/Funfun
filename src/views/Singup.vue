@@ -90,11 +90,10 @@
         <div class="join-phonenumber">
           <div class="phone-left">
             <v-text-field
-                label="ex)1077778888"
+                label="ex)01077778888"
                 hint="*아이디 및 비밀번호 찾기에 활용됩니다."
                 v-model="phoneNumber"
                 persistent-hint
-                prefix="+82)"
             ></v-text-field>
           </div>
           <div class="phone-right">
@@ -103,7 +102,7 @@
                 rounded
                 small
                 class="giveme-button"
-                @click="startTimer"
+                @click="startPhoneVerify"
             >
               인증번호받기
             </v-btn>
@@ -121,7 +120,6 @@
                   :label="computedTotalTIme"
                   v-model="verifyNumber"
                   persistent-hint
-                  prefix="+82)"
               ></v-text-field>
             </div>
             <div class="count-down-right-div">
@@ -173,6 +171,8 @@
 </template>
 
 <script>
+import {send_message} from "@/service/sensemsg";
+
 export default {
   name: "Singup",
   data(){
@@ -228,6 +228,22 @@ export default {
     },
     padTime(time) {
       return (time < 10 ? '0' : '') + time
+    },
+    async startPhoneVerify() {
+      if (this.errorPhoneNumberCheck === false) {
+        // let verifycode = Math.floor(((Math.random()*10)*9999))
+        // let form = new FormData()
+        // form.append('phoneNum', this.phoneNumber)
+        // form.append('verifyNum', verifycode)
+        // await axios.post("http://localhost:9090/api/fun/phone/verify", form)
+        //   .then(res => console.log(res))
+        //     .catch(error => {
+        //       console.log(error)
+        //       return false
+        //   })
+        send_message(this.phoneNumber)
+        this.startTimer()
+      }
     },
 
     checkJoinEmail() {
@@ -301,7 +317,7 @@ export default {
       }
     },
     phoneNumber() {
-      if (this.phoneNumber.includes("-") || this.phoneNumber.length !== 10 || this.phoneNumber.match(/^1(?:0|1|[6-9])$/)) {
+      if (this.phoneNumber.includes("-") || this.phoneNumber.length !== 11 || this.phoneNumber.match(/^01(?:0|1|[6-9])$/)) {
         this.errorPhoneNumberCheck = true
       } else {
         this.errorPhoneNumberCheck = false
