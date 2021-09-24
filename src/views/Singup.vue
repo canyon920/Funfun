@@ -109,16 +109,17 @@
             </v-btn>
           </div>
         </div>
-        <div v-show="errorPhoneNumberCheck" class="error-font-color error-phone-number">
+        <div v-show="errorPhoneNumberCheck" class="error-font-color error-phone-number" style="margin-top: 22px">
           전화번호 입력예시를 확인해주세요
         </div>
+
 
         <div class="check-num-div" v-show="timerDiv">
           <div class="count-down-check-div">
             <div class="number-check-left">
               <v-text-field
                   :label="computedTotalTIme"
-                  v-model="phoneNumber"
+                  v-model="verifyNumber"
                   persistent-hint
                   prefix="+82)"
               ></v-text-field>
@@ -181,6 +182,7 @@ export default {
       prePassword:'',
       checkPassword:'',
       phoneNumber:'',
+      verifyNumber:'',
 
 
       errorEmailCheck1: false,
@@ -299,7 +301,7 @@ export default {
       }
     },
     phoneNumber() {
-      if (this.phoneNumber.includes("-") || this.phoneNumber.length !== 11) {
+      if (this.phoneNumber.includes("-") || this.phoneNumber.length !== 10 || this.phoneNumber.match(/^1(?:0|1|[6-9])$/)) {
         this.errorPhoneNumberCheck = true
       } else {
         this.errorPhoneNumberCheck = false
