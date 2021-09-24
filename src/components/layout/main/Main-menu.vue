@@ -98,6 +98,9 @@ export default {
   border-radius: 50%;
 
 }
+.menu h2{
+  color: rgb(229, 114, 0);
+}
 .menu .container{}
 .menu .container .inner-container{
   display: flex;
@@ -107,10 +110,12 @@ export default {
 .menu .container .inner-container .item-box{
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid black;
+  border: 1px solid rgb(229, 114, 0);
   border-radius: 20px;
   margin-top: 30px;
   margin-bottom: 50px;
+  padding-right: 30px;
+  padding-left: 30px;
 }
 .menu .container .inner-container .item-box .item-box-item {
   flex: 1 1 15%;

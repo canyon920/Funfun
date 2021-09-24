@@ -24,15 +24,30 @@ const routes = [
       component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
     },
   {
-    path: '/event:eventTitle',
+    path: '/event/:eventTitle',
     name: 'mainEvent',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    props : true
 
   },
+
   {
     path: '/fundinglist',
     name: 'FundingList',
     component: () => import(/* webpackChunkName: "about" */ '../views/FundingList.vue')
+  },
+  {
+    path: '/fundinglist/:fundingTitle',
+    name: 'fundingList',
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    props : true
+
+  },
+
+  {
+    path: '/choose',
+    name: 'Choose',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Choose.vue')
   },
 
 ]

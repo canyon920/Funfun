@@ -41,9 +41,9 @@
                 v-model="friendName" >
             </v-text-field>
 
-            <ul>
+            <ul class ="findfd">
               <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-              <div v-for="friend in friends" :key="friend" v-if="friend.name.includes(friendName)">
+              <div class ="findfd1" v-for="friend in friends" :key="friend" v-if="friend.name.includes(friendName)">
                 {{friend.name}}
               </div>
             </ul>
@@ -118,6 +118,7 @@ export default {
         username:"춘식",
         fundinglist:"펀딩중인 상품이 없어요",
       },
+
       friends: [
             {name: '춘식이'},
             {name: '라이언'},
@@ -134,9 +135,9 @@ export default {
             presimgUrl:"http://127.0.0.1:8887/cake.jpg",
             eventTitle:"8월에 태어난 친구에게 추천선물",subTitle:"부연설명"},
           {  presimgUrl:"http://127.0.0.1:8887/cake.jpg",
-          eventTitle:"10월에 태어난 ",subTitle:"부연설명"},
+          eventTitle:"10월에 태어난 ",subTitle:"부연설명1"},
       ],
-      preforchangeventUrl:'',
+
 
 
       mainDeadline:[
@@ -218,5 +219,10 @@ export default {
 .search-second h2{
   padding-bottom: 30px;
 }
+.findfd{
+  display: flex;
+
+}
+
 
 </style>

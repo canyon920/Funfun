@@ -1,34 +1,24 @@
 <template>
   <div class = "event">
     <h2>이벤트 상품</h2>
-      <div class="event-second-div">
-        <div v-for="event in bringmainEvent" :key="event">
-      <div class="event-main">
-        <div class = "event-img event-1">
-          <router-link :to="{name:'mainEvent', params:{eventTitle:subTitle}}">
-          <img class="sub-img" v-bind:src="event.presimgUrl" >
+    <div class="event-second-div">
+      <div v-for="event in bringmainEvent" :key="event">
+        <div class="event-main">
+          <router-link :to="{name:'mainEvent', params:{ eventTitle : event.subTitle }}">
+            <div class = "event-img event-1">
+              <img class="sub-img" v-bind:src="event.presimgUrl" >
+            </div>
+            <div class = "event-sub-title">
+              {{event.eventTitle}}
+            </div>
+            <div class = "event-sub">
+              {{event.subTitle}}
+            </div>
           </router-link>
         </div>
-        <div class = "event-sub-title">
-          {{event.eventTitle}}
-        </div>
-        <div class = "event-sub">
-        {{event.subTitle}}
-        </div>
+
       </div>
-<!--      <div class="event-main">
-        <div class = "event-img event-2">
-          <img class="sub-img" v-bind:src="bringmainEvent.presimgUrl02" @click="$emit('bringsimg02Click')" alt="#">
-        </div>
-        <div class = "event-sub-title">
-          10월에태어난 어쩌구
-        </div>
-        <div class = "event-sub">
-          내용 ㅇㅇㅇㅇ
-        </div>
-      </div>-->
-        </div>
-      </div>
+    </div>
   </div>
 </template>
 <script>

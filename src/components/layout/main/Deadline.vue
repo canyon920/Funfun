@@ -5,13 +5,14 @@
     </div>
 
   <carousel :autoplay="true" :nav="false" >
-<!--    <template slot="prev"><span class="prev" >prev</span></template>-->
+ <template slot="prev"><span class="prev" >prev</span></template>
     <a v-for="value in bringmainDeadline" :key="value">
     <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
       <v-card
         class="mx-auto"
         max-width="300px" >
+
       <img
           class="white--text align-end"
           height="200px"

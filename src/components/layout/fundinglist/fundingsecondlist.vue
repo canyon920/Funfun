@@ -1,39 +1,36 @@
 <template>
 <div class = "secondinner">
 <carousel :autoplay="false" :nav="true">
-  <template slot="prev"><span class="prev"></span></template>
+<!--  <template slot="prev"><span class="prev"></span></template>-->
+  <a v-for="(event,fkey) in bringfundinglist" :key="fkey">
+    <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
   <v-card
       class="mx-auto"
-      max-width="300"
+      width="300px"
   >
-    <v-img
+    <img
         class="white--text align-end"
         height="200px"
-        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    >
-      <v-card-title>Top 10 Australian beaches</v-card-title>
-    </v-img>
+        v-bind:src="event.presdeadimgUrl">
+
+      <v-card-title>{{event.eventTitle}}</v-card-title>
+
 
     <v-card-subtitle class="pb-0">
-      Number 10
+
     </v-card-subtitle>
 
-    <v-card-text class="text--primary">
-      <div>Whitehaven Beach</div>
 
-      <div>Whitsunday Island, Whitsunday Islands</div>
+
+    <v-card-text class="text--primary">
+
+
+      <div>{{event.subTitle}}</div>
     </v-card-text>
   </v-card>
 
-
-  <img src="https://placeimg.com/200/200/any?2">
-
-  <img src="https://placeimg.com/200/200/any?3">
-
-  <img src="https://placeimg.com/200/200/any?4">
-  <template slot="next"><span class="next"></span></template>
-
-
+    </div>
+  </a>
 </carousel>
 
 </div>
@@ -46,8 +43,17 @@ export  default {
   name: 'Fundingsecondlist',
   components: {carousel},
   props:{
+    bringfundinglist:{
+      type: Array
+    }
 
   },
+  data(){
+    return{
+
+
+    }
+  }
 }
 </script>
 
