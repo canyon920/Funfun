@@ -111,6 +111,9 @@
         <div v-show="errorPhoneNumberCheck" class="error-font-color error-phone-number" style="margin-top: 22px">
           전화번호 입력예시를 확인해주세요
         </div>
+        <div v-show="errorSendMsgToServer" class="error-font-color error-phone-number" style="margin-top: 22px">
+          전화번호 인증서비스를 이용할 수 없습니다.
+        </div>
 
 
         <div class="check-num-div" v-show="timerDiv">
@@ -128,7 +131,7 @@
                   rounded
                   small
                   class="giveme-button"
-
+                  @click="checkVerifyNum"
               >
                 확인
               </v-btn>
@@ -136,6 +139,9 @@
           </div>
         </div>
         <div v-show="errorReturnNumberCheck" class="error-font-color error-verify-number">
+          유효 시간이 경과되었습니다.
+        </div>
+        <div v-show="errorReturnNotVerify" class="error-font-color error-verify-number">
           유효하지 않은 인증번호 입니다.
         </div>
 
@@ -171,7 +177,8 @@
 </template>
 
 <script>
-import {send_message} from "@/service/sensemsg";
+
+import axios from "axios";
 
 export default {
   name: "Singup",
@@ -182,7 +189,10 @@ export default {
       prePassword:'',
       checkPassword:'',
       phoneNumber:'',
+      //입력받은 넘버
       verifyNumber:'',
+      //입력받아야하는 넘버
+      verifyCode:'',
 
 
       errorEmailCheck1: false,
@@ -196,6 +206,11 @@ export default {
       errorMustCheck4: false,
       timerDiv:false,
       errorReturnNumberCheck:false,
+      errorReturnNotVerify: false,
+      errorSendMsgToServer: false,
+
+      // 전화번호 인증 완료 된 경우 true ===> true 면 저장 false 면 null 로 저장
+      phoneNumberSaveToServer: false,
 
       select: '@example.com',
       items: [
@@ -230,19 +245,57 @@ export default {
       return (time < 10 ? '0' : '') + time
     },
     async startPhoneVerify() {
-      if (this.errorPhoneNumberCheck === false) {
-        // let verifycode = Math.floor(((Math.random()*10)*9999))
-        // let form = new FormData()
-        // form.append('phoneNum', this.phoneNumber)
-        // form.append('verifyNum', verifycode)
-        // await axios.post("http://localhost:9090/api/fun/phone/verify", form)
-        //   .then(res => console.log(res))
-        //     .catch(error => {
-        //       console.log(error)
-        //       return false
-        //   })
-        send_message(this.phoneNumber)
-        this.startTimer()
+      console.log("그냥",this.phoneNumber)
+      console.log("그냥",this.phoneNumber.toString().trim())
+      console.log(this.verifyNumber.toString().trim())
+      console.log(this.verifyCode.toString().trim())
+      if (this.errorPhoneNumberCheck === false && this.phoneNumber.toString().trim().length !== 0) {
+        this.errorPhoneNumberCheck = false
+        this.verifyCode = Math.floor(((Math.random() * 10) * 9999));
+        console.log("생성된 인증번호", this.verifyCode);
+        let form = new FormData();
+        form.append('phoneNum', this.phoneNumber);
+        form.append('verifyNum', this.verifyCode);
+        await axios.post("http://localhost:9090/api/message/phone/verify", form)
+            .then(res => {
+              console.log(res)
+              this.errorSendMsgToServer = false
+              this.startTimer()
+            })
+            .catch(error => {
+              console.log(error)
+              this.phoneNumberSaveToServer = false
+              this.errorSendMsgToServer = true
+              this.verifyCode = ''
+              console.log("유효코드 초기화",this.verifyCode)
+              return false
+            });
+      }
+    },
+    checkVerifyNum() {
+      console.log("사용자가 입력한 인증번호 : ", this.verifyNumber)
+      console.log("사용자에게 발급한 인증번호 : ", this.verifyCode)
+      if (this.verifyNumber.toString().trim() === this.verifyCode.toString().trim()) {
+        this.phoneNumberSaveToServer = true
+        this.errorReturnNotVerify = false
+        console.log("인증번호 비교 결과 통과되면 false",this.errorReturnNotVerify)
+      } else {
+        this.phoneNumberSaveToServer = false
+        this.errorReturnNotVerify = true
+        console.log("인증번호 비교 결과 실패하면 true",this.errorReturnNotVerify)
+      }
+    },
+    saveJoinMemberInfo() {
+      this.submitJoin()
+      // this.checkJoinEmail()
+      if (!this.errorPasswordCheck1 && !this.errorPasswordCheck2 && !this.errorEmailCheck1 && !this.errorEmailCheck2
+      && !this.errorMustCheck1 && !this.errorMustCheck2 && !this.errorMustCheck3 && !this.errorMustCheck4 ) {
+        if (this.phoneNumberSaveToServer) {
+          //번호인증 성공이 트루인경우 여기서 번호 저장
+        } else {
+          //번호인증 성공이 펄스인경우 여기서 널로 저장
+        }
+
       }
     },
 
@@ -252,17 +305,29 @@ export default {
     submitJoin() {
       if (!this.email) {
         this.errorMustCheck1 = true
-      }else if (!this.nicname) {
+      }else {
+        this.errorMustCheck1 = false
+      }
+      if (!this.nicname) {
         this.errorMustCheck2 = true
-      }else if (!this.prePassword) {
+      } else {
+        this.errorMustCheck2 = false
+      }
+      if (!this.prePassword) {
         this.errorMustCheck3 = true
-      }else if (!this.checkPassword) {
+      } else {
+        this.errorMustCheck3 = false
+      }
+      if (!this.checkPassword) {
         this.errorMustCheck4 = true;
       } else {
-        this.errorMustCheck1 = false
-        this.errorMustCheck2 = false
-        this.errorMustCheck3 = false
         this.errorMustCheck4 = false
+      }
+      if (this.email && this.nicname && this.prePassword && this.checkPassword) {
+        this.errorMustCheck1 = false;
+        this.errorMustCheck2 = false;
+        this.errorMustCheck3 = false;
+        this.errorMustCheck4 = false;
       }
     }
   },
@@ -282,7 +347,9 @@ export default {
   watch:{
     computedTotalTIme() {
       if (this.computedTotalTIme === "00:00") {
-        this.errorReturnNumberCheck = true;
+        this.verifyCode = ''
+        console.log("유효코드 초기화",this.verifyCode)
+        this.errorReturnNumberCheck = true
       } else {
         this.errorReturnNumberCheck = false
       }
@@ -317,10 +384,17 @@ export default {
       }
     },
     phoneNumber() {
-      if (this.phoneNumber.includes("-") || this.phoneNumber.length !== 11 || this.phoneNumber.match(/^01(?:0|1|[6-9])$/)) {
+      this.errorSendMsgToServer = false
+      if (this.phoneNumber.includes("-") || this.phoneNumber.length !== 11 || this.phoneNumber.match(/^01(?:0|1|[6-9])(\\d{3}|\\d{4})(\\d{4})$/)) {
         this.errorPhoneNumberCheck = true
-      } else {
+        this.computedTotalTIme = "인증되었습니다."
+      }
+      else {
         this.errorPhoneNumberCheck = false
+      }
+      if (this.phoneNumber.toString().trim().length === 0) {
+        this.errorPhoneNumberCheck = false
+        this.errorSendMsgToServer = false
       }
     }
   }
