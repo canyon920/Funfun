@@ -37,10 +37,21 @@
           <v-btn block large color ="rgba(229, 114, 0)"><strong style="color: white">Login</strong></v-btn>
         </div>
       </div>
-      <div class="joinmember">
-        <p style="padding-right: 5px">Not a member?</p>
-        <router-link style="color: orange" class="router-link" to="/join">Signup Now</router-link>
+      <div class="bottom-select-div">
+        <div class="joinmember">
+          <p style="padding-right: 5px">회원이 아닙니까?</p>
+          <router-link style="color: orange" class="router-link" to="/join">가입하기</router-link>
+        </div>
+        <div class="not-remember">
+          <p style="padding-right: 5px">아이디를 잊으셨습니까?</p>
+          <router-link style="color: orange" class="router-link" to="/findid">아이디찾기</router-link>
+        </div>
+        <div class="not-remember">
+          <p style="padding-right: 5px">비밀번호를 잊으셨습니까?</p>
+          <router-link style="color: orange" class="router-link" to="/findpwd">비밀번호찾기</router-link>
+        </div>
       </div>
+
       <!--      <div>    -->
       <!--        <button @click="bringEmailLoginMemberInfo">요청</button>-->
       <!--      </div>    -->
@@ -59,11 +70,6 @@ export default {
       show1:false,
       email:'',
       password:'',
-      rules:{
-        required: value => !!value || 'Required.',
-        min: v => v.length>=8 || 'Min 8 characters',
-        emailMatch:() =>('The email and Password you entered do not match'),
-      },
     }
   },
   methods:{
@@ -128,8 +134,23 @@ export default {
   padding-left: 130px;
   padding-top: 20px;
 }
+.bottom-select-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 10px;
+}
 .joinmember{
   display: flex;
-  padding-left: 70px;
+  flex-direction: row;
+  height: 20px;
+
+
+}
+.not-remember {
+  display: flex;
+  flex-direction: row;
+  height: 20px;
+
 }
 </style>
