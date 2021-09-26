@@ -6,6 +6,9 @@ import About from "@/views/About";
 import Singup from "@/views/Singup";
 import AboutPage from "@/components/about/AboutPage";
 import Login from "@/views/Login";
+import FundingList from "@/views/FundingList";
+import DetailFundingPage from "@/views/DetailFundingPage";
+
 
 Vue.use(VueRouter)
 
@@ -76,20 +79,29 @@ const routes = [
   },
   //  라우터 쿼리 / 파람 예시 여기까지
   {
-    path: '/funding-detail-page',
+    path: '/funding-detail-page/:fundingId',
     name: 'DetailFundingPage',
-    component: () => import('../views/DetailFundingPage')
+    // component: () => import('../views/DetailFundingPage')
+    component: DetailFundingPage
   },
   {
     path: '/mypage-list',
     name: 'menulist',
     component: ()=> import('../components/menulist/menulist')
-  }
+  },
+  {
+    path: '/my-funding-list/:memberId',
+    name: 'FundingList',
+    component: FundingList
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior() {
+    return { x: 0, y: 0 }
+  },
   routes
 })
 

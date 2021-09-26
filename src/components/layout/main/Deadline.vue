@@ -7,6 +7,7 @@
   <carousel :autoplay="true" :nav="false" >
 <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
     <a v-for="(value,vkey) in bringmainDeadline" :key="vkey">
+      <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: value.fundingId}}">
     <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
       <v-card
@@ -37,6 +38,7 @@
     </v-card>
 
     </div>
+      </router-link>
     </a>
 
 <!--    <template slot="next"><span class="next">next</span></template>-->

@@ -79,7 +79,8 @@ export default {
 }
 .inner .container-content .content-head .head-detail .detail-left .left-box .box-img .sub-box .sub-img {
   margin: 5px;
-  height: 70px;
+  height: 60px;
+  width: 60px;
   cursor: pointer;
 
 }

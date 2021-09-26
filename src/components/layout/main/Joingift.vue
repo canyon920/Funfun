@@ -6,7 +6,8 @@
   <carousel :autoplay="true" :nav="false">
 <!--    <template slot="prev"><span class="prev">prev</span></template>-->
     <a v-for="(join, jkey) in bringmainJoin" :key="jkey">
-    <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
+      <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: value.fundingId}}">
+      <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
     <v-card
         class="mx-auto"
         max-width="300"
@@ -38,6 +39,7 @@
 
     </v-card>
     </div>
+      </router-link>
     </a>
     <!--    두번쨰 사진-->
 

@@ -144,21 +144,25 @@ export default {
             presdeadimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
             fundingTitle:'펀딩타이틀1',fundinging: '진행중',
             progressBarPercent: 20, fundingname: 'ㅇㅇ',fundingMoney: 3000,
+            fundingId:1
           },
         {
           presdeadimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
           fundingTitle:'펀딩타이틀2',fundinging: '진행중', progressBarPercent: 20,
           fundingname: '코코',fundingMoney: 3000,
+          fundingId:2
         },
         {
           presdeadimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
           fundingTitle:'펀딩타이틀3',fundinging: '진행중',
           progressBarPercent: 50, fundingname: '곽두팔',fundingMoney: 3000,
+          fundingId:3
         },
         {
           presdeadimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
           fundingTitle:'펀딩타이틀4',fundinging: '진행중',
           progressBarPercent: 80, fundingname: '두팔',fundingMoney: 3000,
+          fundingId:4
         },
 
       ],
@@ -168,21 +172,25 @@ export default {
           presJoinUrl:"http://127.0.0.1:8887/chunsicsub1.png",
           funding_title:'펀딩타이틀1',fundinging: '진행중',
           progressBarPercent: 20, fundingname: '두팔',fundingMoney: 3000,
+          fundingId:1
         },
         {
           presJoinUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-          funding_title:'펀딩타이틀2',fundinging: '진행중', progressBarPercent: 20,
-          fundingname: '춘식',fundingMoney: 3000,
+          funding_title:'펀딩타이틀2',fundinging: '진행중',
+          progressBarPercent: 20, fundingname: '춘식',fundingMoney: 3000,
+          fundingId:2
         },
         {
           presJoinUrl:"http://127.0.0.1:8887/chunsicsub1.png",
           funding_title:'펀딩타이틀3',fundinging: '진행중',
           progressBarPercent: 50, fundingname: '라둥',fundingMoney: 3000,
+          fundingId:3
         },
         {
           presJoinUrl:"http://127.0.0.1:8887/chunsicsub1.png",
           funding_title:'펀딩타이틀4',fundinging: '진행중',
           progressBarPercent: 80, fundingname: '라이언',fundingMoney: 3000,
+          fundingId:4
         },
 
       ],

@@ -32,9 +32,9 @@
 
           <div class="menu-list">
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black" class="router-link" :to="{name: 'FundingList', params: {memberId: 1}}">
             <h2 class="display-1 font-weight-bold mb-2">
-              나의 펀딩 리스트 찾기
+              나의 펀딩 리스트
             </h2></router-link></div>
 
 
