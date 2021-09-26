@@ -79,6 +79,11 @@ const routes = [
     path: '/funding-detail-page',
     name: 'DetailFundingPage',
     component: () => import('../views/DetailFundingPage')
+  },
+  {
+    path: '/mypage-list',
+    name: 'menulist',
+    component: ()=> import('../components/menulist/menulist')
   }
 ]
 

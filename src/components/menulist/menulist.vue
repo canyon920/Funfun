@@ -1,41 +1,37 @@
 <template>
   <v-container>
     <div class="background">
+      <router-link to="/">
+      <div class="xbox">
+        <v-btn
+            color="blue darken-1"
+            class="v-card-actions"
+            text
+            @click="dialog = false"
+        >
+          X
+        </v-btn>
+      </div>
+      </router-link>
       <v-row class="text-center">
         <v-col class="mb-4">
-          <br/><br/><br/><br/><br/>
 
-          <div class="xbox">
-            <v-btn
-                color="blue darken-1"
-                class="v-card-actions"
-                text
-                @click="dialog = false"
-            >
-              X
-            </v-btn>
-
-          </div>
-
-          <br/><br/><br/><br/><br/>
-
-
-          <h1 class="display-2 font-weight-bold mb-16">
+          <h1 class="display-2 font-weight-bold mb-16" style="margin-top: 20px">
             내정보
           </h1>
 
           <div class="top_profile">
 
-            <v-avatar
-                color="grey"
-                size="80"
-                style="">
-            </v-avatar>
+            <div class="img-div">
+              <img class="profile-img" :src="imgNormal">
+            </div>
 
             <span class="profile">김명훈님</span>
           </div>
 
-          <br/><br/><br/><br/><br/><br/>
+
+          <div class="menu-list">
+
           <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
             <h2 class="display-1 font-weight-bold mb-2">
               나의 펀딩 리스트 찾기
@@ -79,6 +75,8 @@
           <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
             <h2 class="display-1 font-weight-bold mb-2">
               로그아웃</h2></router-link></div>
+
+          </div>
         </v-col>
 
 
@@ -94,23 +92,62 @@
 export default {
   name: 'menulist',
   props: ['name', 'logoImg', 'navLinks'],
-  methods: {},
-  mounted() {},
+  methods: {
+    hideHeader(){
+      document.getElementById('nav').hidden = true;
+    },
+    displayHeader() {
+      document.getElementById('nav').hidden = false;
+    }
+  },
+  mounted() {
+    this.hideHeader()
+  },
+  beforeDestroy() {
+    this.displayHeader()
+  },
   components: {
   },
   data(){
-    return{alert: true,
+    return{
+      alert: true,
+      imgNormal : require('@/assets/logo/img-normal.jpg')
     }
-  }
+  },
 }
 
 </script>
 <style>
-.background {margin-bottom:300px;}
+.img-div .profile-img {
+  border-radius: 50%;
+  height: 70px;
+}
+
+.background {
+  margin-top: 60px;
+  margin-bottom:300px;
+}
 .v-btn.v-size--default {font-size:25px;}
 .v-card-actions { float:right;}
-.display-1 { margin-top:25px; }
-.profile {font-size:30px;  }
-.top_profile {float:left; margin-left:200px;}
+.profile {font-size:30px;}
+.top_profile {
+  float:left;
+  margin-left:30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 95px;
+}
+.link-div2 {
+  margin-top: 25px;
+}
+.v-application .mb-16 {
+  margin-bottom: 15px !important;
+}
 
 </style>
