@@ -144,6 +144,10 @@
         <div v-show="errorReturnNotVerify" class="error-font-color error-verify-number">
           유효하지 않은 인증번호 입니다.
         </div>
+        <div v-show="phoneNumberSaveToServer" class="error-font-color error-verify-number">
+          인증되었습니다.
+        </div>
+
 
         <div class="bottom-content">
           <router-link to="/funlogin" style="text-decoration: none">
@@ -349,7 +353,10 @@ export default {
       if (this.computedTotalTIme === "00:00") {
         this.verifyCode = ''
         console.log("유효코드 초기화",this.verifyCode)
-        this.errorReturnNumberCheck = true
+        if (this.phoneNumberSaveToServer === true) {
+          return false
+        }
+        this.errorReturnNumberCheck = true;
       } else {
         this.errorReturnNumberCheck = false
       }
@@ -387,7 +394,6 @@ export default {
       this.errorSendMsgToServer = false
       if (this.phoneNumber.includes("-") || this.phoneNumber.length !== 11 || this.phoneNumber.match(/^01(?:0|1|[6-9])(\\d{3}|\\d{4})(\\d{4})$/)) {
         this.errorPhoneNumberCheck = true
-        this.computedTotalTIme = "인증되었습니다."
       }
       else {
         this.errorPhoneNumberCheck = false
@@ -430,7 +436,7 @@ export default {
   border: 0.5px solid rgb(229, 114, 0);
   padding: 20px;
   margin: 20px;
-  height: 600px;
+  height: 650px;
 }
 .signup .content-signup .form-signup-content .join-email {
   display: flex;

@@ -4,7 +4,7 @@
       <h2>마감예정인 상품</h2>
     </div>
 
-  <carousel :autoplay="true" :nav="false" >
+  <carousel id="shop-carousel" :autoplay="true" :nav="false" >
 <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
     <a v-for="(value,vkey) in bringmainDeadline" :key="vkey">
       <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: value.fundingId}}">

@@ -5,61 +5,61 @@
   <div class="inner-container">
     <div class= "item-box">
       <div class = "item-box-item item-box-inner1">
-        <router-link to="/menu1"> <div class= "item img1" ></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:1}}"> <div class= "item img1" ></div></router-link>
         <div class="img-text">생일</div>
       </div>
       <div class = "item-box-item item-box-inner2">
-        <router-link to="/menu2"> <div class= "item img2"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:2}}"> <div class= "item img2"></div></router-link>
         <div class="img-text">명절선물</div>
 
       </div>
       <div class = "item-box-item item-box-inner3">
-        <router-link to="/menu3">  <div class= "item img3"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:3}}">  <div class= "item img3"></div></router-link>
         <div class="img-text">상품권선물</div>
 
       </div>
       <div class = "item-box-item item-box-inner4">
-        <router-link to="/menu4">  <div class= "item img4"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:4}}">  <div class= "item img4"></div></router-link>
         <div class="img-text">건강/회복</div>
 
       </div>
       <div class = "item-box-item item-box-inner5">
-        <router-link to="/menu5"><div class= "item img5"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:5}}"><div class= "item img5"></div></router-link>
         <div class="img-text">가벼운선물</div>
 
       </div>
       <div class = "item-box-item item-box-inner6">
-        <router-link to="/menu6"> <div class= "item img6"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:6}}"> <div class= "item img6"></div></router-link>
         <div class="img-text">톡백화점</div>
 
       </div>
       <div class = "item-box-item item-box-inner7">
-        <router-link to="/menu7"><div class= "item img7"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:7}}"><div class= "item img7"></div></router-link>
         <div class="img-text">스몰럭셔리</div>
 
       </div>
       <div class = "item-box-item item-box-inner8">
-        <router-link to="/menu8"><div class= "item img8"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:8}}"><div class= "item img8"></div></router-link>
         <div class="img-text">명품선물</div>
 
       </div>
       <div class = "item-box-item item-box-inner9">
-        <router-link to="/menu9"> <div class= "item img9"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:9}}"> <div class= "item img9"></div></router-link>
         <div class="img-text">어른선물</div>
 
       </div>
       <div class = "item-box-item item-box-inner10">
-        <router-link to="/menu10">  <div class= "item img10"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:10}}">  <div class= "item img10"></div></router-link>
         <div class="img-text">출산/백일돌</div>
 
       </div>
       <div class = "item-box-item item-box-inner11">
-        <router-link to="/menu11">  <div class= "item img11"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:11}}">  <div class= "item img11"></div></router-link>
         <div class="img-text">쓸모없는선물</div>
 
       </div>
       <div class = "item-box-item item-box-inner12">
-        <router-link to="/menu12">  <div class= "item img12"></div></router-link>
+        <router-link :to="{name: 'Shop', params:{categoryId:12}}">  <div class= "item img12"></div></router-link>
         <div class="img-text">배달선물</div>
 
       </div>

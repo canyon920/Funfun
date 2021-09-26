@@ -6,7 +6,7 @@
   <carousel :autoplay="true" :nav="false">
 <!--    <template slot="prev"><span class="prev">prev</span></template>-->
     <a v-for="(join, jkey) in bringmainJoin" :key="jkey">
-      <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: value.fundingId}}">
+      <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: join.fundingId}}">
       <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
     <v-card
         class="mx-auto"

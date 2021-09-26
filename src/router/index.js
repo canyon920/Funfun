@@ -8,6 +8,8 @@ import AboutPage from "@/components/about/AboutPage";
 import Login from "@/views/Login";
 import FundingList from "@/views/FundingList";
 import DetailFundingPage from "@/views/DetailFundingPage";
+import Shop from "@/components/shoplist/Shop";
+import Menulist from "@/components/menulist/Menulist"
 
 
 Vue.use(VueRouter)
@@ -87,12 +89,17 @@ const routes = [
   {
     path: '/mypage-list',
     name: 'menulist',
-    component: ()=> import('../components/menulist/menulist')
+    component: Menulist
   },
   {
     path: '/my-funding-list/:memberId',
     name: 'FundingList',
     component: FundingList
+  },
+  {
+    path: '/shop-product-lis/:categoryId',
+    name: 'Shop',
+    component: Shop
   },
 ]
 
