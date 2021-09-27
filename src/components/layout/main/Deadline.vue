@@ -1,13 +1,13 @@
 <template>
   <div class = "deadline">
     <div class="fonttext">
-      <h2>마감예정인 상품</h2>
+      <h2>마감예정인 펀딩</h2>
     </div>
 
   <carousel id="shop-carousel" :autoplay="true" :nav="false" >
 <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
-    <a v-for="(value,vkey) in bringmainDeadline" :key="vkey">
-      <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: value.fundingId}}">
+    <div v-for="(value,vkey) in bringmainDeadline" :key="vkey">
+      <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: value.fundingId}}" style="text-decoration: none">
     <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
       <v-card
@@ -18,7 +18,7 @@
           height="200px"
           v-bind:src="value.presdeadimgUrl">
 
-      <v-card-title>{{value.fundingTitle}}</v-card-title>
+      <v-card-title style="text-align: center">{{value.fundingTitle}}</v-card-title>
 
       <v-card-subtitle class="pb-0">
         {{value.fundinging}}
@@ -39,7 +39,7 @@
 
     </div>
       </router-link>
-    </a>
+    </div>
 
 <!--    <template slot="next"><span class="next">next</span></template>-->
   </carousel>
