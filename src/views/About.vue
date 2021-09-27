@@ -5,11 +5,11 @@
     </h1>
     <!--라우터 쿼리 / 파람 예시-->
     <h1>
-      <router-link @click="getToken" :to="{name: 'detail_page_Q', query:{memberId: memberPwd}}">쿼리로 받기</router-link>
+      <router-link @click="getToken" :to="{name: 'detail_page_Q', query:{productId: memberPwd}}">쿼리로 받기</router-link>
     </h1>
 
     <h1>
-      <router-link :to="{name:'detail_page_P', params:{memberId: memberPwd}}">파람으로 받기</router-link>
+      <router-link :to="{name:'detail_page_P', params:{productId: memberPwd}}">파람으로 받기</router-link>
     </h1>
     <!--라우터 쿼리 / 파람 예시 여기까지-->
 

@@ -6,6 +6,7 @@
         height="400"
         hide-delimiter-background
         show-arrows-on-hover
+        style="width: 100vw"
     >
       <v-carousel-item
           v-for="(slide, i) in slides"
@@ -33,20 +34,37 @@
         <div class ="search">
 
           <div class ="search-second">
-            <h2>친구를 검색해 주세요.</h2>
-            <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>
+            <div class="title-div" style="display: flex; flex-direction: row; align-items: center; margin-bottom: 10px">
+              <img :src="require('@/assets/logo/img-normal.jpg')" style="height: 50px; width: 50px; border-radius: 15px; margin-right: 10px;">
+              <div style="font-weight: 700; font-size: 25px">
+              친구를 검색해 주세요.
+            </div>
+            </div>
             <v-text-field
                 outlined
+                rounded
                 label="친구찾기"
                 v-model="friendName" >
+              <template v-slot:prepend-inner>
+                <v-icon>mdi-magnify</v-icon>
+              </template>
+              <template v-slot:append>
+                <v-progress-circular
+                    v-if="loading"
+                    size="24"
+                    color="rgb(229, 114, 0)"
+                    indeterminate />
+              </template>
             </v-text-field>
 
-            <ul>
-              <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-              <div v-for="(friend, fkey) in friends" :key="fkey" v-if="friend.name.includes(friendName)">
-                {{friend.name}}
-              </div>
-            </ul>
+<!--            여기 해주자!!!!!!!!!!!!!           -->
+<!--            <ul>-->
+<!--              &lt;!&ndash; eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if &ndash;&gt;-->
+<!--              <div v-for="(friend, fkey) in friends" :key="fkey" v-if="friend.name.includes(friendName)">-->
+<!--                {{friend.name}}-->
+<!--              </div>-->
+<!--            </ul>-->
+
           </div>
           <MainSearch :bringmainsearch="mainSearch" />
 
@@ -99,6 +117,7 @@ export default {
 
   data () {
     return {
+      loading:false,
       model: 0,
       colors: [
         'indigo',

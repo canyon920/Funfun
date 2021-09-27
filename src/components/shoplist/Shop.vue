@@ -29,19 +29,33 @@
 <!--    </ul>-->
 
     <v-text-field
-      outlined
-      rounded
-      label="상품 검색"
-      v-model="SearchName"
-    >
+        outlined
+        rounded
+        label="상품 검색"
+        v-model="SearchName" >
+      <template v-slot:prepend-inner>
+        <v-icon>mdi-magnify</v-icon>
+      </template>
+      <template v-slot:append>
+        <v-progress-circular
+            v-if="loading"
+            size="24"
+            color="rgb(229, 114, 0)"
+            indeterminate />
+      </template>
     </v-text-field>
 
-    <carousel :autoplay="true" :nav="false" :items="6" :dots="false">
+    <carousel :autoplay="true" :nav="false" :items="8" :dots="false">
       <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
-      <a v-for="(p,pkey) in people" :key="pkey">
-        <router-link :to="{name: 'Shop' ,params:{categoryId: 1}}">
+      <a v-for="(img,pkey) in category" :key="pkey">
+        <router-link :to="{name: 'Shop' ,params:{categoryId: img.id}}" style="text-decoration: none">
+          <div style="display: flex; flex-direction: column; align-items: center">
           <div class="img-div" style="">
-            <img :src="p.profileUrl" style="border-radius: 20px; height: 100px; width: 100px">
+            <img :src="img.categorySrc" style="border-radius: 20px; height: 100px; width: 100px">
+          </div>
+          <div class="category-title" style="color: black">
+            {{img.title}}
+          </div>
           </div>
         </router-link>
       </a>
@@ -210,7 +224,7 @@ export default {
   components: { carousel },
   data: () => {
     return {
-
+      loading:false,
       //
       // cate1: '카테고리1',
       // cate2: '카테고리2',
@@ -228,39 +242,66 @@ export default {
 
       SearchName:'',
 
-      people: [
+      category: [
         {
-          // ... 생략
-          profileUrl: require("@/assets/img/cake.jpg")
+          id:1,
+          categorySrc: require("@/assets/category/1.jpg"),
+          title: '생일'
         },
         {
-          // ... 생략
-          profileUrl: require("@/assets/img/cake.jpg")
+          id:2,
+          categorySrc: require("@/assets/category/2.jpg"),
+          title: '명절선물'
         },
         {
-          // ... 생략
-          profileUrl: require("@/assets/img/cake.jpg")
+          id:3,
+          categorySrc: require("@/assets/category/3.png"),
+          title: '상품권선물'
         },
         {
-          // ... 생략
-          profileUrl: require("@/assets/img/cake.jpg")
+          id:4,
+          categorySrc: require("@/assets/category/4.jpg"),
+          title: '건강/회복'
         },
         {
-          // ... 생략
-          profileUrl: require("@/assets/img/cake.jpg")
+          id:5,
+          categorySrc: require("@/assets/category/5.jpg"),
+          title: '가벼운선물'
         },
         {
-          // ... 생략
-          profileUrl: require("@/assets/img/cake.jpg")
+          id:6,
+          categorySrc: require("@/assets/category/6.jpg"),
+          title: '툭!백화점'
         },
         {
-          // ... 생략
-          profileUrl: require("@/assets/img/cake.jpg")
+          id:7,
+          categorySrc: require("@/assets/category/7.jpg"),
+          title: '스몰럭셔리'
         },
         {
-          // ... 생략
-          profileUrl: require("@/assets/img/cake.jpg")
-        }
+          id:8,
+          categorySrc: require("@/assets/category/8.jpg"),
+          title: '명품선물'
+        },
+        {
+          id:9,
+          categorySrc: require("@/assets/category/9.jpg"),
+          title: '어른선물'
+        },
+        {
+          id:10,
+          categorySrc: require("@/assets/category/10.jpg"),
+          title: '출산/백일돌'
+        },
+        {
+          id:11,
+          categorySrc: require("@/assets/category/11.jpg"),
+          title: '쓸모없는선물'
+        },{
+          id:12,
+          categorySrc: require("@/assets/category/12.jpg"),
+          title: '배달선물'
+        },
       ],
       // people: [],
       products: [],
