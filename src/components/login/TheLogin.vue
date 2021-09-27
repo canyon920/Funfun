@@ -5,7 +5,7 @@
         class="mx-auto mt-10 mb-16 pb-16"
         max-width="400"
         outlined
-        :class="{active : funlogintransform}"
+        :class="{active : funlogintransform, deactive : !funlogintransform}"
     >
       <div class="login">
         <div class="pl-5 pr-5 pt-6">
@@ -87,6 +87,9 @@ export default {
 .active {
   transition: .8s;
   transform: translateX(100px);
+}
+.deactive {
+  transition: .8s;
 }
 
 
