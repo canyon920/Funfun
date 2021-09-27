@@ -152,6 +152,7 @@ export default {
       ],
       slides: [
         {imgSrc: require("@/assets/event/main1.jpg")},
+        {imgSrc: require("@/assets/event/banner/bagEvent.png")},
         '광고1',
         '광고2',
         '광고',
