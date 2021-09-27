@@ -6,25 +6,27 @@
         height="400"
         hide-delimiter-background
         show-arrows-on-hover
+        style="width: 100vw"
     >
       <v-carousel-item
           v-for="(slide, i) in slides"
           :key="i"
+          :src="slide.imgSrc"
       >
-        <v-sheet
-            :color="colors[i]"
-            height="100%"
-        >
-          <v-row
-              class="fill-height"
-              align="center"
-              justify="center"
-          >
-            <div class="text-h2">
-              {{ slide }}
-            </div>
-          </v-row>
-        </v-sheet>
+<!--        <v-sheet-->
+<!--            :color="colors[i]"-->
+<!--            height="100%"-->
+<!--        >-->
+<!--          <v-row-->
+<!--              class="fill-height"-->
+<!--              align="center"-->
+<!--              justify="center"-->
+<!--          >-->
+<!--            <div class="text-h2">-->
+<!--              {{ slide }}-->
+<!--            </div>-->
+<!--          </v-row>-->
+<!--        </v-sheet>-->
       </v-carousel-item>
     </v-carousel>
     <v-container>
@@ -33,22 +35,61 @@
         <div class ="search">
 
           <div class ="search-second">
-            <h2>친구를 검색해 주세요.</h2>
-            <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>
+            <div class="title-div" style="display: flex; flex-direction: row; align-items: center; margin-bottom: 10px">
+              <img :src="require('@/assets/logo/img-normal.jpg')" style="height: 50px; width: 50px; border-radius: 15px; margin-right: 10px;">
+              <div style="font-weight: 700; font-size: 25px">
+              친구를 검색해 주세요.
+            </div>
+            </div>
             <v-text-field
                 outlined
+                rounded
                 label="친구찾기"
-                v-model="friendName" >
+                v-model="friendName">
+              <template v-slot:prepend-inner>
+                <v-icon>mdi-magnify</v-icon>
+              </template>
+              <template v-slot:append>
+                <v-progress-circular
+                    v-if="loading"
+                    size="24"
+                    color="rgb(229, 114, 0)"
+                    indeterminate />
+              </template>
             </v-text-field>
 
-            <ul>
-              <!-- eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if -->
-              <div v-for="(friend, fkey) in friends" :key="fkey" v-if="friend.name.includes(friendName)">
-                {{friend.name}}
-              </div>
-            </ul>
+
+            <v-list
+                dense
+                nav
+                v-show="searchStart"
+            >
+              <v-list-item
+                  v-for="(item,fkey) in friends"
+                  :key="fkey"
+                  link
+                  @click="searchFriendSelect(item.username)"
+              >
+                <v-list-item-icon>
+                  <img :src="item.profileImg" style="border-radius: 20%">
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.username }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+
+<!--            여기 해주자!!!!!!!!!!!!!           -->
+<!--            <ul>-->
+<!--              &lt;!&ndash; eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if &ndash;&gt;-->
+<!--              <div v-for="(friend, fkey) in friends" :key="fkey" v-if="friend.name.includes(friendName)">-->
+<!--                {{friend.name}}-->
+<!--              </div>-->
+<!--            </ul>-->
+
           </div>
-          <MainSearch :bringmainsearch="mainSearch" />
+          <MainSearch v-show="mainSearch" :bringmainsearch="mainSearch" />
 
         </div>
         <div class = "menu">
@@ -99,6 +140,8 @@ export default {
 
   data () {
     return {
+      loading:true,
+      searchStart : true,
       model: 0,
       colors: [
         'indigo',
@@ -108,21 +151,25 @@ export default {
         'deep-purple accent-4',
       ],
       slides: [
+        {imgSrc: require("@/assets/event/main1.jpg")},
+        {imgSrc: require("@/assets/event/banner/bagEvent.png")},
         '광고1',
         '광고2',
         '광고',
         '광고',
         '광고',
       ],
-      mainSearch:{
+      mainSearch:
+          // null,
+          {
         username:"춘식",
         fundinglist:"펀딩중인 상품이 없어요",
       },
       friends: [
-            {name: '춘식이'},
-            {name: '라이언'},
-            {name: '티코'},
-            {name: '라둥이'},
+            {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이'},
+            {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라이언'},
+            {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코'},
+            {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이'},
           ],
       friend: {
         name: '',
@@ -131,69 +178,81 @@ export default {
 
       mainEvent: [
           {
-            presimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-            eventTitle:"8월에 태어난 친구에게 추천선물",subTitle:"부연설명"},
-          {  presimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-          eventTitle:"10월에 태어난 ",subTitle:"부연설명"},
+            presimgUrl:require("@/assets/event/main2.png"),
+            eventTitle:'"8월에 태어난 친구에게"',subTitle:'"친구야" 꽃처럼 아름다워!',
+            eventId:2
+          },
+          {  presimgUrl:require("@/assets/event/main1.jpg"),
+          eventTitle:"명품같은 스몰럭셔리 상품",subTitle:"꼭 비싸야만 명품인가?",
+            eventId:1
+          },
       ],
       preforchangeventUrl:'',
 
 
       mainDeadline:[
           {
-            presdeadimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-            fundingTitle:'펀딩타이틀1',fundinging: '진행중',
-            progressBarPercent: 20, fundingname: 'ㅇㅇ',fundingMoney: 3000,
+            presdeadimgUrl: require("@/assets/example-img/chunsicsub2.png"),
+            fundingTitle:'천원은 해줄 수 있잖어',fundinging: '진행중',
+            progressBarPercent: 20, fundingname: 'ㅇㅇ',fundingMoney: 1000,
+            fundingId:1
           },
         {
-          presdeadimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-          fundingTitle:'펀딩타이틀2',fundinging: '진행중', progressBarPercent: 20,
-          fundingname: '코코',fundingMoney: 3000,
+          presdeadimgUrl:require("@/assets/example-img/chunsicsub3.png"),
+          fundingTitle:'월급 탄 거 안다 도와주라',fundinging: '진행중', progressBarPercent: 20,
+          fundingname: '코코',fundingMoney: 25000,
+          fundingId:2
         },
         {
-          presdeadimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-          fundingTitle:'펀딩타이틀3',fundinging: '진행중',
+          presdeadimgUrl:require("@/assets/example-img/chunsicsub1.png"),
+          fundingTitle:'"우리 아이"가 정말 갖고 싶어 해요',fundinging: '진행중',
           progressBarPercent: 50, fundingname: '곽두팔',fundingMoney: 3000,
+          fundingId:3
         },
         {
-          presdeadimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-          fundingTitle:'펀딩타이틀4',fundinging: '진행중',
-          progressBarPercent: 80, fundingname: '두팔',fundingMoney: 3000,
+          presdeadimgUrl:require("@/assets/example-img/chunsicsub3.png"),
+          fundingTitle:'일단 고마워',fundinging: '진행중',
+          progressBarPercent: 80, fundingname: '두팔',fundingMoney: 30000,
+          fundingId:4
         },
 
       ],
 
       mainJoin:[
         {
-          presJoinUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-          funding_title:'펀딩타이틀1',fundinging: '진행중',
+          presJoinUrl:require("@/assets/example-img/chunsicsub3.png"),
+          funding_title:'"우리" 친구 맞지?^^',fundinging: '진행중',
           progressBarPercent: 20, fundingname: '두팔',fundingMoney: 3000,
+          fundingId:1
         },
         {
-          presJoinUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-          funding_title:'펀딩타이틀2',fundinging: '진행중', progressBarPercent: 20,
-          fundingname: '춘식',fundingMoney: 3000,
+          presJoinUrl:require("@/assets/example-img/chunsicsub1.png"),
+          funding_title:'너의 마음을 보여줘! 제발~',fundinging: '진행중',
+          progressBarPercent: 20, fundingname: '춘식',fundingMoney: 3000,
+          fundingId:2
         },
         {
-          presJoinUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-          funding_title:'펀딩타이틀3',fundinging: '진행중',
+          presJoinUrl:require("@/assets/example-img/chunsicsub3.png"),
+          funding_title:'"생일이양"',fundinging: '진행중',
           progressBarPercent: 50, fundingname: '라둥',fundingMoney: 3000,
+          fundingId:3
         },
         {
-          presJoinUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-          funding_title:'펀딩타이틀4',fundinging: '진행중',
+          presJoinUrl:require("@/assets/example-img/chunsicsub2.png"),
+          funding_title:'나! 이거이거',fundinging: '진행중',
           progressBarPercent: 80, fundingname: '라이언',fundingMoney: 3000,
+          fundingId:4
         },
 
       ],
-      methods: {
-
-
-      }
-
     }
   },
+  methods: {
+    searchFriendSelect(username) {
+      this.mainSearch.username = username
+    }
 
+  }
 }
 
 

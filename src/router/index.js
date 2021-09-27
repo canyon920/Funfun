@@ -6,6 +6,12 @@ import About from "@/views/About";
 import Singup from "@/views/Singup";
 import AboutPage from "@/components/about/AboutPage";
 import Login from "@/views/Login";
+import FundingList from "@/views/FundingList";
+import DetailFundingPage from "@/views/DetailFundingPage";
+import Shop from "@/components/shoplist/Shop";
+import Menulist from "@/components/menulist/Menulist"
+import EventPage from "@/components/eventlist/EventPage";
+
 
 Vue.use(VueRouter)
 
@@ -41,9 +47,9 @@ const routes = [
     component: Login
   },
   {
-    path: '/event:eventTitle',
+    path: '/event/:eventId',
     name: 'mainEvent',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
+    component: EventPage
 
   },
   {
@@ -70,21 +76,40 @@ const routes = [
     component: () => import('../views/Detail_page.vue')
   },
   {
-    path: '/detail-page/:memberId',
+    path: '/detail-page/:productId',
     name: 'detail_page_P',
     component: () => import('../views/Detail_page.vue')
   },
   //  라우터 쿼리 / 파람 예시 여기까지
   {
-    path: '/funding-detail-page',
+    path: '/funding-detail-page/:fundingId',
     name: 'DetailFundingPage',
-    component: () => import('../views/DetailFundingPage')
-  }
+    // component: () => import('../views/DetailFundingPage')
+    component: DetailFundingPage
+  },
+  {
+    path: '/mypage-list',
+    name: 'menulist',
+    component: Menulist
+  },
+  {
+    path: '/my-funding-list/:memberId',
+    name: 'FundingList',
+    component: FundingList
+  },
+  {
+    path: '/shop-product-lis/:categoryId',
+    name: 'Shop',
+    component: Shop
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior() {
+    return { x: 0, y: 0 }
+  },
   routes
 })
 

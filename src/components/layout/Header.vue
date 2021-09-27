@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar">
+  <nav id="nav" class="navbar">
     <div class="navbar-logo">
       <div class="ml-lg-16">
         <router-link to="/">
@@ -27,7 +27,6 @@
 
       <div class="link-div"><router-link style="color: black" class="router-link" to="/help">Help</router-link></div>
     </div>
-    <div class="mr-lg-16">
       <div class="navbar-search">
         <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>
         <v-text-field class="mt-lg-5 mt-md-5"
@@ -37,16 +36,18 @@
                       dense
         ></v-text-field>
       </div>
-    </div>
     <div class="nav_toggle" @click="toggleDown">
       <v-btn icon >
         <v-icon  >mdi-dots-vertical</v-icon>
       </v-btn>
     </div>
-    <router-link id="header-go-mypage" style="color: black" class="router-link" to="/memberdetail">
+    <router-link id="header-go-mypage" style="color: black" class="router-link" to="/mypage-list">
       <div class="logininfo" id="login-info-div" style="display: none">
-        <div class="memberdetail"><v-icon>mdi-account-circle</v-icon></div>
-        <div class="name pr-2" style="font-size: 5px" id="name-div"></div>
+        <div class="memberdetail">
+          <img :src="imgNormal" style="height: 25px; border-radius: 50%">
+        </div>
+<!--        <div class="memberdetail"><v-icon>mdi-account-circle</v-icon></div>-->
+        <div class="name pr-2" style="font-size: 5px;margin-left: 2px" id="name-div"></div>
       </div>
     </router-link>
   </nav>
@@ -67,6 +68,8 @@ export default {
       // reloadPage:true,
       booleanMenu1: false,
       booleanMenu2: false,
+
+      imgNormal : require('@/assets/logo/img-normal.jpg')
     }
   },
   methods: {
@@ -241,10 +244,11 @@ body{
 .logininfo {
   display: flex;
   flex-direction: row;
+  justify-content: end;
   align-items: center;
 }
 #header-go-mypage {
-  margin-right: 4%;
+  /*margin-right: 4%;*/
 }
 
 @media screen and (max-width: 1000px ) {
