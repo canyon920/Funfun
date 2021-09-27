@@ -124,10 +124,10 @@ export default {
             {name: '티코'},
             {name: '라둥이'},
           ],
-          friend: {
-            name: '',
-          },
-          friendName: '',
+      friend: {
+        name: '',
+      },
+      friendName: '',
 
       mainEvent: [
           {
