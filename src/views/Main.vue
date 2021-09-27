@@ -11,21 +11,22 @@
       <v-carousel-item
           v-for="(slide, i) in slides"
           :key="i"
+          :src="slide.imgSrc"
       >
-        <v-sheet
-            :color="colors[i]"
-            height="100%"
-        >
-          <v-row
-              class="fill-height"
-              align="center"
-              justify="center"
-          >
-            <div class="text-h2">
-              {{ slide }}
-            </div>
-          </v-row>
-        </v-sheet>
+<!--        <v-sheet-->
+<!--            :color="colors[i]"-->
+<!--            height="100%"-->
+<!--        >-->
+<!--          <v-row-->
+<!--              class="fill-height"-->
+<!--              align="center"-->
+<!--              justify="center"-->
+<!--          >-->
+<!--            <div class="text-h2">-->
+<!--              {{ slide }}-->
+<!--            </div>-->
+<!--          </v-row>-->
+<!--        </v-sheet>-->
       </v-carousel-item>
     </v-carousel>
     <v-container>
@@ -150,6 +151,7 @@ export default {
         'deep-purple accent-4',
       ],
       slides: [
+        {imgSrc: require("@/assets/event/main1.jpg")},
         '광고1',
         '광고2',
         '광고',

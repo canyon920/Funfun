@@ -150,7 +150,7 @@
 
 
         <div class="bottom-content">
-          <router-link to="/funlogin" style="text-decoration: none">
+          <router-link to="/login" style="text-decoration: none">
             <div class="submit-button">
               <v-btn
                   color="error"

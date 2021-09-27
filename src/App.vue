@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <Header/>
+    <transition name="page-fade">
     <router-view></router-view>
+    </transition>
     <Footer/>
   </v-app>
 </template>
@@ -29,5 +31,17 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   font-family: 'Source Sans Pro', sans-serif;
+}
+.page-fade-enter {
+  opacity: 0;
+}
+
+.page-fade-enter-active,
+.page-fade-leave-active {
+  transition: all 0.2s ease;
+}
+
+.page-fade-leave-to {
+  opacity: 0;
 }
 </style>

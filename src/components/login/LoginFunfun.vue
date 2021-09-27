@@ -125,7 +125,10 @@ export default {
       )
     }
   },
-  mounted() {
+  beforeCreate() {
+    if (localStorage.getItem('login_member') !== null) {
+      this.$router.go(-1)
+    }
   }
 }
 </script>
