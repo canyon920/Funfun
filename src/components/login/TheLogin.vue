@@ -84,7 +84,9 @@ export default {
 }
 
 
-.funlogin {
+.active {
+  transition: .8s;
+  transform: translateX(100px);
 }
 
 
@@ -98,7 +100,6 @@ export default {
 }
 .funlogin-fade-leave-to {
   transform: translateX(-100px);
-  opacity: 0;
 }
 
 </style>

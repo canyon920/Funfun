@@ -163,6 +163,15 @@ export default {
 }
 
 
+@media screen and (max-width: 415px){
+  .menu .container .inner-container .item-box .img{
+    width: 75px !important;
+    height: 75px !important;
+  }
+  .menu .container .inner-container .item-box .item-box-item .img-text {
+    font-size: 12px !important;
+  }
+}
 
 
 </style>
