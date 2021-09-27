@@ -44,7 +44,7 @@
                 outlined
                 rounded
                 label="친구찾기"
-                v-model="friendName" >
+                v-model="friendName">
               <template v-slot:prepend-inner>
                 <v-icon>mdi-magnify</v-icon>
               </template>
@@ -57,6 +57,28 @@
               </template>
             </v-text-field>
 
+
+            <v-list
+                dense
+                nav
+                v-show="searchStart"
+            >
+              <v-list-item
+                  v-for="(item,fkey) in friends"
+                  :key="fkey"
+                  link
+                  @click="searchFriendSelect(item.username, $event)"
+              >
+                <v-list-item-icon>
+                  <img :src="item.profileImg" style="border-radius: 20%">
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.username }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+
 <!--            여기 해주자!!!!!!!!!!!!!           -->
 <!--            <ul>-->
 <!--              &lt;!&ndash; eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if &ndash;&gt;-->
@@ -66,7 +88,7 @@
 <!--            </ul>-->
 
           </div>
-          <MainSearch :bringmainsearch="mainSearch" />
+          <MainSearch v-show="mainSearch" :bringmainsearch="mainSearch" />
 
         </div>
         <div class = "menu">
@@ -117,7 +139,8 @@ export default {
 
   data () {
     return {
-      loading:false,
+      loading:true,
+      searchStart : true,
       model: 0,
       colors: [
         'indigo',
@@ -133,15 +156,17 @@ export default {
         '광고',
         '광고',
       ],
-      mainSearch:{
+      mainSearch:
+          // null,
+          {
         username:"춘식",
         fundinglist:"펀딩중인 상품이 없어요",
       },
       friends: [
-            {name: '춘식이'},
-            {name: '라이언'},
-            {name: '티코'},
-            {name: '라둥이'},
+            {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이'},
+            {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라이언'},
+            {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코'},
+            {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이'},
           ],
           friend: {
             name: '',
@@ -213,14 +238,14 @@ export default {
         },
 
       ],
-      methods: {
-
-
-      }
-
     }
   },
+  methods: {
+    searchFriendSelect(username) {
+      this.mainSearch.username = username
+    }
 
+  }
 }
 
 
