@@ -5,7 +5,7 @@
         <div v-for="(event, ekey) in bringmainEvent" :key="ekey">
       <div class="event-main">
         <div class = "event-img event-1">
-          <router-link :to="{name:'mainEvent', params:{eventTitle:event.subTitle}}">
+          <router-link :to="{name:'mainEvent', params:{eventId:event.eventId}}">
           <img class="sub-img" v-bind:src="event.presimgUrl" >
           </router-link>
         </div>

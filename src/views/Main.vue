@@ -67,7 +67,7 @@
                   v-for="(item,fkey) in friends"
                   :key="fkey"
                   link
-                  @click="searchFriendSelect(item.username, $event)"
+                  @click="searchFriendSelect(item.username)"
               >
                 <v-list-item-icon>
                   <img :src="item.profileImg" style="border-radius: 20%">
@@ -175,10 +175,14 @@ export default {
 
       mainEvent: [
           {
-            presimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-            eventTitle:"8월에 태어난 친구에게 추천선물",subTitle:"부연설명"},
-          {  presimgUrl:"http://127.0.0.1:8887/chunsicsub1.png",
-          eventTitle:"10월에 태어난 ",subTitle:"부연설명"},
+            presimgUrl:require("@/assets/event/main2.png"),
+            eventTitle:'"8월에 태어난 친구에게"',subTitle:'"친구야" 꽃처럼 아름다워!',
+            eventId:2
+          },
+          {  presimgUrl:require("@/assets/event/main1.jpg"),
+          eventTitle:"명품같은 스몰럭셔리 상품",subTitle:"꼭 비싸야만 명품인가?",
+            eventId:1
+          },
       ],
       preforchangeventUrl:'',
 
@@ -214,25 +218,25 @@ export default {
       mainJoin:[
         {
           presJoinUrl:require("@/assets/example-img/chunsicsub3.png"),
-          funding_title:'우리 친구 맞지?',fundinging: '진행중',
+          funding_title:'"우리" 친구 맞지?^^',fundinging: '진행중',
           progressBarPercent: 20, fundingname: '두팔',fundingMoney: 3000,
           fundingId:1
         },
         {
           presJoinUrl:require("@/assets/example-img/chunsicsub1.png"),
-          funding_title:'너의 마음을 보여줘',fundinging: '진행중',
+          funding_title:'너의 마음을 보여줘! 제발~',fundinging: '진행중',
           progressBarPercent: 20, fundingname: '춘식',fundingMoney: 3000,
           fundingId:2
         },
         {
           presJoinUrl:require("@/assets/example-img/chunsicsub3.png"),
-          funding_title:'생일이양',fundinging: '진행중',
+          funding_title:'"생일이양"',fundinging: '진행중',
           progressBarPercent: 50, fundingname: '라둥',fundingMoney: 3000,
           fundingId:3
         },
         {
           presJoinUrl:require("@/assets/example-img/chunsicsub2.png"),
-          funding_title:'나 이거이거',fundinging: '진행중',
+          funding_title:'나! 이거이거',fundinging: '진행중',
           progressBarPercent: 80, fundingname: '라이언',fundingMoney: 3000,
           fundingId:4
         },

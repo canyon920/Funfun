@@ -23,7 +23,7 @@
                         max-width="275px" >
                       <img
                           class="white--text align-end"
-                          height="225px"
+                          height="200px"
                           v-bind:src="merchan.presdeadimgUrl">
 
                       <v-card-title>{{ merchan.productTitle}}</v-card-title>

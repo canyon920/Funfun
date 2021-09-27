@@ -10,6 +10,7 @@ import FundingList from "@/views/FundingList";
 import DetailFundingPage from "@/views/DetailFundingPage";
 import Shop from "@/components/shoplist/Shop";
 import Menulist from "@/components/menulist/Menulist"
+import EventPage from "@/components/eventlist/EventPage";
 
 
 Vue.use(VueRouter)
@@ -46,9 +47,9 @@ const routes = [
     component: Login
   },
   {
-    path: '/event:eventTitle',
+    path: '/event/:eventId',
     name: 'mainEvent',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
+    component: EventPage
 
   },
   {
