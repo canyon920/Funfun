@@ -11,21 +11,18 @@
     <div class="navbar-menu1" :class="{active : booleanMenu1}">
       <div class="link-div"><router-link style="color: black" class="router-link" to="/">Home</router-link></div>
       <div class="link-div"><router-link style="color: black" class="router-link" to="/shop">Shop</router-link></div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/about">About</router-link></div>
+      <div class="link-div"><router-link style="color: black" class="router-link" to="/aboutpage">About</router-link></div>
 
     </div>
     <v-spacer></v-spacer>
     <div class="navbar-menu2" :class="{active : booleanMenu2}">
-      <div class="link-div" id="kakao-div" @click="Klogout()" hidden>KLogout</div>
-      <div class="link-div" id="google-div" @click="Glogout()" hidden>GLogout</div>
-      <div class="link-div" id="naver-div" @click="Nlogout()" hidden>NLogout</div>
-      <div class="link-div" id="email-div" @click="Flogout()" hidden>FLogout</div>
+      <div class="link-div" id="kakao-div" @click="Klogout()" hidden>Logout</div>
+      <div class="link-div" id="email-div" @click="Flogout()" hidden>Logout</div>
       <div class="link-div" id="login-div"><router-link style="color: black" class="router-link" to="/login" >Login</router-link></div>
       <div class="link-div" id="join-div"><router-link style="color: black" class="router-link" to="/join" >Join</router-link></div>
       <!--      <router-link to="#" v-on:click.native="unlink()"> Kakao Unlink</router-link>-->
 
 
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/help">Help</router-link></div>
     </div>
     <div class="mr-lg-16">
       <div class="navbar-search">
@@ -54,7 +51,6 @@
 
 <script>
 // import router from "@/router";
-
 export default {
   name:"Header",
   data()  {
@@ -123,11 +119,7 @@ export default {
         }
         if (this.memberInfo.memberApi === 'Kakao') {
           document.getElementById("kakao-div").hidden = false
-        }else if (this.memberInfo.memberApi === 'Naver') {
-          document.getElementById("naver-div").hidden = false
-        }else if (this.memberInfo.memberApi === 'Google') {
-          document.getElementById("google-div").hidden = false
-        }else if (this.memberInfo.memberApi === 'Email') {
+        } else if (this.memberInfo.memberApi === 'Email') {
           document.getElementById("email-div").hidden = false
         }
       } else if (localStorage.getItem('login_member') === null) {
@@ -135,13 +127,9 @@ export default {
         document.getElementById("login-div").hidden = false
         document.getElementById("login-info-div").style.display = 'none';
         document.getElementById("kakao-div").hidden = true
-        document.getElementById("naver-div").hidden = true
-        document.getElementById("google-div").hidden = true
         document.getElementById("email-div").hidden = true
-
       }
     }
-
   },
   // computed:{
   //   statusModify(){
@@ -178,20 +166,16 @@ body{
 }
 .router-link {
   text-decoration: none;
-
 }
 .link-div {
   margin: 0px 5px;
   cursor: pointer;
-
 }
 .link-div:hover {
   background-color: rgba(229, 114, 0, 0.3);
   border-radius: 5px;
   transition: .5s;
-
 }
-
 .navbar{
   display: flex;
   justify-content: space-between;
@@ -227,7 +211,6 @@ body{
   display: none;
 }
 .memberdetail{
-
   /*position: absolute;*/
   /*right: 25px;*/
   /*top:10px*/
@@ -246,8 +229,7 @@ body{
 #header-go-mypage {
   margin-right: 4%;
 }
-
-@media screen and (max-width: 1000px ) {
+@media screen and (max-width: 758px ) {
   .navbar{
     flex-direction: column;
     align-items: flex-start;
@@ -279,11 +261,8 @@ body{
   .logininfo {
     display: none !important;
   }
-
-
-
+  .mr-lg-16 {
+    display: none !important;
+  }
 }
-
-
-
 </style>

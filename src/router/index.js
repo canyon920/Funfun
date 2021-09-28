@@ -3,6 +3,15 @@ import VueRouter from 'vue-router'
 import Main from "@/views/Main";
 import Home from "@/views/Home";
 import About from "@/views/About";
+import Singup from "@/views/Singup";
+import AboutPage from "@/components/about/AboutPage";
+import Login from "@/views/Login";
+import FundingList from "@/views/FundingList";
+import DetailFundingPage from "@/views/DetailFundingPage";
+import Shop from "@/components/shoplist/Shop";
+import Menulist from "@/components/menulist/Menulist"
+import EventPage from "@/components/eventlist/EventPage";
+
 
 Vue.use(VueRouter)
 
@@ -18,12 +27,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'First',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../components/about/First')
+    path: '/aboutpage',
+    name: 'AboutPage',
+    component: AboutPage
   },
   {
     path: '/menu',
@@ -31,9 +37,19 @@ const routes = [
     component: About
   },
   {
-    path: '/event:eventTitle',
+    path: '/join',
+    name: 'Signup',
+    component: Singup
+  },
+  {
+    path:'/login',
+    name:'Login',
+    component: Login
+  },
+  {
+    path: '/event/:eventId',
     name: 'mainEvent',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
+    component: EventPage
 
   },
   {
@@ -42,25 +58,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/FundingList.vue')
   },
   {
-    path:'/login',
-    name:'Login',
-    component: () =>import('../views/Login.vue')
-  },
-  {
-    path:'/auth',
-    name:'Auth',
-    component: () =>import('../views/Auth.vue')
-  },
-  {
     path:'/funlogin',
     name:'LoginFunfun',
     component: () =>import('../components/login/LoginFunfun.vue')
   },
-  {
-    path:'/loginkakao',
-    name:'LoginKakao',
-    component: () =>import('../components/login/LoginKakao.vue')
-  },
+
   {
     path: '/detail-page',
     name: 'detail_page',
@@ -74,21 +76,40 @@ const routes = [
     component: () => import('../views/Detail_page.vue')
   },
   {
-    path: '/detail-page/:memberId',
+    path: '/detail-page/:productId',
     name: 'detail_page_P',
     component: () => import('../views/Detail_page.vue')
   },
   //  라우터 쿼리 / 파람 예시 여기까지
   {
-    path: '/funding-detail-page',
+    path: '/funding-detail-page/:fundingId',
     name: 'DetailFundingPage',
-    component: () => import('../views/DetailFundingPage')
-  }
+    // component: () => import('../views/DetailFundingPage')
+    component: DetailFundingPage
+  },
+  {
+    path: '/mypage-list',
+    name: 'menulist',
+    component: Menulist
+  },
+  {
+    path: '/my-funding-list/:memberId',
+    name: 'FundingList',
+    component: FundingList
+  },
+  {
+    path: '/shop-product-lis/:categoryId',
+    name: 'Shop',
+    component: Shop
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior() {
+    return { x: 0, y: 0 }
+  },
   routes
 })
 

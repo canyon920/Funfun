@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import {naverService} from "../service/login";
 export default {
   methods: {
     kakaoLogin(){
@@ -32,22 +31,7 @@ export default {
       })
 
     },
-    displayToken() {
-      console.log("디스플레이토큰실행")
-      const token = this.getCookie('authorize-access-token')
-      console.log("이프전 ",token)
-      if(token) {
-        window.Kakao.Auth.setAccessToken(token)
-        window.Kakao.Auth.getStatusInfo(({ status }) => {
-          if(status === 'connected') {
-            console.log(token)
-            document.getElementById('token-result').innerText = 'login success. token: ' + window.Kakao.Auth.getAccessToken()
-          } else {
-            window.Kakao.Auth.setAccessToken(null)
-          }
-        })
-      }
-    },
+
     getCookie (name){
       console.log("네임",name)
       const value = "; " + document.cookie;
@@ -57,17 +41,8 @@ export default {
       console.log("ㄴㅇㄹㄴㅇㄹ",parts);
       if (parts.length === 2) return parts.pop().split(";").shift();
     },
-    getInfo(){
-      naverService().getUserInfo();
-    }
   },
-  mounted() {
-    if(this.$route.hash){
-      naverService().getUserInfo();
-    }
-    // this.displayToken()
-    // this.kakaoLogin()
-  },
+
 
 };
 </script>

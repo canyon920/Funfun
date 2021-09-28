@@ -1,65 +1,108 @@
 <template>
   <div class="parent-box-login">
-  <v-card
-      class="mx-auto mt-10 mb-16 pb-16"
-      max-width="400"
-      outlined
-  >
-    <div class="login">
-      <div class="pl-5 pr-5 pt-6">
-        <v-list-item >
-          <v-list-item-content>
-            <div class="pb-7">
-              <div class="kakao login">
-                <login-kakao></login-kakao>
+    <transition name="selectLogin-fade">
+    <v-card
+        class="mx-auto mt-10 mb-16 pb-16"
+        max-width="400"
+        outlined
+        :class="{active : funlogintransform, deactive : !funlogintransform}"
+    >
+      <div class="login">
+        <div class="pl-5 pr-5 pt-6">
+          <v-list-item>
+            <v-list-item-content>
+              <div class="pb-7">
+                <div class="kakao login">
+                  <login-kakao></login-kakao>
+                </div>
               </div>
+              <v-list-item-subtitle class="text-center">----------------------------------- or
+                -----------------------------------
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <div class="pt-5">
+            <div class="login_option" style="width: 326px">
+              <v-btn class="mx-5" block large color="rgba(229, 114, 0)" @click="funloginShowMethod"
+                     style="color: white;"><strong>Funfun해줘 Email</strong></v-btn>
             </div>
-            <v-list-item-subtitle class="text-center">-----------------------------------  or  -----------------------------------</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <div class="pt-5">
-          <div class="login_option">
-            <login-naver></login-naver>
-            <login-google></login-google>
-<!--            <login-funfun></login-funfun>-->
-            <v-btn class="mx-5" fab large color ="rgba(229, 114, 0)" to="funlogin"><strong>F</strong></v-btn>
-
           </div>
         </div>
       </div>
-    </div>
-  </v-card>
+    </v-card>
+    </transition>
+    <transition name="funlogin-fade">
+      <LoginFunfun v-show="funloginShow" class="funlogin"/>
+    </transition>
   </div>
 </template>
 <script>
 
 
 import LoginKakao from "./LoginKakao";
-import LoginNaver from "./LoginNaver";
-import LoginGoogle from "./LoginGoogle";
+import LoginFunfun from "@/components/login/LoginFunfun";
 
 export default {
   name: 'Login',
-  components:{
-    LoginGoogle,
-    LoginNaver,
-    LoginKakao
-
+  data(){
+    return{
+      funloginShow: false,
+      funlogintransform: false
+    }
   },
+  components:{
+    LoginKakao,
+    LoginFunfun
+  },
+  methods:{
+    funloginShowMethod() {
+      this.funloginShow = !this.funloginShow
+      this.funlogintransform = !this.funlogintransform
+    }
+  }
 }
 
 
 </script>
-<style>
+<style scoped>
+.mx-auto.mt-10.mb-16.pb-8.funlogin.v-card.v-sheet.v-sheet--outlined.theme--light {
+  margin-left: 0px !important;
+}
+
 .parent-box-login {
-  /*margin-bottom: 25vh;*/
+  margin-top: 5%;
+  margin-bottom: 15%;
+  display: flex;
+  flex-direction: row;
 }
 .login {
-  margin-top: 2%;
-  margin-bottom: 12%;
+
 }
 .login_option{
   font-size: 15px;
   display: flex;
 }
+
+
+.active {
+  transition: .8s;
+  transform: translateX(100px);
+}
+.deactive {
+  transition: .8s;
+}
+
+
+.funlogin-fade-enter {
+  transform: translateX(-100px);
+  opacity: 0;
+}
+.funlogin-fade-enter-active,
+.funlogin-fade-leave-active {
+  transition: all .8s ease-out;
+}
+.funlogin-fade-leave-to {
+  transform: translateX(-100px);
+}
+
 </style>
