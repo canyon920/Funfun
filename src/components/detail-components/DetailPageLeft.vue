@@ -32,7 +32,7 @@ export default {
   props:{
     bringLeftInfo:{
       type:Object
-    }
+    },
   },
   emits:[
       'bringsub01Click', 'bringsub02Click', 'bringsub03Click'

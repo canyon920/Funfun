@@ -58,6 +58,21 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/FundingList.vue')
   },
   {
+    path: '/friendlist',
+    name: 'FriendList',
+    component: () => import(/* webpackChunkName: "about" */ '../views/FriendList.vue')
+  },
+  {
+    path: '/wishlist',
+    name: 'JoinedyyList',
+    component: () => import(/* webpackChunkName: "about" */ '../views/MywishtList.vue')
+  },
+  {
+    path: '/joinlist',
+    name: 'MywishList',
+    component: () => import(/* webpackChunkName: "about" */ '../views/JoinedmyList.vue')
+  },
+  {
     path:'/funlogin',
     name:'LoginFunfun',
     component: () =>import('../components/login/LoginFunfun.vue')
