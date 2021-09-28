@@ -1,60 +1,115 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Main from "@/views/Main";
+import Home from "@/views/Home";
+import About from "@/views/About";
+import Singup from "@/views/Singup";
+import AboutPage from "@/components/about/AboutPage";
+import Login from "@/views/Login";
+import FundingList from "@/views/FundingList";
+import DetailFundingPage from "@/views/DetailFundingPage";
+import Shop from "@/components/shoplist/Shop";
+import Menulist from "@/components/menulist/Menulist"
+import EventPage from "@/components/eventlist/EventPage";
+
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
+    name: 'Main',
+    component: Main
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/aboutpage',
+    name: 'AboutPage',
+    component: AboutPage
   },
-    {
-      path: '/main',
-      name: 'Main',
-      component: () => import(/* webpackChunkName: "about" */ '../views/Main.vue')
-    },
   {
-    path: '/event/:eventTitle',
+    path: '/menu',
+    name: 'about',
+    component: About
+  },
+  {
+    path: '/join',
+    name: 'Signup',
+    component: Singup
+  },
+  {
+    path:'/login',
+    name:'Login',
+    component: Login
+  },
+  {
+    path: '/event/:eventId',
     name: 'mainEvent',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-    props : true
+    component: EventPage
 
   },
-
   {
     path: '/fundinglist',
     name: 'FundingList',
     component: () => import(/* webpackChunkName: "about" */ '../views/FundingList.vue')
   },
   {
-    path: '/fundinglist/:fundingTitle',
-    name: 'fundingList',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-    props : true
-
+    path:'/funlogin',
+    name:'LoginFunfun',
+    component: () =>import('../components/login/LoginFunfun.vue')
   },
 
   {
-    path: '/choose',
-    name: 'Choose',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Choose.vue')
-  },
+    path: '/detail-page',
+    name: 'detail_page',
 
+    component: () => import('../views/Detail_page.vue')
+  },
+  //  라우터 쿼리 / 파람 예시
+  {
+    path: '/detail-page',
+    name: 'detail_page_Q',
+    component: () => import('../views/Detail_page.vue')
+  },
+  {
+    path: '/detail-page/:productId',
+    name: 'detail_page_P',
+    component: () => import('../views/Detail_page.vue')
+  },
+  //  라우터 쿼리 / 파람 예시 여기까지
+  {
+    path: '/funding-detail-page/:fundingId',
+    name: 'DetailFundingPage',
+    // component: () => import('../views/DetailFundingPage')
+    component: DetailFundingPage
+  },
+  {
+    path: '/mypage-list',
+    name: 'menulist',
+    component: Menulist
+  },
+  {
+    path: '/my-funding-list/:memberId',
+    name: 'FundingList',
+    component: FundingList
+  },
+  {
+    path: '/shop-product-lis/:categoryId',
+    name: 'Shop',
+    component: Shop
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior() {
+    return { x: 0, y: 0 }
+  },
   routes
 })
 

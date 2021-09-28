@@ -39,9 +39,10 @@ export default {
 </script>
 <style>
 .giboo{
+  margin-bottom: 100px;
 
 }
 .giboo .gibootext{
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 </style>

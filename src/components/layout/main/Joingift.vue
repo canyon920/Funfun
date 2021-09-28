@@ -1,24 +1,35 @@
 <template>
   <div class = "join">
-    <div class="textline">
-   <h2>내가 참여한 선물</h2>
-   </div>
-  <carousel :autoplay="true" :nav="false">
+
+  <carousel :autoplay="true" :nav="false" :responsive="{
+              1024:{
+                items:3,
+              },
+              758:{
+                items:3,
+              },
+              250:{
+                items:1,
+              }
+            }">
 <!--    <template slot="prev"><span class="prev">prev</span></template>-->
-    <a v-for="join in bringmainJoin" :key="join">
-    <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
+    <div v-for="(join, jkey) in bringmainJoin" :key="jkey">
+      <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: join.fundingId}}" style="text-decoration: none">
+      <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
     <v-card
+        id="v-card-custom"
         class="mx-auto"
         max-width="300"
     >
 
       <img
+          id="card-img"
           class="white--text align-end"
           height="200px"
           v-bind:src="join.presJoinUrl"
       >
 
-      <v-card-title>{{join.funding_title}}</v-card-title>
+      <v-card-title style="text-align: center">{{join.funding_title}}</v-card-title>
 
 
       <v-card-subtitle class="pb-0">
@@ -38,7 +49,8 @@
 
     </v-card>
     </div>
-    </a>
+      </router-link>
+    </div>
     <!--    두번쨰 사진-->
 
 
@@ -56,7 +68,7 @@ export default {
   components: { carousel },
   props: {
     bringmainJoin : {
-      type: Object
+      type: Array
     }
   },
   emits:[
@@ -66,7 +78,7 @@ export default {
 }
 
 </script>
-<style>
+<style scoped>
 .prev{
   display: none;
 }
@@ -76,13 +88,61 @@ export default {
 .join{
   margin-bottom: 80px;
 }
-.textline{
-  margin-bottom: 20px;
-}
+
 .fundingmoeny{ color:darkblue;}
 .fundingname {
 
   font-size: 20px;
+}
+
+
+@media screen and (min-width: 415px) and (max-width: 1300px){
+  #v-card-custom {
+    max-width: 200px !important;
+  }
+  #v-card-custom div {
+    font-size: 15px !important;
+    line-height: 20px !important;
+
+  }
+  #card-img {
+    height: 200px !important;
+    width: 200px !important;
+  }
+  #shop-carousel {
+    max-width: 800px !important;
+  }
+
+  #v-card-custom div #progress-bar-text {
+    font-size: 12px !important;
+    line-height: 25px !important;
+
+  }
+
+}
+
+@media screen and (max-width: 415px){
+  #v-card-custom {
+    max-width: 215px !important;
+  }
+  #v-card-custom div {
+    font-size: 15px !important;
+    line-height: 20px !important;
+  }
+  #card-img {
+    height: 215px !important;
+    width: 215px !important;
+  }
+  #shop-carousel {
+    max-width: 350px !important;
+  }
+
+  #v-card-custom div #progress-bar-text {
+    font-size: 12px !important;
+    line-height: 25px !important;
+
+  }
+
 }
 
 </style>

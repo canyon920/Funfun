@@ -1,47 +1,64 @@
 <template>
   <div class = "deadline">
-    <div class="fonttext">
-      <h2>마감예정인 상품</h2>
-    </div>
 
-  <carousel :autoplay="true" :nav="false" >
- <template slot="prev"><span class="prev" >prev</span></template>
-    <a v-for="value in bringmainDeadline" :key="value">
-    <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
+    <carousel id="shop-carousel" :autoplay="true" :nav="false" :responsive="{
+              1024:{
+                items:3,
+              },
+              758:{
+                items:3,
+              },
+              250:{
+                items:1,
+              }
+            }">
 
-      <v-card
-        class="mx-auto"
-        max-width="300px" >
+      <div v-for="(value,vkey) in bringmainDeadline" :key="vkey">
+        <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: value.fundingId}}" style="text-decoration: none">
+          <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
-      <img
-          class="white--text align-end"
-          height="200px"
-          v-bind:src="value.presdeadimgUrl">
+            <v-card
+                id="v-card-custom"
+                class="mx-auto"
+                max-width="300px" >
+              <img
+                  id="card-img"
+                  class="white--text align-end"
+                  v-bind:src="value.preFundingImgUrl">
 
-      <v-card-title>{{value.fundingTitle}}</v-card-title>
+              <v-card-title style="text-align: center">{{value.fundingTitle}}</v-card-title>
 
-      <v-card-subtitle class="pb-0">
-        {{value.fundinging}}
-      </v-card-subtitle>
-        <div class="progressBar-div">
-          <div class="progressBar" :style="{width : value.progressBarPercent +'%'}">
-          <!--            프로그래스 바            -->
+              <div class="progress-bar-total-div">
+
+                <div class="progress-bar-img">
+                  <div class="progressBar-div">
+                    <div class="progressBar" :style="{width : value.progressBarPercent +'%'}">
+                      <!--            프로그래스 바            -->
+                    </div>
+                  </div>
+                </div>
+
+                <v-card-subtitle class="pb-0">
+                  <div id="progress-bar-text">
+                    {{value.progressBarPercent}}% 진행중
+                  </div>
+                </v-card-subtitle>
+
+              </div>
+
+              <v-card-text id="card-text" class="text--primary">
+                <div class ="fundingname">{{value.fundingname}}님의 펀딩 상품</div>
+
+                <div class="fundingmoeny">{{value.fundingMoney}}원 펀딩</div>
+              </v-card-text>
+
+            </v-card>
+
           </div>
-        </div>
+        </router-link>
+      </div>
 
-      <v-card-text class="text--primary">
-        <div class ="fundingname">{{value.fundingname}}님의 펀딩 상품</div>
-
-        <div class="fundingmoeny">{{value.fundingMoney}}원 펀딩</div>
-      </v-card-text>
-
-    </v-card>
-
-    </div>
-    </a>
-
-<!--    <template slot="next"><span class="next">next</span></template>-->
-  </carousel>
+    </carousel>
   </div>
 </template>
 <script>
@@ -54,55 +71,121 @@ export default {
   components: { carousel },
   props: {
     bringmainDeadline : {
-      type: Object
+      type: Array
     }
   },
   emits:[
-      'bringdeadimg01Click','bringdeadimg02Click','bringdeadimg03Click','bringdeadimg04Click'
+    'bringdeadimg01Click','bringdeadimg02Click','bringdeadimg03Click','bringdeadimg04Click'
 
   ],
 }
 
 
 </script>
-<style>
-.prev{
-  display: none;
+<style scoped>
+#card-text {
+  padding: 2%;
 }
-.next{
-  display: none;
-}
+
 .deadline {
   margin-top: 100px;
   margin-bottom: 90px;
 }
-.fonttext{
-  margin-bottom: 20px;
-}
-.fundingmoeny{ color:darkblue;}
+
+.fundingmoeny{ color: rgb(229, 114, 0);}
 
 .pb-0{
   position: relative;
 }
 
-
-.progressBar-div {
+#v-card-custom {
   position: relative;
-  display: block;
-  height: 8px;
-  width: 70%;
-  background-color: rgba(229, 114, 0, .2);
-  left: 70px;
-  bottom: 15px;
+  max-height: 815px;
+}
+#v-card-custom #card-img {
+  height: 275px;
+  height: 275px;
 
 }
-.progressBar-div .progressBar {
+#v-card-custom .progress-bar-total-div {
+
+
+}
+#v-card-custom .progress-bar-total-div .progressBar-div {
+  position: absolute;
+  display: block;
+  height: 8px;
+  /*margin: 0px 10px;*/
+  width: 90%;
+  left: 5%;
+  background-color: rgba(229, 114, 0, .2);
+  bottom: 22%;
+
+}
+#v-card-custom .progress-bar-total-div .progressBar-div .progressBar {
   height: 8px;
   background-color: rgb(229, 114, 0);
   /*width: 30%;*/
 }
+
 .fundingname {
 
   font-size: 20px;
 }
+.card-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+@media screen and (min-width: 415px) and (max-width: 1300px){
+  #v-card-custom {
+    max-width: 200px !important;
+  }
+  #v-card-custom div {
+    font-size: 15px !important;
+    line-height: 20px !important;
+
+  }
+  #card-img {
+    height: 200px !important;
+    width: 200px !important;
+  }
+  #shop-carousel {
+    max-width: 800px !important;
+  }
+
+  #v-card-custom div #progress-bar-text {
+    font-size: 12px !important;
+    line-height: 25px !important;
+
+  }
+
+}
+
+@media screen and (max-width: 415px){
+  #v-card-custom {
+    max-width: 215px !important;
+  }
+  #v-card-custom div {
+    font-size: 15px !important;
+    line-height: 20px !important;
+  }
+  #card-img {
+    height: 215px !important;
+    width: 215px !important;
+  }
+  #shop-carousel {
+    max-width: 350px !important;
+  }
+
+  #v-card-custom div #progress-bar-text {
+    font-size: 12px !important;
+    line-height: 25px !important;
+
+  }
+
+}
+
 </style>
