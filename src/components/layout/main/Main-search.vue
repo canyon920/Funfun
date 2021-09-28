@@ -32,7 +32,7 @@
 <!--              <carousel id="shop-carousel" :autoplay="true" :nav="false" >-->
               <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
               <a v-for="(merchan, idx) in mainSearch" :key="idx">
-                <router-link :to="{name: 'detail_page_P' ,params: {productId: merchan.productId}}" style="text-decoration: none">
+                <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: merchan.fundingId}}" style="text-decoration: none">
                   <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
                     <v-card
@@ -42,16 +42,16 @@
                       <img
                           id="card-img"
                           class="white--text align-end"
-                          v-bind:src="merchan.preFundingImgUrl">
+                          v-bind:src="merchan.fundingUrl">
 
-                      <v-card-title>{{ merchan.productTitle}}</v-card-title>
+                      <v-card-title>{{ merchan.funndingTitle}}</v-card-title>
 
                       <v-card-subtitle class="pb-0" id="v-card-subtitle-custom">
                         <div id="card-brand" style="font-size: 20px;">
-                        {{merchan.productBrand}}
+                        {{merchan.funndingBrand}}
                         </div>
                         <div id="card-price" style="font-size: 25px; color: rgb(229, 114, 0)">
-                        {{ merchan.productsubPrice}}
+                        {{ merchan.fundingTartgetMoney}}
                         </div>
                       </v-card-subtitle>
 
@@ -86,12 +86,12 @@ export default {
   data(){
     return{
       mainSearch:[
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicthum.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub1.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub2.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub3.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicthum.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub1.png")},
+        {fundingId:1 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
+        {fundingId:2 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
+        {fundingId:3 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub2.png")},
+        {fundingId:4 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub3.png")},
+        {fundingId:5 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
+        {fundingId:6 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
 
 
       ],

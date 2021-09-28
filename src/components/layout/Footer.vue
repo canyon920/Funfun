@@ -1,32 +1,32 @@
 <template>
   <div class="footer">
     <v-footer color="#e6e6e6" padless>
-        <div class="footer_logo">
-          <v-img class="ml-lg-16" max-height="80"
-                 max-width="180" src="@/assets/logo/footerlogo2.png"></v-img>
-        </div>
+      <div class="footer_logo">
+        <v-img class="ml-lg-16" max-height="80"
+               max-width="180" src="@/assets/logo/footerlogo2.png"></v-img>
+      </div>
       <v-spacer></v-spacer>
-        <div class="footer_btn">
-          <v-btn to="/home" text rounded plain color="grey">Home</v-btn>
-          <v-btn x-small plain disabled color="black">|</v-btn>
-          <v-btn text rounded plain color="grey" @click="onClickRedirect1">Trello</v-btn>
-          <v-btn x-small plain disabled color="black">|</v-btn>
-          <v-btn text rounded plain color="grey" @click="onClickRedirect2">GitHub</v-btn>
-        </div>
+      <div class="footer_btn">
+        <v-btn class="btn" to="/home" text rounded plain color="grey">Home</v-btn>
+        <v-btn class="btn" x-small plain disabled color="black">|</v-btn>
+        <v-btn class="btn" text rounded plain color="grey" @click="onClickRedirect1">Trello</v-btn>
+        <v-btn class="btn" x-small plain disabled color="black">|</v-btn>
+        <v-btn class="btn" text rounded plain color="grey" @click="onClickRedirect2">GitHub</v-btn>
+      </div>
 
       <v-container fluid class="footer_content">
-          <v-col class="pb-0 text-left grey--text" >
-            (TEAM) LEADER: 김명훈 MEMBER: 김규민, 김동원, 신대현, 신혜림, 이지연
-          </v-col>
-          <v-col class="pb-0 pt-0 text-left grey--text" >
-            (주소) 가산디지털 2로 123
-          </v-col>
-          <v-col class="pb-0 pt-0 text-left grey--text" >
-            (EMAIL) funfun@gmail.com (CS) 1544-0000 평일 09:00~19:00
-          </v-col>
-          <v-col class="pl-0 py-4 text-center grey--text"  cols="12">
-            {{ new Date().getFullYear() }} — <strong>FunfunHaeJwo Team. All right reserved</strong>
-          </v-col>
+        <v-col class="pb-0 text-left grey--text" >
+          (TEAM) LEADER: 김명훈 MEMBER: 김규민, 김동원, 신대현, 신혜림, 이지연
+        </v-col>
+        <v-col class="pb-0 pt-0 text-left grey--text" >
+          (주소) 가산디지털 2로 123
+        </v-col>
+        <v-col class="pb-0 pt-0 text-left grey--text" >
+          (EMAIL) funfun@gmail.com (CS) 1544-0000 평일 09:00~19:00
+        </v-col>
+        <v-col class="pl-0 py-4 text-center grey--text"  cols="12">
+          {{ new Date().getFullYear() }} — <strong>FunfunHaeJwo Team. All right reserved</strong>
+        </v-col>
       </v-container>
     </v-footer>
   </div>
@@ -47,7 +47,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .footer {
 }
 .footer_btn{
@@ -64,6 +64,11 @@ export default {
   }
   .footer_content{
     padding-left: 5px;
+  }
+}
+@media screen and (max-width: 800px){
+  .footer_btn .btn {
+    font-size: 20px;
   }
 }
 
