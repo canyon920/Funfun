@@ -9,32 +9,43 @@
           :key="i"
           :src="item.src"
       >
-
+        <router-link :to="{name: 'DetailFundingPage', params:{ fundingId: item.fundingId }}">
+          <div style="width: 100%; height: 100%; cursor: pointer"></div>
+        </router-link>
       </v-carousel-item>
     </v-carousel>
   </div>
 </template>
 <script>
+
+
+
 export default {
   name: 'Gibooline',
   data () {
     return {
       items: [
         {
-          src: 'https://happybean-phinf.pstatic.net/20210914_239/1631582579816Keldv_JPEG/PC___2280x600_1.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+          src: null,
+          fundingId:1
         },
       ],
     }
   },
+  methods:{
+    bottomdonation() {
+      var wmm = window.matchMedia("screen and (max-width: 500px)");
+      if (wmm.matches) {
+        this.items[0].src = require("@/assets/donate/ｄｏｎａｔｅ4.png");
+      } else {
+        this.items[0].src = require("@/assets/donate/ｄｏｎａｔｅ５.png");
+      }
+    }
+  },
+  beforeMount() {
+    this.bottomdonation()
+  }
+
 }
 </script>
 <style>

@@ -22,7 +22,7 @@
             </v-list-item-content>
           </v-list-item>
           <div class="pt-5">
-            <div class="login_option" style="width: 326px">
+            <div class="login_option" style="width: 320px">
               <v-btn class="mx-5" block large color="rgba(229, 114, 0)" @click="funloginShowMethod"
                      style="color: white;"><strong>Funfun해줘 Email</strong></v-btn>
             </div>

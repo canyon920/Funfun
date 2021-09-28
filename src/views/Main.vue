@@ -7,14 +7,15 @@
         height="400"
         hide-delimiter-background
         show-arrows-on-hover
-        style="width: 100vw"
     >
       <v-carousel-item
           v-for="(slide, i) in slides"
           :key="i"
           :src="slide.imgSrc"
-          style="height: 100vw"
       >
+        <router-link :to="{name: 'mainEvent', params:{ eventId: slide.eventId }}">
+          <div style="width: 100%; height: 100%; cursor: pointer"></div>
+        </router-link>
         <!--        <v-sheet-->
         <!--            :color="colors[i]"-->
         <!--            height="100%"-->
@@ -167,12 +168,27 @@ export default {
         'deep-purple accent-4',
       ],
       slides: [
-        {imgSrc: require("@/assets/event/main1.jpg")},
-        {imgSrc: require("@/assets/event/banner/bagEvent.png")},
-        {imgSrc: "https://funfunbucket.s3.ap-northeast-2.amazonaws.com/finfinbucket-static/first/first2.jpg"},
-        '광고',
+        {
+          imgSrc: require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔ.png"),
+          eventId: 1,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/bagEvent.png"),
+          eventId: 2,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔ.png"),
+          eventId: 3,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔ.png"),
+          eventId: 4,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔ.png"),
+          eventId: 5,
+        },
 
-        '광고',
       ],
       mainSearch:
       // null,
@@ -278,8 +294,28 @@ export default {
   methods: {
     searchFriendSelect(username) {
       this.mainSearch.username = username
+    },
+    topEventImg() {
+      var wmm1 = window.matchMedia("screen and (max-width: 500px)");
+      if (wmm1.matches) {
+        console.log("500보다 작다")
+        this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔｖｅｒ２.png")
+        this.slides[1].imgSrc = require("@/assets/event/banner/bagEventｖｅｒ２.png")
+        this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔｖｅｒ２.png")
+        this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔｖｅｒ２.png")
+        this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔｖｅｒ２.png")
+      } else{
+        console.log("500보다 크다")
+        this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔ.png")
+        this.slides[1].imgSrc = require("@/assets/event/banner/bagEvent.png")
+        this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔ.png")
+        this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔ.png")
+        this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔ.png")
+      }
     }
-
+  },
+  beforeMount() {
+    this.topEventImg()
   }
 }
 
@@ -317,10 +353,10 @@ export default {
   margin-top: 30px;
 }
 
-@media screen and (max-width: 320px){
-  #v-carousel-item-top-event-banner {
-    display: none;
-  }
-}
+/*@media screen and (max-width: 800px){*/
+/*  #v-carousel-item-top-event-banner {*/
+/*    display: none;*/
+/*  }*/
+/*}*/
 
 </style>
