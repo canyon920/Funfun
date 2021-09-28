@@ -1,5 +1,5 @@
 <template>
-  <nav id="nav" class="navbar">
+  <nav class="navbar">
     <div class="navbar-logo">
       <div class="ml-lg-16">
         <router-link to="/">
@@ -16,17 +16,15 @@
     </div>
     <v-spacer></v-spacer>
     <div class="navbar-menu2" :class="{active : booleanMenu2}">
-      <div class="link-div" id="kakao-div" @click="Klogout()" hidden>KLogout</div>
-      <div class="link-div" id="google-div" @click="Glogout()" hidden>GLogout</div>
-      <div class="link-div" id="naver-div" @click="Nlogout()" hidden>NLogout</div>
-      <div class="link-div" id="email-div" @click="Flogout()" hidden>FLogout</div>
+      <div class="link-div" id="kakao-div" @click="Klogout()" hidden>Logout</div>
+      <div class="link-div" id="email-div" @click="Flogout()" hidden>Logout</div>
       <div class="link-div" id="login-div"><router-link style="color: black" class="router-link" to="/login" >Login</router-link></div>
       <div class="link-div" id="join-div"><router-link style="color: black" class="router-link" to="/join" >Join</router-link></div>
       <!--      <router-link to="#" v-on:click.native="unlink()"> Kakao Unlink</router-link>-->
 
 
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/help">Help</router-link></div>
     </div>
+    <div class="mr-lg-16">
       <div class="navbar-search">
         <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>
         <v-text-field class="mt-lg-5 mt-md-5"
@@ -36,18 +34,16 @@
                       dense
         ></v-text-field>
       </div>
+    </div>
     <div class="nav_toggle" @click="toggleDown">
       <v-btn icon >
         <v-icon  >mdi-dots-vertical</v-icon>
       </v-btn>
     </div>
-    <router-link id="header-go-mypage" style="color: black" class="router-link" to="/mypage-list">
+    <router-link id="header-go-mypage" style="color: black" class="router-link" to="/memberdetail">
       <div class="logininfo" id="login-info-div" style="display: none">
-        <div class="memberdetail">
-          <img :src="imgNormal" style="height: 25px; border-radius: 50%">
-        </div>
-<!--        <div class="memberdetail"><v-icon>mdi-account-circle</v-icon></div>-->
-        <div class="name pr-2" style="font-size: 5px;margin-left: 2px" id="name-div"></div>
+        <div class="memberdetail"><v-icon>mdi-account-circle</v-icon></div>
+        <div class="name pr-2" style="font-size: 5px" id="name-div"></div>
       </div>
     </router-link>
   </nav>
@@ -55,7 +51,6 @@
 
 <script>
 // import router from "@/router";
-
 export default {
   name:"Header",
   data()  {
@@ -68,8 +63,6 @@ export default {
       // reloadPage:true,
       booleanMenu1: false,
       booleanMenu2: false,
-
-      imgNormal : require('@/assets/logo/img-normal.jpg')
     }
   },
   methods: {
@@ -126,11 +119,7 @@ export default {
         }
         if (this.memberInfo.memberApi === 'Kakao') {
           document.getElementById("kakao-div").hidden = false
-        }else if (this.memberInfo.memberApi === 'Naver') {
-          document.getElementById("naver-div").hidden = false
-        }else if (this.memberInfo.memberApi === 'Google') {
-          document.getElementById("google-div").hidden = false
-        }else if (this.memberInfo.memberApi === 'Email') {
+        } else if (this.memberInfo.memberApi === 'Email') {
           document.getElementById("email-div").hidden = false
         }
       } else if (localStorage.getItem('login_member') === null) {
@@ -138,13 +127,9 @@ export default {
         document.getElementById("login-div").hidden = false
         document.getElementById("login-info-div").style.display = 'none';
         document.getElementById("kakao-div").hidden = true
-        document.getElementById("naver-div").hidden = true
-        document.getElementById("google-div").hidden = true
         document.getElementById("email-div").hidden = true
-
       }
     }
-
   },
   // computed:{
   //   statusModify(){
@@ -181,20 +166,16 @@ body{
 }
 .router-link {
   text-decoration: none;
-
 }
 .link-div {
   margin: 0px 5px;
   cursor: pointer;
-
 }
 .link-div:hover {
   background-color: rgba(229, 114, 0, 0.3);
   border-radius: 5px;
   transition: .5s;
-
 }
-
 .navbar{
   display: flex;
   justify-content: space-between;
@@ -230,7 +211,6 @@ body{
   display: none;
 }
 .memberdetail{
-
   /*position: absolute;*/
   /*right: 25px;*/
   /*top:10px*/
@@ -244,14 +224,12 @@ body{
 .logininfo {
   display: flex;
   flex-direction: row;
-  justify-content: end;
   align-items: center;
 }
 #header-go-mypage {
-  /*margin-right: 4%;*/
+  margin-right: 4%;
 }
-
-@media screen and (max-width: 1000px ) {
+@media screen and (max-width: 758px ) {
   .navbar{
     flex-direction: column;
     align-items: flex-start;
@@ -283,11 +261,8 @@ body{
   .logininfo {
     display: none !important;
   }
-
-
-
+  .mr-lg-16 {
+    display: none !important;
+  }
 }
-
-
-
 </style>

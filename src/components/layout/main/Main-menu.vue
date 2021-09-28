@@ -126,7 +126,8 @@ export default {
   margin: 10px;
 }
 .menu{
-  max-width:1100px; left:0; right:0; margin-left:auto; margin-right:auto;
+  max-width:1100px;
+  left:0; right:0; margin-left:auto; margin-right:auto;
   margin-top: 60px;
   margin-bottom: 60px;
 }

@@ -96,7 +96,7 @@ export default{
 
 <style>
 /* 전체적인 레이아웃 */
-.layout {max-width:1100px; justify-content: center; position: relative;}
+/*.layout {max-width:1100px; justify-content: center; position: relative;}*/
 .v-application--wrap {}
 .container_list {flex-direction:column; flex-wrap: wrap; align-items: center;
   /*text-align: center;*/
@@ -117,7 +117,7 @@ export default{
 
 /* 카테고리 사이즈 */
 .category_big {width:100%;  position: relative; display:flex; text-align:center; justify-content: center; }
-.category_name {width:1100px; text-align:center; position: relative; margin-top:100px;}
+/*.category_name {width:1100px; text-align:center; position: relative; margin-top:100px;}*/
 
 /*.category_name span { margin-left:20px; position: relative; }*/
 .category_name span  img {width:80px; float:left; display:flex; margin-left:50px;}
@@ -129,11 +129,13 @@ export default{
 
 /* 상품 리스트 */
 .display-2 .mb-4 {text-align:center; width:400px; float:left;}
-.flex { display:flex; float:left; width:1100px;}
+/*.flex { display:flex; float:left; width:1100px;}*/
 .xs2 { min-width:275px; float:left;  }
 
 /* 카드 라벨 ㄴ*/
-.v-card--reveal{ max-width:1100px; text-align:center;  flex-direction: row;  /*display:flex;*/flex-wrap: wrap;align-items: center;bottom: 0;justify-content: center;opacity: 0.5 ;position: relative ;
+.v-card--reveal{
+  /*max-width:1100px; */
+  text-align:center;  flex-direction: row;  /*display:flex;*/flex-wrap: wrap;align-items: center;bottom: 0;justify-content: center;opacity: 0.5 ;position: relative ;
   width: 100%
 }
 

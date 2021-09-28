@@ -6,20 +6,26 @@
       <div class="moreandmore" ><router-link to="/wishlist" style="text-decoration: none; color: rgb(229, 114, 0)">더보기</router-link> </div>
       <div class = no-merchandise>
         <div class ="datalist">
-          <div v-if="mainSearch.length == 0">
+          <div v-if="mainSearch.length == 0" >
             펀딩중인 상품이 없어요.
           </div>
-          <div class = "product" v-else style="width:1000px;" >
+          <div class = "product" v-else>
 
 
             <carousel id="shop-carousel" :autoplay="true" :nav="false" :responsive="{
-              1000:{
+              // 1440:{
+              //   items:4,
+              // },
+              1024:{
                 items:3,
               },
-              400:{
+              758:{
+                items:3,
+              },
+              450:{
                 items:2,
               },
-              280:{
+              200:{
                 items:1,
               }
             }">
@@ -36,11 +42,11 @@
                       <img
                           id="card-img"
                           class="white--text align-end"
-                          v-bind:src="merchan.presdeadimgUrl">
+                          v-bind:src="merchan.preFundingImgUrl">
 
                       <v-card-title>{{ merchan.productTitle}}</v-card-title>
 
-                      <v-card-subtitle class="pb-0" style="font-size: 25px; display: flex; flex-direction: row; justify-content: space-between; margin: 10px 0px">
+                      <v-card-subtitle class="pb-0" id="v-card-subtitle-custom">
                         <div id="card-brand" style="font-size: 20px;">
                         {{merchan.productBrand}}
                         </div>
@@ -80,12 +86,12 @@ export default {
   data(){
     return{
       mainSearch:[
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',presdeadimgUrl: require("@/assets/example-img/chunsicthum.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',presdeadimgUrl: require("@/assets/example-img/chunsicsub1.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',presdeadimgUrl: require("@/assets/example-img/chunsicsub2.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',presdeadimgUrl: require("@/assets/example-img/chunsicsub3.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',presdeadimgUrl: require("@/assets/example-img/chunsicthum.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',presdeadimgUrl: require("@/assets/example-img/chunsicsub1.png")},
+        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicthum.png")},
+        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub1.png")},
+        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub2.png")},
+        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub3.png")},
+        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicthum.png")},
+        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub1.png")},
 
 
       ],
@@ -104,12 +110,16 @@ export default {
 <style scoped>
 
 .search{
-  max-width:1100px; left:0; right:0; margin-left:auto; margin-right:auto;
+  max-width:1100px;
+  left:0; right:0; margin-left:auto; margin-right:auto;
   margin-top: 60px;
 
 
 }
 .search .no-merchandise{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
 }
 .line{
@@ -136,7 +146,6 @@ export default {
 }
 .search .no-merchandise{
   position: relative;
-  padding-top: 60px;
   text-align: center;
   color: #e57200;
 
@@ -148,6 +157,7 @@ export default {
 
 }
 .product{
+  max-width: 1000px;
   padding: 10px;
 
 }
@@ -160,6 +170,13 @@ export default {
   height: 275px;
   width: 275px;
 }
+#v-card-subtitle-custom {
+  font-size: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
 #shop-carousel {
 }
 @media screen and (min-width: 850px) and (max-width: 1300px){
@@ -170,8 +187,8 @@ export default {
     font-size: 15px !important;
   }
   #card-img {
-    height: 200px;
-    width: 200px;
+    height: 200px !important;
+    width: 200px !important;
   }
   #shop-carousel {
     max-width: 800px !important;
@@ -182,18 +199,18 @@ export default {
 }
 @media screen and (min-width: 415px) and (max-width: 850px){
   #v-card-custom {
-    max-width: 100px !important;
+    max-width: 175px !important;
   }
   #v-card-custom div {
     font-size: 10px !important;
-    line-height: 15px;
+    line-height: 15px !important;
   }
   #card-img {
-    height: 100px;
-    width: 100px;
+    height: 175px !important;
+    width: 175px !important;
   }
   #shop-carousel {
-    max-width: 550px !important;
+    max-width: 500px !important;
   }
   #v-card-custom div#card-price {
     font-size: 15px !important;
@@ -210,23 +227,23 @@ export default {
 
   }
 }
-@media screen and (max-width: 415px){
+@media screen and (min-width: 300px) and (max-width: 415px){
   #v-card-custom {
-    max-width: 100px !important;
+    max-width: 175px !important;
   }
   #v-card-custom div {
-    font-size: 5px !important;
-    line-height: 15px;
+    font-size: 15px !important;
+    line-height: 20px !important;
   }
   #card-img {
-    height: 100px;
-    width: 100px;
+    height: 175px !important;
+    width: 175px !important;
   }
   #shop-carousel {
     max-width: 350px !important;
   }
   #v-card-custom div#card-price {
-    font-size: 15px !important;
+    font-size: 20px !important;
   }
   .v-card__title {
     padding: 0px !important;
@@ -239,18 +256,23 @@ export default {
     font-size: 10px !important;
 
   }
+  #v-card-subtitle-custom {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
 }
 @media screen and (max-width: 300px){
   #v-card-custom {
-    max-width: 75px !important;
+    max-width: 100px !important;
   }
   #v-card-custom div {
     font-size: 5px !important;
-    line-height: 15px;
+    line-height: 15px !important;
   }
   #card-img {
-    height: 75px;
-    width: 75px;
+    height: 100px !important;
+    width: 100px !important;
   }
   #shop-carousel {
     max-width: 200px !important;
@@ -274,6 +296,11 @@ export default {
   #btn-txt {
     font-size: 15px !important;
 
+  }
+  #v-card-subtitle-custom {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
 
 }

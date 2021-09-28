@@ -73,7 +73,7 @@
                   @click="searchFriendSelect(item.username)"
               >
                 <v-list-item-icon>
-                  <img :src="item.profileImg" style="border-radius: 20%">
+                  <img :src="item.profileImg" style="border-radius: 20%; width: 25px; height: 25px">
                 </v-list-item-icon>
 
                 <v-list-item-content>
@@ -109,14 +109,25 @@
         </div>
 
         <div class = "deadline">
-
+          <div class="fonttext">
+            <h2>마감예정인 펀딩</h2>
+          </div>
           <Deadline :bringmainDeadline="mainDeadline" />
         </div>
 
-        <div class = "join">
+        <v-divider
+        ></v-divider>
 
-          <JoinGift :bringmainJoin="mainJoin" />
+        <div class = "join">
+          <div class="textline">
+            <h2>내가 참여한 선물</h2>
+          </div>
+          <Deadline :bringmainDeadline="mainJoin" />
         </div>
+
+        <v-divider
+        ></v-divider>
+
         <div class = "giboo">
 
           <Gibooline/>
@@ -132,7 +143,6 @@
 
 import Deadline from '../components/layout/main/Deadline'
 import Gibooline from '../components/layout/main/Gibooline'
-import JoinGift from '../components/layout/main/Joingift'
 import Mainmenu from '../components/layout/main/Main-menu'
 import Mainevent from '../components/layout/main/Main-event'
 import MainSearch from "../components/layout/main/Main-search";
@@ -140,7 +150,7 @@ export default {
   name: 'Main',
   components: {
 
-    Mainmenu,MainSearch,Mainevent,Deadline, JoinGift,Gibooline,
+    Mainmenu,MainSearch,Mainevent,Deadline,Gibooline,
 
   },
 
@@ -184,23 +194,23 @@ export default {
       mainEvent: [
         {
           presimgUrl:require("@/assets/event/main2.png"),
-          eventTitle:'"8월에 태어난 친구에게" "친구야" 꽃처럼 아름다워!',
+          eventTitle:'"8월에 태어난 친구에게", "친구야" 넌 꽃처럼 아름다워!',
           eventId:2
         },
         {  presimgUrl:require("@/assets/event/main1.jpg"),
-          eventTitle:"명품같은 스몰럭셔리 상품 꼭 비싸야만 명품인가?",
+          eventTitle:"명품 같은 스몰럭셔리 상품, 꼭 비싸야만 명품인가?",
           eventId:1
         },
         {  presimgUrl:require("@/assets/event/main3.jpg"),
-          eventTitle:"명품같은 스몰럭셔리 상품 꼭 비싸야만 명품인가?",
+          eventTitle:"어떡해?!, 한 잔 하고 가실텐가?",
           eventId:3
         },
         {  presimgUrl:require("@/assets/event/main4.jpg"),
-          eventTitle:"명품같은 스몰럭셔리 상품 꼭 비싸야만 명품인가?",
+          eventTitle:'고급지게 맛있는 치킨, "치킨!" 넌 쵝오야!',
           eventId:4
         },
         {  presimgUrl:require("@/assets/event/main5.png"),
-          eventTitle:"명품같은 스몰럭셔리 상품 꼭 비싸야만 명품인가?",
+          eventTitle:'난 이 GaBang 을 가졌지, 이제 아무것도 부럽지 않아!, "브랜드 GaBang"',
           eventId:5
         },
 
@@ -210,25 +220,25 @@ export default {
 
       mainDeadline:[
         {
-          presdeadimgUrl: require("@/assets/example-img/chunsicsub2.png"),
-          fundingTitle:'천원은 해줄 수 있잖어',fundinging: '진행중',
-          progressBarPercent: 20, fundingname: 'ㅇㅇ',fundingMoney: 1000,
+          preFundingImgUrl: require("@/assets/example-img/chunsicsub2.png"),
+          fundingTitle:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',fundinging: '진행중',
+          progressBarPercent: 20, fundingname: 'ㅇㅇdsadasd asd as dsa dasdas das',fundingMoney: 1000,
           fundingId:1
         },
         {
-          presdeadimgUrl:require("@/assets/example-img/chunsicsub3.png"),
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
           fundingTitle:'월급 탄 거 안다 도와주라',fundinging: '진행중', progressBarPercent: 20,
           fundingname: '코코',fundingMoney: 25000,
           fundingId:2
         },
         {
-          presdeadimgUrl:require("@/assets/example-img/chunsicsub1.png"),
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub1.png"),
           fundingTitle:'"우리 아이"가 정말 갖고 싶어 해요',fundinging: '진행중',
           progressBarPercent: 50, fundingname: '곽두팔',fundingMoney: 3000,
           fundingId:3
         },
         {
-          presdeadimgUrl:require("@/assets/example-img/chunsicsub3.png"),
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
           fundingTitle:'일단 고마워',fundinging: '진행중',
           progressBarPercent: 80, fundingname: '두팔',fundingMoney: 30000,
           fundingId:4
@@ -238,26 +248,26 @@ export default {
 
       mainJoin:[
         {
-          presJoinUrl:require("@/assets/example-img/chunsicsub3.png"),
-          funding_title:'"우리" 친구 맞지?^^',fundinging: '진행중',
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
+          fundingTitle:'"우리" 친구 맞지?^^',fundinging: '진행중',
           progressBarPercent: 20, fundingname: '두팔',fundingMoney: 3000,
           fundingId:1
         },
         {
-          presJoinUrl:require("@/assets/example-img/chunsicsub1.png"),
-          funding_title:'너의 마음을 보여줘! 제발~',fundinging: '진행중',
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub1.png"),
+          fundingTitle:'너의 마음을 보여줘! 제발~',fundinging: '진행중',
           progressBarPercent: 20, fundingname: '춘식',fundingMoney: 3000,
           fundingId:2
         },
         {
-          presJoinUrl:require("@/assets/example-img/chunsicsub3.png"),
-          funding_title:'"생일이양"',fundinging: '진행중',
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
+          fundingTitle:'"생일이양"',fundinging: '진행중',
           progressBarPercent: 50, fundingname: '라둥',fundingMoney: 3000,
           fundingId:3
         },
         {
-          presJoinUrl:require("@/assets/example-img/chunsicsub2.png"),
-          funding_title:'나! 이거이거',fundinging: '진행중',
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub2.png"),
+          fundingTitle:'나! 이거이거',fundinging: '진행중',
           progressBarPercent: 80, fundingname: '라이언',fundingMoney: 3000,
           fundingId:4
         },
@@ -296,7 +306,18 @@ export default {
   padding-bottom: 30px;
 }
 
-@media screen and (max-width: 415px){
+.fonttext{
+  margin-top: 30px;
+}
+.textline{
+  margin-top: 30px;
+}
+
+.giboo {
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 320px){
   #v-carousel-item-top-event-banner {
     display: none;
   }

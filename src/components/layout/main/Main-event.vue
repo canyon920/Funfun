@@ -13,10 +13,11 @@
 
               <div class="event-img-text">
                 {{event.eventTitle}}
+                <v-divider
+                ></v-divider>
               </div>
 
-              <v-divider
-              ></v-divider>
+
 
             </div>
           </router-link>
@@ -67,8 +68,14 @@ export default {
 .event{
   margin-top: 20px;
   margin-bottom: 20px;
+
+
 }
 
+.event .event-content-list {
+  margin: auto;
+  max-width: 1100px;
+}
 .event .event-content-list .event-second-div{
   display: flex;
   flex-direction: row;
@@ -78,22 +85,36 @@ export default {
 
 }
 
+.event .event-content-list .event-second-div .event-img-div {
+  margin: 12px 5px;
+  height: 220px;
+}
+
 .event .event-content-list .event-second-div .event-img-content {
-  display: inline-block;
-  margin: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   color: black;
 }
 .event .event-content-list .event-second-div .event-img-content img {
-  width : 300px;
-  height : 150px;
+  width : 340px;
+  height : 170px;
   border-radius: 20px;
 }
 .event .event-content-list .event-second-div .event-img-content .event-img-text{
-  font-size: 15px
+  max-width: 300px;
+  font-size: 15px;
 }
 
-
+@media screen and (max-width: 320px){
+  .event .event-content-list .event-second-div .event-img-content img {
+    width : 286px;
+  }
+  .event .event-content-list .event-second-div .event-img-content .event-img-text{
+    max-width: 250px;
+  }
+}
 
 /*.event .event-content-list .event-second-div .event-main{*/
 /*  display: flex;*/
