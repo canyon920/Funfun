@@ -1,7 +1,7 @@
 <template>
   <div >
 <!--  <v-btn block large outlined @click="kakaoLogin"><strong>카카오계정으로 로그인</strong></v-btn>-->
-  <v-img style="cursor:pointer;" class="kakao_btn" src="@/assets/login/kakao_login.png" @click="kakaoLogin"></v-img>
+  <v-img style="cursor:pointer;" class="kakao_btn" src="@/assets/login/kakao_login.png" @click="loginWithKakao"></v-img>
   </div>
 </template>
 
@@ -21,6 +21,12 @@ export default {
     }
   },
   methods: {
+    // loginWithKakao:function () {
+    //   window.Kakao.Auth.authorize({
+    //     redirectUri:"http://localhost:8080/auth",
+    //   });
+    //   console.log('카카오 인증 코드', this.$route.query.code);
+    // },
     loginWithKakao() {
       const params = {
         redirectUri: "http://localhost:8080/auth"
