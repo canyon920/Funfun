@@ -92,7 +92,7 @@
 
 
 export default {
-  name: 'Main-menu',
+  name: "MainMenu",
   data(){
     return{
       categoryImg1 : require("@/assets/category/1.jpg"),

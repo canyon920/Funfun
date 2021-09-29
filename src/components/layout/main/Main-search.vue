@@ -82,7 +82,7 @@
 import carousel from 'vue-owl-carousel'
 
 export default {
-  name: 'Main-search',
+  name: "MainSearch",
   data(){
     return{
       mainSearch:[

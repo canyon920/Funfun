@@ -1,4 +1,5 @@
 <template>
+  <div id="nav">
   <nav class="navbar">
     <div class="navbar-logo">
       <div class="ml-lg-16">
@@ -27,7 +28,7 @@
       <v-text-field
           label="친구검색"
           v-model="SearchName"
-          dense="true"
+          dense
       >
         <template v-slot:prepend-inner>
           <v-icon>mdi-magnify</v-icon>
@@ -41,13 +42,14 @@
         <v-icon  >mdi-dots-vertical</v-icon>
       </v-btn>
     </div>
-    <router-link id="header-go-mypage" style="color: black" class="router-link" to="/memberdetail">
+    <router-link id="header-go-mypage" style="color: black" class="router-link" to="/mypage-list">
       <div class="logininfo" id="login-info-div" style="display: none">
         <div class="memberdetail"><v-icon>mdi-account-circle</v-icon></div>
         <div class="name pr-2" style="font-size: 5px" id="name-div"></div>
       </div>
     </router-link>
   </nav>
+  </div>
 </template>
 
 <script>

@@ -112,17 +112,8 @@
               <div class="like-text">
                 좋아요:{{product.likeRate}}
               </div>
-              <div class="rate">
-                <template>
-                  <v-rating
-                      background-color="orange lighten-1"
-                      color="rgb(229, 114, 0)"
-                      half-increments
-                      length="5"
-                      size="17"
-                      v-model="product.likeRate"
-                  ></v-rating>
-                </template>
+              <div class="funding-count">
+                펀딩수:{{product.fundingCount}}
               </div>
             </div>
 

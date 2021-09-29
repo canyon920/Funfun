@@ -32,47 +32,47 @@
 
           <div class="menu-list">
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" :to="{name: 'FundingList', params: {memberId: 1}}">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'FundingList', params: {memberId: 1}}">
             <h2 class="display-1 font-weight-bold mb-2">
               나의 펀딩 리스트
             </h2></router-link></div>
 
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
             <h2 class="display-1 font-weight-bold mb-2">
               친구 리스트 찾기
             </h2></router-link></div>
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
             <h2 class="display-1 font-weight-bold mb-2">
               내가 찜한 리스트
             </h2></router-link></div>
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
             <h2 class="display-1 font-weight-bold mb-2">
               내가 참여한 펀딩 리스트
             </h2></router-link></div>
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
             <h2 class="display-1 font-weight-bold mb-2">
               구매목록
             </h2>
           </router-link></div>
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
             <h2 class="display-1 font-weight-bold mb-2">
               회원 정보 설정
             </h2>
           </router-link></div>
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
             <h2 class="display-1 font-weight-bold mb-2">
               나의 비밀번호 설정
             </h2>
           </router-link></div>
 
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
             <h2 class="display-1 font-weight-bold mb-2">
               로그아웃</h2></router-link></div>
 

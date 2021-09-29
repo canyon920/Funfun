@@ -47,7 +47,7 @@
 
 
 export default {
-  name: 'Main-event',
+  name: "MainEvent",
   props:{
     bringmainEvent:{
       type: Array

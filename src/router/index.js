@@ -14,6 +14,7 @@ import EventPage from "@/components/eventlist/EventPage";
 import Detail_page from "@/views/Detail_page";
 import LoginFunfun from "@/components/login/LoginFunfun";
 import Auth from "@/views/Auth";
+import ShopFirst from "@/components/shoplist/ShopFirst";
 
 
 Vue.use(VueRouter)
@@ -109,6 +110,11 @@ const routes = [
     path: '/auth',
     name: 'Auth',
     component: Auth
+  },
+  {
+    path: '/shop',
+    name: 'ShopFirst',
+    component: ShopFirst
   }
 ]
 
