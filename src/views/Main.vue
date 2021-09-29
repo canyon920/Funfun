@@ -298,14 +298,12 @@ export default {
     topEventImg() {
       var wmm1 = window.matchMedia("screen and (max-width: 500px)");
       if (wmm1.matches) {
-        console.log("500보다 작다")
         this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔｖｅｒ２.png")
         this.slides[1].imgSrc = require("@/assets/event/banner/bagEventｖｅｒ２.png")
         this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔｖｅｒ２.png")
         this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔｖｅｒ２.png")
         this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔｖｅｒ２.png")
       } else{
-        console.log("500보다 크다")
         this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔ.png")
         this.slides[1].imgSrc = require("@/assets/event/banner/bagEvent.png")
         this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔ.png")

@@ -219,6 +219,8 @@ export default {
 .inner .container-content .content-head .head-detail .detail-right {
   width: 50%;
   position: relative;
+  max-width: 532px;
+
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-top .title-box {
   font-size: 35px;

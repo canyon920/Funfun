@@ -7,7 +7,7 @@
       </div>
       <v-spacer></v-spacer>
       <div class="footer_btn">
-        <v-btn class="btn" to="/home" text rounded plain color="grey">Home</v-btn>
+        <v-btn class="btn btn1" to="/home" text rounded plain color="grey">Home</v-btn>
         <v-btn class="btn" x-small plain disabled color="black">|</v-btn>
         <v-btn class="btn" text rounded plain color="grey" @click="onClickRedirect1">Trello</v-btn>
         <v-btn class="btn" x-small plain disabled color="black">|</v-btn>
@@ -57,18 +57,30 @@ export default {
 .footer_content{
   padding-left: 70px;
 }
-@media screen and (max-width: 1300px ) {
+@media screen and (min-width: 800px) and (max-width: 1300px ) {
   .footer_btn{
-    padding-right: 20px;
-    padding-top: 22px;
+    padding-right: 20px !important;
+    padding-top: 22px !important;
   }
   .footer_content{
-    padding-left: 5px;
+    padding-left: 5px !important;
   }
 }
 @media screen and (max-width: 800px){
+  .footer_btn{
+    padding: 10px !important;
+  }
   .footer_btn .btn {
-    font-size: 20px;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    padding-right: 5px !important;
+  }
+  .footer_btn .btn.btn1 {
+    padding-left: 10px !important;
+  }
+  .footer_content{
+    padding-left: 10px !important;
+
   }
 }
 

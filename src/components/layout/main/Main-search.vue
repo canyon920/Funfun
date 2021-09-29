@@ -31,7 +31,7 @@
             }">
 <!--              <carousel id="shop-carousel" :autoplay="true" :nav="false" >-->
               <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
-              <a v-for="(merchan, idx) in mainSearch" :key="idx">
+              <div v-for="(merchan, idx) in mainSearch" :key="idx">
                 <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: merchan.fundingId}}" style="text-decoration: none">
                   <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
@@ -61,7 +61,7 @@
                     </v-card>
                   </div>
                 </router-link>
-              </a>
+              </div>
 
               <!--    <template slot="next"><span class="next">next</span></template>-->
             </carousel>
