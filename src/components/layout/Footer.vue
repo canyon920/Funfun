@@ -49,6 +49,7 @@ export default {
 </script>
 <style scoped>
 .footer {
+  max-width: 1100px;
 }
 .footer_btn{
   padding-right: 80px;

@@ -45,5 +45,13 @@ export default {
 </script>
 
 <style scoped>
+.shop-first {
+  max-width: 1100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 </style>
