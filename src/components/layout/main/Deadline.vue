@@ -40,7 +40,7 @@
 
                 <v-card-subtitle class="pb-0">
                   <div id="progress-bar-text">
-                    {{value.progressBarPercent}}% 진행중
+                    {{value.progressBarPercent}}% 달성중
                   </div>
                 </v-card-subtitle>
 
@@ -49,7 +49,7 @@
               <v-card-text id="card-text" class="text--primary">
                 <div class ="fundingname">{{value.fundingname}}님의 펀딩 상품</div>
 
-                <div class="fundingmoeny">{{value.fundingMoney}}원 펀딩</div>
+                <div class="fundingmoeny">현재 {{value.fundingMoney}}원 펀딩 달성</div>
               </v-card-text>
 
             </v-card>
