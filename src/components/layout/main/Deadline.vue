@@ -42,6 +42,12 @@
                   <div id="progress-bar-text">
                     {{value.progressBarPercent}}% 달성중
                   </div>
+                  <div class="slush">
+                    /
+                  </div>
+                  <div id="expire-date-text">
+                    만료일: {{value.expireDate}}
+                  </div>
                 </v-card-subtitle>
 
               </div>
@@ -96,6 +102,9 @@ export default {
 
 .pb-0{
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #v-card-custom {
@@ -156,7 +165,9 @@ export default {
     max-width: 800px !important;
   }
 
-  #v-card-custom div #progress-bar-text {
+  #v-card-custom div #progress-bar-text,
+  #v-card-custom div div.slush,
+  #v-card-custom div #expire-date-text {
     font-size: 12px !important;
     line-height: 25px !important;
 
@@ -180,7 +191,9 @@ export default {
     max-width: 350px !important;
   }
 
-  #v-card-custom div #progress-bar-text {
+  #v-card-custom div #progress-bar-text,
+  #v-card-custom div div.slush,
+  #v-card-custom div #expire-date-text {
     font-size: 12px !important;
     line-height: 25px !important;
 
