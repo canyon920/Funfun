@@ -7,14 +7,15 @@
         height="400"
         hide-delimiter-background
         show-arrows-on-hover
-        style="width: 100vw"
     >
       <v-carousel-item
           v-for="(slide, i) in slides"
           :key="i"
           :src="slide.imgSrc"
-          style="height: 100vw"
       >
+        <router-link :to="{name: 'mainEvent', params:{ eventId: slide.eventId }}">
+          <div style="width: 100%; height: 100%; cursor: pointer"></div>
+        </router-link>
         <!--        <v-sheet-->
         <!--            :color="colors[i]"-->
         <!--            height="100%"-->
@@ -167,18 +168,40 @@ export default {
         'deep-purple accent-4',
       ],
       slides: [
-        {imgSrc: require("@/assets/event/main1.jpg")},
-        {imgSrc: require("@/assets/event/banner/bagEvent.png")},
-        {imgSrc: "https://funfunbucket.s3.ap-northeast-2.amazonaws.com/finfinbucket-static/first/first2.jpg"},
-        '광고',
+        {
+          imgSrc: require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔ.png"),
+          eventId: 1,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/bagEvent.png"),
+          eventId: 2,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔ.png"),
+          eventId: 3,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔ.png"),
+          eventId: 4,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔ.png"),
+          eventId: 5,
+        },
 
-        '광고',
       ],
       mainSearch:
       // null,
           {
             username:"춘식",
-            fundinglist:"펀딩중인 상품이 없어요",
+            fundinglist:[
+              {fundingId:1 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
+              {fundingId:2 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
+              {fundingId:3 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub2.png")},
+              {fundingId:4 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub3.png")},
+              {fundingId:5 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
+              {fundingId:6 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
+            ],
           },
       friends: [
         {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이'},
@@ -186,30 +209,27 @@ export default {
         {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코'},
         {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이'},
       ],
-      friend: {
-        name: '',
-      },
       friendName: '',
 
       mainEvent: [
         {
-          presimgUrl:require("@/assets/event/main2.png"),
+          presimgUrl:require("@/assets/event/main/light.png"),
           eventTitle:'"8월에 태어난 친구에게", "친구야" 넌 꽃처럼 아름다워!',
           eventId:2
         },
-        {  presimgUrl:require("@/assets/event/main1.jpg"),
+        {  presimgUrl:require("@/assets/event/main/aveda.jpg"),
           eventTitle:"명품 같은 스몰럭셔리 상품, 꼭 비싸야만 명품인가?",
           eventId:1
         },
-        {  presimgUrl:require("@/assets/event/main3.jpg"),
+        {  presimgUrl:require("@/assets/event/main/alchole.jpg"),
           eventTitle:"어떡해?!, 한 잔 하고 가실텐가?",
           eventId:3
         },
-        {  presimgUrl:require("@/assets/event/main4.jpg"),
+        {  presimgUrl:require("@/assets/event/main/food.jpg"),
           eventTitle:'고급지게 맛있는 치킨, "치킨!" 넌 쵝오야!',
           eventId:4
         },
-        {  presimgUrl:require("@/assets/event/main5.png"),
+        {  presimgUrl:require("@/assets/event/main/bag.png"),
           eventTitle:'난 이 GaBang 을 가졌지, 이제 아무것도 부럽지 않아!, "브랜드 GaBang"',
           eventId:5
         },
@@ -278,14 +298,33 @@ export default {
   methods: {
     searchFriendSelect(username) {
       this.mainSearch.username = username
+      //여기에 axios 추가해 this.mainSearch.fundinglist 수정해줘야함
+    },
+    topEventImg() {
+      var wmm1 = window.matchMedia("screen and (max-width: 500px)");
+      if (wmm1.matches) {
+        this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔｖｅｒ２.png")
+        this.slides[1].imgSrc = require("@/assets/event/banner/bagEventｖｅｒ２.png")
+        this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔｖｅｒ２.png")
+        this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔｖｅｒ２.png")
+        this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔｖｅｒ２.png")
+      } else{
+        this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔ.png")
+        this.slides[1].imgSrc = require("@/assets/event/banner/bagEvent.png")
+        this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔ.png")
+        this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔ.png")
+        this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔ.png")
+      }
     }
-
+  },
+  beforeMount() {
+    this.topEventImg()
   }
 }
 
 
 </script>
-<style>
+<style scoped>
 
 .second{
 
@@ -317,10 +356,10 @@ export default {
   margin-top: 30px;
 }
 
-@media screen and (max-width: 320px){
-  #v-carousel-item-top-event-banner {
-    display: none;
-  }
-}
+/*@media screen and (max-width: 800px){*/
+/*  #v-carousel-item-top-event-banner {*/
+/*    display: none;*/
+/*  }*/
+/*}*/
 
 </style>

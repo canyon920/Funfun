@@ -3,43 +3,50 @@
     <!--검색바-->
 
     <v-container class="container_list">
-      <div v-for="person in people" :key="person.id">
-        <img :src="person.main1" />
+      
+      <div class="event-main-img-div">
+        <img :src="eventPageImg">
       </div>
+      
+      
+      
+      
+<!--      <div v-for="person in people" :key="person.id">-->
+<!--        <img :src="person.main1" />-->
+<!--      </div>-->
 
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
-      <!--    <h2 class="display-2 mb-4" style="padding-bottom:150px;">상품 리스트</h2>-->
+<!--      &lt;!&ndash;    <h2 class="display-2 mb-4" style="padding-bottom:150px;">상품 리스트</h2>&ndash;&gt;-->
 
-      <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
+<!--      <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">-->
 
-        <template v-for="(product, index) in products">
-              <v-flex xs2 pa-1 :key="index">
-               <v-hover>
-                <v-card slot-scope="{hover}" class="mx-auto" color="gray lighten-4"  width="1600">
+<!--        <template v-for="(product, index) in products">-->
+<!--              <v-flex xs2 pa-1 :key="index">-->
+<!--               <v-hover>-->
+<!--                <v-card slot-scope="{hover}" class="mx-auto" color="gray lighten-4"  width="1600">-->
 
-                    <v-img :src="product.src" :aspect-ratio="16/9">
-                      <v-expeand-transition>
-                          <div v-if="hover" class="d-flex transition-fast-in-fast-out black darken-2 display-1 v-card--reveal display-3 black--text" >
-                          가격{{product.ttle}}
-                          </div>
-                      </v-expeand-transition>
-                    </v-img>
+<!--                    <v-img :src="product.src" :aspect-ratio="16/9">-->
+<!--                      <v-expeand-transition>-->
+<!--                          <div v-if="hover" class="d-flex transition-fast-in-fast-out black darken-2 display-1 v-card&#45;&#45;reveal display-3 black&#45;&#45;text" >-->
+<!--                          가격{{product.ttle}}-->
+<!--                          </div>-->
+<!--                      </v-expeand-transition>-->
+<!--                    </v-img>-->
 
-                <v-card-text class="pt-4" style="position:relative;" >
-<!--                <v-btn absolute color="orange" class="white&#45;&#45;text"   fab medium right top  >-->
-<!--                  <v-icon>shopping_cart</v-icon>-->
-<!--                </v-btn>-->
-                <div class="font-weight-light grey--text product_name mb-2">{{product.title}}</div>
-                <h3  class="display-1 font-weight-light orang--text mb-2">{{product.title}}</h3>
-                <div class="font-weight-light mb-2">{{product.title}}</div>
-              <!--<div class="font-weight-light mb2"> Our vintage kitchen 샬라샬라 </div>-->
-              </v-card-text>
-            </v-card>
-       </v-hover>
-    </v-flex>
-  </template>
-</v-layout>
+<!--                <v-card-text class="pt-4" style="position:relative;" >-->
+<!--&lt;!&ndash;                <v-btn absolute color="orange" class="white&#45;&#45;text"   fab medium right top  >&ndash;&gt;-->
+<!--&lt;!&ndash;                  <v-icon>shopping_cart</v-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                </v-btn>&ndash;&gt;-->
+<!--                <div class="font-weight-light grey&#45;&#45;text product_name mb-2">{{product.title}}</div>-->
+<!--                <h3  class="display-1 font-weight-light orang&#45;&#45;text mb-2">{{product.title}}</h3>-->
+<!--                <div class="font-weight-light mb-2">{{product.title}}</div>-->
+<!--              &lt;!&ndash;<div class="font-weight-light mb2"> Our vintage kitchen 샬라샬라 </div>&ndash;&gt;-->
+<!--              </v-card-text>-->
+<!--            </v-card>-->
+<!--       </v-hover>-->
+<!--    </v-flex>-->
+<!--  </template>-->
+<!--</v-layout>-->
 
 <!--       <v-btn @click="test">test</v-btn>-->
   </v-container>
@@ -49,25 +56,10 @@
 import axios from "axios";
 
 export default{
+  name:'EventPage',
   data: () => {
     return {
-            //
-            // cate1: '카테고리1',
-            // cate2: '카테고리2',
-            // cate3: '카테고리3',
-            // cate4: '카테고리4',
-            // cate5: '카테고리5',
-            // cate6: '카테고리6',
-            // cate7: '카테고리7',
-            // cate8: '카테고리8',
-
-            people: [
-              {
-                // ... 생략
-                main1: require("./main1.png")
-              },
-
-            ],
+      eventPageImg: require("@/assets/event/page/aveda.jpg"),
       // people: [],
       products:[],
     };

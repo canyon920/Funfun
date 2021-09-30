@@ -7,7 +7,7 @@
       <div class="event-second-div">
 
         <div class="event-img-div" v-for="(event, ekey) in bringmainEvent" :key="ekey" >
-          <router-link :to="{name:'mainEvent', params:{eventId:event.eventId}}" style="text-decoration: none;">
+          <router-link :to="{name:'EventPage', params:{eventId:event.eventId}}" style="text-decoration: none;">
             <div class="event-img-content">
               <img :src="event.presimgUrl">
 
@@ -47,7 +47,7 @@
 
 
 export default {
-  name: 'Main-event',
+  name: "MainEvent",
   props:{
     bringmainEvent:{
       type: Array

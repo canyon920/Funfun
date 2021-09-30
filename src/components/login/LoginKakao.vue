@@ -9,6 +9,10 @@
 import {OauthSendServerData} from "@/service/member-login";
 import {bringMemberLoginDataFromServer} from "@/service/member-login";
 
+
+
+
+
 export default {
   name: "LoginKakao",
   data(){
@@ -17,6 +21,19 @@ export default {
     }
   },
   methods: {
+    // loginWithKakao:function () {
+    //   window.Kakao.Auth.authorize({
+    //     redirectUri:"http://localhost:8080/auth",
+    //   });
+    //   console.log('카카오 인증 코드', this.$route.query.code);
+    // },
+    // loginWithKakao() {
+    //   const params = {
+    //     redirectUri: "http://localhost:8080/auth"
+    //   }
+    //   window.Kakao.Auth.authorize(params)
+    // },
+
      kakaoLogin(){
       window.Kakao.Auth.login({
         scope: 'account_email, profile_image, profile_nickname',

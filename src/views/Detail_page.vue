@@ -3,18 +3,27 @@
     <div class="container-content">
       <div class="content-head">
         <div class="head-detail">
-          <h1>{{$store.state.member.memberId}}</h1>
+          <h1>{{ $store.state.member.memberId }}</h1>
 
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개        -->
-          <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>
+          <Detail-page-left :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click"
+                            @bringsub03Click="sub03Click"/>
+
           <!--          여기 동적 처리   상품 내용 보여줌        -->
-          <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo"/>
+          <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork"
+                             :bringRightInfo="rightInfo"/>
+
+
           <!--          여기 펀딩 등록 위한 것들 보여줌          -->
-          <Detail-page-right-setting v-show="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" :bringRightInfo="rightInfo" />
+          <Detail-page-right-setting v-show="settingView" @rightEvent="changeRight" @rightEventBack="changeRightBack"
+                                     @likeChange="likeWork" @registFunding="transmitFundingRegist"
+                                     :bringRightInfo="rightInfo"/>
+
         </div>
       </div>
       <!--      여기 동적 처리 바디 이미지 바디 상세이미지 넘겨줘야함      -->
-      <Detail-page-body :bringBodyInfo="bodyInfo" @bringmainChangeImg1="mainChangeImg1" @bringmainChangeImg2="mainChangeImg2"/>
+        <Detail-page-body :bringBodyInfo="bodyInfo" @bringmainChangeImg1="mainChangeImg1"
+                          @bringmainChangeImg2="mainChangeImg2"/>
     </div>
   </div>
 </template>
@@ -221,5 +230,6 @@ export default {
 .inner .container-content .content-body .body-detail .detail-img {
   border-top: 1px solid rgb(229 114 0);
 }
+
 
 </style>
