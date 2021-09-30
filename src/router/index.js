@@ -64,13 +64,18 @@ const routes = [
   },
   {
     path: '/wishlist',
-    name: 'JoinedyyList',
+    name: 'MywishList',
     component: () => import(/* webpackChunkName: "about" */ '../views/MywishtList.vue')
   },
   {
     path: '/joinlist',
-    name: 'MywishList',
+    name: 'JoinedList',
     component: () => import(/* webpackChunkName: "about" */ '../views/JoinedmyList.vue')
+  },
+  {
+    path: '/choose',
+    name: 'Choose',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Choose.vue')
   },
   {
     path:'/funlogin',

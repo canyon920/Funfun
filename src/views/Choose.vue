@@ -48,6 +48,9 @@
     </div>
 
     <div v-else class = "choose-button">
+      <div class = "titlename" style=" font-size: 27px; font-weight: 700;">
+        상품 수령방법 결정하기
+      </div>
     <v-btn @click="onClickButton1()"
         class="ma-2"
         outlined
@@ -70,7 +73,7 @@
 </div>
 </template>
 <script>
-import axios from "axios";
+
 
 export default {
   name: 'Choose',
@@ -90,6 +93,7 @@ export default {
     }
   },
 
+
 }
 
 </script>
@@ -101,5 +105,9 @@ export default {
   padding-bottom: 100px;}
 .first .second{
   align: center;
+}
+.titlename{
+  margin-top: 50px;
+  padding-bottom:30px;
 }
 </style>

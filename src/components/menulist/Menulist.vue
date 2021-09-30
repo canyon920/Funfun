@@ -38,17 +38,17 @@
             </h2></router-link></div>
 
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black" class="router-link" :to="{name:'FriendList', params: {memberId: 1}}">
             <h2 class="display-1 font-weight-bold mb-2">
               친구 리스트 찾기
             </h2></router-link></div>
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black" class="router-link" :to="{name:'MywishList', params: {memberId: 1}}">
             <h2 class="display-1 font-weight-bold mb-2">
               내가 찜한 리스트
             </h2></router-link></div>
 
-          <div class="link-div2"><router-link style="color: black" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black" class="router-link" :to="{name:'JoinedList', params: {memberId: 1}}">
             <h2 class="display-1 font-weight-bold mb-2">
               내가 참여한 펀딩 리스트
             </h2></router-link></div>

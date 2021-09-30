@@ -1,6 +1,10 @@
 <template>
   <div class ="first-container">
+    <div class="list">
+      {{bringfundingsearch.Title}}
+    </div>
     <div class ="second-up">
+
 
       <div class = "box" style=" box-shadow: 0.5px 0.5px 5px rgba(229, 114, 0, 0.4)">
         <v-container>
@@ -38,8 +42,8 @@
             <Deadline :bringmainDeadline="findline" />
           </div>
          </div>
-          <div class="text-center">
-            <v-btn  depressed elevation="2"><router-link to="/showfriend" style="text-decoration: none; color: rgb(229, 114, 0); font-size: 15px">♡친구에게 보여주기</router-link></v-btn>
+          <div class="text-center" >
+            <v-btn v-show="bringfundingsearch.shareFriend" depressed elevation="2"><router-link to="/showfriend" style="text-decoration: none; color: rgb(229, 114, 0); font-size: 15px">♡친구에게 보여주기</router-link></v-btn>
           </div>
 
 
@@ -53,8 +57,9 @@ import Deadline from '../main/Deadline';
 export  default {
   name: 'Fundingsearch',
   props:{
+
     bringfundingsearch:{
-      type:Array
+      type:Object,
     },
   bringjoin:{
      type: String,
@@ -63,6 +68,7 @@ export  default {
   components:{Deadline},
   data(){
     return{
+
       Join:' 내가 올린 펀딩리스트',
       findline:[
         {
@@ -128,6 +134,13 @@ export  default {
   align-items: center;
 
 
+}
+.list{
+  margin-top: 70px;
+  font-size:30px;
+  font-weight: 700;
+  max-width:1100px;
+  left:0; right:0; margin-left:auto; margin-right:auto;
 }
 .merchandise{
   position: relative;
