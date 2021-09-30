@@ -60,7 +60,8 @@ export default {
         productTitle: '"언텍트 시대" 춘식이와 라이언의 사랑이야기',
         productBrand: '카카오프렌즈',
         productPrice: 36900,
-        fundingCount: 3333
+        fundingCount: 3333,
+        categoryId: 1,
       },
 
       bodyInfo: {
@@ -218,6 +219,8 @@ export default {
 .inner .container-content .content-body .body-detail .detail-menu .menu-main {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+
 }
 .inner .container-content .content-body .body-detail .detail-menu .menu-main .main-box {
   padding-left: 10%;
@@ -229,6 +232,12 @@ export default {
 }
 .inner .container-content .content-body .body-detail .detail-img {
   border-top: 1px solid rgb(229 114 0);
+}
+
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head .head-detail {
+    flex-direction: column;
+  }
 }
 
 

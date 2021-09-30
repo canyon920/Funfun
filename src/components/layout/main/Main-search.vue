@@ -70,9 +70,6 @@
           </div>
 
         </div>
-        <div class="text-center">
-          <v-btn id="btn-txt" depressed elevation="2" style="font-size: 20px"><router-link to="/showfriend" style="text-decoration: none; color: rgb(229, 114, 0)">♡친구에게 보여주기</router-link></v-btn>
-        </div>
       </div>
     </div>
   </div>

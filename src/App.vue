@@ -1,9 +1,11 @@
 <template>
   <v-app>
     <Header/>
+    <v-container id="container">
     <transition name="page-fade">
     <router-view></router-view>
     </transition>
+    </v-container>
     <Footer/>
   </v-app>
 </template>
@@ -25,6 +27,9 @@ export default {
 };
 </script>
 <style>
+#container {
+  max-width: 1100px;
+}
 #app {
   display: flex;
   flex-direction:column;
@@ -39,7 +44,7 @@ export default {
 
 .page-fade-enter-active,
 .page-fade-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.8s ease;
 }
 
 .page-fade-leave-to {

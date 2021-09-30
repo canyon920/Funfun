@@ -134,6 +134,7 @@ export default {
 }
 </script>
 <style>
+
 .loginimg{
   padding-left: 130px;
   padding-top: 20px;

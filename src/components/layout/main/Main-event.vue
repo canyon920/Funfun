@@ -23,21 +23,6 @@
           </router-link>
         </div>
 
-        <!--        <div v-for="(event, ekey) in bringmainEvent" :key="ekey">-->
-        <!--          <div class="event-main">-->
-        <!--            <div class = "event-img event-1">-->
-        <!--              <router-link :to="{name:'mainEvent', params:{eventId:event.eventId}}">-->
-        <!--                <img class="sub-img" v-bind:src="event.presimgUrl" >-->
-        <!--              </router-link>-->
-        <!--            </div>-->
-        <!--            <div class = "event-sub-title">-->
-        <!--              {{event.eventTitle}}-->
-        <!--            </div>-->
-        <!--            <div class = "event-sub">-->
-        <!--              {{event.subTitle}}-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </div>-->
       </div>
     </div>
   </div>
@@ -116,37 +101,4 @@ export default {
   }
 }
 
-/*.event .event-content-list .event-second-div .event-main{*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-
-/*}*/
-/*.event .event-content-list .event-second-div .event-main .event-img{*/
-/*  width : 300px;*/
-/*  height : 200px;*/
-/*  left:0; right:0; margin-left:auto; margin-right:auto;*/
-
-/*}*/
-/*.event .event-content-list .event-second-div .event-main .event-1{*/
-
-/*  background-size: 300px 200px;*/
-/*}*/
-/*.event .event-content-list .event-second-div .event-main .event-2{*/
-
-/*  background-size: 300px 200px;*/
-/*}*/
-/*.event .event-content-list .event-second-div .event-main .event-sub-title{*/
-/*  font-weight: bold;*/
-/*  left:0; right:0; margin-left:auto; margin-right:auto;*/
-/*  text-align: center;*/
-/*}*/
-/*.event .event-content-list .event-second-div .event-main .event-sub{*/
-
-/*}*/
-/*.sub-img{*/
-/*  width: 300px;*/
-/*  height: 200px;*/
-/*}*/
 </style>

@@ -36,7 +36,6 @@
       <!-- 사이즈 조정 디브  -->
       <div class = "second">
 
-        <transition name="main-search">
         <div class ="search" v-show="mainFriendSearchBar">
 
           <div class ="search-second">
@@ -56,6 +55,7 @@
               </template>
               <template v-slot:append>
                 <v-progress-circular
+                    :class="{active: searchStart}"
                     v-if="loading"
                     size="24"
                     color="rgb(229, 114, 0)"
@@ -68,6 +68,7 @@
                 dense
                 nav
                 v-show="searchStart"
+                :class="{active: searchStart, deactive: !searchStart}"
             >
               <v-list-item
                   v-for="(item,fkey) in friends"
@@ -94,9 +95,10 @@
             <!--            </ul>-->
 
           </div>
-          <MainSearch v-show="mainSearch.username" :bringmainsearch="mainSearch" />
+
+          <MainSearch :class="{active : mainSearch.username, transy:searchStart}" :hidden="!mainSearch.username" :bringmainsearch="mainSearch" />
+
         </div>
-        </transition>
 
         <div class = "menu">
 
@@ -395,15 +397,32 @@ export default {
 /*  }*/
 /*}*/
 
-.main-search-fade-out {
-  opacity: 0;
+.active {
+  animation-name: searchin;
+  animation-duration: 1s;
 }
-.main-search-fade-enter-active,
-.main-search-fade-leave-active {
-  transition: all 0.5s ease;
+.deactive {
+}
+.transy {
+  animation-name: transyin;
+  animation-duration: .8s;
+}
+@keyframes searchin {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
 }
 
-.main-search-fade-leave-to {
-  opacity: 0;
+
+@keyframes transyin {
+  from{
+    transform: translateY(-200px);
+  }
+  to{
+  }
 }
+
 </style>

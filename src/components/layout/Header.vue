@@ -3,39 +3,39 @@
   <nav class="navbar">
     <div class="navbar-logo">
       <div class="ml-lg-16">
-        <router-link to="/">
+        <a href="/">
           <v-img class="ml-lg-4" max-height="60"
                  max-width="200" src="@/assets//logo/logo1.jpg"></v-img>
-        </router-link>
+        </a>
       </div>
     </div>
     <div class="navbar-menu1" :class="{active : booleanMenu1}">
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/">Home</router-link></div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/shop">Shop</router-link></div>
-      <div class="link-div"><router-link style="color: black" class="router-link" to="/aboutpage">About</router-link></div>
+      <div class="link-div" @click="toggleDown"><router-link style="color: black" class="router-link" to="/">Home</router-link></div>
+      <div class="link-div" @click="toggleDown"><router-link style="color: black" class="router-link" to="/shop">Shop</router-link></div>
+      <div class="link-div" @click="toggleDown"><router-link style="color: black" class="router-link" to="/aboutpage">About</router-link></div>
 
     </div>
     <v-spacer></v-spacer>
     <div class="navbar-menu2" :class="{active : booleanMenu2}">
-      <div class="link-div" id="kakao-div" @click="Klogout()" hidden>Logout</div>
-      <div class="link-div" id="email-div" @click="Flogout()" hidden>Logout</div>
-      <div class="link-div" id="login-div"><router-link style="color: black" class="router-link" to="/login" >Login</router-link></div>
-      <div class="link-div" id="join-div"><router-link style="color: black" class="router-link" to="/join" >Join</router-link></div>
+      <div class="link-div" id="kakao-div" @click="Klogout()" hidden>로그아웃</div>
+      <div class="link-div" id="email-div" @click="Flogout()" hidden>로그아웃</div>
+      <div class="link-div" id="login-div" @click="toggleDown"><router-link style="color: black" class="router-link" to="/login" >Login</router-link></div>
+      <div class="link-div" id="join-div" @click="toggleDown"><router-link style="color: black" class="router-link" to="/join" >Join</router-link></div>
       <!--      <router-link to="#" v-on:click.native="unlink()"> Kakao Unlink</router-link>-->
     </div>
 
-    <div class="navbar-search">
-      <v-text-field
-          label="친구검색"
-          v-model="SearchName"
-          dense
-      >
-        <template v-slot:prepend-inner>
-          <v-icon>mdi-magnify</v-icon>
-        </template>
+<!--    <div id="header-friend-search" class="navbar-search">-->
+<!--      <v-text-field-->
+<!--          label="친구검색"-->
+<!--          v-model="SearchName"-->
+<!--          dense-->
+<!--      >-->
+<!--        <template v-slot:prepend-inner>-->
+<!--          <v-icon>mdi-magnify</v-icon>-->
+<!--        </template>-->
 
-      </v-text-field>
-    </div>
+<!--      </v-text-field>-->
+<!--    </div>-->
 
     <div class="nav_toggle" @click="toggleDown">
       <v-btn icon >
@@ -165,6 +165,8 @@ export default {
 </script>
 
 <style scoped>
+#nav {
+}
 body{
   margin: 0;
 }
@@ -174,6 +176,7 @@ body{
 .link-div {
   margin: 0px 5px;
   cursor: pointer;
+  font-size: 20px;
 }
 .link-div:hover {
   background-color: rgba(229, 114, 0, 0.3);

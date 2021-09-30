@@ -267,22 +267,15 @@ export default {
   margin: 15px;
 }
 
-/*뷰티파이 제목 입력란*/
-/*textarea#input-22 {*/
-/*  margin-top: 20px*/
-/*}*/
-/*.content-top .v-textarea textarea {*/
-/*  line-height: .1rem;*/
-/*  margin-top: 20px;*/
-/*}*/
-/*.content-top .v-input .v-label {*/
-/*  height: 50px;*/
-/*  line-height: 42px;*/
-/*  font-size: 20px;*/
 
-/*}*/
-/*.v-input__slot .v-text-field__slot element.style {*/
-/*  height: 80px !important;*/
-/*}*/
 
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head .head-detail .detail-right {
+    width: 90vw;
+  }
+  .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom {
+    position: inherit;
+  }
+
+}
 </style>

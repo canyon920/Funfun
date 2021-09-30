@@ -7,6 +7,8 @@
           outlined
           :class="{active : funlogintransform, deactive : !funlogintransform}"
       >
+
+
         <div class="login">
           <div class="pl-5 pr-5 pt-6">
             <v-list-item>
@@ -71,11 +73,14 @@ export default {
   margin-left: 0px !important;
 }
 
+
+
 .parent-box-login {
   margin-top: 5%;
   margin-bottom: 15%;
   display: flex;
   flex-direction: row;
+  max-width: 1100px;
 }
 .login {
 
