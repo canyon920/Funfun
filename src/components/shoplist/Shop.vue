@@ -401,6 +401,7 @@ export default {
 }
 
 .container_list {
+  max-width: 1400px;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
