@@ -31,6 +31,8 @@ export async function bringMemberLoginDataFromServer() {
     form.append("nic_name", OauthSendServerData.sendMemberNicname)
     form.append("login_api", OauthSendServerData.sendMemberApi)
     form.append("file_src", OauthSendServerData.sendMemberProfile)
+
+
     await axios.post("http://localhost:9090/api/login/oauth/save/member",form)
         .then(res=>{
             memberObj.memberId = res.data.id

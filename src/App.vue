@@ -32,13 +32,14 @@ export default {
   align-items: center;
   font-family: 'Source Sans Pro', sans-serif;
 }
+
 .page-fade-enter {
   opacity: 0;
 }
 
 .page-fade-enter-active,
 .page-fade-leave-active {
-  transition: all 0.2s ease;
+  transition: all 0.5s ease;
 }
 
 .page-fade-leave-to {

@@ -73,6 +73,7 @@ export default {
     }
   },
   methods:{
+
     async tryLogin() {
       let form = new FormData()
       form.append('username', this.email)

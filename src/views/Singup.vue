@@ -216,7 +216,7 @@ export default {
       // 전화번호 인증 완료 된 경우 true ===> true 면 저장 false 면 null 로 저장
       phoneNumberSaveToServer: false,
 
-      select: '@example.com',
+      select: '@email.com',
       items: [
         '@kakao.com',
         '@gamil.com',
@@ -424,6 +424,7 @@ export default {
 .signup .content-signup {
   margin-top: 25px;
   margin-bottom: 50px;
+  max-width: 100%;
 
 }
 .signup .content-signup .img-signup {
@@ -441,20 +442,20 @@ export default {
 .signup .content-signup .form-signup-content .join-email {
   display: flex;
   flex-direction: row;
-  width: 450px;
+  max-width: 450px;
   height: 50px;
 }
 .signup .content-signup .form-signup-content .join-email .join-email-left {
   width: 60%;
 }
 .signup .content-signup .form-signup-content .join-email .join-email-right {
-  width: 40%;
+  max-width: 180px;
 }
 
 .signup .content-signup .form-signup-content .join-phonenumber {
   display: flex;
   flex-direction: row;
-  width: 450px;
+  max-width: 450px;
   height: 50px;
 }
 .signup .content-signup .form-signup-content .join-phonenumber .phone-left {
@@ -477,7 +478,7 @@ export default {
 .signup .content-signup .form-signup-content .check-num-div .count-down-check-div {
   display: flex;
   flex-direction: row;
-  width: 250px;
+  max-width: 250px;
   height: 50px;
   justify-content: end;
 
@@ -493,6 +494,8 @@ export default {
   height: 50px;
   margin-top: 25px;
 }
+
+
 .signup .content-signup .form-signup-content .bottom-content {
   display: flex;
   flex-direction: row;
@@ -502,5 +505,15 @@ export default {
 }
 .signup .content-signup .form-signup-content .submit-cancel {
   margin-left: 25px;
+}
+
+@media screen and (max-width: 800px){
+  .signup .content-signup .form-signup-content .join-email .join-email-right{
+    max-width: 160px !important;
+  }
+  .error-font-color.error-phone-number {
+    margin-top: 35px !important;
+  }
+
 }
 </style>

@@ -92,7 +92,7 @@
 
 
 export default {
-  name: 'Main-menu',
+  name: "MainMenu",
   data(){
     return{
       categoryImg1 : require("@/assets/category/1.jpg"),
@@ -126,7 +126,8 @@ export default {
   margin: 10px;
 }
 .menu{
-  max-width:1100px; left:0; right:0; margin-left:auto; margin-right:auto;
+  max-width:1100px;
+  left:0; right:0; margin-left:auto; margin-right:auto;
   margin-top: 60px;
   margin-bottom: 60px;
 }
@@ -163,6 +164,15 @@ export default {
 }
 
 
+@media screen and (max-width: 415px){
+  .menu .container .inner-container .item-box .img{
+    width: 75px !important;
+    height: 75px !important;
+  }
+  .menu .container .inner-container .item-box .item-box-item .img-text {
+    font-size: 12px !important;
+  }
+}
 
 
 </style>

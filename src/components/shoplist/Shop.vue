@@ -1,34 +1,9 @@
-<!--<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns:v-bind="http://www.w3.org/1999/xhtml">-->
 <template>
   <!--검색바-->
   <v-container class="container_list">
 
-    <!--    <div class="top_list">-->
-    <!--      <div class="search_bar" >-->
-    <!--        <v-autocomplete v-model="question"-->
-    <!--            dense-->
-    <!--            filled-->
-    <!--            rounded-->
-    <!--            solo-->
-    <!--            solo-inverted-->
-    <!--            class="searchbar_style"></v-autocomplete>-->
-    <!--      </div>-->
-<!--    <v-text-field-->
-<!--        outlined-->
-<!--        rounded-->
-<!--        label="상품 검색"-->
-<!--        v-model="SearchName"-->
-<!--        style="margin-top:250px;">-->
-
-<!--    </v-text-field>-->
-<!--    <ul style="list-style: none">-->
-<!--      &lt;!&ndash; eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if &ndash;&gt;-->
-<!--      <li v-for="ProductSearch in ProductSearchs" :key="ProductSearch" v-if="ProductSearch.name.includes(SearchName)">-->
-<!--        {{ProductSearch.name}}-->
-<!--      </li>-->
-<!--    </ul>-->
-
     <v-text-field
+        dense
         outlined
         rounded
         label="상품 검색"
@@ -45,171 +20,121 @@
       </template>
     </v-text-field>
 
-    <carousel :autoplay="true" :nav="false" :items="8" :dots="false">
+    <carousel :autoplay="true" :nav="false" :items="8" :dots="false" :responsive="{
+      1600:{
+        items:10
+      },
+      1000:{
+        items:8
+      },
+      758:{
+        items:6,
+      },
+      450:{
+        items:4,
+      },
+      200:{
+        items:3,
+      }
+
+    }">
       <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
       <a v-for="(img,pkey) in category" :key="pkey">
         <router-link :to="{name: 'Shop' ,params:{categoryId: img.id}}" style="text-decoration: none">
           <div style="display: flex; flex-direction: column; align-items: center">
-          <div class="img-div" style="">
-            <img :src="img.categorySrc" style="border-radius: 20px; height: 100px; width: 100px">
-          </div>
-          <div class="category-title" style="color: black">
-            {{img.title}}
-          </div>
+            <div class="img-div" style="">
+              <img :src="img.categorySrc" style="border-radius: 20px; height: 100px; width: 100px">
+            </div>
+            <div class="category-title" style="color: black">
+              {{img.title}}
+            </div>
           </div>
         </router-link>
       </a>
 
-      <!--    <template slot="next"><span class="next">next</span></template>-->
     </carousel>
 
 
-
-<!--    &lt;!&ndash; 카테고리 만들기 &ndash;&gt;-->
-<!--    <div class="category_big">-->
-<!--      <span class="category_name">-->
-<!--          &lt;!&ndash; person이라는 각 객체의 profileUrl 키에 접근, 그에 해당하는 value를 동적 바인딩 해준다. &ndash;&gt;-->
-<!--          <div v-for="person in people" :key="person.id">-->
-<!--            <span><img :src="person.profileUrl" /></span>-->
-<!--        </div>-->
-<!--      </span>-->
-
-<!--      &lt;!&ndash;          <ul>&ndash;&gt;-->
-<!--      &lt;!&ndash;            <span><img :src="cate.png"></a></span>&ndash;&gt;-->
-<!--      &lt;!&ndash;            <span><img :src="cate.png"></a></span>&ndash;&gt;-->
-<!--      &lt;!&ndash;            <span><img :src="cate.png"></a></span>&ndash;&gt;-->
-<!--      &lt;!&ndash;            <span><img :src="cate.png"></a></span>&ndash;&gt;-->
-<!--      &lt;!&ndash;            <span><img :src="cate.png"></a></span>&ndash;&gt;-->
-<!--      &lt;!&ndash;            <span><img :src="cate.png"></a></span>&ndash;&gt;-->
-<!--      &lt;!&ndash;            <span><img :src="cate.png"></a></span>&ndash;&gt;-->
-<!--      &lt;!&ndash;            <span><img :src="cate.png"></a></span>&ndash;&gt;-->
-
-<!--      <a v-bind:href="'./views/Home'"> <span style="cursor: pointer; height: 60px; width: 60px; border-radius: 20px"> {{cate1}}</span></a>-->
-<!--      <router-link :to="'home'">  <span style="cursor: pointer; height: 60px; width: 60px; border-radius: 20px"> {{cate2}} </span></router-link>-->
-<!--      <router-link :to="'home'"> <span style="cursor: pointer; height: 60px; width: 60px; border-radius: 20px">{{cate3}}</span></router-link>-->
-<!--      <router-link :to="'home'"> <span style="cursor: pointer; height: 60px; width: 60px; border-radius: 20px">{{cate4}}</span></router-link>-->
-<!--      <router-link :to="'home'"> <span style="cursor: pointer; height: 60px; width: 60px; border-radius: 20px">{{cate5}}</span></router-link>-->
-<!--      <router-link :to="'home'"> <span style="cursor: pointer; height: 60px; width: 60px; border-radius: 20px">{{cate6}}</span></router-link>-->
-
-<!--      <router-link :to="'home'"> <span style="cursor: pointer; height: 60px; width: 60px; border-radius: 20px"> {{cate7}}</span></router-link>-->
-<!--      <router-link :to="'home'"> <span style="cursor: pointer; height: 60px; width: 60px; border-radius: 20px">{{cate8}}</span></router-link>-->
-
-<!--      &lt;!&ndash;          </ul>&ndash;&gt;-->
-<!--    </div>-->
-
-
-    <!-- 드롭바 -->
-<!--    style="float:right; padding-top:100px; padding-bottom:100px;"-->
     <div class="option-div" >
-<!--      <v-menu offset-y>-->
-<!--        <template v-slot:activator="{ on, attrs }">-->
-<!--          <v-btn-->
-<!--              color="#e57200"-->
-<!--              dark-->
-<!--              v-bind="attrs"-->
-<!--              v-on="on"-->
-<!--              style="margin-right:50px"-->
-<!--          > 인기순-->
-<!--          </v-btn>-->
-<!--        </template>-->
-
-<!--        <v-list>-->
-<!--          <v-list-item-->
-<!--              v-for="(item, index) in items"-->
-<!--              :key="index" >-->
-<!--            <v-list-item-product_name>{{ item.product_name }}</v-list-item-product_name>-->
-<!--          </v-list-item>-->
-<!--        </v-list>-->
-<!--      </v-menu>-->
       <div class="options">
-      <div class="option01">
-      <v-col
-          class="d-flex"
-          cols="12"
-          sm="6"
-      >
-        <v-select
-            v-model="selected1"
-            :items="items1"
-            :label="selected1"
-            solo
-            error
-        ></v-select>
-      </v-col>
+        <div class="option01">
+          <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+          >
+            <v-select
+                v-model="selected1"
+                :items="items1"
+                :label="selected1"
+                solo
+                error
+            ></v-select>
+          </v-col>
+        </div>
+
+        <div class="option02">
+          <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+          >
+            <v-select
+                v-model="selected2"
+                :items="items2"
+                :label="selected2"
+                solo
+                error
+            ></v-select>
+          </v-col>
+        </div>
       </div>
-
-      <div class="option02">
-      <v-col
-          class="d-flex"
-          cols="12"
-          sm="6"
-      >
-        <v-select
-            v-model="selected2"
-            :items="items2"
-            :label="selected2"
-            solo
-            error
-        ></v-select>
-      </v-col>
-      </div>
-      </div>
-
-
-
-<!--      <v-menu offset-y class="offset_setting_right">-->
-<!--        <template v-slot:activator="{ on, attrs }">-->
-<!--          <v-btn-->
-<!--              color="#e57200"-->
-<!--              dark-->
-<!--              v-bind="attrs"-->
-<!--              v-on="on"-->
-<!--              style="margin-right:60px;"-->
-<!--          >-->
-<!--            가격-->
-<!--          </v-btn>-->
-<!--        </template>-->
-<!--        <v-list>-->
-<!--          <v-list-item-->
-<!--              v-for="(item2, index) in items2"-->
-<!--              :key="index"-->
-<!--          >-->
-<!--            <v-list-item-product_name>{{ item2.product_name2 }}</v-list-item-product_name>-->
-<!--          </v-list-item>-->
-<!--        </v-list>-->
-<!--      </v-menu>-->
-
 
     </div>
-    <!--    <h2 class="display-2 mb-4" style="padding-bottom:150px;">상품 리스트</h2>-->
+
     <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
-      <template v-for="(product, index) in products">
-        <v-flex xs2 pa-1 :key="index">
-          <v-hover>
-            <v-card slot-scope="{hover}" class="mx-auto" color="gray lighten-4"  width="1600">
-              <!--     <v-img src="https://cdn.vuetifyjs.com/images/cards/kitchen.png" :aspect-ratio="16/ㅁㄴㅁㄴㅇㄴㅇㅁㄴㅇㅁㄴㅇㄹㄹㄹ9">-->
-              <!--     <v-img slot-scope="{hover}" src="https://cdn.vuetifyjs.com/images/cards/kitchen.png" :aspect-ratio="16/9">-->
-              <v-img :src="product.src" :aspect-ratio="16/9">
-                <div>
-                  <div v-if="hover" class="d-flex transition-fast-in-fast-out black darken-2 display-1 v-card--reveal display-3 black--text" >
-                    가격{{product.ttle}}
-                  </div>
-                </div>
-              </v-img>
-              <v-card-text class="pt-4" style="position:relative;" >
-                <!--                <v-btn absolute color="orange" class="white&#45;&#45;text"   fab medium right top  >-->
-                <!--                  <v-icon>shopping_cart</v-icon>-->
-                <!--                </v-btn>-->
-                <div class="font-weight-light grey--text product_name mb-2">{{product.title}}</div>
-                <h3  class="display-1 font-weight-light orang--text mb-2">{{product.title}}</h3>
-                <div class="font-weight-light mb-2">{{product.title}}</div>
-                <!--<div class="font-weight-light mb2"> Our vintage kitchen 샬라샬라 </div>-->
-              </v-card-text>
-            </v-card>
-          </v-hover>
-        </v-flex>
-      </template>
+
+      <div id="v-for-div" v-for="product in products" :key="product.productId">
+        <router-link :to="{name: 'detail_page' ,params: {productId: product.productId}}" style="text-decoration: none">
+
+          <v-card
+              id="v-card-custom"
+              class="mx-auto"
+              max-width="275px" >
+            <img
+                id="card-img"
+                class="white--text align-end"
+                :src="product.src">
+
+            <v-card-title id="v-card-title-custom">{{ product.title}}</v-card-title>
+
+            <div id="mid-like-div">
+              <div class="like-text">
+                좋아요: {{product.likeRate}}
+              </div>
+              <div class="funding-count">
+                펀딩수: {{product.fundingCount}}
+              </div>
+            </div>
+
+            <v-card-subtitle class="pb-0" id="v-card-subtitle-custom">
+              <div id="card-brand">
+                {{product.brand}}
+              </div>
+              <div id="card-price" style="color: rgb(229, 114, 0)">
+                {{ product.price}} 원
+              </div>
+            </v-card-subtitle>
+
+            <v-card-text></v-card-text>
+
+
+          </v-card>
+
+        </router-link>
+      </div>
     </v-layout>
+
 
     <!--       <v-btn @click="test">test</v-btn>-->
   </v-container>
@@ -225,15 +150,6 @@ export default {
   data: () => {
     return {
       loading:false,
-      //
-      // cate1: '카테고리1',
-      // cate2: '카테고리2',
-      // cate3: '카테고리3',
-      // cate4: '카테고리4',
-      // cate5: '카테고리5',
-      // cate6: '카테고리6',
-      // cate7: '카테고리7',
-      // cate8: '카테고리8',
 
       items1: ['인기순', '추천순', '높은가격순', '낮은가격순'],
       selected1 : '인기순',
@@ -304,24 +220,91 @@ export default {
         },
       ],
       // people: [],
-      products: [],
+      products: [
+        {
+          src: require("@/assets/example-img/chunsicthum.png"),
+          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
+          brand: '카카오프렌즈',
+          price: 30000,
+          likeRate: 3.5,
+          fundingCount: 100,
+          productId:1
+        },
+        {
+          src: require("@/assets/example-img/chunsicsub1.png"),
+          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
+          brand: '카카오프렌즈',
+          price: 17000,
+          likeRate: 4,
+          fundingCount: 25,
+          productId:2
+        },
+        {
+          src: require("@/assets/example-img/chunsicsub2.png"),
+          title:'아직 끝나지 않았당 그러므로 가보자하하',
+          brand: '카카오프렌즈',
+          price: 26000,
+          likeRate: 4.5,
+          fundingCount: 105,
+          productId:3
+        },
+        {
+          src: require("@/assets/example-img/chunsicsub3.png"),
+          title:'"언텍트시대" 가보자하하',
+          brand: '카카오프렌즈',
+          price: 25600,
+          likeRate: 5,
+          fundingCount: 56,
+          productId:4
+        },
+        {
+          src: require("@/assets/example-img/chunsicsub2.png"),
+          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당',
+          brand: '카카오프렌즈',
+          price: 19000,
+          likeRate: 3.5,
+          fundingCount: 110,
+          productId:5
+        },
+        {
+          src: require("@/assets/example-img/chunsicsub3.png"),
+          title:'"언텍트시대" 춘식이와 라식이',
+          brand: '카카오프렌즈',
+          price: 300000,
+          likeRate: 2.5,
+          fundingCount: 10,
+          productId:6
+        },
+        {
+          src: require("@/assets/example-img/chunsicthum.png"),
+          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
+          brand: '카카오프렌즈',
+          price: 350000,
+          likeRate: 0,
+          fundingCount: 0,
+          productId:7
+        },
+        {
+          src: require("@/assets/example-img/chunsicsub1.png"),
+          title:'"언텍트시대"',
+          brand: '카카오프렌즈',
+          price: 20000,
+          likeRate: 1,
+          fundingCount: 5,
+          productId:8
+        },
+        {
+          src: require("@/assets/example-img/chunsicthum.png"),
+          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
+          brand: '카카오프렌즈',
+          price: 50000,
+          likeRate: 3.5,
+          fundingCount: 1,
+          productId:9
+        },
+      ],
 
-
-      // items: [
-      //   {product_name: '인기순'},
-      //   {product_name: '추천순'},
-      //   {product_name: '가격낮은순 '},
-      //   {product_name: '가격높은순'},
-      //   {product_name: '인기순'},
-      // ],
-    //   items2:
-    // [
-    //   {product_name2: '1만원 대'},
-    //   {product_name2: '2만원 대'},
-    //   {product_name2: '5만원 대 '},
-    //   {product_name2: '10만원 이상'},
-    // ]
-  };
+    };
   },
   methods: {
     async testBringObjt(){
@@ -336,7 +319,6 @@ export default {
     }
   },
   mounted(){
-    this.testBringObjt()
   }
 }
 </script>
@@ -345,6 +327,57 @@ export default {
 
 
 <style scoped>
+#v-for-div {
+  margin: 10px 10px;
+
+}
+#v-card-custom {
+}
+#v-card-custom #v-card-title-custom {
+  padding: 5px !important;
+}
+#card-img {
+  height: 275px;
+  width: 275px;
+}
+#card-img:hover {
+
+}
+#mid-like-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0px 10px;
+}
+#mid-like-div .like-text {
+  font-size: 15px;
+  color: rgba(0,0,0,.5);
+}
+#mid-like-div .funding-count {
+  font-size: 15px;
+  color: rgba(0,0,0,.5);
+
+}
+
+
+#v-card-subtitle-custom {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 5px 10px 0px;
+  padding: 0px;
+}
+#card-brand {
+  font-size: 15px;
+}
+#card-price {
+  font-size: 25px;
+
+}
+
 .v-application .d-flex {
   display: inline !important;
 
@@ -366,9 +399,7 @@ export default {
   margin-left: 20px;
   width: 200px;
 }
-/* 전체적인 레이아웃 */
-/*.layout {max-width:1100px; justify-content: center; position: relative;}*/
-.v-application--wrap {}
+
 .container_list {
   flex-direction: column;
   flex-wrap: wrap;
@@ -376,48 +407,7 @@ export default {
   margin-bottom: 80px;
   margin-top: 50px;
 
-  /*text-align: center;*/
-  /*display: flex;*/
-  /*!*flex-direction:column;*!*/
-  /*flex-wrap: wrap;*/
-  /*align-items: center;*/
 }
-
-/* 가격 드롭바 */
-.offset_setting_right {position:absolute; margin-right:20px; position: relative;}
-
-
-/* 검색창 - 검색창 전체사이즈 */
-.top_list> { width:100%; position: relative; margint-top:200px;   }
-.search_bar { width:100%; padding-top:200px; position: relative; }
-
-
-/* 카테고리 사이즈 */
-.category_big {width:100%;  position: relative; display:flex; text-align:center; justify-content: center; }
-.category_name {width:1100px; text-align:center; position: relative; margin-top:100px;}
-
-/*.category_name span { margin-left:20px; position: relative; }*/
-.category_name span  img {width:80px; float:left; display:flex; margin-left:50px;}
-
-
-
-.v-application .primary {background-color:#e57200 !important;}
-.primary {background-color:#e57200 !important;}
-
-/* 상품 리스트 */
-.display-2 .mb-4 {text-align:center; width:400px; float:left;}
-.flex { display:flex; float:left; width:1100px;}
-.xs2 { min-width:275px; float:left;  }
-
-/* 카드 라벨 ㄴ*/
-.v-card--reveal{ max-width:1100px; text-align:center;  flex-direction: row;  /*display:flex;*/flex-wrap: wrap;align-items: center;bottom: 0;justify-content: center;opacity: 0.5 ;position: relative ;
-  width: 100%
-}
-
-/*.v-card h3.display-1 {*/
-/*  font-size: 12px !important;*/
-/*}*/
-
 
 </style>
 

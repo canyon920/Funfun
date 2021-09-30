@@ -11,6 +11,10 @@ import DetailFundingPage from "@/views/DetailFundingPage";
 import Shop from "@/components/shoplist/Shop";
 import Menulist from "@/components/menulist/Menulist"
 import EventPage from "@/components/eventlist/EventPage";
+import Detail_page from "@/views/Detail_page";
+import LoginFunfun from "@/components/login/LoginFunfun";
+import Auth from "@/views/Auth";
+import ShopFirst from "@/components/shoplist/ShopFirst";
 
 
 Vue.use(VueRouter)
@@ -48,39 +52,39 @@ const routes = [
   },
   {
     path: '/event/:eventId',
-    name: 'mainEvent',
+    name: 'EventPage',
     component: EventPage
 
   },
   {
     path: '/fundinglist',
     name: 'FundingList',
-    component: () => import(/* webpackChunkName: "about" */ '../views/FundingList.vue')
+    component: FundingList
   },
   {
     path:'/funlogin',
     name:'LoginFunfun',
-    component: () =>import('../components/login/LoginFunfun.vue')
+    component: LoginFunfun
   },
 
-  {
-    path: '/detail-page',
-    name: 'detail_page',
-
-    component: () => import('../views/Detail_page.vue')
-  },
-  //  라우터 쿼리 / 파람 예시
-  {
-    path: '/detail-page',
-    name: 'detail_page_Q',
-    component: () => import('../views/Detail_page.vue')
-  },
   {
     path: '/detail-page/:productId',
-    name: 'detail_page_P',
-    component: () => import('../views/Detail_page.vue')
+    name: 'detail_page',
+
+    component: Detail_page
   },
-  //  라우터 쿼리 / 파람 예시 여기까지
+  // //  라우터 쿼리 / 파람 예시
+  // {
+  //   path: '/detail-page',
+  //   name: 'detail_page_Q',
+  //   component: Detail_page
+  // },
+  // {
+  //   path: '/detail-page/:productId',
+  //   name: 'detail_page_P',
+  //   component: Detail_page
+  // },
+  // //  라우터 쿼리 / 파람 예시 여기까지
   {
     path: '/funding-detail-page/:fundingId',
     name: 'DetailFundingPage',
@@ -102,6 +106,16 @@ const routes = [
     name: 'Shop',
     component: Shop
   },
+  {
+    path: '/auth',
+    name: 'Auth',
+    component: Auth
+  },
+  {
+    path: '/shop',
+    name: 'ShopFirst',
+    component: ShopFirst
+  }
 ]
 
 const router = new VueRouter({
