@@ -6,7 +6,7 @@
       <div class="moreandmore" ><router-link to="/wishlist" style="text-decoration: none; color: rgb(229, 114, 0)">더보기</router-link> </div>
       <div class = no-merchandise>
         <div class ="datalist">
-          <div v-if="mainSearch.length == 0" >
+          <div v-if="bringmainsearch.fundinglist.length == 0" >
             펀딩중인 상품이 없어요.
           </div>
           <div class = "product" v-else>
@@ -31,7 +31,7 @@
             }">
 <!--              <carousel id="shop-carousel" :autoplay="true" :nav="false" >-->
               <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
-              <div v-for="(merchan, idx) in mainSearch" :key="idx">
+              <div v-for="(merchan, idx) in bringmainsearch.fundinglist" :key="idx">
                 <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: merchan.fundingId}}" style="text-decoration: none">
                   <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
@@ -85,16 +85,6 @@ export default {
   name: "MainSearch",
   data(){
     return{
-      mainSearch:[
-        {fundingId:1 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
-        {fundingId:2 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
-        {fundingId:3 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub2.png")},
-        {fundingId:4 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub3.png")},
-        {fundingId:5 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
-        {fundingId:6 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
-
-
-      ],
     }
   },
   components: { carousel},

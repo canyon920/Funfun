@@ -194,7 +194,14 @@ export default {
       // null,
           {
             username:"춘식",
-            fundinglist:"펀딩중인 상품이 없어요",
+            fundinglist:[
+              {fundingId:1 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
+              {fundingId:2 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
+              {fundingId:3 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub2.png")},
+              {fundingId:4 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub3.png")},
+              {fundingId:5 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
+              {fundingId:6 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
+            ],
           },
       friends: [
         {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이'},
@@ -202,30 +209,27 @@ export default {
         {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코'},
         {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이'},
       ],
-      friend: {
-        name: '',
-      },
       friendName: '',
 
       mainEvent: [
         {
-          presimgUrl:require("@/assets/event/main2.png"),
+          presimgUrl:require("@/assets/event/main/light.png"),
           eventTitle:'"8월에 태어난 친구에게", "친구야" 넌 꽃처럼 아름다워!',
           eventId:2
         },
-        {  presimgUrl:require("@/assets/event/main1.jpg"),
+        {  presimgUrl:require("@/assets/event/main/aveda.jpg"),
           eventTitle:"명품 같은 스몰럭셔리 상품, 꼭 비싸야만 명품인가?",
           eventId:1
         },
-        {  presimgUrl:require("@/assets/event/main3.jpg"),
+        {  presimgUrl:require("@/assets/event/main/alchole.jpg"),
           eventTitle:"어떡해?!, 한 잔 하고 가실텐가?",
           eventId:3
         },
-        {  presimgUrl:require("@/assets/event/main4.jpg"),
+        {  presimgUrl:require("@/assets/event/main/food.jpg"),
           eventTitle:'고급지게 맛있는 치킨, "치킨!" 넌 쵝오야!',
           eventId:4
         },
-        {  presimgUrl:require("@/assets/event/main5.png"),
+        {  presimgUrl:require("@/assets/event/main/bag.png"),
           eventTitle:'난 이 GaBang 을 가졌지, 이제 아무것도 부럽지 않아!, "브랜드 GaBang"',
           eventId:5
         },
@@ -294,6 +298,7 @@ export default {
   methods: {
     searchFriendSelect(username) {
       this.mainSearch.username = username
+      //여기에 axios 추가해 this.mainSearch.fundinglist 수정해줘야함
     },
     topEventImg() {
       var wmm1 = window.matchMedia("screen and (max-width: 500px)");

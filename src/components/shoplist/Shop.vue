@@ -110,10 +110,10 @@
 
             <div id="mid-like-div">
               <div class="like-text">
-                좋아요:{{product.likeRate}}
+                좋아요: {{product.likeRate}}
               </div>
               <div class="funding-count">
-                펀딩수:{{product.fundingCount}}
+                펀딩수: {{product.fundingCount}}
               </div>
             </div>
 
@@ -227,6 +227,7 @@ export default {
           brand: '카카오프렌즈',
           price: 30000,
           likeRate: 3.5,
+          fundingCount: 100,
           productId:1
         },
         {
@@ -235,6 +236,7 @@ export default {
           brand: '카카오프렌즈',
           price: 17000,
           likeRate: 4,
+          fundingCount: 25,
           productId:2
         },
         {
@@ -243,6 +245,7 @@ export default {
           brand: '카카오프렌즈',
           price: 26000,
           likeRate: 4.5,
+          fundingCount: 105,
           productId:3
         },
         {
@@ -251,6 +254,7 @@ export default {
           brand: '카카오프렌즈',
           price: 25600,
           likeRate: 5,
+          fundingCount: 56,
           productId:4
         },
         {
@@ -259,6 +263,7 @@ export default {
           brand: '카카오프렌즈',
           price: 19000,
           likeRate: 3.5,
+          fundingCount: 110,
           productId:5
         },
         {
@@ -267,6 +272,7 @@ export default {
           brand: '카카오프렌즈',
           price: 300000,
           likeRate: 2.5,
+          fundingCount: 10,
           productId:6
         },
         {
@@ -275,6 +281,7 @@ export default {
           brand: '카카오프렌즈',
           price: 350000,
           likeRate: 0,
+          fundingCount: 0,
           productId:7
         },
         {
@@ -283,6 +290,7 @@ export default {
           brand: '카카오프렌즈',
           price: 20000,
           likeRate: 1,
+          fundingCount: 5,
           productId:8
         },
         {
@@ -291,6 +299,7 @@ export default {
           brand: '카카오프렌즈',
           price: 50000,
           likeRate: 3.5,
+          fundingCount: 1,
           productId:9
         },
       ],
@@ -346,6 +355,11 @@ export default {
   font-size: 15px;
   color: rgba(0,0,0,.5);
 }
+#mid-like-div .funding-count {
+  font-size: 15px;
+  color: rgba(0,0,0,.5);
+
+}
 
 
 #v-card-subtitle-custom {
@@ -353,7 +367,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 0px 10px;
+  margin: 5px 10px 0px;
   padding: 0px;
 }
 #card-brand {

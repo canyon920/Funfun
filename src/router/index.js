@@ -52,7 +52,7 @@ const routes = [
   },
   {
     path: '/event/:eventId',
-    name: 'mainEvent',
+    name: 'EventPage',
     component: EventPage
 
   },
