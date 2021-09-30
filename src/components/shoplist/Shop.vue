@@ -1,7 +1,9 @@
 <template>
   <!--검색바-->
   <v-container class="container_list">
-
+    <div class="list">
+    {{bringlist.Title}}
+    </div>
     <v-text-field
         dense
         outlined
@@ -20,7 +22,7 @@
       </template>
     </v-text-field>
 
-    <carousel :autoplay="true" :nav="false" :items="8" :dots="false" :responsive="{
+    <carousel v-show="bringlist.showcarousel"  :autoplay="true" :nav="false" :items="8" :dots="false" :responsive="{
       1600:{
         items:10
       },
@@ -147,8 +149,17 @@ import carousel from 'vue-owl-carousel'
 export default {
   name: 'Shop',
   components: { carousel },
+  props:{
+
+    bringlist: {
+      type: Object,
+    },
+
+
+  },
   data: () => {
     return {
+      showcarousel: true,
       loading:false,
 
       items1: ['인기순', '추천순', '높은가격순', '낮은가격순'],
@@ -408,6 +419,13 @@ export default {
   margin-bottom: 80px;
   margin-top: 50px;
 
+}
+.list{
+  font-size:30px;
+  font-weight: 700;
+  max-width:1100px;
+  left:0; right:0; margin-left:auto; margin-right:auto;
+  padding-bottom: 50px;
 }
 
 </style>

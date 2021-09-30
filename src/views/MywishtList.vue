@@ -1,82 +1,55 @@
 <template>
   <div class="first-container">
     <div class="second2">
-
-      <Fundingsearch :bringfundingsearch="fundingS" :bringjoin="Joinlist"/>
+      <Shop :bringlist="listS"/>
     </div>
     <div class="second-bottom2">
-      <!--      <Fundingsecondlist />-->
+
       <Mainevent :bringmainEvent="fundingEvent"/>
     </div>
   </div>
 </template>
 <script>
 
-import Fundingsearch from "../components/layout/fundinglist/fundingsearch";
+import Shop from "../components/shoplist/Shop";
 import Mainevent from '../components/layout/main/Main-event'
 
 
 export default {
   name: 'MywishList',
-  components: {Fundingsearch, Mainevent},
+  components: {Shop, Mainevent},
   data() {
     return {
 
-      fundingS: {
-        shareFriend: true,
+      listS:{
         Title: "나의 위시 리스트",
-      },
-      /*    fundingS: [
-            {
-              presdeadimgUrl:"http://127.0.0.1:8887/cake.jpg",
-              fundingTitle:'펀딩타이틀1',fundinging: '진행중',
-              progressBarPercent: 20, fundingname: 'ㅇㅇ',fundingMoney: 3000,
-            },
-            {
-              presdeadimgUrl:"http://127.0.0.1:8887/cake.jpg",
-              fundingTitle:'펀딩타이틀1',fundinging: '진행중',
-              progressBarPercent: 20, fundingname: 'ㅇㅇ',fundingMoney: 3000,
-            },
-            {
-              presdeadimgUrl:"http://127.0.0.1:8887/cake.jpg",
-              fundingTitle:'펀딩타이틀1',fundinging: '진행중',
-              progressBarPercent: 20, fundingname: 'ㅇㅇ',fundingMoney: 3000,
-            },
-            {
-              presdeadimgUrl:"http://127.0.0.1:8887/cake.jpg",
-              fundingTitle:'펀딩타이틀1',fundinging: '진행중',
-              progressBarPercent: 20, fundingname: 'ㅇㅇ',fundingMoney: 3000,
-            },
-            {
-              presdeadimgUrl:"http://127.0.0.1:8887/cake.jpg",
-              fundingTitle:'펀딩타이틀5',fundinging: '진행중',
-              progressBarPercent: 20, fundingname: 'ㅇㅇ',fundingMoney: 3000,
-            },
+        showcarousel: false,
 
-          ],*/
+      },
+
       fundingEvent: [
         {
-          presimgUrl: require("@/assets/event/main2.png"),
+          presimgUrl: require("@/assets/event/main/light.png"),
           eventTitle: '"8월에 태어난 친구에게", "친구야" 넌 꽃처럼 아름다워!',
           eventId: 2
         },
         {
-          presimgUrl: require("@/assets/event/main1.jpg"),
+          presimgUrl: require("@/assets/event/main/aveda.jpg"),
           eventTitle: "명품 같은 스몰럭셔리 상품, 꼭 비싸야만 명품인가?",
           eventId: 1
         },
         {
-          presimgUrl: require("@/assets/event/main3.jpg"),
+          presimgUrl: require("@/assets/event/main/alchole.jpg"),
           eventTitle: "어떡해?!, 한 잔 하고 가실텐가?",
           eventId: 3
         },
         {
-          presimgUrl: require("@/assets/event/main4.jpg"),
+          presimgUrl: require("@/assets/event/main/food.jpg"),
           eventTitle: '고급지게 맛있는 치킨, "치킨!" 넌 쵝오야!',
           eventId: 4
         },
         {
-          presimgUrl: require("@/assets/event/main5.png"),
+          presimgUrl: require("@/assets/event/main/bag.png"),
           eventTitle: '난 이 GaBang 을 가졌지, 이제 아무것도 부럽지 않아!, "브랜드 GaBang"',
           eventId: 5
         },
