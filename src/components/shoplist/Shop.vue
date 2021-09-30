@@ -1,9 +1,7 @@
 <template>
   <!--검색바-->
   <v-container class="container_list">
-    <div class="list">
-    {{bringlist.Title}}
-    </div>
+
     <v-text-field
         dense
         outlined
@@ -22,7 +20,7 @@
       </template>
     </v-text-field>
 
-    <carousel v-show="bringlist.showcarousel"  :autoplay="true" :nav="false" :items="8" :dots="false" :responsive="{
+    <carousel :autoplay="true" :nav="false" :items="8" :dots="false" :responsive="{
       1600:{
         items:10
       },
@@ -94,72 +92,21 @@
 
     </div>
 
-    <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
+    <NormalListComponent :bringProductList="products"/>
 
-      <div id="v-for-div" v-for="product in products" :key="product.productId">
-        <router-link :to="{name: 'detail_page' ,params: {productId: product.productId}}" style="text-decoration: none">
-
-          <v-card
-              id="v-card-custom"
-              class="mx-auto"
-              max-width="275px" >
-            <img
-                id="card-img"
-                class="white--text align-end"
-                :src="product.src">
-
-            <v-card-title id="v-card-title-custom">{{ product.title}}</v-card-title>
-
-            <div id="mid-like-div">
-              <div class="like-text">
-                좋아요: {{product.likeRate}}
-              </div>
-              <div class="funding-count">
-                펀딩수: {{product.fundingCount}}
-              </div>
-            </div>
-
-            <v-card-subtitle class="pb-0" id="v-card-subtitle-custom">
-              <div id="card-brand">
-                {{product.brand}}
-              </div>
-              <div id="card-price" style="color: rgb(229, 114, 0)">
-                {{ product.price}} 원
-              </div>
-            </v-card-subtitle>
-
-            <v-card-text></v-card-text>
-
-
-          </v-card>
-
-        </router-link>
-      </div>
-    </v-layout>
-
-
-    <!--       <v-btn @click="test">test</v-btn>-->
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
 import carousel from 'vue-owl-carousel'
+import NormalListComponent from "@/components/NormalListComponent";
 
 export default {
   name: 'Shop',
-  components: { carousel },
-  props:{
-
-    bringlist: {
-      type: Object,
-    },
-
-
-  },
+  components: {NormalListComponent, carousel },
   data: () => {
     return {
-      showcarousel: true,
       loading:false,
 
       items1: ['인기순', '추천순', '높은가격순', '낮은가격순'],
@@ -338,61 +285,7 @@ export default {
 
 
 <style scoped>
-#v-for-div {
-  margin: 10px 10px;
 
-}
-#v-card-custom {
-}
-#v-card-custom #v-card-title-custom {
-  padding: 5px !important;
-}
-#card-img {
-  height: 275px;
-  width: 275px;
-}
-#card-img:hover {
-
-}
-#mid-like-div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 0px 10px;
-}
-#mid-like-div .like-text {
-  font-size: 15px;
-  color: rgba(0,0,0,.5);
-}
-#mid-like-div .funding-count {
-  font-size: 15px;
-  color: rgba(0,0,0,.5);
-
-}
-
-
-#v-card-subtitle-custom {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 5px 10px 0px;
-  padding: 0px;
-}
-#card-brand {
-  font-size: 15px;
-}
-#card-price {
-  font-size: 25px;
-
-}
-
-.v-application .d-flex {
-  display: inline !important;
-
-}
 .option-div {
   display: flex ;
   flex-direction: row;
@@ -420,12 +313,9 @@ export default {
   margin-top: 50px;
 
 }
-.list{
-  font-size:30px;
-  font-weight: 700;
-  max-width:1100px;
-  left:0; right:0; margin-left:auto; margin-right:auto;
-  padding-bottom: 50px;
+.v-application .d-flex {
+  display: inline !important;
+
 }
 
 </style>

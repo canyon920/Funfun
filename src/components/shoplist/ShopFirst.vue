@@ -22,11 +22,11 @@ export default {
         },
         {  presimgUrl:require("@/assets/event/main/aveda.jpg"),
           eventTitle:"명품 같은 스몰럭셔리 상품, 꼭 비싸야만 명품인가?",
-          eventId:1
+          eventId:3
         },
         {  presimgUrl:require("@/assets/event/main/alchole.jpg"),
           eventTitle:"어떡해?!, 한 잔 하고 가실텐가?",
-          eventId:3
+          eventId:1
         },
         {  presimgUrl:require("@/assets/event/main/food.jpg"),
           eventTitle:'고급지게 맛있는 치킨, "치킨!" 넌 쵝오야!',
