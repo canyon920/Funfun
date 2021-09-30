@@ -268,26 +268,26 @@ export default {
 
       mainJoin:[
         {
-          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
-          fundingTitle:'"우리" 친구 맞지?^^',fundinging: '진행중',
+          presJoinUrl:require("@/assets/example-img/chunsicsub3.png"),
+          funding_title:'"우리" 친구 맞지?^^',fundinging: '진행중',
           progressBarPercent: 20, fundingname: '두팔',fundingMoney: 3000,
           fundingId:1
         },
         {
-          preFundingImgUrl:require("@/assets/example-img/chunsicsub1.png"),
-          fundingTitle:'너의 마음을 보여줘! 제발~',fundinging: '진행중',
+          presJoinUrl:require("@/assets/example-img/chunsicsub1.png"),
+          funding_title:'너의 마음을 보여줘! 제발~',fundinging: '진행중',
           progressBarPercent: 20, fundingname: '춘식',fundingMoney: 3000,
           fundingId:2
         },
         {
-          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
-          fundingTitle:'"생일이양"',fundinging: '진행중',
+          presJoinUrl:require("@/assets/example-img/chunsicsub3.png"),
+          funding_title:'"생일이양"',fundinging: '진행중',
           progressBarPercent: 50, fundingname: '라둥',fundingMoney: 3000,
           fundingId:3
         },
         {
-          preFundingImgUrl:require("@/assets/example-img/chunsicsub2.png"),
-          fundingTitle:'나! 이거이거',fundinging: '진행중',
+          presJoinUrl:require("@/assets/example-img/chunsicsub2.png"),
+          funding_title:'나! 이거이거',fundinging: '진행중',
           progressBarPercent: 80, fundingname: '라이언',fundingMoney: 3000,
           fundingId:4
         },
@@ -298,33 +298,14 @@ export default {
   methods: {
     searchFriendSelect(username) {
       this.mainSearch.username = username
-      //여기에 axios 추가해 this.mainSearch.fundinglist 수정해줘야함
-    },
-    topEventImg() {
-      var wmm1 = window.matchMedia("screen and (max-width: 500px)");
-      if (wmm1.matches) {
-        this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔｖｅｒ２.png")
-        this.slides[1].imgSrc = require("@/assets/event/banner/bagEventｖｅｒ２.png")
-        this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔｖｅｒ２.png")
-        this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔｖｅｒ２.png")
-        this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔｖｅｒ２.png")
-      } else{
-        this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔ.png")
-        this.slides[1].imgSrc = require("@/assets/event/banner/bagEvent.png")
-        this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔ.png")
-        this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔ.png")
-        this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔ.png")
-      }
     }
-  },
-  beforeMount() {
-    this.topEventImg()
+
   }
 }
 
 
 </script>
-<style scoped>
+<style>
 
 .second{
 
@@ -336,7 +317,7 @@ export default {
   height: 250px;
 }
 .menu{
-  text-align: center;
+   text-align: center;
 }
 .search-second{
   margin-top:50px;
@@ -344,22 +325,5 @@ export default {
 .search-second h2{
   padding-bottom: 30px;
 }
-
-.fonttext{
-  margin-top: 30px;
-}
-.textline{
-  margin-top: 30px;
-}
-
-.giboo {
-  margin-top: 30px;
-}
-
-/*@media screen and (max-width: 800px){*/
-/*  #v-carousel-item-top-event-banner {*/
-/*    display: none;*/
-/*  }*/
-/*}*/
 
 </style>
