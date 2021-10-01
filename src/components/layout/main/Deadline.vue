@@ -40,7 +40,13 @@
 
                 <v-card-subtitle class="pb-0">
                   <div id="progress-bar-text">
-                    {{value.progressBarPercent}}% 진행중
+                    {{value.progressBarPercent}}% 달성
+                  </div>
+                  <div class="slush">
+                    /
+                  </div>
+                  <div id="expire-date-text">
+                    만료일: {{value.expireDate}}
                   </div>
                 </v-card-subtitle>
 
@@ -49,7 +55,7 @@
               <v-card-text id="card-text" class="text--primary">
                 <div class ="fundingname">{{value.fundingname}}님의 펀딩 상품</div>
 
-                <div class="fundingmoeny">{{value.fundingMoney}}원 펀딩</div>
+                <div class="fundingmoeny">{{value.fundingMoney}}원 달성</div>
               </v-card-text>
 
             </v-card>
@@ -85,6 +91,10 @@ export default {
 <style scoped>
 #card-text {
   padding: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .deadline {
@@ -96,6 +106,9 @@ export default {
 
 .pb-0{
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 #v-card-custom {
@@ -156,7 +169,9 @@ export default {
     max-width: 800px !important;
   }
 
-  #v-card-custom div #progress-bar-text {
+  #v-card-custom div #progress-bar-text,
+  #v-card-custom div div.slush,
+  #v-card-custom div #expire-date-text {
     font-size: 12px !important;
     line-height: 25px !important;
 
@@ -180,7 +195,9 @@ export default {
     max-width: 350px !important;
   }
 
-  #v-card-custom div #progress-bar-text {
+  #v-card-custom div #progress-bar-text,
+  #v-card-custom div div.slush,
+  #v-card-custom div #expire-date-text {
     font-size: 12px !important;
     line-height: 25px !important;
 

@@ -219,6 +219,8 @@ export default {
 .inner .container-content .content-head .head-detail .detail-right {
   width: 50%;
   position: relative;
+  max-width: 532px;
+
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-top .title-box {
   font-size: 35px;
@@ -282,6 +284,16 @@ export default {
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button .button-box {
   margin: 15px;
+}
+
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head .head-detail .detail-right {
+    width: 90vw;
+  }
+  .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom {
+    position: inherit;
+  }
+
 }
 
 </style>

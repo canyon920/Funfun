@@ -85,4 +85,20 @@ export default {
 
 }
 
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head .head-detail .detail-left .left-img .thumb-img {
+    width: 300px;
+    height: 300px;
+  }
+  .inner .container-content .content-head .head-detail .detail-left .left-box {
+    max-width: 100vw;
+    display: block;
+
+  }
+  .inner .container-content .content-head .head-detail .detail-left {
+    width: 100vw;
+  }
+
+}
+
 </style>

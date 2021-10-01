@@ -6,7 +6,7 @@
       <div class="moreandmore" ><router-link to="/wishlist" style="text-decoration: none; color: rgb(229, 114, 0)">더보기</router-link> </div>
       <div class = no-merchandise>
         <div class ="datalist">
-          <div v-if="mainSearch.length == 0" >
+          <div v-if="bringmainsearch.fundinglist.length == 0" >
             펀딩중인 상품이 없어요.
           </div>
           <div class = "product" v-else>
@@ -31,8 +31,8 @@
             }">
 <!--              <carousel id="shop-carousel" :autoplay="true" :nav="false" >-->
               <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
-              <a v-for="(merchan, idx) in mainSearch" :key="idx">
-                <router-link :to="{name: 'detail_page_P' ,params: {productId: merchan.productId}}" style="text-decoration: none">
+              <div v-for="(merchan, idx) in bringmainsearch.fundinglist" :key="idx">
+                <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: merchan.fundingId}}" style="text-decoration: none">
                   <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
                     <v-card
@@ -42,16 +42,16 @@
                       <img
                           id="card-img"
                           class="white--text align-end"
-                          v-bind:src="merchan.preFundingImgUrl">
+                          v-bind:src="merchan.fundingUrl">
 
-                      <v-card-title>{{ merchan.productTitle}}</v-card-title>
+                      <v-card-title>{{ merchan.funndingTitle}}</v-card-title>
 
                       <v-card-subtitle class="pb-0" id="v-card-subtitle-custom">
                         <div id="card-brand" style="font-size: 20px;">
-                        {{merchan.productBrand}}
+                        {{merchan.funndingBrand}}
                         </div>
                         <div id="card-price" style="font-size: 25px; color: rgb(229, 114, 0)">
-                        {{ merchan.productsubPrice}}
+                        {{ merchan.fundingTartgetMoney}}
                         </div>
                       </v-card-subtitle>
 
@@ -61,7 +61,7 @@
                     </v-card>
                   </div>
                 </router-link>
-              </a>
+              </div>
 
               <!--    <template slot="next"><span class="next">next</span></template>-->
             </carousel>
@@ -69,9 +69,6 @@
 
           </div>
 
-        </div>
-        <div class="text-center">
-          <v-btn id="btn-txt" depressed elevation="2" style="font-size: 20px"><router-link to="/showfriend" style="text-decoration: none; color: rgb(229, 114, 0)">♡친구에게 보여주기</router-link></v-btn>
         </div>
       </div>
     </div>
@@ -82,19 +79,9 @@
 import carousel from 'vue-owl-carousel'
 
 export default {
-  name: 'Main-search',
+  name: "MainSearch",
   data(){
     return{
-      mainSearch:[
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicthum.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub1.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub2.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub3.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicthum.png")},
-        {productTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,productBrand: '카카오프렌즈' ,productsubPrice: '36900 원',preFundingImgUrl: require("@/assets/example-img/chunsicsub1.png")},
-
-
-      ],
     }
   },
   components: { carousel},

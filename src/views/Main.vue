@@ -7,14 +7,15 @@
         height="400"
         hide-delimiter-background
         show-arrows-on-hover
-        style="width: 100vw"
     >
       <v-carousel-item
           v-for="(slide, i) in slides"
           :key="i"
           :src="slide.imgSrc"
-          style="height: 100vw"
       >
+        <router-link :to="{name: 'EventPage', params:{ eventId: slide.eventId }}">
+          <div style="width: 100%; height: 100%; cursor: pointer"></div>
+        </router-link>
         <!--        <v-sheet-->
         <!--            :color="colors[i]"-->
         <!--            height="100%"-->
@@ -34,7 +35,8 @@
     <v-container>
       <!-- 사이즈 조정 디브  -->
       <div class = "second">
-        <div class ="search">
+
+        <div class ="search" v-show="mainFriendSearchBar">
 
           <div class ="search-second">
             <div class="title-div" style="display: flex; flex-direction: row; align-items: center; margin-bottom: 10px">
@@ -53,6 +55,7 @@
               </template>
               <template v-slot:append>
                 <v-progress-circular
+                    :class="{active: searchStart}"
                     v-if="loading"
                     size="24"
                     color="rgb(229, 114, 0)"
@@ -65,6 +68,7 @@
                 dense
                 nav
                 v-show="searchStart"
+                :class="{active: searchStart, deactive: !searchStart}"
             >
               <v-list-item
                   v-for="(item,fkey) in friends"
@@ -91,9 +95,11 @@
             <!--            </ul>-->
 
           </div>
-          <MainSearch v-show="mainSearch" :bringmainsearch="mainSearch" />
+
+          <MainSearch :class="{active : mainSearch.username, transy:searchStart}" :hidden="!mainSearch.username" :bringmainsearch="mainSearch" />
 
         </div>
+
         <div class = "menu">
 
           <Mainmenu />
@@ -118,11 +124,13 @@
         <v-divider
         ></v-divider>
 
+        <div class ="search" v-show="mainFriendSearchBar">
         <div class = "join">
           <div class="textline">
             <h2>내가 참여한 선물</h2>
           </div>
           <Deadline :bringmainDeadline="mainJoin" />
+        </div>
         </div>
 
         <v-divider
@@ -156,8 +164,9 @@ export default {
 
   data () {
     return {
-      loading:true,
-      searchStart : true,
+      mainFriendSearchBar: false,
+      loading:false,
+      searchStart : false,
       model: 0,
       colors: [
         'indigo',
@@ -167,49 +176,68 @@ export default {
         'deep-purple accent-4',
       ],
       slides: [
-        {imgSrc: require("@/assets/event/main1.jpg")},
-        {imgSrc: require("@/assets/event/banner/bagEvent.png")},
-        {imgSrc: "https://funfunbucket.s3.ap-northeast-2.amazonaws.com/finfinbucket-static/first/first2.jpg"},
-        '광고',
+        {
+          imgSrc: require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔ.png"),
+          eventId: 3,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/bagEvent.png"),
+          eventId: 5,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔ.png"),
+          eventId: 4,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔ.png"),
+          eventId: 2,
+        },
+        {
+          imgSrc: require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔ.png"),
+          eventId: 1,
+        },
 
-        '광고',
       ],
       mainSearch:
       // null,
           {
-            username:"춘식",
-            fundinglist:"펀딩중인 상품이 없어요",
+            username:"",
+            fundinglist:[
+              {fundingId:1 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
+              {fundingId:2 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
+              {fundingId:3 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub2.png")},
+              {fundingId:4 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub3.png")},
+              {fundingId:5 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
+              {fundingId:6 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
+            ],
           },
       friends: [
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이'},
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라이언'},
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코'},
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이'},
+        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이', friendId:1},
+        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라이언', friendId:2},
+        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코', friendId:3},
+        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이', friendId:4},
       ],
-      friend: {
-        name: '',
-      },
       friendName: '',
 
       mainEvent: [
         {
-          presimgUrl:require("@/assets/event/main2.png"),
+          presimgUrl:require("@/assets/event/main/light.png"),
           eventTitle:'"8월에 태어난 친구에게", "친구야" 넌 꽃처럼 아름다워!',
           eventId:2
         },
-        {  presimgUrl:require("@/assets/event/main1.jpg"),
+        {  presimgUrl:require("@/assets/event/main/aveda.jpg"),
           eventTitle:"명품 같은 스몰럭셔리 상품, 꼭 비싸야만 명품인가?",
-          eventId:1
-        },
-        {  presimgUrl:require("@/assets/event/main3.jpg"),
-          eventTitle:"어떡해?!, 한 잔 하고 가실텐가?",
           eventId:3
         },
-        {  presimgUrl:require("@/assets/event/main4.jpg"),
+        {  presimgUrl:require("@/assets/event/main/alchole.jpg"),
+          eventTitle:"어떡해?!, 한 잔 하고 가실텐가?",
+          eventId:1
+        },
+        {  presimgUrl:require("@/assets/event/main/food.jpg"),
           eventTitle:'고급지게 맛있는 치킨, "치킨!" 넌 쵝오야!',
           eventId:4
         },
-        {  presimgUrl:require("@/assets/event/main5.png"),
+        {  presimgUrl:require("@/assets/event/main/bag.png"),
           eventTitle:'난 이 GaBang 을 가졌지, 이제 아무것도 부럽지 않아!, "브랜드 GaBang"',
           eventId:5
         },
@@ -221,26 +249,29 @@ export default {
       mainDeadline:[
         {
           preFundingImgUrl: require("@/assets/example-img/chunsicsub2.png"),
-          fundingTitle:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',fundinging: '진행중',
+          fundingTitle:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
           progressBarPercent: 20, fundingname: 'ㅇㅇdsadasd asd as dsa dasdas das',fundingMoney: 1000,
+          expireDate: '2021-11-30',
           fundingId:1
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
-          fundingTitle:'월급 탄 거 안다 도와주라',fundinging: '진행중', progressBarPercent: 20,
-          fundingname: '코코',fundingMoney: 25000,
+          fundingTitle:'월급 탄 거 안다 도와주라', progressBarPercent: 20,
+          fundingname: '코코',fundingMoney: 25000, expireDate: '2021-12-30',
           fundingId:2
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub1.png"),
-          fundingTitle:'"우리 아이"가 정말 갖고 싶어 해요',fundinging: '진행중',
+          fundingTitle:'"우리 아이"가 정말 갖고 싶어 해요',
           progressBarPercent: 50, fundingname: '곽두팔',fundingMoney: 3000,
+          expireDate: '2021-12-03',
           fundingId:3
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
-          fundingTitle:'일단 고마워',fundinging: '진행중',
+          fundingTitle:'일단 고마워',
           progressBarPercent: 80, fundingname: '두팔',fundingMoney: 30000,
+          expireDate: '2022-01-30',
           fundingId:4
         },
 
@@ -249,43 +280,86 @@ export default {
       mainJoin:[
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
-          fundingTitle:'"우리" 친구 맞지?^^',fundinging: '진행중',
+          fundingTitle:'"우리" 친구 맞지?^^',
           progressBarPercent: 20, fundingname: '두팔',fundingMoney: 3000,
+          expireDate: '2021-10-30',
           fundingId:1
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub1.png"),
-          fundingTitle:'너의 마음을 보여줘! 제발~',fundinging: '진행중',
+          fundingTitle:'너의 마음을 보여줘! 제발~',
           progressBarPercent: 20, fundingname: '춘식',fundingMoney: 3000,
+          expireDate: '2021-09-30',
           fundingId:2
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
-          fundingTitle:'"생일이양"',fundinging: '진행중',
+          fundingTitle:'"생일이양"',
           progressBarPercent: 50, fundingname: '라둥',fundingMoney: 3000,
+          expireDate: '2021-07-30',
           fundingId:3
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub2.png"),
-          fundingTitle:'나! 이거이거',fundinging: '진행중',
+          fundingTitle:'나! 이거이거',
           progressBarPercent: 80, fundingname: '라이언',fundingMoney: 3000,
+          expireDate: '2021-06-30',
           fundingId:4
         },
-
       ],
     }
   },
   methods: {
     searchFriendSelect(username) {
+      this.loading = false
+      this.searchStart = false
       this.mainSearch.username = username
+      //여기에 axios 추가해 this.mainSearch.fundinglist 수정해줘야함
+      this.mainSearch.fundinglist = [
+        ]
+
+    },
+    topEventImg() {
+      var wmm1 = window.matchMedia("screen and (max-width: 500px)");
+      if (wmm1.matches) {
+        this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔｖｅｒ２.png")
+        this.slides[1].imgSrc = require("@/assets/event/banner/bagEventｖｅｒ２.png")
+        this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔｖｅｒ２.png")
+        this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔｖｅｒ２.png")
+        this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔｖｅｒ２.png")
+      } else{
+        this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔ.png")
+        this.slides[1].imgSrc = require("@/assets/event/banner/bagEvent.png")
+        this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔ.png")
+        this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔ.png")
+        this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔ.png")
+      }
+    },
+    isLoginMain() {
+      if (window.localStorage.getItem('login_member')) {
+        this.mainFriendSearchBar = true
+      } else {
+        this.mainFriendSearchBar = false
+      }
     }
 
+  },
+  watch:{
+    friendName(){
+      this.loading = true
+      this.searchStart = true
+      //axios 로 친구리스트가져오기
+    }
+  },
+  beforeMount() {
+    this.topEventImg()
+    this.isLoginMain()
   }
 }
 
 
 </script>
-<style>
+<style scoped>
 
 .second{
 
@@ -317,9 +391,37 @@ export default {
   margin-top: 30px;
 }
 
-@media screen and (max-width: 320px){
-  #v-carousel-item-top-event-banner {
-    display: none;
+/*@media screen and (max-width: 800px){*/
+/*  #v-carousel-item-top-event-banner {*/
+/*    display: none;*/
+/*  }*/
+/*}*/
+
+.active {
+  animation-name: searchin;
+  animation-duration: 1s;
+}
+.deactive {
+}
+.transy {
+  animation-name: transyin;
+  animation-duration: .8s;
+}
+@keyframes searchin {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+
+@keyframes transyin {
+  from{
+    transform: translateY(-200px);
+  }
+  to{
   }
 }
 

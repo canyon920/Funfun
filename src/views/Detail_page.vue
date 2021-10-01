@@ -6,9 +6,9 @@
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개        -->
           <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click" @bringsub04Click="sub04Click"/>
           <!--          여기 동적 처리   상품 내용 보여줌        -->
-          <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo"/>
+          <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo" :class="{active:productView}"/>
           <!--          여기 펀딩 등록 위한 것들 보여줌          -->
-          <Detail-page-right-setting v-show="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" :bringRightInfo="rightInfo" />
+          <Detail-page-right-setting v-show="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" :bringRightInfo="rightInfo" :class="{active:settingView}"/>
         </div>
       </div>
       <!--      여기 동적 처리 바디 이미지 바디 상세이미지 넘겨줘야함      -->
@@ -40,8 +40,12 @@ export default {
       leftInfo: {
         preforchangUrl:'',
         imgUrlList:[],
-        prethumbUrl:'',
-        subImg:[],
+        prethumbUrl:require("@/assets/example-img/chunsicthum.png"),
+        subImg:[
+          require("@/assets/example-img/chunsicsub1.png"),
+          require("@/assets/example-img/chunsicsub2.png"),
+          require("@/assets/example-img/chunsicsub3.png")
+        ],
         item:null
       },
 
@@ -55,12 +59,13 @@ export default {
 
       rightInfo: {
         likeIcon: false,
-        likeCount: '',
-        beforeLikeCount: '',
-        productTitle: '',
-        productBrand: '',
-        productPrice: '',
-        fundingCount: ''
+        likeCount: 5,
+        beforeLikeCount: 5,
+        productTitle: '"언텍트 시대" 춘식이와 라이언의 사랑이야기',
+        productBrand: '카카오프렌즈',
+        productPrice: 36900,
+        fundingCount: 3333,
+        categoryId: 1,
       },
 
       bodyInfo: {
@@ -101,7 +106,7 @@ export default {
       }
       axios.post("http://localhost:9090/product/productDetail",form,config)
 
-      .then(res =>{
+          .then(res =>{
 
         this.rightInfo.productTitle = res.data.product_name
         this.rightInfo.productId =res.data.product_id
@@ -270,6 +275,9 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
 }
+.inner .container-content .content-head {
+  height: 580px;
+}
 .inner .container-content .content-head .head-detail {
   display: flex;
   flex-direction: row;
@@ -288,6 +296,8 @@ export default {
 .inner .container-content .content-body .body-detail .detail-menu .menu-main {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+
 }
 .inner .container-content .content-body .body-detail .detail-menu .menu-main .main-box {
   padding-left: 10%;
@@ -300,5 +310,28 @@ export default {
 .inner .container-content .content-body .body-detail .detail-img {
   border-top: 1px solid rgb(229 114 0);
 }
+
+.active {
+  animation: activeY 1s;
+}
+
+@keyframes activeY {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head {
+    height: inherit;
+  }
+  .inner .container-content .content-head .head-detail {
+    flex-direction: column;
+  }
+}
+
 
 </style>

@@ -20,7 +20,7 @@
       </div>
 
       <div class="content-center">
-        <router-link to="/" style="text-decoration: none; color: black;">
+        <router-link :to="{name: 'Shop', params:{categoryId: bringRightInfo.categoryId}}" style="text-decoration: none; color: black;">
         <div class="category-box">
           카테고리 상품들 보러가기 >>
         </div>
@@ -123,6 +123,7 @@ export default {
 .inner .container-content .content-head .head-detail .detail-right {
   width: 50%;
   position: relative;
+  max-width: 532px;
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-top .title-box {
   font-size: 35px;
@@ -171,6 +172,16 @@ export default {
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button .button-box {
   margin: 15px;
+}
+
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head .head-detail .detail-right {
+    width: 90vw;
+  }
+  .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom {
+    position: inherit;
+  }
+
 }
 
 </style>
