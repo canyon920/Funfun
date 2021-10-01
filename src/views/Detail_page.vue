@@ -4,7 +4,7 @@
       <div class="content-head">
         <div class="head-detail">
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개        -->
-          <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>
+          <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click" @bringsub04Click="sub04Click"/>
           <!--          여기 동적 처리   상품 내용 보여줌        -->
           <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo"/>
           <!--          여기 펀딩 등록 위한 것들 보여줌          -->
@@ -24,6 +24,7 @@ import DetailPageBody from "@/components/detail-components/DetailPageBody";
 import DetailPageRightSetting from "@/components/detail-components/DetailPageRightSetting";
 import axios from "axios";
 import {productObj} from "../service/product";
+import {reServerSend} from "../router/refreshForAccessToken";
 
 export default {
   name: "detail_page",
@@ -37,17 +38,20 @@ export default {
       productId:'',
 
       leftInfo: {
-        preforchangUrl: 'http://127.0.0.1:8887',
+        preforchangUrl:'',
         imgUrlList:[],
+        prethumbUrl:'',
         subImg:[],
         item:null
       },
-     /* leftInfo:{
-        prethumbUrl:require("@/assets/example-img/chunsicthum.png"),
-        presubUrl01:require("@/assets/example-img/chunsicsub1.png"),
-        presubUrl02:require("@/assets/example-img/chunsicsub2.png"),
-        presubUrl03:require("@/assets/example-img/chunsicsub3.png"),
-      },*/
+
+      // leftInfo:{
+      //   // prethumbUrl:require("@/assets/example-img/chunsicthum.png"),
+      //   // presubUrl01:require("@/assets/example-img/chunsicsub1.png"),
+      //   // presubUrl02:require("@/assets/example-img/chunsicsub2.png"),
+      //   // presubUrl03:require("@/assets/example-img/chunsicsub3.png"),
+      //   // presubUrl04:require("@/assets/example-img/chunsicsub4.png"),
+      // },
 
       rightInfo: {
         likeIcon: false,
@@ -84,7 +88,10 @@ export default {
     },
 
     async bringProductDetailInfo(){
-      let form = new FormData()
+      var bringRouteProductId = this.$route.query.productId
+      console.log("상품 아이디",bringRouteProductId)
+      alert(bringRouteProductId)
+      let form = new FormData();
       form.append('product_id',1)
       let access_token = window.sessionStorage.getItem('access_token')
       let config = {
@@ -102,14 +109,16 @@ export default {
         this.rightInfo.productPrice = res.data.product_price
         this.rightInfo.fundingCount = res.data.funding_count
         this.rightInfo.beforeLikeCount = res.data.product_like_count
-        this.leftInfo.imgUrlList = res.data.productImg
 
         let product_detail = JSON.stringify(productObj)
         console.log('#res',res)
-        window.localStorage.setItem('product_detail',product_detail)
+        window.sessionStorage.setItem('product_detail',product_detail)
 
-        console.log('#img',res.data.productImg)
-        console.log('#img',res.data.productImg[1])
+        window.sessionStorage.getItem('product_detail')
+        console.log("session",sessionStorage.getItem("productName"));
+
+        // console.log('#img',res.data.productImg)
+        // console.log('#img',res.data.productImg[1])
 
         var list = res.data.productImg
         console.log("list",list)
@@ -119,21 +128,25 @@ export default {
           if(list[key].includes('sub')){
             // console.log("sub",list[key])
             this.leftInfo.subImg.push(list[key])
-          }
+            this.leftInfo.subImg.remove(0)
+          } else if (list[key].includes('thumb')) {
+            this.leftInfo.prethumbUrl = list[key]
+          } /*else if(list[key].includes('main')){
+
+          }*/
         }
         console.log("subtest",this.leftInfo.subImg)
 
 
 
       }).catch(e=>{
-        console.log(e)
-        alert("상품정보를 불러올 수 없습니다")
+        // console.log(e)
+        console.log("스테이터스 코드 : ",e.response.status)
+        reServerSend()
+        // alert("상품정보를 불러올 수 없습니다")
       })
 
     },
-    /*showInfo(idx){
-      this.item = this.imgUrlList[idx]
-    },*/
 
     // 상단 오른쪽 부분 바뀌도록 하는 메소드들
     changeRight() {
@@ -157,18 +170,23 @@ export default {
     // leftMethods
     sub01Click() {
       this.leftInfo.preforchangUrl = this.leftInfo.prethumbUrl
-      this.leftInfo.prethumbUrl = this.leftInfo.presubUrl01
-      this.leftInfo.presubUrl01 = this.leftInfo.preforchangUrl
+      this.leftInfo.prethumbUrl = this.leftInfo.subImg[0]
+      this.leftInfo.subImg[0] = this.leftInfo.preforchangUrl
     },
     sub02Click() {
       this.leftInfo.preforchangUrl = this.leftInfo.prethumbUrl
-      this.leftInfo.prethumbUrl = this.leftInfo.presubUrl02
-      this.leftInfo.presubUrl02 = this.leftInfo.preforchangUrl
+      this.leftInfo.prethumbUrl = this.leftInfo.subImg[1]
+      this.leftInfo.subImg[1] = this.leftInfo.preforchangUrl
     },
     sub03Click() {
       this.leftInfo.preforchangUrl = this.leftInfo.prethumbUrl
-      this.leftInfo.prethumbUrl = this.leftInfo.presubUrl03
-      this.leftInfo.presubUrl03 = this.leftInfo.preforchangUrl
+      this.leftInfo.prethumbUrl = this.leftInfo.subImg[2]
+      this.leftInfo.subImg[2] = this.leftInfo.preforchangUrl
+    },
+    sub04Click() {
+      this.leftInfo.preforchangUrl = this.leftInfo.prethumbUrl
+      this.leftInfo.prethumbUrl = this.leftInfo.subImg[3]
+      this.leftInfo.subImg[3] = this.leftInfo.preforchangUrl
     },
 
     // bodyMethods
