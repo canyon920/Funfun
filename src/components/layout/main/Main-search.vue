@@ -6,7 +6,7 @@
       <div class="moreandmore" ><router-link to="/wishlist" style="text-decoration: none; color: rgb(229, 114, 0)">더보기</router-link> </div>
       <div class = no-merchandise>
         <div class ="datalist">
-          <div v-if="bringmainsearch.fundinglist.length == 0" >
+          <div v-if="bringmainsearch.fundinglist.length === 0" >
             펀딩중인 상품이 없어요.
           </div>
           <div class = "product" v-else>

@@ -114,6 +114,7 @@ export default {
 #v-card-custom {
   position: relative;
   max-height: 815px;
+  border-bottom: 0.5px solid rgba(0,0,0,.2);
 }
 #v-card-custom #card-img {
   height: 275px;
