@@ -86,6 +86,10 @@ export default {
 
 #card-text {
   padding: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 

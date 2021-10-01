@@ -210,7 +210,9 @@ export default {
 </script>
 
 <style scoped>
-
+.inner .container-content .content-head {
+ height: 580px;
+}
 /*top - right*/
 .inner .container-content .content-head .head-detail .detail-right {
   width: 50%;
@@ -270,6 +272,9 @@ export default {
 
 
 @media screen and (max-width: 800px){
+  .inner .container-content .content-head {
+    height: inherit;
+  }
   .inner .container-content .content-head .head-detail .detail-right {
     width: 90vw;
   }

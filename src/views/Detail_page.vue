@@ -6,9 +6,9 @@
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개        -->
           <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>
           <!--          여기 동적 처리   상품 내용 보여줌        -->
-          <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo"/>
+          <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo" :class="{active:productView}"/>
           <!--          여기 펀딩 등록 위한 것들 보여줌          -->
-          <Detail-page-right-setting v-show="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" :bringRightInfo="rightInfo" />
+          <Detail-page-right-setting v-show="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" :bringRightInfo="rightInfo" :class="{active:settingView}"/>
         </div>
       </div>
       <!--      여기 동적 처리 바디 이미지 바디 상세이미지 넘겨줘야함      -->
@@ -38,16 +38,22 @@ export default {
 
       leftInfo: {
         preforchangUrl: 'http://127.0.0.1:8887',
-        imgUrlList:[],
-        subImg:[],
+        imgUrlList:[
+          require("@/assets/example-img/chunsicthum.png")
+        ],
+        subImg:[
+          require("@/assets/example-img/chunsicsub1.png"),
+          require("@/assets/example-img/chunsicsub2.png"),
+          require("@/assets/example-img/chunsicsub3.png")
+        ],
         item:null
       },
-     /* leftInfo:{
-        prethumbUrl:require("@/assets/example-img/chunsicthum.png"),
-        presubUrl01:require("@/assets/example-img/chunsicsub1.png"),
-        presubUrl02:require("@/assets/example-img/chunsicsub2.png"),
-        presubUrl03:require("@/assets/example-img/chunsicsub3.png"),
-      },*/
+      /* leftInfo:{
+         prethumbUrl:require("@/assets/example-img/chunsicthum.png"),
+         presubUrl01:require("@/assets/example-img/chunsicsub1.png"),
+         presubUrl02:require("@/assets/example-img/chunsicsub2.png"),
+         presubUrl03:require("@/assets/example-img/chunsicsub3.png"),
+       },*/
 
       rightInfo: {
         likeIcon: false,
@@ -95,40 +101,40 @@ export default {
       }
       axios.post("http://localhost:9090/product/productDetail",form,config)
 
-      .then(res =>{
+          .then(res =>{
 
-        this.rightInfo.productTitle = res.data.product_name
-        this.rightInfo.productId =res.data.product_id
-        this.rightInfo.productBrand = res.data.product_brand
-        this.rightInfo.productPrice = res.data.product_price
-        this.rightInfo.fundingCount = res.data.funding_count
-        this.rightInfo.beforeLikeCount = res.data.product_like_count
-        this.leftInfo.imgUrlList = res.data.productImg
+            this.rightInfo.productTitle = res.data.product_name
+            this.rightInfo.productId =res.data.product_id
+            this.rightInfo.productBrand = res.data.product_brand
+            this.rightInfo.productPrice = res.data.product_price
+            this.rightInfo.fundingCount = res.data.funding_count
+            this.rightInfo.beforeLikeCount = res.data.product_like_count
+            this.leftInfo.imgUrlList = res.data.productImg
 
-        let product_detail = JSON.stringify(productObj)
-        console.log('#res',res)
-        window.localStorage.setItem('product_detail',product_detail)
+            let product_detail = JSON.stringify(productObj)
+            console.log('#res',res)
+            window.localStorage.setItem('product_detail',product_detail)
 
-        console.log('#img',res.data.productImg)
-        console.log('#img',res.data.productImg[1])
+            console.log('#img',res.data.productImg)
+            console.log('#img',res.data.productImg[1])
 
-        var list = res.data.productImg
-        console.log("list",list)
+            var list = res.data.productImg
+            console.log("list",list)
 
-        for(const key in list){
-          // console.log(`${key} : ${list[key]}`);
-          if(list[key].includes('sub')){
-            // console.log("sub",list[key])
-            this.leftInfo.subImg.push(list[key])
-          }
-        }
-        console.log("subtest",this.leftInfo.subImg)
+            for(const key in list){
+              // console.log(`${key} : ${list[key]}`);
+              if(list[key].includes('sub')){
+                // console.log("sub",list[key])
+                this.leftInfo.subImg.push(list[key])
+              }
+            }
+            console.log("subtest",this.leftInfo.subImg)
 
 
 
-      }).catch(e=>{
+          }).catch(e=>{
         console.log(e)
-        alert("상품정보를 불러올 수 없습니다")
+        alert("상품정보를 불러올 수 없습니다. 기본이미지로 보여드립니다.")
       })
 
     },
@@ -253,6 +259,9 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
 }
+.inner .container-content .content-head {
+  height: 580px;
+}
 .inner .container-content .content-head .head-detail {
   display: flex;
   flex-direction: row;
@@ -286,7 +295,23 @@ export default {
   border-top: 1px solid rgb(229 114 0);
 }
 
+.active {
+  animation: activeY 1s;
+}
+
+@keyframes activeY {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @media screen and (max-width: 800px){
+  .inner .container-content .content-head {
+    height: inherit;
+  }
   .inner .container-content .content-head .head-detail {
     flex-direction: column;
   }

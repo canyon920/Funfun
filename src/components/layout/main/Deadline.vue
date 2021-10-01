@@ -40,7 +40,7 @@
 
                 <v-card-subtitle class="pb-0">
                   <div id="progress-bar-text">
-                    {{value.progressBarPercent}}% 달성중
+                    {{value.progressBarPercent}}% 달성
                   </div>
                   <div class="slush">
                     /
@@ -55,7 +55,7 @@
               <v-card-text id="card-text" class="text--primary">
                 <div class ="fundingname">{{value.fundingname}}님의 펀딩 상품</div>
 
-                <div class="fundingmoeny">현재 {{value.fundingMoney}}원 펀딩 달성</div>
+                <div class="fundingmoeny">{{value.fundingMoney}}원 달성</div>
               </v-card-text>
 
             </v-card>
@@ -91,6 +91,10 @@ export default {
 <style scoped>
 #card-text {
   padding: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .deadline {
@@ -104,7 +108,7 @@ export default {
   position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 #v-card-custom {

@@ -6,7 +6,9 @@
           max-width="400"
           outlined
           :class="{active : funlogintransform, deactive : !funlogintransform}"
+          id="v-card-select-login"
       >
+
 
 
         <div class="login">
@@ -73,7 +75,9 @@ export default {
   margin-left: 0px !important;
 }
 
-
+#v-card-select-login {
+  max-height: 390px;
+}
 
 .parent-box-login {
   margin-top: 5%;

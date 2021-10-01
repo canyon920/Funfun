@@ -3,6 +3,7 @@
       class="mx-auto mt-10 mb-16 pb-8"
       width="400"
       outlined
+      id="v-card-funlogin"
   >
     <div class="loginimg">
       <v-img max-height="60"
@@ -133,7 +134,10 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
+#v-card-funlogin {
+  max-height: 390px;
+}
 
 .loginimg{
   padding-left: 130px;
