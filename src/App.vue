@@ -24,7 +24,7 @@ export default {
   data: () => ({
     //
   }),
-  beforeDestroy() {
+  destroyed() {
     window.localStorage.clear()
     window.sessionStorage.clear()
   }

@@ -3,7 +3,7 @@
   <div class="join-phonenumber">
     <div class="phone-left">
       <v-text-field
-          label="ex)01077778888"
+          label="Phone: ex)01077778888"
           hint="*아이디 및 비밀번호 찾기에 활용됩니다."
           v-model="phoneNumber"
           persistent-hint
@@ -197,7 +197,7 @@ export default {
         this.$emit('birngMethodPhoneIn',this.phoneNumber)
       }
       else if (this.phoneNumberSaveToServer === false) {
-        this.$emit('birngMethodPhoneIn', '')
+        this.$emit('birngMethodPhoneIn', null)
       }
     }
   }
@@ -254,5 +254,11 @@ export default {
   align-items: center;
   height: 50px;
   margin-top: 25px;
+}
+@media screen and (max-width: 800px){
+  .error-font-color.error-phone-number {
+    margin-top: 35px !important;
+  }
+
 }
 </style>

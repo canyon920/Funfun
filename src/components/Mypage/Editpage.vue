@@ -11,7 +11,7 @@
           <div id="input-submit">
             <v-text-field
                 v-model="nickname"
-                label=" 닉네임: "
+                label="닉네임: "
             >
             </v-text-field>
             <div v-show="errorNicNameCheck" class="error-text nic-error">
@@ -20,76 +20,33 @@
 
             <v-text-field
                 v-model.trim="email"
-                label=" 이메일: "
+                label="이메일: "
                 readonly
             ></v-text-field>
 
-            <div class="phone-div" style="margin-bottom: 10px">
-              <v-text-field
-                  v-model.trim="phoneNumber"
-                  label=" 휴대전화 번호: "
-                  hint="아이디/비밀번호 찾기에 활용됩니다."
-                  persistent-hint
-              ></v-text-field>
-
-              <v-btn
-                  outlined
-                  rounded
-                  small
-                  class="giveme-button"
-                  @click="startPhoneVerify"
-              >
-                인증번호받기
-              </v-btn>
-            </div>
-            <div v-show="errorPhoneNumberCheck" class="error-text error-font-color error-phone-number">
-              전화번호 입력예시를 확인해주세요
-            </div>
-            <div v-show="errorSendMsgToServer" class="error-text error-font-color error-phone-number">
-              전화번호 인증서비스를 이용할 수 없습니다.
-            </div>
-
-            <div class="verify-div">
-              <v-text-field
-                  :label="computedTotalTIme"
-                  v-model="verifyNumber"
-                  persistent-hint
-              ></v-text-field>
-              <v-btn
-                  outlined
-                  rounded
-                  small
-                  class="giveme-button"
-                  @click="checkVerifyNum"
-              >
-                확인
-              </v-btn>
-            </div>
-            <div v-show="errorReturnNumberCheck" class="error-text error-font-color error-verify-number">
-              유효 시간이 경과되었습니다.
-            </div>
-            <div v-show="errorReturnNotVerify" class="error-text error-font-color error-verify-number">
-              유효하지 않은 인증번호 입니다.
-            </div>
-            <div v-show="phoneNumberSaveToServer" class="error-text error-font-color error-verify-number">
-              인증되었습니다.
-            </div>
+            <Phone style="width: 100%; margin-bottom: 40px" @birngMethodPhoneIn="phoneInputDataVal"/>
 
 
             <v-text-field
                 v-model.trim="address"
-                label=" 주소: "
+                label="주소: "
             ></v-text-field>
+<!--            <div v-show="errorAddress1Check" class="error-text address1-error">-->
+<!--              주소를 입력해 주세요.-->
+<!--            </div>-->
 
             <div class="2">
-              <v-text-field label=" 상세주소 "
+              <v-text-field label="상세주소 "
                             v-model.trim="address2"
               ></v-text-field>
 
             </div>
+<!--            <div v-show="errorAddress2Check" class="error-text address2-error">-->
+<!--              상세주소를 입력해 주세요.-->
+<!--            </div>-->
 
             <div class="div-3">
-              <v-text-field label=" 우편번호 "
+              <v-text-field label="우편번호 "
                             v-model.trim="postNumber"
               >
               </v-text-field>
@@ -102,12 +59,16 @@
                 주소검색
               </v-btn>
             </div>
+<!--            <div v-show="errorFindCheck" class="error-text find-error">-->
+<!--              주소를 검색해 주세요.-->
+<!--            </div>-->
+
           </div>
         </div>
 
-        <v-btn color="error">수정</v-btn>
+        <v-btn color="error" style="font-size: 20px" @click="backRouter">뒤로가기</v-btn>
         <br/>
-        <v-btn color="error">완료</v-btn>
+        <v-btn color="error" style="font-size: 20px" @click="refreshRouter">수정하기</v-btn>
 
       </v-app>
     </div>
@@ -117,31 +78,39 @@
 
 <script>
 import axios from "axios";
+import Phone from "@/components/login/Phone";
 
 export default {
   name:'Editpage',
+  components:{
+    Phone
+  },
   data (){
     return{
-      message1:'',
+      // message1:'',
+      // 닉네임
       nickname:'',
+      // 이메일
       email:'',
-      phoneNumber:'',
+      // 주소
       address:'',
+      // 상세주소
       address2:'',
+      // 집코드
       postNumber:'',
-      submit:'',
-      clear:'',
+
+      // submit:'',
+      // clear:'',
+
+      // 폰 번호
+      submitPhoneNumber:'',
 
       //  error
-      errorNicNameCheck:true,
-      errorPhoneNumberCheck:true,
-      errorSendMsgToServer:true,
-      errorReturnNumberCheck: true,
-      errorReturnNotVerify: true,
-      phoneNumberSaveToServer:true,
+      errorNicNameCheck:false,
+      // errorAddress1Check: true,
+      // errorAddress2Check: true,
+      // errorFindCheck: true,
 
-      //  phone 관련
-      verifyNumber: '',
     }
   },
   methods: {
@@ -149,7 +118,7 @@ export default {
       await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=160f05c35f34aef167fabe796efb2a8e`)
           .then(res => {
             console.log("res : ",res)
-            this.message1 = res.data.results[0].title
+            // this.message1 = res.data.results[0].title
             this.nickname = res.data.results[8].title
             this.email = res.data.results[1].title
             this.address = res.data.results[2].title
@@ -173,6 +142,35 @@ export default {
         }
       }).open()
     },
+    phoneInputDataVal(val) {
+      console.log("아래서 받은 폰넘버값 : ",val)
+      this.submitPhoneNumber = val
+      console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
+    },
+    refreshRouter() {
+      this.$router.go(0)
+    },
+    backRouter() {
+      this.$router.go(-1)
+    }
+  },
+  watch:{
+    nickname() {
+      if (this.nickname === "") {
+        this.errorNicNameCheck = true
+      } else {
+        this.errorNicNameCheck = false
+      }
+    },
+    // address() {
+    //
+    // },
+    // address2() {
+    //
+    // },
+    // postNumber() {
+    //
+    // }
   },
 
   mounted() {
@@ -193,23 +191,12 @@ export default {
 .MyPage {
   max-width:1100px;
   margin:auto;
+  margin-bottom: 50px;
 }
 .div-3 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-}
-.phone-div {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.verify-div {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 50%;
-  margin-left: 50%;
 }
 .border-div {
   border: 0.5px solid rgb(229,114,0);

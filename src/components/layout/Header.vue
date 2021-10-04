@@ -24,18 +24,7 @@
       <!--      <router-link to="#" v-on:click.native="unlink()"> Kakao Unlink</router-link>-->
     </div>
 
-<!--    <div id="header-friend-search" class="navbar-search">-->
-<!--      <v-text-field-->
-<!--          label="친구검색"-->
-<!--          v-model="SearchName"-->
-<!--          dense-->
-<!--      >-->
-<!--        <template v-slot:prepend-inner>-->
-<!--          <v-icon>mdi-magnify</v-icon>-->
-<!--        </template>-->
 
-<!--      </v-text-field>-->
-<!--    </div>-->
 
     <div class="nav_toggle" @click="toggleDown">
       <v-btn icon >
@@ -44,7 +33,7 @@
     </div>
     <router-link id="header-go-mypage" style="color: black" class="router-link" to="/mypage-list">
       <div class="logininfo" id="login-info-div" style="display: none">
-        <div class="memberdetail"><img :src="normalImg" style="border-radius: 20%; width: 20px; height: 20px; margin-right: 5px"></div>
+        <div class="memberdetail"><img id="loginUserImgSrc" :src="normalImg" style="border-radius: 20%; width: 20px; height: 20px; margin-right: 5px"></div>
         <div class="name pr-2" style="font-size: 14px; font-weight: 700" id="name-div"></div>
       </div>
     </router-link>
@@ -64,6 +53,8 @@ export default {
         memberNicname : '',
         memberApi : '',
         memberRole : '',
+        memberProfile:'',
+
       },
       // reloadPage:true,
       booleanMenu1: false,
@@ -116,7 +107,11 @@ export default {
     isLogin() {
       if (localStorage.getItem('login_member') !== null) {
         this.memberInfo = JSON.parse(localStorage.getItem('login_member'))
-        document.getElementById("join-div").hidden = true
+        if (this.memberInfo.memberProfile) {
+          this.normalImg = this.memberInfo.memberProfile;
+          document.getElementById('loginUserImgSrc').src = this.normalImg;
+        }
+        document.getElementById("join-div").hidden = true;
         document.getElementById("login-div").hidden = true
         if (this.memberInfo.memberNicname) {
           document.getElementById("login-info-div").style.display = 'flex';
@@ -136,31 +131,10 @@ export default {
       }
     }
   },
-  // computed:{
-  //   statusModify(){
-  //     if (localStorage.getItem('login_member') !== null) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   }
-  //
-  // },
-  // watch:{
-  //   statusModify() {
-  //     if (localStorage.getItem('login_member') !== null) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   }
-  // },
+
   mounted() {
     this.isLogin()
-    //     console.log("access toeken : ",funTokens.access_token)
-    // // function authInst () {
-    // //   console.log("sss",window.gapi.auth2.getAuthInstance());
-    // // }
+
   }
 };
 </script>

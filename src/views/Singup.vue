@@ -89,66 +89,7 @@
         </div>
 
         <Phone @birngMethodPhoneIn="phoneInputDataVal"/>
-<!--        <div class="join-phonenumber">-->
-<!--          <div class="phone-left">-->
-<!--            <v-text-field-->
-<!--                label="ex)01077778888"-->
-<!--                hint="*아이디 및 비밀번호 찾기에 활용됩니다."-->
-<!--                v-model="phoneNumber"-->
-<!--                persistent-hint-->
-<!--            ></v-text-field>-->
-<!--          </div>-->
-<!--          <div class="phone-right">-->
-<!--            <v-btn-->
-<!--                outlined-->
-<!--                rounded-->
-<!--                small-->
-<!--                class="giveme-button"-->
-<!--                @click="startPhoneVerify"-->
-<!--            >-->
-<!--              인증번호받기-->
-<!--            </v-btn>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div v-show="errorPhoneNumberCheck" class="error-font-color error-phone-number" style="margin-top: 22px">-->
-<!--          전화번호 입력예시를 확인해주세요-->
-<!--        </div>-->
-<!--        <div v-show="errorSendMsgToServer" class="error-font-color error-phone-number" style="margin-top: 22px">-->
-<!--          전화번호 인증서비스를 이용할 수 없습니다.-->
-<!--        </div>-->
 
-
-<!--        <div class="check-num-div" v-show="timerDiv">-->
-<!--          <div class="count-down-check-div">-->
-<!--            <div class="number-check-left">-->
-<!--              <v-text-field-->
-<!--                  :label="computedTotalTIme"-->
-<!--                  v-model="verifyNumber"-->
-<!--                  persistent-hint-->
-<!--              ></v-text-field>-->
-<!--            </div>-->
-<!--            <div class="count-down-right-div">-->
-<!--              <v-btn-->
-<!--                  outlined-->
-<!--                  rounded-->
-<!--                  small-->
-<!--                  class="giveme-button"-->
-<!--                  @click="checkVerifyNum"-->
-<!--              >-->
-<!--                확인-->
-<!--              </v-btn>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div v-show="errorReturnNumberCheck" class="error-font-color error-verify-number">-->
-<!--          유효 시간이 경과되었습니다.-->
-<!--        </div>-->
-<!--        <div v-show="errorReturnNotVerify" class="error-font-color error-verify-number">-->
-<!--          유효하지 않은 인증번호 입니다.-->
-<!--        </div>-->
-<!--        <div v-show="phoneNumberSaveToServer" class="error-font-color error-verify-number">-->
-<!--          인증되었습니다.-->
-<!--        </div>-->
 
 
         <div class="bottom-content">
@@ -169,7 +110,7 @@
                 color="error"
                 x-large
                 class="giveme-button"
-                @click="submitJoin"
+                @click="startJoinProcess"
             >
               가입하기
             </v-btn>
@@ -185,6 +126,8 @@
 <script>
 
 import Phone from "@/components/login/Phone";
+import axios from "axios";
+import {bringFunTokens, memberObj} from "@/service/member-login";
 
 export default {
   name: "Singup",
@@ -196,10 +139,7 @@ export default {
       prePassword:'',
       checkPassword:'',
       submitPhoneNumber:'',
-      // //입력받은 넘버
-      // verifyNumber:'',
-      // //입력받아야하는 넘버
-      // verifyCode:'',
+
 
 
       errorEmailCheck1: false,
@@ -211,15 +151,9 @@ export default {
       errorMustCheck2: false,
       errorMustCheck3: false,
       errorMustCheck4: false,
-      // timerDiv:false,
-      // errorReturnNumberCheck:false,
-      // errorReturnNotVerify: false,
-      // errorSendMsgToServer: false,
 
-      // // 전화번호 인증 완료 된 경우 true ===> true 면 저장 false 면 null 로 저장
-      // phoneNumberSaveToServer: false,
 
-      select: '@email.com',
+      select: '@kakao.com',
       items: [
         '@kakao.com',
         '@gamil.com',
@@ -228,92 +162,79 @@ export default {
       ],
       show1:false,
 
-      // timer:null,
-      // totalTime:null,
 
     }
   },
   methods:{
+    // 폰 넘버 인증하면 여기서 폰넘버 담게됨
     phoneInputDataVal(val) {
       console.log("아래서 받은 폰넘버값 : ",val)
       this.submitPhoneNumber = val
       console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
     },
-    // startTimer() {
-    //   this.timerDiv = true
-    //   this.totalTime = (1*60)
-    //   this.timer = setInterval(() => {
-    //     this.countdown()
-    //   },1000)
-    // },
-    // countdown() {
-    //   if (this.totalTime >= 1) {
-    //     this.totalTime--
-    //   } else {
-    //     this.totalTime = 0
-    //   }
-    // },
-    // padTime(time) {
-    //   return (time < 10 ? '0' : '') + time
-    // },
-    // async startPhoneVerify() {
-    //   console.log("그냥",this.phoneNumber)
-    //   console.log("그냥",this.phoneNumber.toString().trim())
-    //   console.log(this.verifyNumber.toString().trim())
-    //   console.log(this.verifyCode.toString().trim())
-    //   if (this.errorPhoneNumberCheck === false && this.phoneNumber.toString().trim().length !== 0) {
-    //     this.errorPhoneNumberCheck = false
-    //     this.verifyCode = Math.floor(((Math.random() * 10) * 9999));
-    //     console.log("생성된 인증번호", this.verifyCode);
-    //     let form = new FormData();
-    //     form.append('phoneNum', this.phoneNumber);
-    //     form.append('verifyNum', this.verifyCode);
-    //     await axios.post("http://localhost:9090/api/message/phone/verify", form)
-    //         .then(res => {
-    //           console.log(res)
-    //           this.errorSendMsgToServer = false
-    //           this.startTimer()
-    //         })
-    //         .catch(error => {
-    //           console.log(error)
-    //           this.phoneNumberSaveToServer = false
-    //           this.errorSendMsgToServer = true
-    //           this.verifyCode = ''
-    //           console.log("유효코드 초기화",this.verifyCode)
-    //           return false
-    //         });
-    //   }
-    // },
-    // checkVerifyNum() {
-    //   console.log("사용자가 입력한 인증번호 : ", this.verifyNumber)
-    //   console.log("사용자에게 발급한 인증번호 : ", this.verifyCode)
-    //   if (this.verifyNumber.toString().trim() === this.verifyCode.toString().trim()) {
-    //     this.phoneNumberSaveToServer = true
-    //     this.errorReturnNotVerify = false
-    //     console.log("인증번호 비교 결과 통과되면 false",this.errorReturnNotVerify)
-    //   } else {
-    //     this.phoneNumberSaveToServer = false
-    //     this.errorReturnNotVerify = true
-    //     console.log("인증번호 비교 결과 실패하면 true",this.errorReturnNotVerify)
-    //   }
-    // },
-    saveJoinMemberInfo() {
-      this.submitJoin()
-      // this.checkJoinEmail()
-      if (!this.errorPasswordCheck1 && !this.errorPasswordCheck2 && !this.errorEmailCheck1 && !this.errorEmailCheck2
-      && !this.errorMustCheck1 && !this.errorMustCheck2 && !this.errorMustCheck3 && !this.errorMustCheck4 ) {
-        if (this.phoneNumberSaveToServer) {
-          //번호인증 성공이 트루인경우 여기서 번호 저장
-        } else {
-          //번호인증 성공이 펄스인경우 여기서 널로 저장
-        }
 
+    // 멤버 회원가입 요청
+    async saveJoinMemberInfo() {
+      var form = new FormData()
+      form.append("email",this.email+this.select)
+      form.append("nicname",this.nicname)
+      form.append("password",this.checkPassword)
+      if (this.submitPhoneNumber) {
+        form.append("phone",this.submitPhoneNumber);
+      }
+      await axios.post("http://localhost:9090/api/join/save/member",form)
+          .then(res=>{
+            console.log(res)
+            memberObj.memberId = res.data.id
+            memberObj.memberEmail = res.data.email
+            memberObj.memberNicname = res.data.nic_name
+            memberObj.memberApi = res.data.login_api
+            memberObj.memberRole = res.data.role
+            memberObj.memberProfile = res.data.profileImg
+            let login_member = JSON.stringify(memberObj)
+            window.localStorage.setItem('login_member', login_member)
+            bringFunTokens()
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+    },
+    // 멤버 회원가입 트렌젝션
+    startJoinProcess() {
+      if (this.submitJoin()) {
+        this.checkJoinEmail()
       }
     },
 
-    checkJoinEmail() {
+    // 이메일 가능한지 체크
+    async checkJoinEmail() {
       //  axios 로 이메일 중복 체크해서 errorEmailCheck true or false
+      var form = new FormData()
+      form.append("email", this.email+this.select)
+      await axios.post("http://localhost:9090/api/join/email/check",form)
+      .then(res=>{
+        console.log(res)
+        this.errorEmailCheck1 = false
+        this.submitJoin2()
+
+      })
+      .catch(error=>{
+        console.log(error)
+        this.errorEmailCheck1 = true
+      })
     },
+
+    // 에러 떠있는게 없는지 체크 조건2
+    submitJoin2() {
+      if (!this.errorEmailCheck1 && !this.errorEmailCheck2 &&
+          !this.errorPasswordCheck1 && !this.errorPasswordCheck2) {
+        this.saveJoinMemberInfo();
+      } else {
+        return false
+      }
+    },
+
+    // 에러 떠있는게 없는지 체크 조건1
     submitJoin() {
       if (!this.email) {
         this.errorMustCheck1 = true
@@ -340,35 +261,21 @@ export default {
         this.errorMustCheck2 = false;
         this.errorMustCheck3 = false;
         this.errorMustCheck4 = false;
+        return true
       }
     }
   },
   computed:{
-    // minutes() {
-    //   let minutes = Math.floor(this.totalTime / 60)
-    //   return this.padTime(minutes)
-    // },
-    // seconds() {
-    //   let seconds = this.totalTime - (this.minutes * 60)
-    //   return this.padTime(seconds)
-    // },
-    // computedTotalTIme() {
-    //   return `${this.minutes}:${this.seconds}`
-    // },
   },
   watch:{
-    // computedTotalTIme() {
-    //   if (this.computedTotalTIme === "00:00") {
-    //     this.verifyCode = ''
-    //     console.log("유효코드 초기화",this.verifyCode)
-    //     if (this.phoneNumberSaveToServer === true) {
-    //       return false
-    //     }
-    //     this.errorReturnNumberCheck = true;
-    //   } else {
-    //     this.errorReturnNumberCheck = false
-    //   }
-    // },
+    email() {
+      if (this.email.match(/[@]/)) {
+        console.log("이메일 끝 빼주세요")
+        this.errorEmailCheck2 = true
+      } else {
+        this.errorEmailCheck2 = false
+      }
+    },
     select() {
       if (this.select === '직접입력') {
         this.select = ''
@@ -398,28 +305,13 @@ export default {
         this.errorPasswordCheck1 = true
       }
     },
-    // phoneNumber() {
-    //   this.errorSendMsgToServer = false
-    //   if (this.phoneNumber.includes("-") || this.phoneNumber.length !== 11 || this.phoneNumber.match(/^01(?:0|1|[6-9])(\\d{3}|\\d{4})(\\d{4})$/)) {
-    //     this.errorPhoneNumberCheck = true
-    //   }
-    //   else {
-    //     this.errorPhoneNumberCheck = false
-    //   }
-    //   if (this.phoneNumber.toString().trim().length === 0) {
-    //     this.errorPhoneNumberCheck = false
-    //     this.errorSendMsgToServer = false
-    //   }
-    // }
+
   }
 }
 </script>
 
 <style scoped>
-.error-font-color.error-verify-number {
-  text-align: end;
-  margin-top: 10px;
-}
+
 .error-font-color {
   color: red;
   font-size: 10px;
@@ -460,48 +352,6 @@ export default {
   max-width: 180px;
 }
 
-.signup .content-signup .form-signup-content .join-phonenumber {
-  display: flex;
-  flex-direction: row;
-  max-width: 450px;
-  height: 50px;
-}
-.signup .content-signup .form-signup-content .join-phonenumber .phone-left {
-  width: 60%;
-}
-.signup .content-signup .form-signup-content .join-phonenumber .phone-right {
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 50px;
-  margin-top: 25px;
-}
-.signup .content-signup .form-signup-content .check-num-div {
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  margin-top: 15px;
-}
-.signup .content-signup .form-signup-content .check-num-div .count-down-check-div {
-  display: flex;
-  flex-direction: row;
-  max-width: 250px;
-  height: 50px;
-  justify-content: end;
-
-}
-.signup .content-signup .form-signup-content .check-num-div .count-down-check-div .number-check-left {
-  width: 70%;
-}
-.signup .content-signup .form-signup-content .check-num-div .count-down-check-div .count-down-right-div {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 50px;
-  margin-top: 25px;
-}
 
 
 .signup .content-signup .form-signup-content .bottom-content {
@@ -518,9 +368,6 @@ export default {
 @media screen and (max-width: 800px){
   .signup .content-signup .form-signup-content .join-email .join-email-right{
     max-width: 160px !important;
-  }
-  .error-font-color.error-phone-number {
-    margin-top: 35px !important;
   }
 
 }
