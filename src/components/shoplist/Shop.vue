@@ -278,6 +278,7 @@ export default {
     }
   },
   mounted(){
+    // console.log("새로읽어옴 새로고침 해도 되네여....;;;;",this.$route.params.categoryId)
   }
 }
 </script>

@@ -9,6 +9,7 @@ import VueKakaoSdk from 'vue-kakao-sdk'
 
 
 
+
 Vue.config.productionTip = false
 Vue.use(VueCompositionApi);
 Vue.use(VueCookies);

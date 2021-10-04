@@ -24,6 +24,10 @@ export default {
   data: () => ({
     //
   }),
+  beforeDestroy() {
+    window.localStorage.clear()
+    window.sessionStorage.clear()
+  }
 };
 </script>
 <style>

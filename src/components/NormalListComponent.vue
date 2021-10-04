@@ -8,7 +8,7 @@
         <v-card
             id="v-card-custom"
             class="mx-auto"
-            max-width="275px" >
+            max-width="200px" >
           <img
               id="card-img"
               class="white--text align-end"
@@ -72,8 +72,8 @@ export default {
   padding: 5px !important;
 }
 #card-img {
-  height: 275px;
-  width: 275px;
+  height: 200px;
+  width: 200px;
 }
 #card-img:hover {
 

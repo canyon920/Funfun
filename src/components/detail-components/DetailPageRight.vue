@@ -163,7 +163,7 @@ export default {
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center .category-box:hover {
   background-color: rgba(229, 114, 0, .1);
-  transition: .2s;
+  transition: .5s;
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button {
   display: flex;

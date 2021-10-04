@@ -16,6 +16,12 @@ import LoginFunfun from "@/components/login/LoginFunfun";
 import Auth from "@/views/Auth";
 import ShopFirst from "@/components/shoplist/ShopFirst";
 import FundingListPage from "@/views/FundingListPage";
+import Admin from "@/views/Admin";
+import User from "@/components/admin/User";
+import Product from "@/components/admin/Product";
+import Funding from "@/components/admin/Funding";
+import Complete from "@/components/admin/Complete";
+import Editpage from "@/components/Mypage/Editpage";
 
 
 Vue.use(VueRouter)
@@ -121,6 +127,36 @@ const routes = [
     path: '/funding',
     name: 'FundingListPage',
     component: FundingListPage
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
+  },
+  {
+    path: '/admin/user',
+    name: 'User',
+    component: User
+  },
+  {
+    path: '/admin/product',
+    name: 'Product',
+    component: Product
+  },
+  {
+    path: '/admin/funding',
+    name: 'Funding',
+    component: Funding
+  },
+  {
+    path: '/admin/complete-funding',
+    name: 'Complete',
+    component: Complete
+  },
+  {
+    path: '/mypage/edit',
+    name: 'Editpage',
+    component: Editpage
   }
 ]
 
