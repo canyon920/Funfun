@@ -88,7 +88,7 @@
           </div>
         </div>
 
-        <Phone @birngMethodPhoneIn="phoneInputDataVal"/>
+        <Phone :bring-hint="'*아이디 및 비밀번호 찾기에 활용됩니다.'" @birngMethodPhoneIn="phoneInputDataVal"/>
 
 
 

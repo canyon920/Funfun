@@ -4,7 +4,7 @@
     <div class="phone-left">
       <v-text-field
           label="Phone: ex)01077778888"
-          hint="*아이디 및 비밀번호 찾기에 활용됩니다."
+          :hint="bringHint"
           v-model="phoneNumber"
           persistent-hint
       ></v-text-field>
@@ -69,6 +69,11 @@ import axios from "axios";
 
 export default {
   name: "Phone",
+  props:{
+    bringHint:{
+      type:String
+    }
+  },
   emit:[
       'birngMethodPhoneIn'
   ],
@@ -186,6 +191,7 @@ export default {
       }
       else {
         this.errorPhoneNumberCheck = false
+        this.phoneNumberSaveToServer = false
       }
       if (this.phoneNumber.toString().trim().length === 0) {
         this.errorPhoneNumberCheck = false

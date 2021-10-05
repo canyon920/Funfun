@@ -24,7 +24,7 @@
                 readonly
             ></v-text-field>
 
-            <Phone style="width: 100%; margin-bottom: 40px" @birngMethodPhoneIn="phoneInputDataVal"/>
+            <Phone style="width: 100%; margin-bottom: 40px" :bring-hint="'*아이디 및 비밀번호 찾기에 활용됩니다.'" @birngMethodPhoneIn="phoneInputDataVal"/>
 
 
             <v-text-field

@@ -22,6 +22,8 @@ import Product from "@/components/admin/Product";
 import Funding from "@/components/admin/Funding";
 import Complete from "@/components/admin/Complete";
 import Editpage from "@/components/Mypage/Editpage";
+import FindId from "@/components/login/FindId";
+import FindPassword from "@/components/login/FindPassword";
 
 
 Vue.use(VueRouter)
@@ -157,6 +159,16 @@ const routes = [
     path: '/mypage/edit',
     name: 'Editpage',
     component: Editpage
+  },
+  {
+    path: '/find/id',
+    name: 'FindId',
+    component: FindId
+  },
+  {
+    path: '/find/password',
+    name: 'FindPassword',
+    component: FindPassword
   }
 ]
 
