@@ -156,7 +156,7 @@ const routes = [
     component: Complete
   },
   {
-    path: '/mypage/edit',
+    path: '/mypage/edit/:memberId',
     name: 'Editpage',
     component: Editpage
   },

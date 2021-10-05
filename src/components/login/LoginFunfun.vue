@@ -45,11 +45,11 @@
         </div>
         <div class="not-remember">
           <p style="padding-right: 5px">아이디를 잊으셨습니까?</p>
-          <router-link style="color: orange" class="router-link" to="/findid">아이디찾기</router-link>
+          <router-link style="color: orange" class="router-link" to="/find/id">아이디찾기</router-link>
         </div>
         <div class="not-remember">
           <p style="padding-right: 5px">비밀번호를 잊으셨습니까?</p>
-          <router-link style="color: orange" class="router-link" to="/findpwd">비밀번호찾기</router-link>
+          <router-link style="color: orange" class="router-link" to="/find/password">비밀번호찾기</router-link>
         </div>
       </div>
 
