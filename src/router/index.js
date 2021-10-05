@@ -87,6 +87,7 @@ const routes = [
     component: LoginFunfun
   },
 
+
   {
     path: '/detail-page/:productId',
     name: 'detail_page',
@@ -111,6 +112,7 @@ const routes = [
     // component: () => import('../views/DetailFundingPage')
     component: DetailFundingPage
   },
+
   {
     path: '/mypage-list',
     name: 'menulist',

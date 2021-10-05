@@ -1,7 +1,7 @@
 <template>
   <div class ="first-container">
     <div class="list">
-      {{bringfundingsearch.Title}}
+
     </div>
     <div class ="second-up">
 

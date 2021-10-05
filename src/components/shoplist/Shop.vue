@@ -92,7 +92,7 @@
 
     </div>
 
-    <NormalListComponent :bringProductList="products"/>
+    <NormalListComponent :bringProductList="products" bringscript="producttitle"/>
 
   </v-container>
 </template>
@@ -261,6 +261,7 @@ export default {
           productId:9
         },
       ],
+      producttitle:{},
 
     };
   },
@@ -275,6 +276,7 @@ export default {
             console.log(err);
           })
     }
+
   },
   mounted(){
   }
