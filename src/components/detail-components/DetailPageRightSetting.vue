@@ -12,7 +12,7 @@
             clearable
             counter
             :rules="setTitle.rules"
-            :value="setTitle.value"
+            :value="bringRightInfo.productTitle"
             v-model="setTitle.value"
             auto-grow
             style="font-size: 26px;"
@@ -99,7 +99,7 @@ export default {
       checkDateStartDay: false,
       //제목
       setTitle:{
-        value: this.bringRightInfo.productTitle,
+        value: '',
       },
 
     //  날짜
@@ -204,8 +204,13 @@ export default {
 
   },
   mounted() {
+    let datas = JSON.parse(sessionStorage.getItem("product_detail"));
+    console.log("실행된 값",datas)
+    console.log(datas.productName)
+    this.setTitle.value = datas.productName
+  },
 
-  }
+
 }
 </script>
 

@@ -5,5 +5,6 @@ export var productObj={
     productFundingCount:'',
     productLikeCount:'',
     productBrand:'',
-    productImg:[]
+    productImg:[],
+    productCategory:'',
 }

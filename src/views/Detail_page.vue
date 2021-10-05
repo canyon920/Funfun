@@ -8,7 +8,7 @@
           <!--          여기 동적 처리   상품 내용 보여줌        -->
           <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo" :class="{active:productView}"/>
           <!--          여기 펀딩 등록 위한 것들 보여줌          -->
-          <Detail-page-right-setting v-show="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" :bringRightInfo="rightInfo" :class="{active:settingView}"/>
+          <Detail-page-right-setting v-if="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" :bringRightInfo="rightInfo" :class="{active:settingView}"/>
         </div>
       </div>
       <!--      여기 동적 처리 바디 이미지 바디 상세이미지 넘겨줘야함      -->
@@ -24,7 +24,7 @@ import DetailPageBody from "@/components/detail-components/DetailPageBody";
 import DetailPageRightSetting from "@/components/detail-components/DetailPageRightSetting";
 import axios from "axios";
 import {productObj} from "../service/product";
-import {reServerSend} from "../router/refreshForAccessToken";
+import {reServerSend} from "../service/refreshForAccessToken";
 
 export default {
   name: "detail_page",
@@ -46,7 +46,7 @@ export default {
           require("@/assets/example-img/chunsicsub2.png"),
           require("@/assets/example-img/chunsicsub3.png")
         ],
-        item:null
+        item:null,
       },
 
       // leftInfo:{
@@ -70,8 +70,8 @@ export default {
 
       bodyInfo: {
         preforchangMainUrl: "",
-        premainImgUrl: require("@/assets/example-img/chunsic.png"),
-        predetailImgUrl: require("@/assets/example-img/chunsicdetail.png")
+        premainImgUrl: [require("@/assets/example-img/chunsic.png")],
+
       },
 
       transeDataForFunding: {
@@ -93,11 +93,9 @@ export default {
     },
 
     async bringProductDetailInfo(){
-      var bringRouteProductId = this.$route.query.productId
-      console.log("상품 아이디",bringRouteProductId)
-      alert(bringRouteProductId)
+      var bringRouteProductId = this.$route.params.productId
       let form = new FormData();
-      form.append('product_id',1)
+      form.append('product_id',bringRouteProductId)
       let access_token = window.sessionStorage.getItem('access_token')
       let config = {
         headers:{
@@ -108,48 +106,76 @@ export default {
 
           .then(res =>{
 
-        this.rightInfo.productTitle = res.data.product_name
-        this.rightInfo.productId =res.data.product_id
-        this.rightInfo.productBrand = res.data.product_brand
-        this.rightInfo.productPrice = res.data.product_price
-        this.rightInfo.fundingCount = res.data.funding_count
-        this.rightInfo.beforeLikeCount = res.data.product_like_count
+            this.leftInfo.subImg = []
 
-        let product_detail = JSON.stringify(productObj)
-        console.log('#res',res)
-        window.sessionStorage.setItem('product_detail',product_detail)
+            /* this.rightInfo.productTitle = res.data.product_name
+             this.rightInfo.productId =res.data.product_id
+             this.rightInfo.productBrand = res.data.product_brand
+             this.rightInfo.productPrice = res.data.product_price
+             this.rightInfo.fundingCount = res.data.funding_count
+             this.rightInfo.beforeLikeCount = res.data.product_like_count*/
 
-        window.sessionStorage.getItem('product_detail')
-        console.log("session",sessionStorage.getItem("productName"));
-
-        // console.log('#img',res.data.productImg)
-        // console.log('#img',res.data.productImg[1])
-
-        var list = res.data.productImg
-        console.log("list",list)
-
-        for(const key in list){
-          // console.log(`${key} : ${list[key]}`);
-          if(list[key].includes('sub')){
-            // console.log("sub",list[key])
-            this.leftInfo.subImg.push(list[key])
-            this.leftInfo.subImg.remove(0)
-          } else if (list[key].includes('thumb')) {
-            this.leftInfo.prethumbUrl = list[key]
-          } /*else if(list[key].includes('main')){
-
-          }*/
-        }
-        console.log("subtest",this.leftInfo.subImg)
+            productObj.productId = res.data.product_id
+            productObj.productName = res.data.product_name
+            productObj.productBrand = res.data.product_brand
+            productObj.productPrice = res.data.product_price
+            productObj.productFundingCount = res.data.funding_count
+            productObj.productLikeCount = res.data.product_like_count
+            productObj.productImg = res.data.productImg
+            productObj.productCategory = res.data.product_categoryId
 
 
 
-      }).catch(e=>{
-        // console.log(e)
-        console.log("스테이터스 코드 : ",e.response.status)
+            let product_detail = JSON.stringify(productObj)
+            console.log('#res',res)
+            window.sessionStorage.setItem('product_detail',product_detail)
+
+            this.postDetail()
+
+          }).catch(e=>{
+        // console.log("Status 코드 : ",e.response.status)
+        console.log(e)
         reServerSend()
-        // alert("상품정보를 불러올 수 없습니다")
+        this.postDetail()
       })
+
+    },
+    postDetail(){
+      let datas = JSON.parse(sessionStorage.getItem("product_detail"));
+      console.log("datas",datas)
+
+      this.rightInfo.productTitle = datas.productName
+      this.rightInfo.productId =datas.productId
+      this.rightInfo.productBrand = datas.productBrand
+      this.rightInfo.productPrice = datas.productPrice
+      this.rightInfo.fundingCount = datas.productFundingCount
+      this.rightInfo.beforeLikeCount = datas.productLikeCount
+      this.rightInfo.likeCount = datas.productLikeCount
+      this.rightInfo.categoryId = datas.productCategory
+
+      // console.log('#img',res.data.productImg)
+      // console.log('#img',res.data.productImg[1])
+
+      var list = datas.productImg
+      console.log("list",list)
+      console.log("list[0]",list[0])
+      this.leftInfo.subImg = []
+      this.bodyInfo.premainImgUrl=[]
+
+      for(var key in list){
+        // console.log(`${key} : ${list[key]}`)
+        if(list[key].includes('sub')){
+          // console.log("sub",list[key])
+          this.leftInfo.subImg.push(list[key])
+          delete this.leftInfo.subImg[0]
+        } else if (list[key].includes('thumb')) {
+          this.leftInfo.prethumbUrl = list[key]
+        }  else if (list[key].includes('main')) {
+          this.bodyInfo.premainImgUrl.push(list[key])
+        }
+      }
+      console.log("sub",this.leftInfo.subImg)
+      console.log("main",this.bodyInfo.premainImgUrl)
 
     },
 
@@ -253,6 +279,9 @@ export default {
               this.$router.push("/funding-detail-page")
             }
           })
+          .catch(error=>{
+            console.log(error)
+          })
     }
   },
   mounted() {
@@ -262,6 +291,7 @@ export default {
   // 페이지 사라지기전 라이크수 전송
   beforeDestroy() {
     this.transmitLike()
+    window.sessionStorage.removeItem("product_detail")
   }
 };
 
