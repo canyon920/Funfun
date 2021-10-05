@@ -5,18 +5,23 @@ import Header from "@/components/layout/Header";
 export async function reServerSend() {
     var memberRefreshToken = window.localStorage.getItem('refresh_token')
     var loginMember = window.localStorage.getItem('login_member')
+
+    const data = JSON.parse(localStorage.getItem('login_member'));
+    // console.log("data",data)
+    // console.log(data.memberEmail)
+    // console.log(loginMember)
     if (loginMember == null || memberRefreshToken == null) {
         alert("로그인 되어있지 않습니다.")
         return false;
     }
     var form = new FormData();
-    form.append('email',loginMember.memberEmail)
+    form.append('email',data.memberEmail)
     var config = {
-      headers :{
-          Authorization : `Bearer ${memberRefreshToken}`
-      }
+        headers :{
+            Authorization : `Bearer ${memberRefreshToken}`
+        }
     }
-    await axios.post("http://localhost:9090/api/login/oauth/tokens/refresh_token",form,config)
+    await axios.post("http://localhost:9090/api/login/oauth/get/tokens/refresh_token",form,config)
         .then(res=>{
             //세션스토리지에 다시발급 받은 -> 엑세스토큰저장
             window.sessionStorage.setItem('access_token',res.data.access_token)
