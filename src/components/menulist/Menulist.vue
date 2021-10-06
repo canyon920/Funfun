@@ -65,7 +65,7 @@
             </h2>
           </router-link></div>
 
-          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/find/password">
             <h2 class="display-1 font-weight-bold mb-2">
               나의 비밀번호 설정
             </h2>
@@ -134,6 +134,7 @@ export default {
 .img-div .profile-img {
   border-radius: 50%;
   height: 70px;
+  width: 70px;
 }
 
 .background {

@@ -123,15 +123,14 @@ export default {
         console.log(this.verifyCode.toString().trim())
         if (this.errorPhoneNumberCheck === false && this.phoneNumber.toString().trim().length !== 0) {
           this.errorPhoneNumberCheck = false
-          this.verifyCode = Math.floor(((Math.random() * 10) * 9999));
-          console.log("생성된 인증번호", this.verifyCode);
           let form = new FormData();
           form.append('phoneNum', this.phoneNumber);
-          form.append('verifyNum', this.verifyCode);
+
           await axios.post("http://localhost:9090/api/message/phone/verify", form)
               .then(res => {
                 console.log(res)
                 this.errorSendMsgToServer = false
+                this.verifyCode = res.data
                 this.startTimer()
               })
               .catch(error => {
@@ -144,18 +143,30 @@ export default {
               });
         }
       },
-      checkVerifyNum() {
+      async checkVerifyNum() {
         console.log("사용자가 입력한 인증번호 : ", this.verifyNumber)
         console.log("사용자에게 발급한 인증번호 : ", this.verifyCode)
-        if (this.verifyNumber.toString().trim() === this.verifyCode.toString().trim()) {
-          this.phoneNumberSaveToServer = true
-          this.errorReturnNotVerify = false
-          console.log("인증번호 비교 결과 통과되면 false",this.errorReturnNotVerify)
-        } else {
+        if (!this.verifyNumber.trim()) {
+          return false
+        }
+        var form = new FormData();
+        form.append("issuerCode", this.verifyCode)
+        form.append("inputCode",this.verifyNumber)
+        await axios.post("http://localhost:9090/api/message/verify/code",form)
+        .then(res=>{
+          console.log(res)
+          if (res.data === true) {
+            this.phoneNumberSaveToServer = true
+            this.errorReturnNotVerify = false
+            console.log("인증번호 비교 결과 통과되면 false",this.errorReturnNotVerify)
+          }
+        })
+        .catch(error=>{
+          console.log(error)
           this.phoneNumberSaveToServer = false
           this.errorReturnNotVerify = true
           console.log("인증번호 비교 결과 실패하면 true",this.errorReturnNotVerify)
-        }
+        })
       },
   },
   computed:{
