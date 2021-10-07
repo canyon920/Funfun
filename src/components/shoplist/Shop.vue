@@ -92,61 +92,19 @@
 
     </div>
 
-    <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
+    <NormalListComponent :bringProductList="products"/>
 
-      <div id="v-for-div" v-for="product in products" :key="product.productId">
-        <router-link :to="{name: 'detail_page' ,params: {productId: product.productId}}" style="text-decoration: none">
-
-          <v-card
-              id="v-card-custom"
-              class="mx-auto"
-              max-width="275px" >
-            <img
-                id="card-img"
-                class="white--text align-end"
-                :src="product.src">
-
-            <v-card-title id="v-card-title-custom">{{ product.title}}</v-card-title>
-
-            <div id="mid-like-div">
-              <div class="like-text">
-                좋아요: {{product.likeRate}}
-              </div>
-              <div class="funding-count">
-                펀딩수: {{product.fundingCount}}
-              </div>
-            </div>
-
-            <v-card-subtitle class="pb-0" id="v-card-subtitle-custom">
-              <div id="card-brand">
-                {{product.brand}}
-              </div>
-              <div id="card-price" style="color: rgb(229, 114, 0)">
-                {{ product.price}} 원
-              </div>
-            </v-card-subtitle>
-
-            <v-card-text></v-card-text>
-
-
-          </v-card>
-
-        </router-link>
-      </div>
-    </v-layout>
-
-
-    <!--       <v-btn @click="test">test</v-btn>-->
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
 import carousel from 'vue-owl-carousel'
+import NormalListComponent from "@/components/NormalListComponent";
 
 export default {
   name: 'Shop',
-  components: { carousel },
+  components: {NormalListComponent, carousel },
   data: () => {
     return {
       loading:false,
@@ -304,6 +262,7 @@ export default {
         },
       ],
 
+
     };
   },
   methods: {
@@ -319,6 +278,7 @@ export default {
     }
   },
   mounted(){
+    // console.log("새로읽어옴 새로고침 해도 되네여....;;;;",this.$route.params.categoryId)
   }
 }
 </script>
@@ -327,61 +287,7 @@ export default {
 
 
 <style scoped>
-#v-for-div {
-  margin: 10px 10px;
 
-}
-#v-card-custom {
-}
-#v-card-custom #v-card-title-custom {
-  padding: 5px !important;
-}
-#card-img {
-  height: 275px;
-  width: 275px;
-}
-#card-img:hover {
-
-}
-#mid-like-div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 0px 10px;
-}
-#mid-like-div .like-text {
-  font-size: 15px;
-  color: rgba(0,0,0,.5);
-}
-#mid-like-div .funding-count {
-  font-size: 15px;
-  color: rgba(0,0,0,.5);
-
-}
-
-
-#v-card-subtitle-custom {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 5px 10px 0px;
-  padding: 0px;
-}
-#card-brand {
-  font-size: 15px;
-}
-#card-price {
-  font-size: 25px;
-
-}
-
-.v-application .d-flex {
-  display: inline !important;
-
-}
 .option-div {
   display: flex ;
   flex-direction: row;
@@ -401,12 +307,16 @@ export default {
 }
 
 .container_list {
-  max-width: 1400px;
+  max-width: 1100px;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   margin-bottom: 80px;
   margin-top: 50px;
+
+}
+.v-application .d-flex {
+  display: inline !important;
 
 }
 

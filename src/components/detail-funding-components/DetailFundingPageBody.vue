@@ -76,4 +76,15 @@ export default {
   width: 1080px;
 }
 
+@media screen and (max-width: 800px){
+  .inner .container-content .content-body .body-detail {
+    width: 96vw;
+
+  }
+  .inner .container-content .content-body .body-detail .detail-img .img-main {
+    width: 90vw;
+  }
+
+}
+
 </style>

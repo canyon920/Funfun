@@ -6,7 +6,7 @@
       <div class="moreandmore" ><router-link to="/wishlist" style="text-decoration: none; color: rgb(229, 114, 0)">더보기</router-link> </div>
       <div class = no-merchandise>
         <div class ="datalist">
-          <div v-if="bringmainsearch.fundinglist.length == 0" >
+          <div v-if="bringmainsearch.fundinglist.length === 0" >
             펀딩중인 상품이 없어요.
           </div>
           <div class = "product" v-else>
@@ -69,9 +69,6 @@
 
           </div>
 
-        </div>
-        <div class="text-center">
-          <v-btn id="btn-txt" depressed elevation="2" style="font-size: 20px"><router-link to="/showfriend" style="text-decoration: none; color: rgb(229, 114, 0)">♡친구에게 보여주기</router-link></v-btn>
         </div>
       </div>
     </div>

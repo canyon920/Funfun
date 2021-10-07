@@ -1,55 +1,57 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <router-view/>
-    </v-main>
+    <Header/>
+    <v-container id="container">
+    <transition name="page-fade">
+    <router-view></router-view>
+    </transition>
+    </v-container>
+    <Footer/>
   </v-app>
 </template>
 
 <script>
 
+
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+
+
+
 export default {
   name: 'App',
-
+  components: {Footer, Header},
   data: () => ({
     //
   }),
+  destroyed() {
+    window.localStorage.clear()
+    window.sessionStorage.clear()
+  }
 };
 </script>
+<style>
+#container {
+  max-width: 1100px;
+}
+#app {
+  display: flex;
+  flex-direction:column;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.page-fade-enter {
+  opacity: 0;
+}
+
+.page-fade-enter-active,
+.page-fade-leave-active {
+  transition: all 0.8s ease;
+}
+
+.page-fade-leave-to {
+  opacity: 0;
+}
+</style>
