@@ -155,64 +155,37 @@ export default{
     },
     dataSmallMapping() {
       if (this.$route.params.eventId  === 1) {
-        this.eventPageImg = require("@/assets/event/page/alchole.png")
+        this.eventPageImg = require("@/assets/event/page/alcholeVer2.png")
         // this.products = this.products
       } else if (this.$route.params.eventId === 2) {
-        this.eventPageImg = require("@/assets/event/page/light.png")
+        this.eventPageImg = require("@/assets/event/page/lightVer2.png")
         // this.products = this.products
       } else if (this.$route.params.eventId === 3) {
-        this.eventPageImg = require("@/assets/event/page/aveda.jpg")
+        this.eventPageImg = require("@/assets/event/page/avedaVer2.png")
         // this.products = this.products
       } else if (this.$route.params.eventId === 4) {
-        this.eventPageImg = require("@/assets/event/page/food.jpg")
+        this.eventPageImg = require("@/assets/event/page/foodVer2.png")
         // this.products = this.products
       } else if (this.$route.params.eventId === 5) {
-        this.eventPageImg = require("@/assets/event/page/bag.png");
+        this.eventPageImg = require("@/assets/event/page/bagVer2.png");
         // this.products = this.products
       } else {
-        this.eventPageImg = require("@/assets/event/page/light.png")
+        this.eventPageImg = require("@/assets/event/page/lightVer2.png")
         this.normalProducts()
       }
     },
-    responsiveEventPageMain6() {
+    responsiveEventPageMain() {
       var wmm1 = window.matchMedia("screen and (max-width: 500px)");
       if (wmm1.matches) {
-
-        if (this.$route.params.eventId  === 1) {
-          this.eventPageImg = require("@/assets/event/page/alchole.png")
-          // this.products = this.products
-        } else if (this.$route.params.eventId === 2) {
-          this.eventPageImg = require("@/assets/event/page/light.png")
-          // this.products = this.products
-        } else if (this.$route.params.eventId === 3) {
-          this.eventPageImg = require("@/assets/event/page/aveda.jpg")
-          // this.products = this.products
-        } else if (this.$route.params.eventId === 4) {
-          this.eventPageImg = require("@/assets/event/page/food.jpg")
-          // this.products = this.products
-        } else if (this.$route.params.eventId === 5) {
-          this.eventPageImg = require("@/assets/event/page/bag.png");
-          // this.products = this.products
-        } else {
-          this.eventPageImg = require("@/assets/event/page/light.png")
-        }
-
-        this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔｖｅｒ２.png")
-        this.slides[1].imgSrc = require("@/assets/event/banner/bagEventｖｅｒ２.png")
-        this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔｖｅｒ２.png")
-        this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔｖｅｒ２.png")
-        this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔｖｅｒ２.png")
+        this.dataSmallMapping()
       } else{
-        this.slides[0].imgSrc = require("@/assets/event/banner/ａｖｅｄａＥｖｅｎｔ.png")
-        this.slides[1].imgSrc = require("@/assets/event/banner/bagEvent.png")
-        this.slides[2].imgSrc = require("@/assets/event/banner/ｆｏｏｄEｖｅｎｔ.png")
-        this.slides[3].imgSrc = require("@/assets/event/banner/ｌｉｇｈｔＥｖｅｎｔ.png")
-        this.slides[4].imgSrc = require("@/assets/event/banner/ａｌｃｈｏｌｅＥｖｅｎｔ.png")
+        this.dataMapping()
       }
     },
   },
   mounted(){
-    this.dataMapping()
+    this.normalProducts()
+    this.responsiveEventPageMain()
   }
 }
 </script>
@@ -222,7 +195,7 @@ export default{
 
 <style scoped>
 .container_list {
-  max-width: 1400px;
+  max-width: 1100px;
   display: flex;
   flex-direction: column;
   align-items: center;

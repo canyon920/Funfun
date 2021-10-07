@@ -12,7 +12,7 @@
         <v-card
             id="v-card-custom"
             class="mx-auto"
-            max-width="275px" >
+            max-width="200px" >
           <img
               id="card-img"
               class="white--text align-end"
@@ -93,12 +93,16 @@ export default {
 }
 
 #card-img {
-  max-width: 275px;
-  max-height: 275px;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 #card-text {
   padding: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -142,7 +146,6 @@ export default {
 }
 
 .fundingname {
-
   font-size: 20px;
 }
 .card-div {

@@ -23,16 +23,16 @@
           <div class="top_profile">
 
             <div class="img-div">
-              <img class="profile-img" :src="imgNormal">
+              <img id="imgDiv" class="profile-img" :src="loginMember.memberProfile">
             </div>
 
-            <span class="profile">김명훈님</span>
+            <span class="profile">{{ loginMember.memberNicname }}님</span>
           </div>
 
 
           <div class="menu-list">
 
-          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'FundingList', params: {memberId: 1}}">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'FundingList', params: {memberId: loginMember.memberId}}">
             <h2 class="display-1 font-weight-bold mb-2">
               나의 펀딩 리스트
             </h2></router-link></div>
@@ -59,13 +59,13 @@
             </h2>
           </router-link></div>
 
-          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name:'Editpage', params: {memberId: loginMember.memberId}}">
             <h2 class="display-1 font-weight-bold mb-2">
               회원 정보 설정
             </h2>
           </router-link></div>
 
-          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/find/password">
             <h2 class="display-1 font-weight-bold mb-2">
               나의 비밀번호 설정
             </h2>
@@ -91,17 +91,23 @@
 
 export default {
   name: 'menulist',
-  props: ['name', 'logoImg', 'navLinks'],
   methods: {
     hideHeader(){
       document.getElementById('nav').hidden = true;
     },
     displayHeader() {
       document.getElementById('nav').hidden = false;
+    },
+    loginInfoMatch() {
+      this.loginMember = JSON.parse(window.localStorage.getItem('login_member'))
+      if (!this.loginMember.memberProfile) {
+        this.loginMember.memberProfile = require('@/assets/logo/img-normal.jpg')
+      }
     }
   },
   mounted() {
     this.hideHeader()
+    this.loginInfoMatch()
   },
   beforeDestroy() {
     this.displayHeader()
@@ -111,7 +117,14 @@ export default {
   data(){
     return{
       alert: true,
-      imgNormal : require('@/assets/logo/img-normal.jpg')
+      loginMember : {
+        memberId : 1,
+        memberEmail : '',
+        memberNicname : '춘식이',
+        memberApi : '',
+        memberRole : '',
+        memberProfile : '',
+      },
     }
   },
 }
@@ -121,6 +134,7 @@ export default {
 .img-div .profile-img {
   border-radius: 50%;
   height: 70px;
+  width: 70px;
 }
 
 .background {

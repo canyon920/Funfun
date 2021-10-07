@@ -3,27 +3,16 @@
     <div class="container-content">
       <div class="content-head">
         <div class="head-detail">
-          <h1>{{ $store.state.member.memberId }}</h1>
-
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개        -->
-          <Detail-page-left :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click"
-                            @bringsub03Click="sub03Click"/>
-
+          <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>
           <!--          여기 동적 처리   상품 내용 보여줌        -->
-          <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork"
-                             :bringRightInfo="rightInfo"/>
-
-
+          <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo" :class="{active:productView}"/>
           <!--          여기 펀딩 등록 위한 것들 보여줌          -->
-          <Detail-page-right-setting v-show="settingView" @rightEvent="changeRight" @rightEventBack="changeRightBack"
-                                     @likeChange="likeWork" @registFunding="transmitFundingRegist"
-                                     :bringRightInfo="rightInfo"/>
-
+          <Detail-page-right-setting v-show="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" :bringRightInfo="rightInfo" :class="{active:settingView}"/>
         </div>
       </div>
       <!--      여기 동적 처리 바디 이미지 바디 상세이미지 넘겨줘야함      -->
-        <Detail-page-body :bringBodyInfo="bodyInfo" @bringmainChangeImg1="mainChangeImg1"
-                          @bringmainChangeImg2="mainChangeImg2"/>
+      <Detail-page-body :bringBodyInfo="bodyInfo" @bringmainChangeImg1="mainChangeImg1" @bringmainChangeImg2="mainChangeImg2"/>
     </div>
   </div>
 </template>
@@ -34,6 +23,7 @@ import DetailPageLeft from "@/components/detail-components/DetailPageLeft";
 import DetailPageBody from "@/components/detail-components/DetailPageBody";
 import DetailPageRightSetting from "@/components/detail-components/DetailPageRightSetting";
 import axios from "axios";
+import {productObj} from "../service/product";
 
 export default {
   name: "detail_page",
@@ -44,14 +34,26 @@ export default {
       detailData: '',
       productView: true,
       settingView: false,
+      productId:'',
 
       leftInfo: {
-        preforchangUrl: '',
-        prethumbUrl:require("@/assets/example-img/chunsicthum.png"),
-        presubUrl01:require("@/assets/example-img/chunsicsub1.png"),
-        presubUrl02:require("@/assets/example-img/chunsicsub2.png"),
-        presubUrl03:require("@/assets/example-img/chunsicsub3.png"),
+        preforchangUrl: 'http://127.0.0.1:8887',
+        imgUrlList:[
+          require("@/assets/example-img/chunsicthum.png")
+        ],
+        subImg:[
+          require("@/assets/example-img/chunsicsub1.png"),
+          require("@/assets/example-img/chunsicsub2.png"),
+          require("@/assets/example-img/chunsicsub3.png")
+        ],
+        item:null
       },
+      /* leftInfo:{
+         prethumbUrl:require("@/assets/example-img/chunsicthum.png"),
+         presubUrl01:require("@/assets/example-img/chunsicsub1.png"),
+         presubUrl02:require("@/assets/example-img/chunsicsub2.png"),
+         presubUrl03:require("@/assets/example-img/chunsicsub3.png"),
+       },*/
 
       rightInfo: {
         likeIcon: false,
@@ -60,7 +62,8 @@ export default {
         productTitle: '"언텍트 시대" 춘식이와 라이언의 사랑이야기',
         productBrand: '카카오프렌즈',
         productPrice: 36900,
-        fundingCount: 3333
+        fundingCount: 3333,
+        categoryId: 1,
       },
 
       bodyInfo: {
@@ -84,7 +87,60 @@ export default {
     // 상품 id , 이미지-메인/서브/메인/상세, 상품 타이틀/가격/좋아요수/펀딩수/브랜드 , 멤버 id ,   store 시도 methods 만들어야함 Store 만들어야함
     async getData() {
       this.$store.dispatch('member/getTokens')
+
     },
+
+    async bringProductDetailInfo(){
+      let form = new FormData()
+      form.append('product_id',1)
+      let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers:{
+          Authorization : `Bearer ${access_token}`
+        }
+      }
+      axios.post("http://localhost:9090/product/productDetail",form,config)
+
+          .then(res =>{
+
+            this.rightInfo.productTitle = res.data.product_name
+            this.rightInfo.productId =res.data.product_id
+            this.rightInfo.productBrand = res.data.product_brand
+            this.rightInfo.productPrice = res.data.product_price
+            this.rightInfo.fundingCount = res.data.funding_count
+            this.rightInfo.beforeLikeCount = res.data.product_like_count
+            this.leftInfo.imgUrlList = res.data.productImg
+
+            let product_detail = JSON.stringify(productObj)
+            console.log('#res',res)
+            window.localStorage.setItem('product_detail',product_detail)
+
+            console.log('#img',res.data.productImg)
+            console.log('#img',res.data.productImg[1])
+
+            var list = res.data.productImg
+            console.log("list",list)
+
+            for(const key in list){
+              // console.log(`${key} : ${list[key]}`);
+              if(list[key].includes('sub')){
+                // console.log("sub",list[key])
+                this.leftInfo.subImg.push(list[key])
+              }
+            }
+            console.log("subtest",this.leftInfo.subImg)
+
+
+
+          }).catch(e=>{
+        console.log(e)
+        alert("상품정보를 불러올 수 없습니다. 기본이미지로 보여드립니다.")
+      })
+
+    },
+    /*showInfo(idx){
+      this.item = this.imgUrlList[idx]
+    },*/
 
     // 상단 오른쪽 부분 바뀌도록 하는 메소드들
     changeRight() {
@@ -183,6 +239,9 @@ export default {
           })
     }
   },
+  mounted() {
+    this.bringProductDetailInfo()
+  },
 
   // 페이지 사라지기전 라이크수 전송
   beforeDestroy() {
@@ -199,6 +258,9 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+.inner .container-content .content-head {
+  height: 580px;
 }
 .inner .container-content .content-head .head-detail {
   display: flex;
@@ -218,6 +280,8 @@ export default {
 .inner .container-content .content-body .body-detail .detail-menu .menu-main {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+
 }
 .inner .container-content .content-body .body-detail .detail-menu .menu-main .main-box {
   padding-left: 10%;
@@ -229,6 +293,28 @@ export default {
 }
 .inner .container-content .content-body .body-detail .detail-img {
   border-top: 1px solid rgb(229 114 0);
+}
+
+.active {
+  animation: activeY 1s;
+}
+
+@keyframes activeY {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head {
+    height: inherit;
+  }
+  .inner .container-content .content-head .head-detail {
+    flex-direction: column;
+  }
 }
 
 

@@ -20,7 +20,7 @@
       </div>
 
       <div class="content-center">
-        <router-link to="/" style="text-decoration: none; color: black;">
+        <router-link :to="{name: 'Shop', params:{categoryId: bringRightInfo.categoryId}}" style="text-decoration: none; color: black;">
         <div class="category-box">
           카테고리 상품들 보러가기 >>
         </div>
@@ -163,7 +163,7 @@ export default {
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center .category-box:hover {
   background-color: rgba(229, 114, 0, .1);
-  transition: .2s;
+  transition: .5s;
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button {
   display: flex;
@@ -172,6 +172,16 @@ export default {
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button .button-box {
   margin: 15px;
+}
+
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head .head-detail .detail-right {
+    width: 90vw;
+  }
+  .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom {
+    position: inherit;
+  }
+
 }
 
 </style>

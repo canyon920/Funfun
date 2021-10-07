@@ -175,7 +175,11 @@ export default {
   border-top: 1px solid rgb(229 114 0);
 }
 
-
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head .head-detail {
+    flex-direction: column;
+  }
+}
 
 
 </style>

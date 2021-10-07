@@ -15,6 +15,15 @@ import Detail_page from "@/views/Detail_page";
 import LoginFunfun from "@/components/login/LoginFunfun";
 import Auth from "@/views/Auth";
 import ShopFirst from "@/components/shoplist/ShopFirst";
+import FundingListPage from "@/views/FundingListPage";
+import Admin from "@/views/Admin";
+import User from "@/components/admin/User";
+import Product from "@/components/admin/Product";
+import Funding from "@/components/admin/Funding";
+import Complete from "@/components/admin/Complete";
+import Editpage from "@/components/Mypage/Editpage";
+import FindId from "@/components/login/FindId";
+import FindPassword from "@/components/login/FindPassword";
 
 
 Vue.use(VueRouter)
@@ -142,6 +151,51 @@ const routes = [
     path: '/shop',
     name: 'ShopFirst',
     component: ShopFirst
+  },
+  {
+    path: '/funding',
+    name: 'FundingListPage',
+    component: FundingListPage
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
+  },
+  {
+    path: '/admin/user',
+    name: 'User',
+    component: User
+  },
+  {
+    path: '/admin/product',
+    name: 'Product',
+    component: Product
+  },
+  {
+    path: '/admin/funding',
+    name: 'Funding',
+    component: Funding
+  },
+  {
+    path: '/admin/complete-funding',
+    name: 'Complete',
+    component: Complete
+  },
+  {
+    path: '/mypage/edit/:memberId',
+    name: 'Editpage',
+    component: Editpage
+  },
+  {
+    path: '/find/id',
+    name: 'FindId',
+    component: FindId
+  },
+  {
+    path: '/find/password',
+    name: 'FindPassword',
+    component: FindPassword
   }
 ]
 

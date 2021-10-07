@@ -3,22 +3,30 @@
   <div class="detail-left">
     <div class="thumb-box left-img">
 <!--      <img class="thumb-img" src="../../assets/example-img/chunsicthum.png" alt="#">-->
-      <img class="thumb-img" v-bind:src="bringLeftInfo.prethumbUrl" alt="#">
+      <img class="thumb-img" v-bind:src="bringLeftInfo.imgUrlList[0]" alt="#">
     </div>
     <div class="left-box">
       <!--              <div class="box-img" v-for="(subImg, index) in subImgs" :key="index">      -->
       <div class="box-img" >
-        <div class="sub-box box-img-first">
+<!--        <div v-for="(sub, bkey) in bringLeftInfo" class="sub-box box-img-first" :key="bkey">-->
+<!--          &lt;!&ndash;          <img class="sub-img" src="../../assets/example-img/chunsicsub1.png" alt="#">&ndash;&gt;-->
+<!--          <img class="sub-img" v-bind:src="sub.subImg[bkey]" @click="$emit('bringsub01Click')" alt="#">-->
+<!--        </div>-->
+        <div v-show="bringLeftInfo.subImg[0]" class="sub-box box-img-first">
 <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub1.png" alt="#">-->
-          <img class="sub-img" v-bind:src="bringLeftInfo.presubUrl01" @click="$emit('bringsub01Click')" alt="#">
+          <img class="sub-img" :src="bringLeftInfo.subImg[0]" @click="$emit('bringsub01Click')" alt="#">
         </div>
-        <div class="sub-box box-img-second">
+        <div v-show="bringLeftInfo.subImg[1]" class="sub-box box-img-second">
 <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub2.png" alt="#">-->
-          <img class="sub-img" v-bind:src="bringLeftInfo.presubUrl02" @click="$emit('bringsub02Click')" alt="#">
+          <img class="sub-img" :src="bringLeftInfo.subImg[1]" @click="$emit('bringsub02Click')" alt="#">
         </div>
-        <div class="sub-box box-img-third">
+        <div v-show="bringLeftInfo.subImg[2]" class="sub-box box-img-third">
 <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub3.png" alt="#">-->
-          <img class="sub-img" v-bind:src="bringLeftInfo.presubUrl03" @click="$emit('bringsub03Click')" alt="#">
+          <img class="sub-img" :src="bringLeftInfo.subImg[2]" @click="$emit('bringsub03Click')" alt="#">
+        </div>
+        <div v-show="bringLeftInfo.subImg[3]" class="sub-box box-img-four">
+          <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub3.png" alt="#">-->
+          <img class="sub-img" :src="bringLeftInfo.subImg[3]" @click="$emit('bringsub03Click')" alt="#">
         </div>
       </div>
     </div>
@@ -82,6 +90,22 @@ export default {
   height: 60px;
   width: 60px;
   cursor: pointer;
+
+}
+
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head .head-detail .detail-left .left-img .thumb-img {
+    width: 325px;
+    height: 325px;
+  }
+  .inner .container-content .content-head .head-detail .detail-left .left-box {
+    max-width: 100vw;
+    display: block;
+
+  }
+  .inner .container-content .content-head .head-detail .detail-left {
+    width: 100vw;
+  }
 
 }
 

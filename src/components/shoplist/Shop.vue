@@ -281,6 +281,7 @@ export default {
 
   },
   mounted(){
+    // console.log("새로읽어옴 새로고침 해도 되네여....;;;;",this.$route.params.categoryId)
   }
 }
 </script>
@@ -309,7 +310,7 @@ export default {
 }
 
 .container_list {
-  max-width: 1400px;
+  max-width: 1100px;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;

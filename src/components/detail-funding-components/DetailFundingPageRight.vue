@@ -286,4 +286,14 @@ export default {
   margin: 15px;
 }
 
+@media screen and (max-width: 800px){
+  .inner .container-content .content-head .head-detail .detail-right {
+    width: 90vw;
+  }
+  .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom {
+    position: inherit;
+  }
+
+}
+
 </style>
