@@ -24,30 +24,36 @@
                 readonly
             ></v-text-field>
 
-            <Phone style="width: 100%; margin-bottom: 40px" :bring-hint="'*아이디 및 비밀번호 찾기에 활용됩니다.'" @birngMethodPhoneIn="phoneInputDataVal"/>
+            <div class="saved-phone-div" style="color: rgba(0,0,0,0.7)">
+              저장된 번호 : {{savedPhoneNumber}}
+            </div>
+            <Phone style="width: 100%; margin-bottom: 40px" :bring-hint="'수정을 원하시면 입력해 주세요.'" @birngMethodPhoneIn="phoneInputDataVal"/>
 
 
             <v-text-field
-                v-model.trim="address"
-                label="주소: "
+                v-model.trim="submitAddress1"
+                :label="address"
             ></v-text-field>
 <!--            <div v-show="errorAddress1Check" class="error-text address1-error">-->
 <!--              주소를 입력해 주세요.-->
 <!--            </div>-->
 
             <div class="2">
-              <v-text-field label="상세주소 "
-                            v-model.trim="address2"
+              <v-text-field :label="address2"
+                            v-model.trim="submitAddress2"
               ></v-text-field>
 
+            </div>
+            <div v-show="checkAddress2" class="error-address2" style="color: red;font-size: 10px">
+              상세 주소를 입력해 주세요.
             </div>
 <!--            <div v-show="errorAddress2Check" class="error-text address2-error">-->
 <!--              상세주소를 입력해 주세요.-->
 <!--            </div>-->
 
             <div class="div-3">
-              <v-text-field label="우편번호 "
-                            v-model.trim="postNumber"
+              <v-text-field :label="postNumber"
+                            v-model.trim="submitAddress3"
               >
               </v-text-field>
               <v-btn
@@ -77,8 +83,10 @@
 
 
 <script>
-import axios from "axios";
 import Phone from "@/components/login/Phone";
+import axios from "axios";
+import {isLoginMemberCheck} from "@/service/member-login";
+import {reServerSend} from "@/service/refreshForAccessToken";
 
 export default {
   name:'Editpage',
@@ -88,57 +96,89 @@ export default {
   data (){
     return{
       // message1:'',
+      memberId:'',
       // 닉네임
       nickname:'',
       // 이메일
       email:'',
-      // 주소
+      // 저장 되어 있는 주소
       address:'',
-      // 상세주소
+      // 저장 되어 있는 상세주소
       address2:'',
-      // 집코드
+      // 저장 되어 있는 집코드
       postNumber:'',
 
-      // submit:'',
-      // clear:'',
+      // 수정할 주소
+      submitAddress1:'',
+      submitAddress2:'',
+      submitAddress3:'',
+      // 수정할 상세주소
+      // 수정할 집코드
 
-      // 폰 번호
+      // 저장되어있는 폰 번호
+      savedPhoneNumber: '',
+      // 수정할 폰 번호
       submitPhoneNumber:'',
 
       //  error
       errorNicNameCheck:false,
+      checkAddress2: false,
       // errorAddress1Check: true,
       // errorAddress2Check: true,
       // errorFindCheck: true,
 
+      countTry:0,
+
+
     }
   },
   methods: {
-    async edit() {
-      await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=160f05c35f34aef167fabe796efb2a8e`)
-          .then(res => {
-            console.log("res : ",res)
-            // this.message1 = res.data.results[0].title
-            this.nickname = res.data.results[8].title
-            this.email = res.data.results[1].title
-            this.address = res.data.results[2].title
-            this.address2 = res.data.results[3].title
-            this.phoneNumber = res.data.results[4].title
-            this.postNumber = res.data.results[5].title
-            this.submit = res.data.results[6].title
-            this.clear = res.data.results[7].title
-            console.log(res);
+    async memberInfoMapping() {
+      this.memberId = this.$route.params.memberId
+      let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers:{
+          'Content-Type': 'application/json',
+          Authorization : `Bearer ${access_token}`,
+        }
+      }
+      var form = new FormData()
+      form.append("memberId", this.memberId);
+      //UserEditController 에서 받아오자
+      await axios.post("http://localhost:9090/bring/member/edit/info",form, config)
+      .then(res =>{
+        console.log(res.data)
+        this.nickname = res.data.nic_name
+        this.email = res.data.email
+        this.savedPhoneNumber = res.data.phone_number
+        this.address = res.data.city
+        this.address2 = res.data.street
+        this.postNumber = res.data.zipcode
+      }).catch(error=>{
+            this.countTry++
+            if (error.response.status===403) {
+              if (this.countTry == 1) {
+                reServerSend();
+                this.memberInfoMapping()
+              }
+              console.log("다시 오류인것 확인 로그")
+            }
           })
-          .catch(err => {
-            console.log(err);
-          })
+
+      // if (error.response.status===403) {
+      //   reServerSend();
+      //   this.transmitFundingRegist(data)
+      //   console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
+      //   this.$router.push("/login",Header.methods.isLogin)
+      // }
+
     },
     findAddr() {
       new window.daum.Postcode({
         oncomplete: (data) => {
           console.log(data)
-          this.address = data.roadAddress
-          this.postNumber = data.zonecode
+          this.submitAddress1 = data.roadAddress
+          this.submitAddress3 = data.zonecode
         }
       }).open()
     },
@@ -147,8 +187,56 @@ export default {
       this.submitPhoneNumber = val
       console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
     },
-    refreshRouter() {
-      this.$router.go(0)
+    async refreshRouter() {
+      if (this.submitAddress1) {
+        if (!this.submitAddress2) {
+          this.checkAddress2 = true
+          return false
+        }
+      }
+      let checkedPhone = this.savedPhoneNumber
+      let checkedAddress1 = this.address
+      let checkedAddress2 = this.address2
+      let checkedAddress3 = this.address3
+      if (this.submitPhoneNumber) {
+        checkedPhone = this.submitPhoneNumber;
+      }
+      if (this.submitAddress1 && this.submitAddress2) {
+        checkedAddress1 = this.submitAddress1
+        checkedAddress2 = this.submitAddress2
+        checkedAddress3 = this.submitAddress3
+      }
+      console.log(this.submitPhoneNumber);
+      console.log(this.submitAddress1)
+      console.log(this.submitAddress2)
+      console.log(this.submitAddress3)
+      let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers:{
+          'Content-Type': 'application/json',
+          Authorization : `Bearer ${access_token}`,
+        }
+      }
+      const submitEditMember={
+        "id" : this.memberId,
+        "email" : this.email,
+        "nic_name" : this.nic_name,
+        "phone_number": checkedPhone,
+        "city" : checkedAddress1,
+        "street" : checkedAddress2,
+        "zipcode" : checkedAddress3
+      }
+      await axios.post("http://localhost:9090/bring/member/edit/save", submitEditMember, config)
+      .then(res=>{
+        console.log(res.data)
+      })
+      .catch(error=>{
+        console.log(error)
+        // 여기 엑세스 만료시 세션으로 요청 로직 넣어주자@!!!!
+
+      })
+
+      // this.$router.go(0)
     },
     backRouter() {
       this.$router.go(-1)
@@ -174,8 +262,8 @@ export default {
   },
 
   mounted() {
-    console.log("마운티드 실행")
-    this.edit()
+    isLoginMemberCheck()
+    this.memberInfoMapping()
   }
 
 }

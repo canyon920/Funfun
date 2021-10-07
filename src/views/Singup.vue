@@ -81,7 +81,7 @@
             비밀번호가 같지 않습니다.
           </div>
           <div v-show="errorPasswordCheck2" class="error-font-color error-password-box">
-            비밀번호는 영문 , 숫자 조합 8~12자 여야 합니다.
+            비밀번호는 영문, 숫자, 특수문자 조합 8~16자 여야 합니다.
           </div>
           <div v-show="errorMustCheck4" class="error-font-color error-must-div">
             필수 항목 입니다.
@@ -287,7 +287,7 @@ export default {
       }
     },
     prePassword() {
-      if (this.prePassword.match(/^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,12}$/)) {
+      if (this.prePassword.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/)) {
         this.errorPasswordCheck2 = false
       } else {
         this.errorPasswordCheck2 = true

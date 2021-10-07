@@ -76,3 +76,9 @@ export async function bringFunTokens() {
             console.log(e)
         })
 }
+
+export function isLoginMemberCheck() {
+    if (!window.localStorage.getItem('login_member')) {
+        this.$router.push('/login',Header.methods.isLogin)
+    }
+}
