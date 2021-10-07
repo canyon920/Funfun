@@ -12,7 +12,6 @@
             clearable
             counter
             :rules="setTitle.rules"
-            :value="bringRightInfo.productTitle"
             v-model="setTitle.value"
             auto-grow
             style="font-size: 26px;"

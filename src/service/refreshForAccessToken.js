@@ -11,7 +11,6 @@ export async function reServerSend() {
     // console.log(data.memberEmail)
     // console.log(loginMember)
     if (loginMember == null || memberRefreshToken == null) {
-        alert("로그인 되어있지 않습니다.")
         return false;
     }
     var form = new FormData();
@@ -28,11 +27,13 @@ export async function reServerSend() {
             //로컬스토리지에 다시발급 받은 -> 리프레시토큰저장
             window.localStorage.setItem('refresh_token',res.data.refresh_token)
         }).catch(e=>{
-            console.log(e.response.code)
-            alert("세션이 만료되었습니다. 다시 로그인해 주세요.")
-            window.localStorage.clear()
-            window.sessionStorage.clear()
-            router.push("/login",Header.methods.isLogin)
-            return false
+            if (e.response.status === 404) {
+                console.log(e.response.code);
+                alert("세션이 만료되었습니다. 다시 로그인해 주세요.")
+                window.localStorage.clear()
+                window.sessionStorage.clear()
+                router.push("/login",Header.methods.isLogin)
+                return false
+            }
         })
 }

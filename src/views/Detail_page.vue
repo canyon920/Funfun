@@ -25,6 +25,7 @@ import DetailPageRightSetting from "@/components/detail-components/DetailPageRig
 import axios from "axios";
 import {productObj} from "../service/product";
 import {reServerSend} from "../service/refreshForAccessToken";
+import Header from "../components/layout/Header";
 
 export default {
   name: "detail_page",
@@ -96,13 +97,13 @@ export default {
       var bringRouteProductId = this.$route.params.productId
       let form = new FormData();
       form.append('product_id',bringRouteProductId)
-      let access_token = window.sessionStorage.getItem('access_token')
+      /*let access_token = window.sessionStorage.getItem('access_token')
       let config = {
         headers:{
           Authorization : `Bearer ${access_token}`
         }
-      }
-      axios.post("http://localhost:9090/product/productDetail",form,config)
+      }*/
+      axios.post("http://localhost:9090/product/productDetail",form)
 
           .then(res =>{
 
@@ -123,6 +124,7 @@ export default {
             productObj.productLikeCount = res.data.product_like_count
             productObj.productImg = res.data.productImg
             productObj.productCategory = res.data.product_categoryId
+            productObj.productLikeList = res.data.product_like_list
 
 
 
@@ -131,18 +133,36 @@ export default {
             window.sessionStorage.setItem('product_detail',product_detail)
 
             this.postDetail()
+            this.handleLike()
 
           }).catch(e=>{
         // console.log("Status 코드 : ",e.response.status)
         console.log(e)
-        reServerSend()
+        // reServerSend()
         this.postDetail()
       })
 
     },
+    handleLike(){
+      let datas = JSON.parse(sessionStorage.getItem("product_detail"));
+      // console.log("datas",datas)
+      let mdata = JSON.parse(localStorage.getItem("login_member"));
+      // console.log("mdata",mdata)
+      var likelist = datas.productLikeList
+      // console.log("likelist",likelist)
+
+      for(var key in likelist){
+        if(likelist[key].includes(mdata.memberEmail)){
+          console.log("나다",mdata.memberEmail)
+          this.rightInfo.likeIcon = true
+        }
+      }
+
+
+    },
     postDetail(){
       let datas = JSON.parse(sessionStorage.getItem("product_detail"));
-      console.log("datas",datas)
+      // console.log("datas",datas)
 
       this.rightInfo.productTitle = datas.productName
       this.rightInfo.productId =datas.productId
@@ -181,20 +201,32 @@ export default {
 
     // 상단 오른쪽 부분 바뀌도록 하는 메소드들
     changeRight() {
-      this.productView = false
-      this.settingView = true
+      const data = JSON.parse(localStorage.getItem('login_member'));
+      if(data != null){
+        this.productView = false
+        this.settingView = true
+      }else{
+        alert("로그인하세요")
+        this.$router.push("/login",Header.methods.isLogin)
+      }
     },
     changeRightBack() {
       this.settingView = false
       this.productView = true
     },
     likeWork() {
-      if (this.rightInfo.likeIcon == false) {
-        this.rightInfo.likeCount++
-        this.rightInfo.likeIcon = true
-      } else {
-        this.rightInfo.likeCount--
-        this.rightInfo.likeIcon = false
+      const data = JSON.parse(localStorage.getItem('login_member'));
+      if(data != null) {
+        if (this.rightInfo.likeIcon == false) {
+          this.rightInfo.likeCount++
+          this.rightInfo.likeIcon = true
+        } else {
+          this.rightInfo.likeCount--
+          this.rightInfo.likeIcon = false
+        }
+      }else{
+        alert("로그인이 필요한 서비스입니다.")
+        this.$router.push("/login",Header.methods.isLogin)
       }
     },
 
@@ -235,7 +267,7 @@ export default {
         console.log("라이크 수 : ", this.rightInfo.likeCount, typeof this.rightInfo.likeCount);
         let form = new FormData()
         form.append("like_up", true)
-        await axios.post("http://localhost:9090/api/like/update", form)
+        await axios.post("http://localhost:9090/product/like/update", form)
             .then(res => {
               console.log(res)
             })
@@ -247,40 +279,48 @@ export default {
     async transmitFundingRegist(data) {
       console.log("하위 컴포넌트로 넘어온 값 : ", data)
       console.log("값 주워담기 전 : ", this.transeDataForFunding)
-      this.transeDataForFunding.member_id = 2
-      this.transeDataForFunding.product_id = 2
-      this.transeDataForFunding.funding_title = data.funding_title
-      this.transeDataForFunding.funding_create_time = data.funding_create_time
-      this.transeDataForFunding.funding_expired_time = data.funding_expired_time
-      this.transeDataForFunding.funding_target_money = this.rightInfo.productPrice
-      let form = new FormData()
+      const mdata = JSON.parse(localStorage.getItem("login_member"));
+      var bringRouteProductId = this.$route.params.productId
 
-      form.append("member_id", this.transeDataForFunding.member_id)
-      form.append("product_id", this.transeDataForFunding.product_id)
-      form.append("funding_title", this.transeDataForFunding.funding_title)
-      form.append("funding_create_time", this.transeDataForFunding.funding_create_time)
-      form.append("funding_expired_time", this.transeDataForFunding.funding_expired_time)
-      form.append("funding_target_money", this.transeDataForFunding.funding_target_money)
+      // console.log("mdata",mdata)
+      let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers:{
+          'Content-Type': 'application/json',
+          Authorization : `Bearer ${access_token}`,
+        }
+      }
 
+
+
+      const funding = {
+        "member_id": mdata.memberId,
+        "product_id":  bringRouteProductId,
+        "funding_title": data.funding_title,
+        "funding_create_time": data.funding_create_time+" 00:00",
+        "funding_expired_time": data.funding_expired_time+" 00:00",
+        "funding_target_money": this.rightInfo.productPrice,
+        "funding_type":"FUNDING",
+        "funding_collected_money":0
+      }
       // form.append("fundingDataForRegist",`${this.transeDataForFunding}`)
       // form.append("fundingDataForRegist",JSON.stringify(this.transeDataForFunding))
-      await axios.post("http://localhost:9090/api/fundingregist", form
-          // ,
-          //  {headers: {
-          // // Overwrite Axios's automatically set Content-Type
-          // 'Content-Type': 'application/json'
-          // 'Content-Type': 'X-Requested-With'
-          // //       'Content-type': 'multipart/form-data; charset=utf-8'
-          //   }}
-      )
+
+      await axios.post("http://localhost:9090/funding/create",funding,config)
           .then(res => {
             if (res.status === 200) {
               // 응답 코드가 OK 이면 이동할 곳 ( 펀딩 상세페이지로 )
-              this.$router.push("/funding-detail-page")
+              this.$router.push({name: 'DetailFundingPage', params:{fundingId: res.data}})
             }
-          })
-          .catch(error=>{
-            console.log(error)
+          }).catch(error=>{
+            console.log("error code",error.response.status)
+            console.log("error res",error.response)
+            if (error.response.status===403) {
+                reServerSend();
+                this.transmitFundingRegist(data)
+                console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
+                this.$router.push("/login",Header.methods.isLogin)
+            }
           })
     }
   },

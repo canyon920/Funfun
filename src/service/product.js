@@ -7,4 +7,5 @@ export var productObj={
     productBrand:'',
     productImg:[],
     productCategory:'',
+    productLikeList:[],
 }

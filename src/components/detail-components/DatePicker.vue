@@ -144,7 +144,7 @@ export default {
       let transTargetDate1 = this.date1.replaceAll("-", "")
       console.log("이게 변환된 오늘 : ",nowDate);
       console.log("이게 변화된 선택날 : ",transTargetDate1)
-      if ((transTargetDate1 - nowDate) < 0) {
+      if ((transTargetDate1 - nowDate) > 0) {
         console.log("선택된 시작날이 오늘보다 이전이면 안됩니다.");
         this.$emit('bringCheckStartDate');
       } else {
