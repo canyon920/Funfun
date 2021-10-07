@@ -37,7 +37,7 @@
               v-for="(item,fkey) in friends"
               :key="fkey"
               link
-              @click="FriendSelect(item.username)"
+              @click="clickselect(item.username)"
           >
             <v-list-item-icon>
               <img :src="item.profileImg" style="border-radius: 20%; width: 25px; height: 25px">
@@ -48,17 +48,17 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
-
-        <!--            여기 해주자!!!!!!!!!!!!!           -->
-        <!--            <ul>-->
-        <!--              &lt;!&ndash; eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if &ndash;&gt;-->
-        <!--              <div v-for="(friend, fkey) in friends" :key="fkey" v-if="friend.name.includes(friendName)">-->
-        <!--                {{friend.name}}-->
-        <!--              </div>-->
-        <!--            </ul>-->
-
       </div>
-      <MainSearch v-show="friendSearch" :bringmainsearch="friendSearch" />
+      <div class = "wishlist1" style="font-weight: 700"><span style="color: rgb(229, 114, 0)">{{funding.username }}</span>님의 위시리스트</div>
+      <div class ="datalist">
+        <div v-if="friendListCard.length == 0" >
+          펀딩중인 상품이 없어요.
+        </div>
+        <div class = "product" v-else>
+          <NormalListComponent :bringProductList="friendListCard.lists" :bringscript="friendtitle" />
+        </div>
+      </div>
+
     </div>
     <div class = "second-bottom">
       <!--      <Fundingsecondlist />-->
@@ -67,17 +67,25 @@
   </div>
 </template>
 <script>
-import MainSearch from "../components/layout/main/Main-search";
+
+import NormalListComponent from "../components/NormalListComponent";
 import Mainevent from '../components/layout/main/Main-event';
+
 
 
 export default {
   name: 'FriendList',
-  components: {  MainSearch,Mainevent },
+  components: {Mainevent, NormalListComponent},
   data() {
     return {
-      loading:true,
-      searchStart : true,
+      loading: true,
+      searchStart: true,
+      friendListCard:{lists:[]},
+
+      friendtitle: {
+        Title: "",
+      },
+
       friendEvent: [
         {
           presimgUrl: require("@/assets/event/main/light.png"),
@@ -106,31 +114,69 @@ export default {
         },
 
       ],
-      friendSearch:
-      // null,
-          {
-            username: "춘식",
-            fundinglist: "펀딩중인 상품이 없어요",
-          },
+
       friends: [
         {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이'},
         {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라이언'},
         {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코'},
         {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이'},
       ],
-      friend: {
-        name: '',
-      },
       friendName: '',
-      methods: {
-        FriendSelect(username) {
-          this.friendSearch.username = username
-        },
 
-      }
+      funding: {
+        username: "",
+        fundinglist: [],
+      },
+
     }
-  }
+  },
+  methods: {
+    clickselect(username) {
+      this.funding.username = username
+      this.friendListCard.lists = [
+        {
+          src: require("@/assets/example-img/chunsicthum.png"),
+          title: '"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
+          brand: '카카오프렌즈',
+          price: 30000,
+          likeRate: 3.5,
+          fundingCount: 100,
+          productId: 1
+        },
+        {
+          src: require("@/assets/example-img/chunsicsub1.png"),
+          title: '"언텍트시대" 춘식이와 라식이의 사랑이야기',
+          brand: '카카오프렌즈',
+          price: 17000,
+          likeRate: 4,
+          fundingCount: 25,
+          productId: 2
+        },
+        {
+          src: require("@/assets/example-img/chunsicsub1.png"),
+          title: '"언텍트시대" 춘식이와 라식이의 사랑이야기',
+          brand: '카카오프렌즈',
+          price: 17000,
+          likeRate: 4,
+          fundingCount: 25,
+          productId: 2
+        },
+      ]
+
+    }
+  },
+
+  watch: {
+    friendName() {
+      this.loading = true
+      this.searchStart = true
+      //axios 로 친구리스트가져오기
+    }
+  },
+
 }
+
+
 </script>
 <style>
 .first-container{

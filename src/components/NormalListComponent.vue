@@ -3,9 +3,7 @@
   <div class = "listscript">
     {{bringscript.Title}}
   </div>
-  <div class = "listscript2">
-    {{bringscript.username}}
-  </div>
+
 
   <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
 
@@ -52,12 +50,13 @@
 
   </v-layout>
 
+
   <v-pagination
       v-model="page"
       :length="Math.ceil( bringProductList.length/perPage)"
   ></v-pagination>
+  </div>
 
-</div>
 </template>
 
 <script>
@@ -66,6 +65,7 @@ export default {
 
   data() {
     return {
+
       page: 1,
       perPage: 3,
 
@@ -74,6 +74,7 @@ export default {
     }
   },
   props: {
+
     bringProductList: {
       type: Array,
       required: true
@@ -81,6 +82,7 @@ export default {
     bringscript: {
       type: Object,
     },
+
   },
   computed:{
     visibleCard(){

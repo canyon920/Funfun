@@ -16,7 +16,7 @@
       <v-btn
           class="ma-2"
           outlined
-          color="indigo"
+          style="color:rgb(229 114 0)"
       >
         확인
       </v-btn>
@@ -41,7 +41,7 @@
       <v-btn
           class="ma-2"
           outlined
-          color="indigo"
+          style="color:rgb(229 114 0)"
       >
         확인
       </v-btn>
@@ -54,14 +54,14 @@
     <v-btn @click="onClickButton1()"
         class="ma-2"
         outlined
-        color="indigo"
+        style="color:rgb(229 114 0)"
     >
       계좌로 받기
     </v-btn>
     <v-btn @click="onClickButton2()"
         class="ma-2"
         outlined
-        color="indigo"
+        style="color:rgb(229 114 0)"
     >
       상품으로받기
     </v-btn>
@@ -109,5 +109,9 @@ export default {
 .titlename{
   margin-top: 50px;
   padding-bottom:30px;
+}
+.ma-2{
+  border: 2px solid rgb(229 114 0);
+
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class = "first-container">
      <div class = "second">
-       <NormalListComponent :bringProductList="fundinglistS" :bringscript="fundingtitle"/>
+       <NormalListComponent  :bringProductList="fundinglistS" :bringscript="fundingtitle"/>
 
      </div>
 
@@ -20,8 +20,6 @@
 import Mainevent from '../components/layout/main/Main-event';
 import NormalListComponent from "@/components/NormalListComponent";
 
-
-
 export default {
   name: 'FundingList',
   components: {NormalListComponent, Mainevent},
@@ -33,6 +31,7 @@ export default {
 
   data(){
     return{
+      pagemodel: true,
 
       fundinglistS: [
         {
