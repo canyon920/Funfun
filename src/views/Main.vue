@@ -99,7 +99,7 @@
           <MainSearch :class="{active : mainSearch.username, transy:searchStart}" :hidden="!mainSearch.username" :bringmainsearch="mainSearch" />
 
         </div>
-        </transition>
+<!--        </transition>-->
 
         <div class = "menu">
 
@@ -166,9 +166,17 @@ export default {
 
   data () {
     return {
+      memberObj : {
+        memberId : '',
+        memberEmail : '',
+        memberNicname : '',
+        memberApi : '',
+        memberRole : '',
+        memberProfile : ''
+      },
       mainFriendSearchBar: true,
-      loading:true,
-      searchStart : true,
+      loading: false,
+      searchStart : false,
       model: 0,
       colors: [
         'indigo',
@@ -324,7 +332,7 @@ export default {
       .then(res => {
         let jdata =  JSON.stringify(res.data);
         this.mainSearch.fundinglist = JSON.parse(jdata);
-        console.log("#this.mainSearch.fundinglist",this.mainSearch.fundinglist);
+        // console.log("#this.mainSearch.fundinglist",this.mainSearch.fundinglist);
       }).catch(error => {
         alert("error",error);
       })
@@ -349,20 +357,39 @@ export default {
     isLoginMain() {
       if (window.localStorage.getItem('login_member')) {
         this.mainFriendSearchBar = true
+        this.setJoin();
       } else {
         this.mainFriendSearchBar = false
       }
+    },
+    setDeadline(){
+      axios.get("http://127.0.0.1:9090/mainPage/Deadline")
+      .then(res => {
+        let jdata =  JSON.stringify(res.data);
+        this.mainDeadline = JSON.parse(jdata);
+      })
+    },
+    setJoin(){
+      this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
+      axios.get("http://127.0.0.1:9090/mainPage/mainJoin/"+ this.memberObj.memberId)
+      .then(res => {
+        let jdata =  JSON.stringify(res.data);
+        this.mainJoin = JSON.parse(jdata);
+      })
     }
 
   },
   watch:{
     friendName(){
+      this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
+      // console.log(this.memberObj)
+      // console.log(JSON.parse(window.localStorage.getItem('login_member')))
       this.loading = true
       this.searchStart = true
       //axios 로 친구리스트가져오기
       this.friendName = this.friendName.trim();
       if(this.friendName.length>0){
-        axios.get("http://127.0.0.1:9090/mainPage/"+"1"+"/"+this.friendName) //1-> member_id
+        axios.get("http://127.0.0.1:9090/mainPage/"+this.memberObj.memberId+"/"+this.friendName) //1-> member_id
         .then(response => {
           let jdata =  JSON.stringify(response.data);
           this.friends = JSON.parse(jdata);
@@ -375,7 +402,8 @@ export default {
   },
   beforeMount() {
     this.topEventImg()
-    //this.isLoginMain()
+    this.isLoginMain()
+    this.setDeadline()
   }
 }
 

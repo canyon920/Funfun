@@ -24,6 +24,7 @@ import Complete from "@/components/admin/Complete";
 import Editpage from "@/components/Mypage/Editpage";
 import FindId from "@/components/login/FindId";
 import FindPassword from "@/components/login/FindPassword";
+import Payment from "../views/Payment";
 
 
 Vue.use(VueRouter)
@@ -169,6 +170,11 @@ const routes = [
     path: '/find/password',
     name: 'FindPassword',
     component: FindPassword
+  },
+  {
+    path: '/payment/:memberId',
+    name: 'Payment',
+    component: Payment
   }
 ]
 
