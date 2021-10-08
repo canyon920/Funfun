@@ -29,6 +29,7 @@ import MywishtList from "@/views/mypage/MywishtList";
 import JoinedmyList from "@/views/mypage/JoinedmyList";
 import Choose from "@/views/Choose";
 import PurchaseList from "@/views/mypage/PurchaseList";
+import Payment from "../views/Payment";
 
 
 Vue.use(VueRouter)
@@ -106,8 +107,6 @@ const routes = [
     name:'LoginFunfun',
     component: LoginFunfun
   },
-
-
   {
     path: '/detail-page/:productId',
     name: 'detail_page',
@@ -132,7 +131,6 @@ const routes = [
     // component: () => import('../views/DetailFundingPage')
     component: DetailFundingPage
   },
-
   {
     path: '/mypage-list',
     name: 'menulist',
@@ -202,6 +200,11 @@ const routes = [
     path: '/find/password',
     name: 'FindPassword',
     component: FindPassword
+  },
+  {
+    path: '/payment/:memberId',
+    name: 'Payment',
+    component: Payment
   }
 ]
 

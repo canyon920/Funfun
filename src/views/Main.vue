@@ -74,7 +74,7 @@
                   v-for="item in friends"
                   :key="item.friendId"
                   link
-                  @click="searchFriendSelect(item.username)"
+                  @click="searchFriendSelect(item.username,item.friendId)"
               >
                 <v-list-item-icon>
                   <img :src="item.profileImg" style="border-radius: 20%; width: 25px; height: 25px">
@@ -99,6 +99,7 @@
           <MainSearch :class="{active : mainSearch.username, transy:searchStart}" :hidden="!mainSearch.username" :bringmainsearch="mainSearch" />
 
         </div>
+<!--        </transition>-->
 
         <div class = "menu">
 
@@ -154,6 +155,7 @@ import Gibooline from '../components/layout/main/Gibooline'
 import Mainmenu from '../components/layout/main/Main-menu'
 import Mainevent from '../components/layout/main/Main-event'
 import MainSearch from "../components/layout/main/Main-search";
+import axios from "axios";
 export default {
   name: 'Main',
   components: {
@@ -164,8 +166,16 @@ export default {
 
   data () {
     return {
-      mainFriendSearchBar: false,
-      loading:false,
+      memberObj : {
+        memberId : '',
+        memberEmail : '',
+        memberNicname : '',
+        memberApi : '',
+        memberRole : '',
+        memberProfile : ''
+      },
+      mainFriendSearchBar: true,
+      loading: false,
       searchStart : false,
       model: 0,
       colors: [
@@ -202,20 +212,15 @@ export default {
       // null,
           {
             username:"",
+            friendId: -1,
             fundinglist:[
-              {fundingId:1 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
-              {fundingId:2 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
-              {fundingId:3 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub2.png")},
-              {fundingId:4 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub3.png")},
-              {fundingId:5 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
-              {fundingId:6 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
-            ],
+              ],
           },
       friends: [
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이', friendId:1},
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라이언', friendId:2},
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코', friendId:3},
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이', friendId:4},
+        // {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이', friendId: 2},
+        // {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라이언', friendId: 3},
+        // {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코', friendId: 4},
+        // {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이', friendId: 5},
       ],
       friendName: '',
 
@@ -310,19 +315,27 @@ export default {
     }
   },
   methods: {
-    searchFriendSelect(username) {
-      this.loading = false
-      this.searchStart = false
-      this.mainSearch.username = username
+    searchFriendSelect(username, friendId) {
+      this.loading = false;
+      this.searchStart = false;
+      this.mainSearch.username = username;
       //여기에 axios 추가해 this.mainSearch.fundinglist 수정해줘야함
-      this.mainSearch.fundinglist = [
-        {fundingId:1 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
-        {fundingId:2 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
-        {fundingId:3 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub2.png")},
-        {fundingId:4 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub3.png")},
-        {fundingId:5 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
-        {fundingId:6 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
-      ]
+      // this.mainSearch.fundinglist = [
+      //   {fundingId:1 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
+      //   {fundingId:2 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
+      //   {fundingId:3 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub2.png")},
+      //   {fundingId:4 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub3.png")},
+      //   {fundingId:5 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
+      //   {fundingId:6 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
+      // ]
+      axios.get("http://127.0.0.1:9090/mainPage/friend/"+friendId)
+      .then(res => {
+        let jdata =  JSON.stringify(res.data);
+        this.mainSearch.fundinglist = JSON.parse(jdata);
+        // console.log("#this.mainSearch.fundinglist",this.mainSearch.fundinglist);
+      }).catch(error => {
+        alert("error",error);
+      })
 
     },
     topEventImg() {
@@ -344,22 +357,53 @@ export default {
     isLoginMain() {
       if (window.localStorage.getItem('login_member')) {
         this.mainFriendSearchBar = true
+        this.setJoin();
       } else {
         this.mainFriendSearchBar = false
       }
+    },
+    setDeadline(){
+      axios.get("http://127.0.0.1:9090/mainPage/Deadline")
+      .then(res => {
+        let jdata =  JSON.stringify(res.data);
+        this.mainDeadline = JSON.parse(jdata);
+      })
+    },
+    setJoin(){
+      this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
+      axios.get("http://127.0.0.1:9090/mainPage/mainJoin/"+ this.memberObj.memberId)
+      .then(res => {
+        let jdata =  JSON.stringify(res.data);
+        this.mainJoin = JSON.parse(jdata);
+      })
     }
 
   },
   watch:{
     friendName(){
+      this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
+      // console.log(this.memberObj)
+      // console.log(JSON.parse(window.localStorage.getItem('login_member')))
       this.loading = true
       this.searchStart = true
       //axios 로 친구리스트가져오기
+      this.friendName = this.friendName.trim();
+      if(this.friendName.length>0){
+        axios.get("http://127.0.0.1:9090/mainPage/"+this.memberObj.memberId+"/"+this.friendName) //1-> member_id
+        .then(response => {
+          let jdata =  JSON.stringify(response.data);
+          this.friends = JSON.parse(jdata);
+        }).catch(error => {
+          alert("에러",error);
+        })
+      }
+
     }
   },
   beforeMount() {
     this.topEventImg()
     this.isLoginMain()
+    this.setDeadline()
   }
 }
 
