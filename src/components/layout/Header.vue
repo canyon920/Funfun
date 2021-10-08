@@ -19,6 +19,7 @@
     <div class="navbar-menu2" :class="{active : booleanMenu2}">
       <div class="link-div" id="kakao-div" @click="Klogout()" hidden>Logout</div>
       <div class="link-div" id="email-div" @click="Flogout()" hidden>Logout</div>
+      <div @click="toggleDown" v-show="booleanMenu2" class="link-div mypage-div"><router-link to="/mypage-list" style="color: black;text-decoration: none">MyPage</router-link></div>
       <div class="link-div" id="login-div" @click="toggleDown"><router-link style="color: black" class="router-link" to="/login" >Login</router-link></div>
       <div class="link-div" id="join-div" @click="toggleDown"><router-link style="color: black" class="router-link" to="/join" >Join</router-link></div>
       <!--      <router-link to="#" v-on:click.native="unlink()"> Kakao Unlink</router-link>-->

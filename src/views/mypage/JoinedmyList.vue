@@ -10,7 +10,7 @@
 </template>
 <script>
 
-import Mainevent from '../components/layout/main/Main-event';
+import Mainevent from '../../components/layout/main/Main-event';
 import NormalListComponent from "@/components/NormalListComponent";
 
 
@@ -103,9 +103,8 @@ export default {
           productId:9
         },
       ],
-      jointitle:{
-        Title: "내가 참여한 펀딩 리스트",
-      },
+      jointitle:
+        "내가 참여한 펀딩 리스트",
 
 
       joinedEvent: [
@@ -151,7 +150,7 @@ export default {
   margin-bottom: 80px;
   margin-top: 50px;
   animation-name: fadeIn;
-  animation-duration: 3s;
+  animation-duration: 1s;
 
 }
 

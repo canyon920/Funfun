@@ -5,7 +5,7 @@
   </div>
   <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
 
-  <div id="for-start" v-for="(value,vkey) in bringmainDeadline" :key="vkey">
+  <div id="for-start" v-for="(value,vkey) in visibleCard" :key="vkey">
     <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: value.fundingId}}" style="text-decoration: none">
       <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
@@ -45,9 +45,9 @@
           </div>
 
           <v-card-text id="card-text" class="text--primary">
-            <div class ="fundingname">{{value.fundingname}}님의 펀딩 상품</div>
+            <div class ="fundingname"><span class="card-span">{{value.fundingname}}</span>님의 펀딩 상품</div>
 
-            <div class="fundingmoeny">현재 {{value.fundingMoney}}원 펀딩 달성</div>
+            <div class="fundingmoeny">현재 <span class="card-span" >{{value.fundingMoney}}원</span> 펀딩 달성</div>
           </v-card-text>
 
         </v-card>
@@ -57,6 +57,13 @@
   </div>
 
   </v-layout>
+
+  <v-pagination
+      v-model="page"
+      :length="Math.ceil( bringmainDeadline.length/perPage)"
+      style="margin-top: 50px"
+  ></v-pagination>
+
 </div>
 </template>
 
@@ -73,13 +80,24 @@ export default {
   },
   data(){
     return{
-
+      page: 1,
+      perPage: 3,
+    }
+  },
+  computed:{
+    visibleCard(){
+      return this.bringmainDeadline.slice((this.page - 1)*this.perPage,
+          this.page*this.perPage)
     }
   }
 }
 </script>
 
 <style scoped>
+.layout.row.wrap {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 .listwish {
   margin-top: 70px;
   font-size:30px;
@@ -113,6 +131,8 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
+
 }
 
 #v-card-custom {
@@ -140,13 +160,23 @@ export default {
 
 }
 #v-card-custom .progress-bar-total-div .progressBar-div .progressBar {
+  max-width: 100%;
   height: 8px;
   background-color: rgb(229, 114, 0);
   /*width: 30%;*/
 }
 
-.fundingname {
-  font-size: 20px;
+#card-text .fundingname {
+  font-size: 12px !important;
+  line-height: 24px !important;
+}
+#card-text .fundingmoeny {
+  font-size: 12px !important;
+  line-height: 24px !important;
+}
+#card-text .card-span {
+  font-size: 14px;
+  font-weight: 700;
 }
 .card-div {
   display: flex;
@@ -173,7 +203,7 @@ export default {
   #v-card-custom div #progress-bar-text,
   #v-card-custom div div.slush,
   #v-card-custom div #expire-date-text {
-    font-size: 12px !important;
+    font-size: 11px !important;
     line-height: 25px !important;
 
   }

@@ -13,7 +13,7 @@
 </template>
 <script>
 
-import Mainevent from '../components/layout/main/Main-event';
+import Mainevent from '../../components/layout/main/Main-event';
 import FundingListComponent from "@/components/FundingListComponent";
 
 
@@ -103,7 +103,11 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
+.layout.row.wrap {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 .first-container{
   max-width: 1400px;
   flex-direction: column;
@@ -112,7 +116,7 @@ export default {
   margin-bottom: 80px;
   margin-top: 50px;
   animation-name: fadeIn;
-  animation-duration: 3s;
+  animation-duration: 1s;
 
 }
 

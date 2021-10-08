@@ -166,13 +166,6 @@ export default {
             }
           })
 
-      // if (error.response.status===403) {
-      //   reServerSend();
-      //   this.transmitFundingRegist(data)
-      //   console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
-      //   this.$router.push("/login",Header.methods.isLogin)
-      // }
-
     },
     findAddr() {
       new window.daum.Postcode({
@@ -262,15 +255,7 @@ export default {
         this.errorNicNameCheck = false
       }
     },
-    // address() {
-    //
-    // },
-    // address2() {
-    //
-    // },
-    // postNumber() {
-    //
-    // }
+
   },
 
   mounted() {

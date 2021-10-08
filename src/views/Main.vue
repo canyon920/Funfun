@@ -71,8 +71,8 @@
                 :class="{active: searchStart, deactive: !searchStart}"
             >
               <v-list-item
-                  v-for="(item,fkey) in friends"
-                  :key="fkey"
+                  v-for="item in friends"
+                  :key="item.friendId"
                   link
                   @click="searchFriendSelect(item.username)"
               >

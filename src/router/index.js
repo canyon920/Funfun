@@ -6,7 +6,7 @@ import About from "@/views/About";
 import Singup from "@/views/Singup";
 import AboutPage from "@/components/about/AboutPage";
 import Login from "@/views/Login";
-import FundingList from "@/views/FundingList";
+import FundingList from "@/views/mypage/FundingList";
 import DetailFundingPage from "@/views/DetailFundingPage";
 import Shop from "@/components/shoplist/Shop";
 import Menulist from "@/components/menulist/Menulist"
@@ -24,6 +24,11 @@ import Complete from "@/components/admin/Complete";
 import Editpage from "@/components/Mypage/Editpage";
 import FindId from "@/components/login/FindId";
 import FindPassword from "@/components/login/FindPassword";
+import FriendList from "@/views/mypage/FriendList";
+import MywishtList from "@/views/mypage/MywishtList";
+import JoinedmyList from "@/views/mypage/JoinedmyList";
+import Choose from "@/views/Choose";
+import PurchaseList from "@/views/mypage/PurchaseList";
 
 
 Vue.use(VueRouter)
@@ -66,34 +71,35 @@ const routes = [
 
   },
   {
-    path: '/fundinglist',
+    path: '/fundinglist/:memberId',
     name: 'FundingList',
     component: FundingList
   },
   {
-    path: '/friendlist',
+    path: '/friendlist/:memberId',
     name: 'FriendList',
-    component: () => import(/* webpackChunkName: "about" */ '../views/FriendList.vue')
+    component: FriendList
   },
   {
-    path: '/wishlist',
+    path: '/wishlist/:memberId',
     name: 'MywishList',
-    component: () => import(/* webpackChunkName: "about" */ '../views/MywishtList.vue')
+    component: MywishtList
   },
   {
-    path: '/joinlist',
+    path: '/joinlist/:memberId',
     name: 'JoinedList',
-    component: () => import(/* webpackChunkName: "about" */ '../views/JoinedmyList.vue')
+    component: JoinedmyList
   },
   {
     path: '/choose',
     name: 'Choose',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Choose.vue')
+    component: Choose
   },
   {
-    path: '/purchaselist',
+    path: '/purchaselist/:memberId',
     name: 'PurchaseList',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PurchaseList.vue')
+    // component: () => import(/* webpackChunkName: "about" */ '../views/PurchaseList.vue')
+    component: PurchaseList
   },
   {
     path:'/funlogin',

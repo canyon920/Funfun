@@ -1,7 +1,8 @@
 <template>
 <div class="normal-list">
-  <div class = "listscript">
-    {{bringscript.Title}}
+  <div v-if="bringUserName" class = "wishlist1" style="font-weight: 700"><span style="color: rgb(229, 114, 0)">{{ bringUserName }}</span>님의 위시리스트</div>
+  <div v-if="bringscript" class = "listscript">
+    {{bringscript}}
   </div>
 
 
@@ -21,7 +22,7 @@
 
           <v-card-title id="v-card-title-custom">{{ product.title}}</v-card-title>
 
-          <div id="mid-like-div">
+          <div v-if="product.likeRate" id="mid-like-div">
             <div class="like-text">
               좋아요: {{product.likeRate}}
             </div>
@@ -54,6 +55,7 @@
   <v-pagination
       v-model="page"
       :length="Math.ceil( bringProductList.length/perPage)"
+      style="margin-top: 50px"
   ></v-pagination>
   </div>
 
@@ -80,9 +82,11 @@ export default {
       required: true
     },
     bringscript: {
-      type: Object,
+      type: String,
     },
-
+    bringUserName:{
+      type:String,
+    },
   },
   computed:{
     visibleCard(){
@@ -98,6 +102,13 @@ export default {
 </script>
 
 <style scoped>
+.normal-list {
+  margin-top: 20px;
+}
+.layout.row.wrap {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
 #v-for-div {
   margin: 10px 10px;
 
@@ -135,9 +146,9 @@ export default {
 
 #v-card-subtitle-custom {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   margin: 5px 10px 0px;
   padding: 0px;
 }
@@ -145,16 +156,15 @@ export default {
   font-size: 15px;
 }
 #card-price {
-  font-size: 25px;
+  font-size: 20px;
+  margin-top: 2px;
 
 }
 .listscript{
-  margin-top: 70px;
   font-size:30px;
   font-weight: 700;
   max-width:1100px;
   left:0; right:0; margin-left:auto; margin-right:auto;
-  padding-bottom: 30px;
 }
 
 

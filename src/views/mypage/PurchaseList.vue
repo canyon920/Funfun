@@ -96,9 +96,9 @@ export default {
               productId:9
             },
           ],
-      purchasetitle:{
-        Title: "구매목록 리스트",
-      },
+      purchasetitle:
+        '구매목록 리스트'
+      ,
     }
   }
 }
@@ -112,9 +112,9 @@ export default {
   margin-bottom: 80px;
   margin-top: 50px;
   -webkit-animation-name: fadeIn;
-  -webkit-animation-duration: 3s;
+  -webkit-animation-duration: 1s;
   animation-name: fadeIn;
-  animation-duration: 3s;
+  animation-duration: 1s;
 
 }
 .Purchase-second{
