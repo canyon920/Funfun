@@ -92,7 +92,7 @@
 
     </div>
 
-    <NormalListComponent :bringProductList="products"/>
+    <NormalListComponent  :bringProductList="products" bringscript="producttitle"/>
 
   </v-container>
 </template>
@@ -107,7 +107,9 @@ export default {
   components: {NormalListComponent, carousel },
   data: () => {
     return {
+
       loading:false,
+
 
       items1: ['인기순', '추천순', '높은가격순', '낮은가격순'],
       selected1 : '인기순',
@@ -261,7 +263,7 @@ export default {
           productId:9
         },
       ],
-
+      producttitle:{},
 
     };
   },
@@ -276,6 +278,7 @@ export default {
             console.log(err);
           })
     }
+
   },
   mounted(){
     // console.log("새로읽어옴 새로고침 해도 되네여....;;;;",this.$route.params.categoryId)

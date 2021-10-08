@@ -1,18 +1,11 @@
 <template>
   <div class = "first-container">
-     <div class = "second">
-       <NormalListComponent  :bringProductList="fundinglistS" :bringscript="fundingtitle"/>
-
-     </div>
-
-
-    <v-divider
-    ></v-divider>
-    <div class = "second-bottom">
-<!--      <Fundingsecondlist />-->
-      <Mainevent :bringmainEvent="fundingEvent" />
+    <div class = "second">
+      <NormalListComponent :bringProductList="joinedlistS" :bringscript="jointitle"/>
     </div>
-
+    <div class = "second-bottom">
+      <Mainevent :bringmainEvent="joinedEvent" />
+    </div>
   </div>
 </template>
 <script>
@@ -20,20 +13,14 @@
 import Mainevent from '../components/layout/main/Main-event';
 import NormalListComponent from "@/components/NormalListComponent";
 
+
+
 export default {
-  name: 'FundingList',
+  name: 'JoinedList',
   components: {NormalListComponent, Mainevent},
-  methods: {
-
-
-  },
-
-
   data(){
     return{
-      pagemodel: true,
-
-      fundinglistS: [
+      joinedlistS: [
         {
           src: require("@/assets/example-img/chunsicthum.png"),
           title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
@@ -116,11 +103,12 @@ export default {
           productId:9
         },
       ],
-      fundingtitle:{
-        Title: "나의 펀딩리스트",
+      jointitle:{
+        Title: "내가 참여한 펀딩 리스트",
       },
 
-      fundingEvent: [
+
+      joinedEvent: [
         {
           presimgUrl:require("@/assets/event/main/light.png"),
           eventTitle:'"8월에 태어난 친구에게", "친구야" 넌 꽃처럼 아름다워!',
@@ -144,15 +132,14 @@ export default {
         },
 
       ],
+      joinedtitle:{
+        title:'나의 펀딩 리스트',
+      }
+
+
 
     }
-  },
-
-
-
-
-
-
+  }
 }
 </script>
 <style>
@@ -163,15 +150,8 @@ export default {
   align-items: center;
   margin-bottom: 80px;
   margin-top: 50px;
-  -webkit-animation-name: fadeIn;
-  -webkit-animation-duration: 3s;
   animation-name: fadeIn;
   animation-duration: 3s;
-
-}
-.second{
-  padding-bottom: 80px;
-
 
 }
 
@@ -179,21 +159,8 @@ export default {
   max-width:1100px;
   left:0; right:0; margin-left:auto; margin-right:auto;
   margin-bottom: 70px;
-  padding-top:50px;
+}
 
-}
-button.page-link {
-  display: inline-block;
-}
-button.page-link {
-  font-size: 20px;
-  color: #29b3ed;
-  font-weight: 500;
-}
-.offset{
-  width: 500px !important;
-  margin: 20px auto;
-}
 @keyframes fadeIn {
   from {
     opacity:0;

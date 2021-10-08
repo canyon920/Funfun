@@ -1,6 +1,8 @@
 <template>
 <div class="funding-list">
-
+  <div class = "listwish">
+    {{bringwishscript.Title}}
+  </div>
   <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
 
   <div id="for-start" v-for="(value,vkey) in bringmainDeadline" :key="vkey">
@@ -64,7 +66,10 @@ export default {
   props:{
     bringmainDeadline:{
       type:Array
-    }
+    },
+    bringwishscript:{
+      type: Object
+    },
   },
   data(){
     return{
@@ -75,6 +80,14 @@ export default {
 </script>
 
 <style scoped>
+.listwish {
+  margin-top: 70px;
+  font-size:30px;
+  font-weight: 700;
+  max-width:1100px;
+  left:0; right:0; margin-left:auto; margin-right:auto;
+  padding-bottom: 30px;
+}
 #for-start {
   margin: 10px;
 }
@@ -167,14 +180,16 @@ export default {
 
 }
 
-@media screen and (max-width: 415px){
+@media screen and (max-width: 415px) {
   #v-card-custom {
     max-width: 215px !important;
   }
+
   #v-card-custom div {
     font-size: 15px !important;
     line-height: 20px !important;
   }
+
   #card-img {
     height: 215px !important;
     width: 215px !important;
@@ -188,6 +203,7 @@ export default {
     line-height: 25px !important;
 
   }
+
 
 }
 </style>

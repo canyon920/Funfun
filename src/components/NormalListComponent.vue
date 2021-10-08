@@ -1,8 +1,13 @@
 <template>
 <div class="normal-list">
+  <div class = "listscript">
+    {{bringscript.Title}}
+  </div>
+
+
   <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
 
-    <div id="v-for-div" v-for="product in bringProductList" :key="product.productId">
+    <div id="v-for-div" v-for="product in visibleCard" :key="product.productId">
       <router-link :to="{name: 'detail_page' ,params: {productId: product.productId}}" style="text-decoration: none">
 
         <v-card
@@ -40,24 +45,55 @@
         </v-card>
 
       </router-link>
+
     </div>
+
   </v-layout>
-</div>
+
+
+  <v-pagination
+      v-model="page"
+      :length="Math.ceil( bringProductList.length/perPage)"
+  ></v-pagination>
+  </div>
+
 </template>
 
 <script>
 export default {
   name: "NormalListComponent",
-  props:{
-    bringProductList: {
-      type: Array
-    }
-  },
-  data(){
-    return{
+
+  data() {
+    return {
+
+      page: 1,
+      perPage: 3,
+
+
 
     }
+  },
+  props: {
+
+    bringProductList: {
+      type: Array,
+      required: true
+    },
+    bringscript: {
+      type: Object,
+    },
+
+  },
+  computed:{
+    visibleCard(){
+      return this.bringProductList.slice((this.page - 1)*this.perPage,
+                                                this.page*this.perPage)
+    }
   }
+
+
+
+
 }
 </script>
 
@@ -111,6 +147,14 @@ export default {
 #card-price {
   font-size: 25px;
 
+}
+.listscript{
+  margin-top: 70px;
+  font-size:30px;
+  font-weight: 700;
+  max-width:1100px;
+  left:0; right:0; margin-left:auto; margin-right:auto;
+  padding-bottom: 30px;
 }
 
 

@@ -71,10 +71,36 @@ const routes = [
     component: FundingList
   },
   {
+    path: '/friendlist',
+    name: 'FriendList',
+    component: () => import(/* webpackChunkName: "about" */ '../views/FriendList.vue')
+  },
+  {
+    path: '/wishlist',
+    name: 'MywishList',
+    component: () => import(/* webpackChunkName: "about" */ '../views/MywishtList.vue')
+  },
+  {
+    path: '/joinlist',
+    name: 'JoinedList',
+    component: () => import(/* webpackChunkName: "about" */ '../views/JoinedmyList.vue')
+  },
+  {
+    path: '/choose',
+    name: 'Choose',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Choose.vue')
+  },
+  {
+    path: '/purchaselist',
+    name: 'PurchaseList',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PurchaseList.vue')
+  },
+  {
     path:'/funlogin',
     name:'LoginFunfun',
     component: LoginFunfun
   },
+
 
   {
     path: '/detail-page/:productId',
@@ -100,6 +126,7 @@ const routes = [
     // component: () => import('../views/DetailFundingPage')
     component: DetailFundingPage
   },
+
   {
     path: '/mypage-list',
     name: 'menulist',

@@ -118,7 +118,7 @@ export default {
 }
 #v-card-custom #card-img {
   height: 275px;
-  height: 275px;
+  width: 275px;
 
 }
 #v-card-custom .progress-bar-total-div {

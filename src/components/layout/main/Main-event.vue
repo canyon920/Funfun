@@ -56,6 +56,9 @@ export default {
 
 
 }
+.event-main-title{
+  padding-bottom: 30px;
+}
 
 .event .event-content-list {
   margin: auto;
