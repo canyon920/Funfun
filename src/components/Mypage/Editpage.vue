@@ -24,7 +24,7 @@
                 readonly
             ></v-text-field>
 
-            <div class="saved-phone-div" style="color: rgba(0,0,0,0.7)">
+            <div class="saved-phone-div" style="color: rgba(0,0,0,0.7); border-bottom:0.5px solid rgba(0,0,0,0.7)">
               저장된 번호 : {{savedPhoneNumber}}
             </div>
             <Phone style="width: 100%; margin-bottom: 40px" :bring-hint="'수정을 원하시면 입력해 주세요.'" @birngMethodPhoneIn="phoneInputDataVal"/>
@@ -154,6 +154,7 @@ export default {
         this.address = res.data.city
         this.address2 = res.data.street
         this.postNumber = res.data.zipcode
+        this.countTry=0
       }).catch(error=>{
             this.countTry++
             if (error.response.status===403) {
@@ -229,11 +230,22 @@ export default {
       await axios.post("http://localhost:9090/bring/member/edit/save", submitEditMember, config)
       .then(res=>{
         console.log(res.data)
+        this.countTry=0
+        if (res.data === true) {
+          this.$router.push()
+        }
       })
       .catch(error=>{
         console.log(error)
         // 여기 엑세스 만료시 세션으로 요청 로직 넣어주자@!!!!
-
+        if (error.response.status===403) {
+          this.countTry++
+          if (this.countTry == 1) {
+            reServerSend();
+            this.memberInfoMapping()
+          }
+          console.log("다시 오류인것 확인 로그")
+        }
       })
 
       // this.$router.go(0)
