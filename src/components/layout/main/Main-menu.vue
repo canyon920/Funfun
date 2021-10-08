@@ -120,7 +120,7 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped>
 .category-link {
   text-decoration: none;
   margin: 10px;

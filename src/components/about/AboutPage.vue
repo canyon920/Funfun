@@ -216,7 +216,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 #app {
   display: flex;
   flex-direction:column;

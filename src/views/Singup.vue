@@ -212,16 +212,16 @@ export default {
       var form = new FormData()
       form.append("email", this.email+this.select)
       await axios.post("http://localhost:9090/api/join/email/check",form)
-      .then(res=>{
-        console.log(res)
-        this.errorEmailCheck1 = false
-        this.submitJoin2()
+          .then(res=>{
+            console.log(res)
+            this.errorEmailCheck1 = false
+            this.submitJoin2()
 
-      })
-      .catch(error=>{
-        console.log(error)
-        this.errorEmailCheck1 = true
-      })
+          })
+          .catch(error=>{
+            console.log(error)
+            this.errorEmailCheck1 = true
+          })
     },
 
     // 에러 떠있는게 없는지 체크 조건2

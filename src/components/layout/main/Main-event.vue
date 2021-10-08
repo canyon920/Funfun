@@ -49,7 +49,7 @@ export default {
 
 }
 </script>
-<style>
+<style scoped>
 .event{
   margin-top: 20px;
   margin-bottom: 20px;

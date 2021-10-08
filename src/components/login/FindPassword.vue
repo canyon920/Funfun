@@ -52,7 +52,6 @@
             v-model="prePassword"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show1 ? 'text' : 'password'"
-            name="input-10-1"
             label="Password"
             counter
             @click:append="show1 = !show1"
@@ -66,7 +65,6 @@
             v-model="checkPassword"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show1 ? 'text' : 'password'"
-            name="input-10-1"
             label="Password-Check"
             counter
             @click:append="show1 = !show1"

@@ -2,7 +2,8 @@
   <div class = "first-container">
     <div class = "second">
 
-      <FundingListComponent :bringmainDeadline="Mywish" :bringwishscript="MywishTitle"/>
+      <NormalListComponent :bringProductList="Mywish" :bringscript="MywishTitle"/>
+
 
     </div>
     <div class = "second-bottom">
@@ -14,62 +15,99 @@
 <script>
 
 import Mainevent from '../../components/layout/main/Main-event';
-import FundingListComponent from "@/components/FundingListComponent";
-
+import NormalListComponent from "@/components/NormalListComponent";
 
 
 export default {
   name: 'MywishList',
-  components: {FundingListComponent, Mainevent},
+  components: {NormalListComponent, Mainevent},
   data(){
     return{
       Mywish:[
         {
-          preFundingImgUrl: require("@/assets/example-img/chunsicsub2.png"),
-          fundingTitle:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',fundinging: '진행중',
-          progressBarPercent: 20, fundingname: 'ㅇㅇdsadasd asd as dsa dasdas das',fundingMoney: 1000,
-          expireDate: '2021-11-30',
-          fundingId:1
+          src: require("@/assets/example-img/chunsicthum.png"),
+          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
+          brand: '카카오프렌즈',
+          price: 30000,
+          likeRate: 35,
+          fundingCount: 100,
+          productId:1
         },
         {
-          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
-          fundingTitle:'월급 탄 거 안다 도와주라',fundinging: '진행중', progressBarPercent: 20,
-          fundingname: '코코',fundingMoney: 25000, expireDate: '2021-12-30',
-          fundingId:2
+          src: require("@/assets/example-img/chunsicsub1.png"),
+          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
+          brand: '카카오프렌즈',
+          price: 17000,
+          likeRate: 4,
+          fundingCount: 25,
+          productId:2
         },
         {
-          preFundingImgUrl:require("@/assets/example-img/chunsicsub1.png"),
-          fundingTitle:'"우리 아이"가 정말 갖고 싶어 해요',fundinging: '진행중',
-          progressBarPercent: 50, fundingname: '곽두팔',fundingMoney: 3000,
-          expireDate: '2021-12-03',
-          fundingId:3
+          src: require("@/assets/example-img/chunsicsub2.png"),
+          title:'아직 끝나지 않았당 그러므로 가보자하하',
+          brand: '카카오프렌즈',
+          price: 26000,
+          likeRate: 55,
+          fundingCount: 105,
+          productId:3
         },
         {
-          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
-          fundingTitle:'일단 고마워',fundinging: '진행중',
-          progressBarPercent: 80, fundingname: '두팔',fundingMoney: 30000,
-          expireDate: '2022-01-30',
-          fundingId:4
+          src: require("@/assets/example-img/chunsicsub3.png"),
+          title:'"언텍트시대" 가보자하하',
+          brand: '카카오프렌즈',
+          price: 25600,
+          likeRate: 5,
+          fundingCount: 56,
+          productId:4
         },
         {
-          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
-          fundingTitle:'일단 고마워',fundinging: '진행중',
-          progressBarPercent: 80, fundingname: '두팔',fundingMoney: 30000,
-          expireDate: '2022-01-30',
-          fundingId:5
+          src: require("@/assets/example-img/chunsicsub2.png"),
+          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당',
+          brand: '카카오프렌즈',
+          price: 19000,
+          likeRate: 85,
+          fundingCount: 110,
+          productId:5
         },
         {
-          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
-          fundingTitle:'일단 고마워',fundinging: '진행중',
-          progressBarPercent: 80, fundingname: '두팔',fundingMoney: 30000,
-          expireDate: '2022-01-30',
-          fundingId:6
+          src: require("@/assets/example-img/chunsicsub3.png"),
+          title:'"언텍트시대" 춘식이와 라식이',
+          brand: '카카오프렌즈',
+          price: 300000,
+          likeRate: 200,
+          fundingCount: 10,
+          productId:6
+        },
+        {
+          src: require("@/assets/example-img/chunsicthum.png"),
+          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
+          brand: '카카오프렌즈',
+          price: 350000,
+          likeRate: 0,
+          fundingCount: 0,
+          productId:7
+        },
+        {
+          src: require("@/assets/example-img/chunsicsub1.png"),
+          title:'"언텍트시대"',
+          brand: '카카오프렌즈',
+          price: 20000,
+          likeRate: 1,
+          fundingCount: 5,
+          productId:8
+        },
+        {
+          src: require("@/assets/example-img/chunsicthum.png"),
+          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
+          brand: '카카오프렌즈',
+          price: 50000,
+          likeRate: 35,
+          fundingCount: 1,
+          productId:9
         },
 
       ],
-      MywishTitle:{
-        Title: "내가 찜한 리스트"
-      },
+      MywishTitle:"내가 찜한 리스트",
 
       wishEvent: [
         {

@@ -130,7 +130,10 @@ export default {
 }
 
 </script>
-<style>
+<style scoped>
+span.profile {
+  margin-left: 10px;
+}
 .img-div .profile-img {
   border-radius: 50%;
   height: 70px;

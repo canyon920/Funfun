@@ -48,7 +48,7 @@ export default {
 
 }
 </script>
-<style>
+<style scoped>
 .giboo{
   margin-bottom: 100px;
 

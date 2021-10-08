@@ -72,11 +72,6 @@ const routes = [
 
   },
   {
-    path: '/fundinglist/:memberId',
-    name: 'FundingList',
-    component: FundingList
-  },
-  {
     path: '/friendlist/:memberId',
     name: 'FriendList',
     component: FriendList

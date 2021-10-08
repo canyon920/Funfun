@@ -151,7 +151,7 @@ export default {
 
 }
 </script>
-<style>
+<style scoped>
 .first-container{
   max-width: 1400px;
   flex-direction: column;

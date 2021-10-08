@@ -65,7 +65,23 @@
 
 
       <div class="content-bottom">
-        <div class="funding-button-div">
+
+        <div v-show="completed" class="funding-button-div">
+          <div class="my-2">
+            <v-btn
+                color="error"
+                dark
+                x-large
+                class="giveme-button"
+                style="width: 300px; margin-bottom: 50px"
+                @click="completedFunding"
+            >
+              😘 지급받기
+            </v-btn>
+          </div>
+        </div>
+
+        <div v-show="!completed" class="funding-button-div">
           <div class="my-2">
             <v-btn
                 color="error"
@@ -79,41 +95,18 @@
           </div>
         </div>
         <div class="bottom-button">
-          <div class="button-box like-box" >
-            <!--                    이버튼에 클릭하면 icon 사라지도록                    -->
-            <v-btn
-                color="error"
-                elevation="2"
-                :icon="bringRightInfo.likeIcon"
-                fab
-                large
-                tile
-                class="like-button"
-                @click="$emit('likeChange')"
-            >
-              <div class="like-button-box">
-                <div class="like-love" style="font-size: 25px">
-                  ❤
-                </div>
-                <div class="like-count" style="font-size: 10px">
-                  {{ bringRightInfo.likeCount }}
-                </div>
-              </div>
 
 
-            </v-btn>
 
-          </div>
-
-
-          <div class="button-box funding-box">
+          <div v-show="!completed" class="button-box funding-box">
             <div class="my-2">
               <v-btn
                   color="error"
                   dark
                   x-large
                   @click="dialog2 = true"
-                  class="funding-button"
+                  class="funding-button-confirm"
+                  style="width: 300px"
               >
                 📢 주변에 조르기
              </v-btn>
@@ -194,6 +187,9 @@ export default {
 
   data () {
     return{
+      //펀딩 완료 여부
+      completed: true,
+
       dialog2: false,
       isEditing: false,
       isKakaoUser: false,
@@ -206,6 +202,9 @@ export default {
       let selectUrl = document.getElementById("fundingThisPageUrl")
       selectUrl.select()
       document.execCommand("copy");
+    },
+    completedFunding(){
+      this.$router.push("/choose")
     }
   },
   mounted() {
@@ -282,8 +281,12 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
 }
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .funding-button-confirm {
+
+
+}
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button .button-box {
-  margin: 15px;
+  margin-bottom: 40px;
 }
 
 @media screen and (max-width: 800px){

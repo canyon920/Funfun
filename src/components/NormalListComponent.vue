@@ -14,7 +14,7 @@
         <v-card
             id="v-card-custom"
             class="mx-auto"
-            max-width="200px" >
+            max-width="275px" >
           <img
               id="card-img"
               class="white--text align-end"
@@ -67,12 +67,8 @@ export default {
 
   data() {
     return {
-
       page: 1,
       perPage: 3,
-
-
-
     }
   },
   props: {
@@ -92,6 +88,11 @@ export default {
     visibleCard(){
       return this.bringProductList.slice((this.page - 1)*this.perPage,
                                                 this.page*this.perPage)
+    }
+  },
+  watch:{
+    page(){
+      window.scrollTo({top:0, left:0, behavior:'smooth'})
     }
   }
 
@@ -119,8 +120,8 @@ export default {
   padding: 5px !important;
 }
 #card-img {
-  height: 200px;
-  width: 200px;
+  height: 275px;
+  width: 275px;
 }
 #card-img:hover {
 
@@ -134,11 +135,11 @@ export default {
   margin: 0px 10px;
 }
 #mid-like-div .like-text {
-  font-size: 15px;
+  font-size: 17px;
   color: rgba(0,0,0,.5);
 }
 #mid-like-div .funding-count {
-  font-size: 15px;
+  font-size: 17px;
   color: rgba(0,0,0,.5);
 
 }
@@ -153,10 +154,10 @@ export default {
   padding: 0px;
 }
 #card-brand {
-  font-size: 15px;
+  font-size: 17px;
 }
 #card-price {
-  font-size: 20px;
+  font-size: 22px;
   margin-top: 2px;
 
 }

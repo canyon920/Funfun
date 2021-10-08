@@ -20,7 +20,7 @@
             <v-card
                 id="v-card-custom"
                 class="mx-auto"
-                max-width="300px" >
+                max-width="275px" >
               <img
                   id="card-img"
                   class="white--text align-end"
