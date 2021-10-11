@@ -3,7 +3,7 @@
   <div class="detail-left">
     <div class="thumb-box left-img">
 <!--      <img class="thumb-img" src="../../assets/example-img/chunsicthum.png" alt="#">-->
-      <img class="thumb-img" v-bind:src="bringLeftInfo.prethumbUrl" alt="#">
+      <img class="thumb-img" v-bind:src="bringLeftInfo.prethumbUrl" alt="#" @error="$emit('bringError1')">
     </div>
     <div class="left-box">
       <!--              <div class="box-img" v-for="(subImg, index) in subImgs" :key="index">      -->
@@ -43,7 +43,7 @@ export default {
     },
   },
   emits:[
-      'bringsub01Click', 'bringsub02Click', 'bringsub03Click', 'bringsub04Click'
+      'bringsub01Click', 'bringsub02Click', 'bringsub03Click', 'bringsub04Click', 'bringError1'
   ],
   data(){
     return{
@@ -51,6 +51,21 @@ export default {
     }
   },
   methods:{
+    errorImg1(e) {
+      e.target.src = require("@/assets/example-img/chunsicthum.png")
+    },
+    errorImg2(e) {
+      e.target.src = require("@/assets/example-img/chunsicsub1.png")
+    },
+    errorImg3(e) {
+      e.target.src = require("@/assets/example-img/chunsicsub2.png")
+    },
+    errorImg4(e) {
+      e.target.src = require("@/assets/example-img/chunsicsub3.png")
+    },
+    errorImg5(e) {
+      e.target.src = require("@/assets/example-img/chunsicsub1.png")
+    }
 
   }
 }

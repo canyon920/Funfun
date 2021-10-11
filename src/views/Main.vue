@@ -319,22 +319,13 @@ export default {
       this.loading = false;
       this.searchStart = false;
       this.mainSearch.username = username;
-      //여기에 axios 추가해 this.mainSearch.fundinglist 수정해줘야함
-      // this.mainSearch.fundinglist = [
-      //   {fundingId:1 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
-      //   {fundingId:2 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
-      //   {fundingId:3 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub2.png")},
-      //   {fundingId:4 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub3.png")},
-      //   {fundingId:5 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
-      //   {fundingId:6 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
-      // ]
       axios.get("http://127.0.0.1:9090/mainPage/friend/"+friendId)
       .then(res => {
         let jdata =  JSON.stringify(res.data);
         this.mainSearch.fundinglist = JSON.parse(jdata);
         // console.log("#this.mainSearch.fundinglist",this.mainSearch.fundinglist);
       }).catch(error => {
-        alert("error",error);
+        console.log(error.messages)
       })
 
     },
@@ -394,7 +385,7 @@ export default {
           let jdata =  JSON.stringify(response.data);
           this.friends = JSON.parse(jdata);
         }).catch(error => {
-          alert("에러",error);
+          console.log(error.messages)
         })
       }
 

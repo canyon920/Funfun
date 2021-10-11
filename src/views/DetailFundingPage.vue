@@ -7,7 +7,8 @@
           {{$store.state.member.memberId}}
 
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개     -->
-          <Detail-funding-page-left  :bringLeftInfo="leftInfo"  @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>
+          <Detail-funding-page-left  :bringLeftInfo="leftInfo"  @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"
+                                     @bringError1="errorImg1"/>
 
           <!--          여기 동적 처리   상품 내용 보여줌     -->
           <Detail-funding-page-right :bringRightInfo="rightInfo" @likeChange="likeWork" @payFunding="joinFunding"/>
@@ -64,7 +65,6 @@ export default {
         remainSuccessPercent: 51,
         productPrice: 36900,
         assemblePrice: 21000,
-        //백에서 달성률 20%가 되지않으면 0으로 받기
         joinSupporter: 3,
         progressBarPercent: 50
 
@@ -219,7 +219,16 @@ export default {
         alert("로그인이 필요한 서비스입니다.")
         this.$router.push("/login",Header.methods.isLogin)
       }
-    }
+    },
+    errorImg1() {
+      this.leftInfo.prethumbUrl = require("@/assets/example-img/chunsicthum.png")
+      this.leftInfo.subImg = []
+      this.leftInfo.subImg[0] = require("@/assets/example-img/chunsicsub1.png")
+      this.leftInfo.subImg[1] = require("@/assets/example-img/chunsicsub2.png")
+      this.leftInfo.subImg[2] = require("@/assets/example-img/chunsicsub3.png")
+      this.bodyInfo.premainImgUrl = []
+      this.bodyInfo.premainImgUrl[0] = require("@/assets/example-img/chunsic.png")
+    },
   },
   // 페이지 사라지기전 라이크수 전송
   beforeDestroy() {

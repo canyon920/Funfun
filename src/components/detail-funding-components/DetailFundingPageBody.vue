@@ -30,7 +30,7 @@ export default {
     }
   },
   emits:[
-      'bringmainChangeImg1' , 'bringmainChangeImg2'
+      'bringmainChangeImg1' , 'bringmainChangeImg2' ,
   ],
   data(){
       return{

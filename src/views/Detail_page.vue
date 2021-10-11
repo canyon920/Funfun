@@ -4,7 +4,8 @@
       <div class="content-head">
         <div class="head-detail">
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개        -->
-          <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click" @bringsub04Click="sub04Click"/>
+          <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click" @bringsub04Click="sub04Click"
+                             @bringError1="errorImg1"/>
           <!--          여기 동적 처리   상품 내용 보여줌        -->
           <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo" :class="{active:productView}"/>
           <!--          여기 펀딩 등록 위한 것들 보여줌          -->
@@ -260,12 +261,12 @@ export default {
     },
 
     // bodyMethods
-    mainChangeImg1() {
-      this.bodyInfo.preforchangMainUrl = this.bodyInfo.premainImgUrl
-    },
-    mainChangeImg2() {
-      this.bodyInfo.preforchangMainUrl = this.bodyInfo.predetailImgUrl
-    },
+    // mainChangeImg1() {
+    //   this.bodyInfo.preforchangMainUrl = this.bodyInfo.premainImgUrl
+    // },
+    // mainChangeImg2() {
+    //   this.bodyInfo.preforchangMainUrl = this.bodyInfo.predetailImgUrl
+    // },
 
     // 좋아요 전송 axios ( 좋아요 수 넘어나는 것은 확인 store 에서 토큰꺼내 보내는 작업 필요
     // 생각해보니 수로 넘기면 사용자간 충돌 일어날 수 있으니 tru false로 넘겨서 백에서 true 면은  증가시키는게 좋을듯
@@ -360,7 +361,16 @@ export default {
             console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
             this.$router.push("/login",Header.methods.isLogin)
           })
-    }
+    },
+    errorImg1() {
+      console.log("썸네일에러")
+      this.leftInfo.prethumbUrl = require("@/assets/example-img/chunsicthum.png")
+      this.leftInfo.subImg[0] = require("@/assets/example-img/chunsicsub1.png")
+      this.leftInfo.subImg[1] = require("@/assets/example-img/chunsicsub2.png")
+      this.leftInfo.subImg[2] = require("@/assets/example-img/chunsicsub3.png")
+      this.bodyInfo.premainImgUrl = []
+      this.bodyInfo.premainImgUrl[0] = require("@/assets/example-img/chunsic.png")
+    },
   },
   mounted() {
     this.bringProductDetailInfo()

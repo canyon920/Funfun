@@ -49,11 +49,9 @@
         </div>
 
         <div class="join-support-div" >
-          <div class="support-div" style="font-size: 35px" v-show="bringRightInfo.joinSupporter">
-            {{ bringRightInfo.joinSupporter }} <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
-          </div>
-          <div class="support-div" style="font-size: 35px" v-show="!bringRightInfo.joinSupporter">
-            {{ fundingJoinCount }} <span v-show="fundingJoinCount">?</span> <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
+
+          <div class="support-div" style="font-size: 35px">
+            <span v-show="!fundingJoinCount"></span>{{ bringRightInfo.joinSupporter }} <span v-show="fundingJoinCount">?</span> <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
           </div>
 
 
@@ -192,7 +190,7 @@ export default {
       isKakaoUser: false,
       thisUrl: window.location.href,
 
-      fundingJoinCount:0,
+      fundingJoinCount:false,
     }
   },
   methods:{
@@ -201,6 +199,20 @@ export default {
       let selectUrl = document.getElementById("fundingThisPageUrl")
       selectUrl.select()
       document.execCommand("copy");
+    },
+    isCompletedTrue() {
+      if (this.props.bringRightInfo.remainingPeriod <= 0) {
+        this.completed = true
+      } else {
+        this.completed = false
+      }
+    },
+    isPercent20() {
+      if (this.props.bringRightInfo.progressBarPercent <= 20) {
+        this.fundingJoinCount = true
+      } else {
+        this.fundingJoinCount = false
+      }
     },
     completedFunding(){
       this.$router.push("/choose")
