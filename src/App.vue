@@ -11,7 +11,7 @@
 </template>
 
 <script>
-
+// json 변경전
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
