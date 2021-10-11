@@ -7,12 +7,21 @@
               label="이름"
               outlined
               dense
+              v-model="name"
           ></v-text-field>
           <v-text-field
               label="계좌번호"
               outlined
               dense
           ></v-text-field>
+          <v-btn
+              class="ma-2"
+              outlined
+              style="color:rgb(229 114 0)"
+              @click="backURL"
+          >
+            뒤로가기
+          </v-btn>
           <v-btn
               class="ma-2"
               outlined
@@ -27,6 +36,7 @@
             label="이름"
             outlined
             dense
+            v-model="name"
         ></v-text-field>
 
         <v-text-field
@@ -48,7 +58,7 @@
           ></v-text-field>
 
         </div>
-        <div v-show="checkAddress2" class="error-address2" style="color: red;font-size: 10px">
+        <div v-show="checkAddress2" class="error-address2" style="color: red;font-size: 10px;margin-bottom: 10px">
           상세 주소를 입력해 주세요.
         </div>
         <!--            <div v-show="errorAddress2Check" class="error-text address2-error">-->
@@ -87,6 +97,15 @@
             class="ma-2"
             outlined
             style="color:rgb(229 114 0)"
+            @click="backURL"
+        >
+          뒤로가기
+        </v-btn>
+
+        <v-btn
+            class="ma-2"
+            outlined
+            style="color:rgb(229 114 0)"
         >
           확인
         </v-btn>
@@ -119,6 +138,9 @@
 </template>
 <script>
 import Phone from "@/components/login/Phone";
+import {isLoginMemberCheck} from "@/service/member-login";
+import axios from "axios";
+import {reServerSend} from "@/service/refreshForAccessToken";
 
 
 export default {
@@ -132,6 +154,19 @@ export default {
       givepresent:false,
       showDeInputId:false,
       showModify:false,
+
+      //전화번호
+      submitPhoneNumber: '',
+
+      //이름
+      name:'',
+
+      //주소
+      submitAddress1: '',
+      submitAddress2: '',
+      submitAddress3: '',
+
+      checkAddress2 : false,
     }
   },
   methods:{
@@ -144,8 +179,93 @@ export default {
       this.givepresent = true
       this.showDeInputId=true
       this.showModify = false
+    },
+    backURL() {
+      this.$router.go(0)
+    },
+    phoneInputDataVal(val) {
+      console.log("아래서 받은 폰넘버값 : ",val)
+      this.submitPhoneNumber = val
+      console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
+    },
+    findAddr() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          console.log(data)
+          this.submitAddress1 = data.roadAddress
+          this.submitAddress3 = data.zonecode
+        }
+      }).open()
+    },
+    async deliveryInfoSubmit() {
+      if (this.submitAddress1) {
+        if (!this.submitAddress2) {
+          this.checkAddress2 = true
+          return false
+        }
+      }
+      let checkedPhone = this.savedPhoneNumber
+      let checkedAddress1 = this.address
+      let checkedAddress2 = this.address2
+      let checkedAddress3 = this.address3
+      if (this.submitPhoneNumber) {
+        checkedPhone = this.submitPhoneNumber;
+      }
+      if (this.submitAddress1 && this.submitAddress2) {
+        checkedAddress1 = this.submitAddress1
+        checkedAddress2 = this.submitAddress2
+        checkedAddress3 = this.submitAddress3
+      }
+      console.log(this.submitPhoneNumber);
+      console.log(this.submitAddress1)
+      console.log(this.submitAddress2)
+      console.log(this.submitAddress3)
+      let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers:{
+          'Content-Type': 'application/json',
+          Authorization : `Bearer ${access_token}`,
+        }
+      }
+      const submitEditMember={
+        "member_id": this.memberId,
+        "product_id": this.product_id,
+        "productPaymentStatus" : "CHECKING",
+        "nic_name" : this.name,
+        "phone_number": checkedPhone,
+        "city" : checkedAddress1,
+        "street" : checkedAddress2,
+        "zipcode" : checkedAddress3
+      }
+      await axios.post("http://localhost:9090/bring/member/edit/save", submitEditMember, config)
+          .then(res=>{
+            console.log(res.data)
+            this.countTry=0
+            if (res.data === true) {
+              this.$router.push()
+            }
+          })
+          .catch(error=>{
+            console.log(error)
+            // 여기 엑세스 만료시 세션으로 요청 로직 넣어주자@!!!!
+            if (error.response.status===403) {
+              this.countTry++
+              if (this.countTry == 1) {
+                reServerSend();
+                this.memberInfoMapping()
+              }
+              console.log("다시 오류인것 확인 로그")
+            }
+          })
+
+
+
+
     }
   },
+  mounted() {
+    isLoginMemberCheck()
+  }
 
 
 }
@@ -158,11 +278,18 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
+  align-items: center;
+
+  margin-top: 50px;
+  margin-bottom: 10%;
 }
 .first .second{
 }
+.second-first {
+  width: 600px;
+}
 .second-second {
+  width: 600px;
 }
 .titlename{
   margin-top: 50px;
@@ -196,6 +323,14 @@ export default {
     transform: translateX(-200px);
     opacity: 0;
 
+  }
+}
+@media screen and (max-width: 800px){
+  .second-first {
+    width: 300px;
+  }
+  .second-second {
+    width: 300px;
   }
 }
 </style>

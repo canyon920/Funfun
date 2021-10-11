@@ -4,7 +4,7 @@
 
     <h1 style="margin: 30px 0px; text-align: center">회원정보 설정</h1>
 
-    <div id="app">
+    <div id="app-edit">
 
       <v-app id="inspire">
         <div class="border-div">
@@ -268,6 +268,7 @@ export default {
 
 <style scoped>
 
+
 .error-text {
   color: red;
   font-size: 10px;
@@ -277,6 +278,10 @@ export default {
   max-width:1100px;
   margin:auto;
   margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .div-3 {
   display: flex;

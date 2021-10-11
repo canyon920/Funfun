@@ -116,9 +116,13 @@ export default {
       this.dateFormatted = this.formatDate(this.date)
     },
     finalFundingCount(){
-      let [month1, day1, year1] = this.date1.split('-')
-      let [month2, day2, year2] = this.date2.split('-')
-      let watchDate = (`${year2}${month2}${day2}` - `${year1}${month1}${day1}`)
+      console.log(this.date1)
+      console.log(this.date2)
+      let compateDate1 = new Date(this.date1)
+      let compateDate2 = new Date(this.date2)
+      console.log("확인해야할 day1 : ",compateDate1)
+      console.log("확인해야할 day2 : ",compateDate2)
+      let watchDate = (compateDate2 - compateDate1)
       if (watchDate < 0) {
         this.$emit('bringCheckNot')
       }

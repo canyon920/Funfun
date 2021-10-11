@@ -53,7 +53,7 @@
             {{ bringRightInfo.joinSupporter }} <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
           </div>
           <div class="support-div" style="font-size: 35px" v-show="!bringRightInfo.joinSupporter">
-            ? <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
+            {{ fundingJoinCount }} <span v-show="fundingJoinCount">?</span> <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
           </div>
 
 
@@ -194,6 +194,8 @@ export default {
       isEditing: false,
       isKakaoUser: false,
       thisUrl: window.location.href,
+
+      fundingJoinCount:0,
     }
   },
   methods:{
@@ -205,10 +207,16 @@ export default {
     },
     completedFunding(){
       this.$router.push("/choose")
-    }
+    },
+    // isFundingJoinMemberCount() {
+    //   if (bringRightInfo.remainSuccessPercent >= 20) {
+    //     this.fundingJoinCount =
+    //   }
+    // }
+
   },
   mounted() {
-  }
+  },
 }
 </script>
 
