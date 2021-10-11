@@ -12,7 +12,6 @@
             clearable
             counter
             :rules="setTitle.rules"
-            :value="setTitle.value"
             v-model="setTitle.value"
             auto-grow
             style="font-size: 26px;"
@@ -61,6 +60,7 @@
                   dark
                   x-large
                   class="funding-button"
+                  @click="$emit('payFunding')"
               >
                 🎁펀딩하기
               </v-btn>
@@ -87,7 +87,7 @@ export default {
     },
   },
   emits: [
-    'rightEvent','changeD' , 'likeChange' , 'rightEventBack' , 'registFunding'
+    'rightEvent','changeD' , 'likeChange' , 'rightEventBack' , 'registFunding','payFunding'
   ],
 
   data () {
@@ -99,7 +99,7 @@ export default {
       checkDateStartDay: false,
       //제목
       setTitle:{
-        value: this.bringRightInfo.productTitle,
+        value: '',
       },
 
     //  날짜
@@ -165,6 +165,12 @@ export default {
       this.checkDate = false
       this.checkDateEqual = false
       this.checkDateStartDay = true
+    },
+    setProductName(){
+      let datas = JSON.parse(sessionStorage.getItem("product_detail"));
+      console.log("실행된 값",datas)
+      console.log(datas.productName)
+      this.setTitle.value = datas.productName
     }
 
   },
@@ -204,8 +210,10 @@ export default {
 
   },
   mounted() {
+    this.setProductName()
+  },
 
-  }
+
 }
 </script>
 

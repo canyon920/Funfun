@@ -3,7 +3,7 @@
   <div class="detail-left">
     <div class="thumb-box left-img">
 <!--      <img class="thumb-img" src="../../assets/example-img/chunsicthum.png" alt="#">-->
-      <img class="thumb-img" v-bind:src="bringLeftInfo.imgUrlList[0]" alt="#">
+      <img class="thumb-img" v-bind:src="bringLeftInfo.prethumbUrl" alt="#">
     </div>
     <div class="left-box">
       <!--              <div class="box-img" v-for="(subImg, index) in subImgs" :key="index">      -->
@@ -26,7 +26,7 @@
         </div>
         <div v-show="bringLeftInfo.subImg[3]" class="sub-box box-img-four">
           <!--          <img class="sub-img" src="../../assets/example-img/chunsicsub3.png" alt="#">-->
-          <img class="sub-img" :src="bringLeftInfo.subImg[3]" @click="$emit('bringsub03Click')" alt="#">
+          <img class="sub-img" :src="bringLeftInfo.subImg[3]" @click="$emit('bringsub04Click')" alt="#">
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@ export default {
     },
   },
   emits:[
-      'bringsub01Click', 'bringsub02Click', 'bringsub03Click'
+      'bringsub01Click', 'bringsub02Click', 'bringsub03Click', 'bringsub04Click'
   ],
   data(){
     return{

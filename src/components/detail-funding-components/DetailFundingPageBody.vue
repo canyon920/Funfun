@@ -10,7 +10,10 @@
       </div>
       <!--          여기 동적 처리          -->
       <div class="detail-img">
-        <img class="img-main" v-bind:src="bringBodyInfo.preforchangMainUrl" alt="#">
+        <img v-show="bringBodyInfo.premainImgUrl.length === 1" class="img-main" v-bind:src="bringBodyInfo.premainImgUrl[0]" alt="#">
+        <!--        <div v-show="bringBodyInfo.premainImgUrl.length !== 1" v-for="(main, mkey) in bringBodyInfo" class="img-main" :key="mkey">-->
+        <img v-show="bringBodyInfo.premainImgUrl.length !== 1" class="img-main" v-bind:src="main" v-for="(main, mkey) in bringBodyInfo.premainImgUrl" :key="mkey">
+        <!--        </div>-->
       </div>
 
     </div>

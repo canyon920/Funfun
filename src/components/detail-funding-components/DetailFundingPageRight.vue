@@ -65,7 +65,6 @@
 
 
       <div class="content-bottom">
-
         <div v-show="completed" class="funding-button-div">
           <div class="my-2">
             <v-btn
@@ -80,7 +79,6 @@
             </v-btn>
           </div>
         </div>
-
         <div v-show="!completed" class="funding-button-div">
           <div class="my-2">
             <v-btn
@@ -89,14 +87,13 @@
                 x-large
                 class="giveme-button"
                 style="width: 300px"
+                @click="$emit('payFunding')"
             >
               😍 참여하기
             </v-btn>
           </div>
         </div>
         <div class="bottom-button">
-
-
 
           <div v-show="!completed" class="button-box funding-box">
             <div class="my-2">
@@ -130,7 +127,7 @@
           <v-btn
               color="rgb(229, 114, 0)"
               dark
-              @click="dialog3 = !dialog3"
+              @click="share"
               v-show="isKakaoUser"
           >
             카카오톡 공유하기
@@ -182,7 +179,7 @@ export default {
     }
   },
   emits: [
-    'likeChange'
+    'likeChange','payFunding'
   ],
 
   data () {
@@ -213,9 +210,57 @@ export default {
     //     this.fundingJoinCount =
     //   }
     // }
+    checkKakao(){
+      let mdata = JSON.parse(localStorage.getItem("login_member"))
+      // console.log("member",mdata)
+      if(mdata.memberApi == "Kakao"){
+        // console.log("카카오로그인이다")
+        this.isKakaoUser = true
+      }
+    },
+    share(){
+      let fdata = JSON.parse(sessionStorage.getItem("funding_detail"))
+      console.log("fdata",fdata)
+      var list = fdata.fundingImg
+      for(var key in list){
+        if(list[key].includes('thumb')){
+          var imgUrl = list[key]
+          console.log(imgUrl)
+        }
+      }
 
+      window.Kakao.Link.sendDefault({
+
+        objectType: 'feed',
+        content: {
+          title: fdata.fundingName,
+          description: '목표금액 '+fdata.fundingTargetMoney+' '+(fdata.fundingBetweenTime+1)+'일 남았습니다',
+          imageUrl: 'https://funfunbucket.s3.ap-northeast-2.amazonaws.com/finfinbucket-static/product/111/thumbnail1.jpg',
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
+        },
+        /*social: {
+          likeCount: 286,
+          subscriberCount:fdata.fundingPeopleCount,
+          sharedCount: 845,
+        },*/
+        buttons: [
+          {
+            title: '웹으로 보기',
+            link: {
+              mobileWebUrl: window.location.href,
+              webUrl: window.location.href,
+            },
+          },
+
+        ],
+      })
+    }
   },
   mounted() {
+    this.checkKakao()
   },
 }
 </script>
