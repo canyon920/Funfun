@@ -109,13 +109,6 @@ export default {
 
             this.leftInfo.subImg = []
 
-            /* this.rightInfo.productTitle = res.data.product_name
-             this.rightInfo.productId =res.data.product_id
-             this.rightInfo.productBrand = res.data.product_brand
-             this.rightInfo.productPrice = res.data.product_price
-             this.rightInfo.fundingCount = res.data.funding_count
-             this.rightInfo.beforeLikeCount = res.data.product_like_count*/
-
             productObj.productId = res.data.product_id
             productObj.productName = res.data.product_name
             productObj.productBrand = res.data.product_brand
@@ -149,7 +142,7 @@ export default {
       let mdata = JSON.parse(localStorage.getItem("login_member"));
       // console.log("mdata",mdata)
       var likelist = datas.productLikeList
-      // console.log("likelist",likelist)
+      console.log("likelist",likelist)
 
       for(var key in likelist){
         if(likelist[key].includes(mdata.memberEmail)){
@@ -157,8 +150,22 @@ export default {
           this.rightInfo.likeIcon = true
         }
       }
+    },
+    handleLike2(){
+      let datas = JSON.parse(sessionStorage.getItem("product_detail"));
+      // console.log("datas",datas)
+      let mdata = JSON.parse(localStorage.getItem("login_member"));
+      // console.log("mdata",mdata)
+      var likelist = datas.productLikeList
+      console.log("likelist",likelist)
 
-
+      for(var key in likelist){
+        if(likelist[key].includes(mdata.memberEmail)){
+          var index = likelist.indexOf(mdata.memberEmail);
+          likelist.splice(index, 1);
+          this.rightInfo.likeIcon = false
+        }
+      }
     },
     postDetail(){
       let datas = JSON.parse(sessionStorage.getItem("product_detail"));
@@ -265,13 +272,44 @@ export default {
     async transmitLike() {
       if (this.rightInfo.beforeLikeCount < this.rightInfo.likeCount) {
         console.log("라이크 수 : ", this.rightInfo.likeCount, typeof this.rightInfo.likeCount);
+        this.rightInfo.likeIcon = true
+        console.log("true",this.rightInfo.likeIcon)
+
+      }else if(this.rightInfo.beforeLikeCount > this.rightInfo.likeCount){
+        console.log("라이크 수 : ", this.rightInfo.likeCount, typeof this.rightInfo.likeCount);
+        this.rightInfo.likeIcon = false
+        console.log("false",this.rightInfo.likeIcon)
+        this.handleLike2()
+      }
+      let access_token = window.sessionStorage.getItem('access_token')
+        let config = {
+          headers:{
+            'Content-Type': 'application/json',
+            Authorization : `Bearer ${access_token}`,
+          }
+        }
+        const datas = JSON.parse(sessionStorage.getItem("product_detail"));
+        const mdata = JSON.parse(localStorage.getItem("login_member"));
+        let productIdFromStorage = datas.productId
+        let memberIdFromStorage = mdata.memberId
+
         let form = new FormData()
-        form.append("like_up", true)
-        await axios.post("http://localhost:9090/product/like/update", form)
+
+        form.append("like_up", this.rightInfo.likeIcon)
+        form.append("member_id",memberIdFromStorage)
+        form.append("product_id",productIdFromStorage)
+
+      await axios.post("http://localhost:9090/product/like/update",form,config)
             .then(res => {
               console.log(res)
+            }).catch(e =>{
+              console.log("s",e.response.status)
+              console.log("e",e.response)
+              if (e.response.status===403) {
+                reServerSend();
+                this.transmitLike();
+              }
             })
-      }
     },
 
     // 펀딩하기 누르면 전송될 값들 axios <!-- 상품 id(상위 컴포넌트서 받아야함) , 멤버 id(store 에서 꺼내자) , 제목 , 시작일 , 만료일 , 목표금액 , 펀딩타입(이거는 컨트롤러서?) 넘기자 -->
@@ -302,7 +340,7 @@ export default {
         "funding_target_money": this.rightInfo.productPrice,
         "funding_type":"FUNDING",
         "funding_collected_money":0
-      }
+      };
       // form.append("fundingDataForRegist",`${this.transeDataForFunding}`)
       // form.append("fundingDataForRegist",JSON.stringify(this.transeDataForFunding))
 
@@ -318,9 +356,9 @@ export default {
             if (error.response.status===403) {
                 reServerSend();
                 this.transmitFundingRegist(data)
-                console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
-                this.$router.push("/login",Header.methods.isLogin)
             }
+            console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
+            this.$router.push("/login",Header.methods.isLogin)
           })
     }
   },

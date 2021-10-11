@@ -10,7 +10,7 @@
           <Detail-funding-page-left  :bringLeftInfo="leftInfo"  @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>
 
           <!--          여기 동적 처리   상품 내용 보여줌     -->
-          <Detail-funding-page-right :bringRightInfo="rightInfo" @likeChange="likeWork"/>
+          <Detail-funding-page-right :bringRightInfo="rightInfo" @likeChange="likeWork" @payFunding="joinFunding"/>
 
         </div>
       </div>
@@ -33,6 +33,10 @@ import DetailFundingPageLeft from "@/components/detail-funding-components/Detail
 import DetailFundingPageRight from "@/components/detail-funding-components/DetailFundingPageRight";
 import DetailFundingPageBody from "@/components/detail-funding-components/DetailFundingPageBody";
 import axios from "axios";
+import {fundingObj} from "../service/FundingObj";
+import Header from "../components/layout/Header";
+// import {reServerSend} from "../service/refreshForAccessToken";
+// import Header from "../components/layout/Header";
 
 export default {
   name: "DetailFundingPage",
@@ -43,9 +47,11 @@ export default {
       leftInfo:{
         preforchangUrl:'',
         prethumbUrl:require("@/assets/example-img/chunsicthum.png"),
-        presubUrl01:require("@/assets/example-img/chunsicsub1.png"),
-        presubUrl02:require("@/assets/example-img/chunsicsub2.png"),
-        presubUrl03:require("@/assets/example-img/chunsicsub3.png"),
+        subImg:[
+          require("@/assets/example-img/chunsicsub1.png"),
+          require("@/assets/example-img/chunsicsub2.png"),
+          require("@/assets/example-img/chunsicsub3.png")
+        ],
       },
 
       rightInfo: {
@@ -60,14 +66,13 @@ export default {
         assemblePrice: 21000,
         //백에서 달성률 20%가 되지않으면 0으로 받기
         joinSupporter: 3,
-        progressBarPercent: 30
+        progressBarPercent: 50
 
       },
 
       bodyInfo:{
         preforchangMainUrl:"",
-        premainImgUrl: require("@/assets/example-img/chunsic.png"),
-        predetailImgUrl:require("@/assets/example-img/chunsicdetail.png")
+        premainImgUrl: [require("@/assets/example-img/chunsic.png")],
       },
 
     }
@@ -77,18 +82,23 @@ export default {
     // leftMethods
     sub01Click() {
       this.leftInfo.preforchangUrl = this.leftInfo.prethumbUrl
-      this.leftInfo.prethumbUrl = this.leftInfo.presubUrl01
-      this.leftInfo.presubUrl01 = this.leftInfo.preforchangUrl
+      this.leftInfo.prethumbUrl = this.leftInfo.subImg[0]
+      this.leftInfo.subImg[0] = this.leftInfo.preforchangUrl
     },
     sub02Click() {
       this.leftInfo.preforchangUrl = this.leftInfo.prethumbUrl
-      this.leftInfo.prethumbUrl = this.leftInfo.presubUrl02
-      this.leftInfo.presubUrl02 = this.leftInfo.preforchangUrl
+      this.leftInfo.prethumbUrl = this.leftInfo.subImg[1]
+      this.leftInfo.subImg[1] = this.leftInfo.preforchangUrl
     },
     sub03Click() {
       this.leftInfo.preforchangUrl = this.leftInfo.prethumbUrl
-      this.leftInfo.prethumbUrl = this.leftInfo.presubUrl03
-      this.leftInfo.presubUrl03 = this.leftInfo.preforchangUrl
+      this.leftInfo.prethumbUrl = this.leftInfo.subImg[2]
+      this.leftInfo.subImg[2] = this.leftInfo.preforchangUrl
+    },
+    sub04Click() {
+      this.leftInfo.preforchangUrl = this.leftInfo.prethumbUrl
+      this.leftInfo.prethumbUrl = this.leftInfo.subImg[3]
+      this.leftInfo.subImg[3] = this.leftInfo.preforchangUrl
     },
 
     // bodyMethods
@@ -101,7 +111,7 @@ export default {
 
     // 좋아요 전송 axios ( 좋아요 수 넘어나는 것은 확인 store 에서 토큰꺼내 보내는 작업 필요
     // 생각해보니 수로 넘기면 사용자간 충돌 일어날 수 있으니 tru false로 넘겨서 백에서 true 면은  증가시키는게 좋을듯
-    async transmitLike() {
+    /*async transmitLike() {
       if (this.rightInfo.beforeLikeCount < this.rightInfo.likeCount) {
         console.log("라이크 수 : ", this.rightInfo.likeCount, typeof this.rightInfo.likeCount);
         let form = new FormData()
@@ -111,7 +121,85 @@ export default {
               console.log(res)
             })
       }
+    },*/
+    async bringFundingDetail(){
+      var bringRouteFundingId = this.$route.params.fundingId
+      console.log("bringRouteFundingId",bringRouteFundingId)
+      let form = new FormData();
+      form.append('funding_id',bringRouteFundingId)
+      /*let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers:{
+          Authorization : `Bearer ${access_token}`
+        }
+      }*/
+      await axios.post("http://localhost:9090/funding/fundingDetail",form)
+      .then(res =>{
+        this.leftInfo.subImg=[]
+
+        fundingObj.fundingId=res.data.funding_id
+        fundingObj.fundingName = res.data.funding_title
+        fundingObj.fundingCreateTime = res.data.funding_create_time
+        fundingObj.fundingExpiredTime = res.data.funding_expired_time
+        fundingObj.fundingTargetMoney = res.data.funding_target_money
+        fundingObj.fundingImg = res.data.fundingImg
+        fundingObj.memberId = res.data.member_id
+        fundingObj.productId = res.data.product_id
+        fundingObj.fundingCollectedMoney = res.data.funding_collected_money
+        fundingObj.fundingPeopleCount = res.data.funding_people_count
+        fundingObj.fundingProductBrand = res.data.funding_product_brand
+        fundingObj.fundingBetweenTime = res.data.funding_beetweenTime
+        fundingObj.fundingIsStart = res.data.funding_isStart
+        fundingObj.fundingBeforeStartDays = res.data.funding_beforeStartDays
+
+        let funding_detail = JSON.stringify(fundingObj)
+        console.log("#res1",res)
+        window.sessionStorage.setItem('funding_detail',funding_detail)
+
+        this.postFunding()
+      }).catch(e=> {
+        console.log("에러에러",e)
+        console.log("에러에러",e.response)
+        // reServerSend()
+
+      })
+
     },
+    postFunding(){
+      let data = JSON.parse(sessionStorage.getItem("funding_detail"));
+      console.log("data",data)
+
+      this.rightInfo.productTitle = data.fundingName
+      this.rightInfo.joinSupporter = data.fundingPeopleCount
+      this.rightInfo.remainSuccessPercent =((data.fundingCollectedMoney /data.fundingTargetMoney ) *100)
+      this.rightInfo.productPrice = data.fundingTargetMoney
+      this.rightInfo.assemblePrice = data.fundingCollectedMoney
+      this.rightInfo.progressBarPercent = ((data.fundingCollectedMoney /data.fundingTargetMoney ) *100)
+      this.rightInfo.productBrand = data.fundingProductBrand
+      this.rightInfo.remainingPeriod = data.fundingBetweenTime+1
+
+      var list = data.fundingImg
+      // console.log("flist:",list)
+      this.leftInfo.subImg=[]
+      this.bodyInfo.premainImgUrl=[]
+
+      for(var key in list){
+        // console.log(`${key} : ${list[key]}`)
+        if(list[key].includes('sub')){
+          // console.log("sub",list[key])
+          this.leftInfo.subImg.push(list[key])
+          delete this.leftInfo.subImg[0]
+        } else if (list[key].includes('thumb')) {
+          this.leftInfo.prethumbUrl = list[key]
+        }  else if (list[key].includes('main')) {
+          this.bodyInfo.premainImgUrl.push(list[key])
+        }
+      }
+      /*if(data.fundingIsStart == false){
+        alert(data.fundingBeforeStartDays+1+"일 후에 펀딩이 시작됩니다")
+      }*/
+    },
+
     likeWork() {
       if (this.rightInfo.likeIcon == false) {
         this.rightInfo.likeCount++
@@ -121,10 +209,24 @@ export default {
         this.rightInfo.likeIcon = false
       }
     },
+    joinFunding(){
+      let data = JSON.parse(sessionStorage.getItem("funding_detail"));
+      if(data.fundingIsStart == false){
+        alert(data.fundingBeforeStartDays+1+"일 후에 펀딩이 시작됩니다")
+      }
+      let mdata = JSON.parse(localStorage.getItem('login_member'));
+      if(mdata == null){
+        alert("로그인이 필요한 서비스입니다.")
+        this.$router.push("/login",Header.methods.isLogin)
+      }
+    }
   },
   // 페이지 사라지기전 라이크수 전송
   beforeDestroy() {
-    this.transmitLike()
+    // this.transmitLike()
+  },
+  mounted() {
+    this.bringFundingDetail()
   }
 }
 </script>

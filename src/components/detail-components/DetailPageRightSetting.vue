@@ -60,6 +60,7 @@
                   dark
                   x-large
                   class="funding-button"
+                  @click="$emit('payFunding')"
               >
                 🎁펀딩하기
               </v-btn>
@@ -86,7 +87,7 @@ export default {
     },
   },
   emits: [
-    'rightEvent','changeD' , 'likeChange' , 'rightEventBack' , 'registFunding'
+    'rightEvent','changeD' , 'likeChange' , 'rightEventBack' , 'registFunding','payFunding'
   ],
 
   data () {
@@ -164,6 +165,12 @@ export default {
       this.checkDate = false
       this.checkDateEqual = false
       this.checkDateStartDay = true
+    },
+    setProductName(){
+      let datas = JSON.parse(sessionStorage.getItem("product_detail"));
+      console.log("실행된 값",datas)
+      console.log(datas.productName)
+      this.setTitle.value = datas.productName
     }
 
   },
@@ -203,10 +210,7 @@ export default {
 
   },
   mounted() {
-    let datas = JSON.parse(sessionStorage.getItem("product_detail"));
-    console.log("실행된 값",datas)
-    console.log(datas.productName)
-    this.setTitle.value = datas.productName
+    this.setProductName()
   },
 
 

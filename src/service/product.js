@@ -8,4 +8,6 @@ export var productObj={
     productImg:[],
     productCategory:'',
     productLikeList:[],
+
+
 }
