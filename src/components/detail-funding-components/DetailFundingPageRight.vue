@@ -51,7 +51,7 @@
         <div class="join-support-div" >
 
           <div class="support-div" style="font-size: 35px">
-            <span v-show="!fundingJoinCount"></span>{{ bringRightInfo.joinSupporter }} <span v-show="fundingJoinCount">?</span> <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
+            <span v-show="!fundingJoinCount">{{ bringRightInfo.joinSupporter }}</span> <span v-show="fundingJoinCount">?</span> <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
           </div>
 
 
@@ -184,13 +184,15 @@ export default {
     return{
       //펀딩 완료 여부
       completed: true,
+      //
+      fundingJoinCount:false,
 
       dialog2: false,
       isEditing: false,
       isKakaoUser: false,
       thisUrl: window.location.href,
 
-      fundingJoinCount:false,
+
     }
   },
   methods:{
@@ -201,14 +203,16 @@ export default {
       document.execCommand("copy");
     },
     isCompletedTrue() {
-      if (this.props.bringRightInfo.remainingPeriod <= 0) {
+      if (this.bringRightInfo.remainingPeriod <= 0) {
+        console.log("콘솔은 찍힌다.1")
         this.completed = true
       } else {
         this.completed = false
       }
     },
     isPercent20() {
-      if (this.props.bringRightInfo.progressBarPercent <= 20) {
+      if (this.bringRightInfo.progressBarPercent <= 20) {
+        console.log("콘솔은 찍힌다.2")
         this.fundingJoinCount = true
       } else {
         this.fundingJoinCount = false
@@ -224,10 +228,15 @@ export default {
     // }
     checkKakao(){
       let mdata = JSON.parse(localStorage.getItem("login_member"))
-      // console.log("member",mdata)
-      if(mdata.memberApi == "Kakao"){
-        // console.log("카카오로그인이다")
-        this.isKakaoUser = true
+      if (mdata === null) {
+        return false;
+      } else{
+        if (mdata.memberApi == "Kakao") {
+          // console.log("카카오로그인이다")
+          this.isKakaoUser = true;
+        } else {
+          return false;
+        }
       }
     },
     share(){
@@ -272,7 +281,12 @@ export default {
     }
   },
   mounted() {
+    console.log("콘솔은 찍힌다.3")
     this.checkKakao()
+    console.log("콘솔은 찍힌다.4")
+    this.isCompletedTrue()
+    console.log("콘솔은 찍힌다.5")
+    this.isPercent20()
   },
 }
 </script>

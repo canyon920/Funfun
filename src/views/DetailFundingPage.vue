@@ -66,7 +66,7 @@ export default {
         productPrice: 36900,
         assemblePrice: 21000,
         joinSupporter: 3,
-        progressBarPercent: 50
+        progressBarPercent: 10
 
       },
 
