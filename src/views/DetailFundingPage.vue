@@ -210,16 +210,23 @@ export default {
       }
     },
     joinFunding(){
-      let data = JSON.parse(sessionStorage.getItem("funding_detail"));
-      if(data.fundingIsStart == false){
-        alert(data.fundingBeforeStartDays+1+"일 후에 펀딩이 시작됩니다")
-      }
       let mdata = JSON.parse(localStorage.getItem('login_member'));
       if(mdata == null){
         alert("로그인이 필요한 서비스입니다.")
         this.$router.push("/login",Header.methods.isLogin)
+      }else{
+        this.checkIfStartFunding()
       }
-    }
+    },
+    checkIfStartFunding(){
+      let data = JSON.parse(sessionStorage.getItem("funding_detail"));
+      if(data.fundingIsStart == false){
+        alert(data.fundingBeforeStartDays+1+"일 후에 펀딩이 시작됩니다")
+      }else{
+        this.$router.push({name: 'FundingPayment', params:{fundingId: data.fundingId}})
+      }
+    },
+
   },
   // 페이지 사라지기전 라이크수 전송
   beforeDestroy() {

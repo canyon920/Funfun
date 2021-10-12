@@ -63,6 +63,7 @@
                   dark
                   x-large
                   class="giveme-button"
+                  @click="$emit('presentMyself')"
               >
                 나에게 선물하기
               </v-btn>
@@ -103,7 +104,7 @@ export default {
     }
   },
   emits: [
-    'rightEvent','changeD' , 'likeChange'
+    'rightEvent','changeD' , 'likeChange', 'presentMyself'
   ],
 
   data () {

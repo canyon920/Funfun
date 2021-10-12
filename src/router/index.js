@@ -73,6 +73,8 @@ const routes = [
 
     component: Detail_page
   },
+
+
   // //  라우터 쿼리 / 파람 예시
   // {
   //   path: '/detail-page',
