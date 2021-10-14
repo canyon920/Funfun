@@ -7,8 +7,7 @@
           {{$store.state.member.memberId}}
 
           <!--          여기 썸네일과 서브 이미지 넘겨줘야함 총 4개     -->
-          <Detail-funding-page-left  :bringLeftInfo="leftInfo"  @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"
-                                     @bringError1="errorImg1"/>
+          <Detail-funding-page-left  :bringLeftInfo="leftInfo"  @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click"/>
 
           <!--          여기 동적 처리   상품 내용 보여줌     -->
           <Detail-funding-page-right :bringRightInfo="rightInfo" @likeChange="likeWork" @payFunding="joinFunding"/>
@@ -210,25 +209,23 @@ export default {
       }
     },
     joinFunding(){
-      let data = JSON.parse(sessionStorage.getItem("funding_detail"));
-      if(data.fundingIsStart == false){
-        alert(data.fundingBeforeStartDays+1+"일 후에 펀딩이 시작됩니다")
-      }
       let mdata = JSON.parse(localStorage.getItem('login_member'));
       if(mdata == null){
         alert("로그인이 필요한 서비스입니다.")
         this.$router.push("/login",Header.methods.isLogin)
+      }else{
+        this.checkIfStartFunding()
       }
     },
-    errorImg1() {
-      this.leftInfo.prethumbUrl = require("@/assets/example-img/chunsicthum.png")
-      this.leftInfo.subImg = []
-      this.leftInfo.subImg[0] = require("@/assets/example-img/chunsicsub1.png")
-      this.leftInfo.subImg[1] = require("@/assets/example-img/chunsicsub2.png")
-      this.leftInfo.subImg[2] = require("@/assets/example-img/chunsicsub3.png")
-      this.bodyInfo.premainImgUrl = []
-      this.bodyInfo.premainImgUrl[0] = require("@/assets/example-img/chunsic.png")
+    checkIfStartFunding(){
+      let data = JSON.parse(sessionStorage.getItem("funding_detail"));
+      if(data.fundingIsStart == false){
+        alert(data.fundingBeforeStartDays+1+"일 후에 펀딩이 시작됩니다")
+      }else{
+        this.$router.push({name: 'FundingPayment', params:{fundingId: data.fundingId}})
+      }
     },
+
   },
   // 페이지 사라지기전 라이크수 전송
   beforeDestroy() {
