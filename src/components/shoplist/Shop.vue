@@ -111,17 +111,11 @@ export default {
     return {
 
       loading:false,
-      normal:true,
-      search:false,
 
       items1: ['인기순', '추천순', '높은가격순', '낮은가격순'],
       selected1 : '인기순',
       items2: ['1만원대 이상', '2만원대 이상', '5만원대 이상', '10만원대 이상'],
       selected2 : '가격대',
-      it1: ['인기순', '추천순', '높은가격순', '낮은가격순'],
-      se1 : '인기순',
-      it2: ['1만원대 이상', '2만원대 이상', '5만원대 이상', '10만원대 이상'],
-      se2 : '가격대',
 
       SearchName:'',
 
