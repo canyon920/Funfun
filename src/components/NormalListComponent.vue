@@ -22,7 +22,7 @@
 
           <v-card-title id="v-card-title-custom">{{ product.title}}</v-card-title>
 
-          <div v-if="product.likeRate" id="mid-like-div">
+          <div id="mid-like-div">
             <div class="like-text">
               좋아요: {{product.likeRate}}
             </div>
@@ -54,7 +54,7 @@
 
   <v-pagination
       v-model="page"
-      :length="Math.ceil( bringProductList.length/perPage)"
+      :length="computedMaxPage"
       style="margin-top: 50px"
   ></v-pagination>
   </div>
@@ -72,6 +72,9 @@ export default {
     }
   },
   props: {
+    bringPagenation:{
+      type: Object
+    },
 
     bringProductList: {
       type: Array,
@@ -88,11 +91,17 @@ export default {
     visibleCard(){
       return this.bringProductList.slice((this.page - 1)*this.perPage,
                                                 this.page*this.perPage)
+    },
+    computedMaxPage() {
+      return Math.ceil( this.bringProductList.length/this.perPage)
     }
   },
   watch:{
     page(){
       window.scrollTo({top:0, left:0, behavior:'smooth'})
+    },
+    computedMaxPage() {
+      this.page = 1
     }
   }
 

@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from "@/views/Main";
-import Home from "@/views/Home";
-import About from "@/views/About";
 import Singup from "@/views/Singup";
 import AboutPage from "@/components/about/AboutPage";
 import Login from "@/views/Login";
@@ -41,19 +39,9 @@ const routes = [
     component: Main
   },
   {
-    path: '/home',
-    name: 'Home',
-    component: Home
-  },
-  {
     path: '/aboutpage',
     name: 'AboutPage',
     component: AboutPage
-  },
-  {
-    path: '/menu',
-    name: 'about',
-    component: About
   },
   {
     path: '/join',

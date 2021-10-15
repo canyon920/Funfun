@@ -3,7 +3,7 @@
   <div class="detail-left">
     <div class="thumb-box left-img">
 <!--      <img class="thumb-img" src="../../assets/example-img/chunsicthum.png" alt="#">-->
-      <img class="thumb-img" v-bind:src="bringLeftInfo.prethumbUrl" alt="#" @error="$emit('bringError1')">
+      <img class="thumb-img" v-bind:src="bringLeftInfo.prethumbUrl" alt="#">
     </div>
     <div class="left-box">
       <!--              <div class="box-img" v-for="(subImg, index) in subImgs" :key="index">      -->

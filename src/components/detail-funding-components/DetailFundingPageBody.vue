@@ -4,7 +4,7 @@
     <div class="body-detail">
       <div class="detail-menu">
         <div class="menu-main">
-          <div class="main-box menu-first" @click="$emit('bringmainChangeImg1')">상품설명</div>
+          <div class="main-box menu-first">상품설명</div>
 <!--          <div class="main-box menu-second" @click="$emit('bringmainChangeImg2')">상세정보</div>-->
         </div>
       </div>
@@ -30,7 +30,6 @@ export default {
     }
   },
   emits:[
-      'bringmainChangeImg1' , 'bringmainChangeImg2' ,
   ],
   data(){
       return{
@@ -41,7 +40,6 @@ export default {
 
   },
   mounted() {
-    this.$emit('bringmainChangeImg1')
   }
 }
 </script>

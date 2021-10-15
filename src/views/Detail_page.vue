@@ -13,7 +13,7 @@
         </div>
       </div>
       <!--      여기 동적 처리 바디 이미지 바디 상세이미지 넘겨줘야함      -->
-      <Detail-page-body :bringBodyInfo="bodyInfo" @bringmainChangeImg1="mainChangeImg1" @bringmainChangeImg2="mainChangeImg2"/>
+      <Detail-page-body :bringBodyInfo="bodyInfo"/>
     </div>
   </div>
 </template>

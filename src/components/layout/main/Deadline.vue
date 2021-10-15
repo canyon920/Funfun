@@ -1,7 +1,7 @@
 <template>
   <div class = "deadline">
 
-    <carousel id="shop-carousel" :autoplay="true" :nav="false" :responsive="{
+    <carousel id="shop-carousel" :autoplay="bringOuto" :nav="false" :responsive="{
               1024:{
                 items:3,
               },
@@ -78,6 +78,9 @@ export default {
   props: {
     bringmainDeadline : {
       type: Array
+    },
+    bringOuto:{
+      type:Boolean
     }
   },
   emits:[

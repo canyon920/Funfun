@@ -69,12 +69,13 @@
                 nav
                 v-show="searchStart"
                 :class="{active: searchStart, deactive: !searchStart}"
+                style="max-height: 300px; overflow-y: scroll"
             >
               <v-list-item
                   v-for="item in friends"
                   :key="item.friendId"
                   link
-                  @click="searchFriendSelect(item.username,item.friendId)"
+                  @click="searchFriendSelect(item.username,item.memberid)"
               >
                 <v-list-item-icon>
                   <img :src="item.profileImg" style="border-radius: 20%; width: 25px; height: 25px">
@@ -82,6 +83,7 @@
 
                 <v-list-item-content>
                   <v-list-item-title>{{ item.username }}</v-list-item-title>
+                  <v-list-item-title>{{ item.email }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -119,7 +121,7 @@
           <div class="fonttext">
             <h2>마감예정인 펀딩</h2>
           </div>
-          <Deadline :bringmainDeadline="mainDeadline" />
+          <Deadline :bringmainDeadline="mainDeadline"  :bringOuto="true"/>
         </div>
 
         <v-divider
@@ -130,7 +132,7 @@
           <div class="textline">
             <h2>내가 참여한 선물</h2>
           </div>
-          <Deadline :bringmainDeadline="mainJoin" />
+          <Deadline :bringmainDeadline="mainJoin" :bringOuto="false" />
         </div>
         </div>
 
@@ -155,6 +157,8 @@ import Gibooline from '../components/layout/main/Gibooline'
 import Mainmenu from '../components/layout/main/Main-menu'
 import Mainevent from '../components/layout/main/Main-event'
 import MainSearch from "../components/layout/main/Main-search";
+import {reServerSend} from "@/service/refreshForAccessToken";
+import {getHeaders} from "@/service/header";
 import axios from "axios";
 export default {
   name: 'Main',
@@ -166,6 +170,8 @@ export default {
 
   data () {
     return {
+      countTry:0,
+
       memberObj : {
         memberId : '',
         memberEmail : '',
@@ -212,7 +218,7 @@ export default {
       // null,
           {
             username:"",
-            friendId: -1,
+            friendId: 0,
             fundinglist:[
               ],
           },
@@ -315,11 +321,11 @@ export default {
     }
   },
   methods: {
-    searchFriendSelect(username, friendId) {
+    searchFriendSelect(username, memberid) {
       this.loading = false;
       this.searchStart = false;
       this.mainSearch.username = username;
-      axios.get("http://127.0.0.1:9090/mainPage/friend/"+friendId)
+      axios.get("http://127.0.0.1:9090/mainPage/friend/"+memberid)
       .then(res => {
         let jdata =  JSON.stringify(res.data);
         this.mainSearch.fundinglist = JSON.parse(jdata);
@@ -362,17 +368,42 @@ export default {
     },
     setJoin(){
       this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
-      axios.get("http://127.0.0.1:9090/mainPage/mainJoin/"+ this.memberObj.memberId)
+      let access_token = window.sessionStorage.getItem("access_token")
+      console.log(access_token)
+      axios.get("http://127.0.0.1:9090/mainPage/mainJoin/"+ this.memberObj.memberId, getHeaders())
       .then(res => {
         let jdata =  JSON.stringify(res.data);
         this.mainJoin = JSON.parse(jdata);
+        console.log(res.data)
+        if (!res.data.length) {
+          this.mainFriendSearchBar = false
+          return false
+        }
+        this.mainFriendSearchBar = true
+      }).catch(error=>{
+        console.log(error)
+        if (error.response.status===403) {
+          this.countTry++
+          if (this.countTry == 1) {
+            reServerSend();
+            this.setJoin()
+          }
+          console.log("다시 오류인것 확인 로그")
+        }
       })
     }
 
   },
   watch:{
     friendName(){
-      this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
+      if (!this.friendName) {
+        this.loading = false
+        this.searchStart = false
+        this.mainSearch.fundinglist = []
+        this.mainSearch.username = ''
+        return  false
+      }
+      this.memberObj = JSON.parse(window.localStorage.getItem('login_member'));
       // console.log(this.memberObj)
       // console.log(JSON.parse(window.localStorage.getItem('login_member')))
       this.loading = true
@@ -462,9 +493,11 @@ export default {
 
 @keyframes transyin {
   from{
+    opacity: 0;
     transform: translateY(-200px);
   }
   to{
+    opacity: 1;
   }
 }
 

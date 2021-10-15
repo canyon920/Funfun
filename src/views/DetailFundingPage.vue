@@ -15,7 +15,7 @@
         </div>
       </div>
       <!--      여기 동적 처리 바디 이미지 바디 상세이미지 넘겨줘야함-->
-      <Detail-funding-page-body :bringBodyInfo="bodyInfo" @bringmainChangeImg1="mainChangeImg1" @bringmainChangeImg2="mainChangeImg2"/>
+      <Detail-funding-page-body :bringBodyInfo="bodyInfo"/>
     </div>
 
 <!--    <Loder-->
@@ -101,12 +101,12 @@ export default {
     },
 
     // bodyMethods
-    mainChangeImg1() {
-      this.bodyInfo.preforchangMainUrl = this.bodyInfo.premainImgUrl
-    },
-    mainChangeImg2() {
-      this.bodyInfo.preforchangMainUrl = this.bodyInfo.predetailImgUrl
-    },
+    // mainChangeImg1() {
+    //   this.bodyInfo.preforchangMainUrl = this.bodyInfo.premainImgUrl
+    // },
+    // mainChangeImg2() {
+    //   this.bodyInfo.preforchangMainUrl = this.bodyInfo.predetailImgUrl
+    // },
 
     // 좋아요 전송 axios ( 좋아요 수 넘어나는 것은 확인 store 에서 토큰꺼내 보내는 작업 필요
     // 생각해보니 수로 넘기면 사용자간 충돌 일어날 수 있으니 tru false로 넘겨서 백에서 true 면은  증가시키는게 좋을듯
