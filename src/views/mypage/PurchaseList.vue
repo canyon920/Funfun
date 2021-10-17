@@ -17,6 +17,7 @@ export default {
   data(){
     return{
       purchaselistS: [],
+      countTry:0,
       purchasetitle:
         '구매목록 리스트'
       ,
@@ -36,7 +37,6 @@ export default {
           this.countTry++
           if (this.countTry == 1) {
             reServerSend();
-            this.setJoin()
           }
           console.log("다시 오류인것 확인 로그")
         }
