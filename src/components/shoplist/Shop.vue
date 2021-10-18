@@ -115,17 +115,11 @@ export default {
       // },
 
       loading:false,
-      normal:true,
-      search:false,
 
       items1: ['인기순', '추천순', '높은가격순', '낮은가격순'],
       selected1 : '인기순',
       items2: ['1만원대 이상', '2만원대 이상', '5만원대 이상', '10만원대 이상'],
       selected2 : '가격대',
-      it1: ['인기순', '추천순', '높은가격순', '낮은가격순'],
-      se1 : '인기순',
-      it2: ['1만원대 이상', '2만원대 이상', '5만원대 이상', '10만원대 이상'],
-      se2 : '가격대',
 
       SearchName:'',
 
@@ -191,89 +185,7 @@ export default {
         },
       ],
       // people: [],
-      products: [
-        {
-          src: require("@/assets/example-img/chunsicthum.png"),
-          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
-          brand: '카카오프렌즈',
-          price: 30000,
-          likeRate: 35,
-          fundingCount: 100,
-          productId:1
-        },
-        {
-          src: require("@/assets/example-img/chunsicsub1.png"),
-          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
-          brand: '카카오프렌즈',
-          price: 17000,
-          likeRate: 4,
-          fundingCount: 25,
-          productId:2
-        },
-        {
-          src: require("@/assets/example-img/chunsicsub2.png"),
-          title:'아직 끝나지 않았당 그러므로 가보자하하',
-          brand: '카카오프렌즈',
-          price: 26000,
-          likeRate: 45,
-          fundingCount: 105,
-          productId:3
-        },
-        {
-          src: require("@/assets/example-img/chunsicsub3.png"),
-          title:'"언텍트시대" 가보자하하',
-          brand: '카카오프렌즈',
-          price: 25600,
-          likeRate: 5,
-          fundingCount: 56,
-          productId:4
-        },
-        {
-          src: require("@/assets/example-img/chunsicsub2.png"),
-          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당',
-          brand: '카카오프렌즈',
-          price: 19000,
-          likeRate: 35,
-          fundingCount: 110,
-          productId:5
-        },
-        {
-          src: require("@/assets/example-img/chunsicsub3.png"),
-          title:'"언텍트시대" 춘식이와 라식이',
-          brand: '카카오프렌즈',
-          price: 300000,
-          likeRate: 25,
-          fundingCount: 10,
-          productId:6
-        },
-        {
-          src: require("@/assets/example-img/chunsicthum.png"),
-          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
-          brand: '카카오프렌즈',
-          price: 350000,
-          likeRate: 0,
-          fundingCount: 0,
-          productId:7
-        },
-        {
-          src: require("@/assets/example-img/chunsicsub1.png"),
-          title:'"언텍트시대"',
-          brand: '카카오프렌즈',
-          price: 20000,
-          likeRate: 1,
-          fundingCount: 5,
-          productId:8
-        },
-        {
-          src: require("@/assets/example-img/chunsicthum.png"),
-          title:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
-          brand: '카카오프렌즈',
-          price: 50000,
-          likeRate: 35,
-          fundingCount: 1,
-          productId:9
-        },
-      ],
+      products: [],
       producttitle:"놓치고 싶지않은 아이템",
 
     };
