@@ -24,7 +24,8 @@ import Complete from "@/components/admin/Complete";
 import Editpage from "@/components/Mypage/Editpage";
 import FindId from "@/components/login/FindId";
 import FindPassword from "@/components/login/FindPassword";
-import Payment from "../views/Payment";
+import FundingPayment from "@/views/FundingPayment";
+import BuyPayment from "@/views/BuyPayment";
 
 
 Vue.use(VueRouter)
@@ -172,9 +173,14 @@ const routes = [
     component: FindPassword
   },
   {
-    path: '/payment/:memberId',
-    name: 'Payment',
-    component: Payment
+    path: '/fundingpayment/:fundingId',
+    name: 'FundingPayment',
+    component: FundingPayment
+  },
+  {
+    path: '/buypayment/:productId',
+    name: 'BuyPayment',
+    component: BuyPayment
   }
 ]
 
