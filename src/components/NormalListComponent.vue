@@ -1,60 +1,60 @@
 <template>
-<div class="normal-list">
-  <div class = "listscript">
-    {{bringscript.Title}}
-  </div>
-
-
-  <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
-
-    <div id="v-for-div" v-for="product in visibleCard" :key="product.productId">
-      <router-link :to="{name: 'detail_page' ,params: {productId: product.productId}}" style="text-decoration: none">
-
-        <v-card
-            id="v-card-custom"
-            class="mx-auto"
-            max-width="200px" >
-          <img
-              id="card-img"
-              class="white--text align-end"
-              :src="product.src">
-
-          <v-card-title id="v-card-title-custom">{{ product.title}}</v-card-title>
-
-          <div id="mid-like-div">
-            <div class="like-text">
-              좋아요: {{product.likeRate}}
-            </div>
-            <div class="funding-count">
-              펀딩수: {{product.fundingCount}}
-            </div>
-          </div>
-
-          <v-card-subtitle class="pb-0" id="v-card-subtitle-custom">
-            <div id="card-brand">
-              {{product.brand}}
-            </div>
-            <div id="card-price" style="color: rgb(229, 114, 0)">
-              {{ product.price}} 원
-            </div>
-          </v-card-subtitle>
-
-          <v-card-text></v-card-text>
-
-
-        </v-card>
-
-      </router-link>
-
+  <div class="normal-list">
+    <div class = "listscript">
+      {{bringscript.Title}}
     </div>
 
-  </v-layout>
+
+    <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
+
+      <div id="v-for-div" v-for="product in visibleCard" :key="product.productId">
+        <router-link :to="{name: 'detail_page' ,params: {productId: product.productId}}" style="text-decoration: none">
+
+          <v-card
+              id="v-card-custom"
+              class="mx-auto"
+              max-width="275px" >
+            <img
+                id="card-img"
+                class="white--text align-end"
+                :src="product.src">
+
+            <v-card-title id="v-card-title-custom">{{ product.title}}</v-card-title>
+
+            <div id="mid-like-div">
+              <div class="like-text">
+                좋아요: {{product.likeRate}}
+              </div>
+              <div class="funding-count">
+                펀딩수: {{product.fundingCount}}
+              </div>
+            </div>
+
+            <v-card-subtitle class="pb-0" id="v-card-subtitle-custom">
+              <div id="card-brand">
+                {{product.brand}}
+              </div>
+              <div id="card-price" style="color: rgb(229, 114, 0)">
+                {{ product.price}} 원
+              </div>
+            </v-card-subtitle>
+
+            <v-card-text></v-card-text>
 
 
-  <v-pagination
-      v-model="page"
-      :length="Math.ceil( bringProductList.length/perPage)"
-  ></v-pagination>
+          </v-card>
+
+        </router-link>
+
+      </div>
+
+    </v-layout>
+
+
+    <v-pagination
+        v-model="page"
+        :length="Math.ceil( bringProductList.length/perPage)"
+    ></v-pagination>
   </div>
 
 </template>
@@ -62,19 +62,13 @@
 <script>
 export default {
   name: "NormalListComponent",
-
   data() {
     return {
-
       page: 1,
       perPage: 3,
-
-
-
     }
   },
   props: {
-
     bringProductList: {
       type: Array,
       required: true
@@ -82,25 +76,19 @@ export default {
     bringscript: {
       type: Object,
     },
-
   },
   computed:{
     visibleCard(){
       return this.bringProductList.slice((this.page - 1)*this.perPage,
-                                                this.page*this.perPage)
+          this.page*this.perPage)
     }
   }
-
-
-
-
 }
 </script>
 
 <style scoped>
 #v-for-div {
   margin: 10px 10px;
-
 }
 #v-card-custom {
 }
@@ -108,11 +96,10 @@ export default {
   padding: 5px !important;
 }
 #card-img {
-  height: 200px;
-  width: 200px;
+  height: 275px;
+  width: 275px;
 }
 #card-img:hover {
-
 }
 #mid-like-div {
   display: flex;
@@ -129,10 +116,7 @@ export default {
 #mid-like-div .funding-count {
   font-size: 15px;
   color: rgba(0,0,0,.5);
-
 }
-
-
 #v-card-subtitle-custom {
   display: flex;
   flex-direction: row;
@@ -146,7 +130,6 @@ export default {
 }
 #card-price {
   font-size: 25px;
-
 }
 .listscript{
   margin-top: 70px;
@@ -156,6 +139,4 @@ export default {
   left:0; right:0; margin-left:auto; margin-right:auto;
   padding-bottom: 30px;
 }
-
-
 </style>

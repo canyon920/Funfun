@@ -1,12 +1,15 @@
 <template>
   <div class="user-container">
+
     <div class="title">
       {{bringData.title}}
     </div>
     <div class="total-count">
       총 : {{bringData.total}}
     </div>
-    <div class="table">
+
+
+    <div class="table"  id="my-table">
       <div class="column" v-for="(col,ckey) in bringData.column" :key="ckey">
         <div v-show="col.col1" class="text col1">
           {{ col.col1 }}
@@ -32,11 +35,13 @@
         <div v-show="col.col8" class="text delete-col">
           삭제
         </div>
-
-
       </div>
 
-      <div class="column" v-for="data in bringData.list" :key="data.data1">
+
+      <div class="column" v-for="data in paging" :key="data.data1">
+        <div v-if="bringData.list.length==0">
+          데이터가 없습니다.
+        </div>
         <div v-show="data.data1" class="text col1" >
           {{ data.data1 }}
         </div>
@@ -62,12 +67,19 @@
           {{data.data8}}
         </div>
 
-
       </div>
 
-
     </div>
+    <v-pagination
+        v-model="page"
+        :length="Math.ceil( bringData.list.length/perPage)"
+    ></v-pagination>
+
+
   </div>
+
+
+
 </template>
 
 <script>
@@ -80,6 +92,9 @@ export default {
   },
   data(){
     return{
+      page: 1,
+      perPage: 3,
+      search:'',
       userId:0,
       userName:'',
       userRole:'',
@@ -93,6 +108,20 @@ export default {
     }
   },
   mounted() {
+
+
+  },
+  computed:{
+    paging(){
+      return this. bringData.list.slice((this.page - 1)*this.perPage,
+          this.page*this.perPage)
+    },
+    watch: {
+      page() {
+        console.log(this.page)
+      }
+    },
+
 
   }
 }
