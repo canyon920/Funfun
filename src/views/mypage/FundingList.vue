@@ -18,29 +18,18 @@
 
 import Mainevent from '../../components/layout/main/Main-event';
 import FundingListComponent from "@/components/FundingListComponent";
+import axios from "axios";
+
 export default {
   name: 'FundingList',
   components: {FundingListComponent, Mainevent},
-  methods: {
-
-
-  },
-
 
   data(){
     return{
       pagemodel: true,
 
       fundinglistS: [
-        {
-          preFundingImgUrl: require("@/assets/example-img/chunsicthum.png"),
-          fundingTitle:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
-          fundingname: '카카오프렌즈',
-          fundingMoney: 30000,
-          expireDate: '2021-12-30',
-          progressBarPercent: 100,
-          fundingId:1
-        },
+
         {
           preFundingImgUrl: require("@/assets/example-img/chunsicsub1.png"),
           fundingTitle:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
@@ -114,7 +103,7 @@ export default {
           fundingId:9
         },
       ],
-      fundingtitle:"나의 펀딩리스트",
+      fundingtitle:"내가 만든 펀딩리스트",
 
       fundingEvent: [
         {
@@ -143,7 +132,58 @@ export default {
 
     }
   },
+  methods:{
+    async bringMyFundingList(){
+      let mdata = JSON.parse(localStorage.getItem('login_member'));
+      let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers:{
+          Authorization : `Bearer ${access_token}`,
+        }
+      }
+      await axios.get("http://localhost:9090/myFunding/"+mdata.memberId,config)
+          .then(res =>{
+            console.log("##res",res)
+            var thumbImg =""
+            this.fundinglistS=[]
+            for(var i in res.data){
+              // console.log("##test",res.data[i])
+              var list = res.data[i].fundingImg
+              for(var key in list){
+                if(list[key].includes('thumb')){
+                  thumbImg = list[key]
+                }
+              }
+              const splitResultByLimit1 = res.data[i].funding_expired_time.substring(0,10)
+              // console.log("ex",splitResultByLimit1)
+              const percentOfFunding = (res.data[i].funding_collected_money/res.data[i].funding_target_money)*100
 
+              this.fundinglistS.push({
+                preFundingImgUrl:thumbImg,
+                fundingId:res.data[i].funding_id,
+                fundingTitle:res.data[i].funding_title,
+                fundingMoney:res.data[i].funding_collected_money,
+                expireDate:splitResultByLimit1,
+                progressBarPercent: percentOfFunding,
+                fundingname:res.data[i].member_nicname}
+              )}
+
+          }).catch(e => {
+            console.log("에러에러",e)
+            console.log("에러에러",e.response)
+           /* if (e.response.status===403) {
+              reServerSend();
+              this.bringMyLikeList()
+            }
+            console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
+            this.$router.push("/login",Header.methods.isLogin)*/
+          })
+    },
+
+  },
+  mounted() {
+    this.bringMyFundingList()
+  }
 
 
 

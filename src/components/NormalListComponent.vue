@@ -7,7 +7,7 @@
 
 
   <v-layout row wrap style=" display:flex; text-align: center; justify-content: center;">
-
+e
     <div id="v-for-div" v-for="product in visibleCard" :key="product.productId">
       <router-link :to="{name: 'detail_page' ,params: {productId: product.productId}}" style="text-decoration: none">
 

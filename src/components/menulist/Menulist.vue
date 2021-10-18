@@ -34,7 +34,7 @@
 
           <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'FundingList', params: {memberId: loginMember.memberId}}">
             <h2 class="display-1 font-weight-bold mb-2">
-              나의 펀딩 리스트
+              내가 만든 펀딩 리스트
             </h2></router-link></div>
 
 

@@ -75,7 +75,7 @@ export default {
       type:Array
     },
     bringwishscript:{
-      type: Object
+      type: String
     },
   },
   data(){

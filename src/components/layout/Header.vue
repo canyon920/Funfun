@@ -48,7 +48,7 @@ export default {
   name:"Header",
   data()  {
     return{
-      normalImg:require("@/assets/logo/img-normal.jpg"),
+      normalImg:require('@/assets/logo/img-normal.jpg'),
       SearchName:'',
       memberInfo:{
         memberNicname : '',
