@@ -136,7 +136,7 @@ export default {
   width: 90%;
   left: 5%;
   background-color: rgba(229, 114, 0, .2);
-  bottom: 22%;
+  bottom: 20%;
 
 }
 #v-card-custom .progress-bar-total-div .progressBar-div .progressBar {

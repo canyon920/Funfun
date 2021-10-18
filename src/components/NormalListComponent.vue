@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       page: 1,
-      perPage: 3,
+      perPage: 8,
     }
   },
   props: {

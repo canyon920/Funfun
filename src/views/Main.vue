@@ -285,6 +285,21 @@ export default {
           expireDate: '2022-01-30',
           fundingId:4
         },
+        {
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub1.png"),
+          fundingTitle:'"우리 아이"가 정말 갖고 싶어 해요',
+          progressBarPercent: 50, fundingname: '곽두팔',fundingMoney: 3000,
+          expireDate: '2021-12-03',
+          fundingId:3
+        },
+        {
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
+          fundingTitle:'일단 가즈아',
+          progressBarPercent: 50, fundingname: '두팔',fundingMoney: 3000,
+          expireDate: '2022-01-30',
+          fundingId:4
+        },
+
 
       ],
 
@@ -293,28 +308,42 @@ export default {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
           fundingTitle:'"우리" 친구 맞지?^^',
           progressBarPercent: 20, fundingname: '두팔',fundingMoney: 3000,
-          expireDate: '2021-10-30',
+          expireDate: '2021-12-30',
           fundingId:1
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub1.png"),
           fundingTitle:'너의 마음을 보여줘! 제발~',
           progressBarPercent: 20, fundingname: '춘식',fundingMoney: 3000,
-          expireDate: '2021-09-30',
+          expireDate: '2021-11-30',
           fundingId:2
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
           fundingTitle:'"생일이양"',
           progressBarPercent: 50, fundingname: '라둥',fundingMoney: 3000,
-          expireDate: '2021-07-30',
+          expireDate: '2021-12-30',
           fundingId:3
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub2.png"),
           fundingTitle:'나! 이거이거',
           progressBarPercent: 80, fundingname: '라이언',fundingMoney: 3000,
-          expireDate: '2021-06-30',
+          expireDate: '2021-11-22',
+          fundingId:4
+        },
+        {
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
+          fundingTitle:'"이정도는 알지?"',
+          progressBarPercent: 30, fundingname: '라둥',fundingMoney: 30000,
+          expireDate: '2022-01-30',
+          fundingId:3
+        },
+        {
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub2.png"),
+          fundingTitle:'나! 거이거이',
+          progressBarPercent: 10, fundingname: '라이언',fundingMoney: 200000,
+          expireDate: '2022-05-30',
           fundingId:4
         },
       ],
@@ -362,8 +391,10 @@ export default {
     setDeadline(){
       axios.get("http://127.0.0.1:9090/mainPage/Deadline")
       .then(res => {
+        this.mainDeadline = [];
         let jdata =  JSON.stringify(res.data);
         this.mainDeadline = JSON.parse(jdata);
+        console.log(this.mainDeadline)
       })
     },
     setJoin(){
@@ -372,6 +403,7 @@ export default {
       console.log(access_token)
       axios.get("http://127.0.0.1:9090/mainPage/mainJoin/"+ this.memberObj.memberId, getHeaders())
       .then(res => {
+        this.mainJoin = [];
         let jdata =  JSON.stringify(res.data);
         this.mainJoin = JSON.parse(jdata);
         console.log(res.data)

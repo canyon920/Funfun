@@ -109,10 +109,10 @@ export default {
   components: {NormalListComponent, carousel},
   data: () => {
     return {
-      pagenation:{
-        page:1,
-        perPage:3
-      },
+      // pagenation:{
+      //   page:1,
+      //   perPage:8
+      // },
 
       loading:false,
       normal:true,
