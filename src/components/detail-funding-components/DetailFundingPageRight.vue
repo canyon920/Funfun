@@ -241,7 +241,6 @@ export default {
     },
     share(){
       let fdata = JSON.parse(sessionStorage.getItem("funding_detail"))
-      console.log("fdata",fdata)
       var list = fdata.fundingImg
       for(var key in list){
         if(list[key].includes('thumb')){
@@ -249,7 +248,6 @@ export default {
           console.log(imgUrl)
         }
       }
-
       window.Kakao.Link.sendDefault({
 
         objectType: 'feed',
@@ -262,11 +260,6 @@ export default {
             webUrl: window.location.href,
           },
         },
-        /*social: {
-          likeCount: 286,
-          subscriberCount:fdata.fundingPeopleCount,
-          sharedCount: 845,
-        },*/
         buttons: [
           {
             title: '웹으로 보기',

@@ -12,6 +12,9 @@
 
 import Mainevent from '../../components/layout/main/Main-event';
 import FundingListComponent from "@/components/FundingListComponent";
+import axios from "axios";
+import {reServerSend} from "../../service/refreshForAccessToken";
+import Header from "../../components/layout/Header";
 
 
 export default {
@@ -103,7 +106,7 @@ export default {
         },
       ],
       jointitle:
-        "내가 참여한 펀딩 리스트",
+        '내가 참여한 펀딩리스트',
 
 
       joinedEvent: [
@@ -133,11 +136,56 @@ export default {
       joinedtitle:{
         title:'나의 펀딩 리스트',
       }
-
-
-
     }
+  },
+  methods:{
+    async bringMyJoinList(){
+      let mdata = JSON.parse(localStorage.getItem('login_member'));
+      let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers:{
+          Authorization : `Bearer ${access_token}`,
+        }
+      }
+      await axios.get("http://localhost:9090/myJoinFunding/"+mdata.memberId,config)
+          .then(res =>{
+            console.log("##res",res)
+            var thumbImg =""
+            this.joinedlistS=[]
+            for(var i in res.data){
+              var list = res.data[i].fundingImg
+              for(var key in list){
+                if(list[key].includes('thumb')){
+                  thumbImg = list[key]
+                }
+              }
+              const splitResultByLimit1 = res.data[i].funding_expired_time.substring(0,10)
+              const percentOfFunding = (res.data[i].funding_collected_money/res.data[i].funding_target_money)*100
+
+              this.joinedlistS.push({
+                preFundingImgUrl:thumbImg,
+                fundingId:res.data[i].funding_id,
+                fundingTitle:res.data[i].funding_title,
+                fundingMoney:res.data[i].funding_collected_money,
+                expireDate:splitResultByLimit1,
+                progressBarPercent: percentOfFunding,
+                fundingname:res.data[i].member_nicname}
+              )}
+          }).catch(e => {
+            if (e.response.status===403) {
+              reServerSend();
+              this.bringMyLikeList()
+            }
+            console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
+            this.$router.push("/login",Header.methods.isLogin)
+          })
+    },
+
+  },
+  mounted() {
+    this.bringMyJoinList()
   }
+
 }
 </script>
 <style scoped>

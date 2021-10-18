@@ -324,8 +324,6 @@ export default {
       console.log("값 주워담기 전 : ", this.transeDataForFunding)
       const mdata = JSON.parse(localStorage.getItem("login_member"));
       var bringRouteProductId = this.$route.params.productId
-
-      // console.log("mdata",mdata)
       let access_token = window.sessionStorage.getItem('access_token')
       let config = {
         headers:{
@@ -333,9 +331,6 @@ export default {
           Authorization : `Bearer ${access_token}`,
         }
       }
-
-
-
       const funding = {
         "member_id": mdata.memberId,
         "product_id":  bringRouteProductId,
@@ -346,8 +341,6 @@ export default {
         "funding_type":"FUNDING",
         "funding_collected_money":0
       };
-      // form.append("fundingDataForRegist",`${this.transeDataForFunding}`)
-      // form.append("fundingDataForRegist",JSON.stringify(this.transeDataForFunding))
 
       await axios.post("http://localhost:9090/funding/create",funding,config)
           .then(res => {
