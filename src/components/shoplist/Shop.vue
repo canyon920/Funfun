@@ -2,12 +2,13 @@
   <!--검색바-->
   <v-container class="container_list">
 
-    <v-text-field
-        dense
-        outlined
-        rounded
-        label="상품 검색"
-        v-model="SearchName" >
+    <v-text-field @keyup.enter="getSearchName"
+                  dense
+                  outlined
+                  rounded
+                  label="상품 검색"
+                  v-model="SearchName"
+                  ref="blur">
       <template v-slot:prepend-inner>
         <v-icon>mdi-magnify</v-icon>
       </template>
@@ -40,7 +41,8 @@
     }">
       <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
       <a v-for="(img,pkey) in category" :key="pkey">
-        <router-link :to="{name: 'Shop' ,params:{categoryId: img.id}}" style="text-decoration: none">
+        <router-link :to="{name: 'Shop' ,params:{categoryId: img.id}}" style="text-decoration: none"
+                     @click.native="setProductList">
           <div style="display: flex; flex-direction: column; align-items: center">
             <div class="img-div" style="">
               <img :src="img.categorySrc" style="border-radius: 20px; height: 100px; width: 100px">
@@ -63,12 +65,12 @@
               cols="12"
               sm="6"
           >
-            <v-select
-                v-model="selected1"
-                :items="items1"
-                :label="selected1"
-                solo
-                error
+            <v-select @change="getProductList"
+                      v-model="selected1"
+                      :items="items1"
+                      :label="selected1"
+                      solo
+                      error
             ></v-select>
           </v-col>
         </div>
@@ -79,12 +81,12 @@
               cols="12"
               sm="6"
           >
-            <v-select
-                v-model="selected2"
-                :items="items2"
-                :label="selected2"
-                solo
-                error
+            <v-select @change="getProductList"
+                      v-model="selected2"
+                      :items="items2"
+                      :label="selected2"
+                      solo
+                      error
             ></v-select>
           </v-col>
         </div>
@@ -92,7 +94,7 @@
 
     </div>
 
-    <NormalListComponent  :bringProductList="products" bringscript="producttitle"/>
+    <NormalListComponent  :bringProductList="products" :bringscript="producttitle"/>
 
   </v-container>
 </template>
@@ -104,17 +106,26 @@ import NormalListComponent from "@/components/NormalListComponent";
 
 export default {
   name: 'Shop',
-  components: {NormalListComponent, carousel },
+  components: {NormalListComponent, carousel},
   data: () => {
     return {
+      // pagenation:{
+      //   page:1,
+      //   perPage:8
+      // },
 
       loading:false,
-
+      normal:true,
+      search:false,
 
       items1: ['인기순', '추천순', '높은가격순', '낮은가격순'],
       selected1 : '인기순',
       items2: ['1만원대 이상', '2만원대 이상', '5만원대 이상', '10만원대 이상'],
       selected2 : '가격대',
+      it1: ['인기순', '추천순', '높은가격순', '낮은가격순'],
+      se1 : '인기순',
+      it2: ['1만원대 이상', '2만원대 이상', '5만원대 이상', '10만원대 이상'],
+      se2 : '가격대',
 
       SearchName:'',
 
@@ -186,7 +197,7 @@ export default {
           title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
           brand: '카카오프렌즈',
           price: 30000,
-          likeRate: 3.5,
+          likeRate: 35,
           fundingCount: 100,
           productId:1
         },
@@ -204,7 +215,7 @@ export default {
           title:'아직 끝나지 않았당 그러므로 가보자하하',
           brand: '카카오프렌즈',
           price: 26000,
-          likeRate: 4.5,
+          likeRate: 45,
           fundingCount: 105,
           productId:3
         },
@@ -222,7 +233,7 @@ export default {
           title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당',
           brand: '카카오프렌즈',
           price: 19000,
-          likeRate: 3.5,
+          likeRate: 35,
           fundingCount: 110,
           productId:5
         },
@@ -231,7 +242,7 @@ export default {
           title:'"언텍트시대" 춘식이와 라식이',
           brand: '카카오프렌즈',
           price: 300000,
-          likeRate: 2.5,
+          likeRate: 25,
           fundingCount: 10,
           productId:6
         },
@@ -258,30 +269,427 @@ export default {
           title:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
           brand: '카카오프렌즈',
           price: 50000,
-          likeRate: 3.5,
+          likeRate: 35,
           fundingCount: 1,
           productId:9
         },
       ],
-      producttitle:{},
+      producttitle:"놓치고 싶지않은 아이템",
 
     };
   },
   methods: {
-    async testBringObjt(){
-      await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=160f05c35f34aef167fabe796efb2a8e`)
+    async setProductList(){
+      this.SearchName=''
+      this.selected1='인기순'
+      this.selected2='가격대'
+      var CategoryId = this.$route.params.categoryId
+      axios.post("http://127.0.0.1:9090/ProductListPage/"+ CategoryId)
           .then(res => {
-            this.products = res.data.results
-            console.log(res);
-          })
-          .catch(err => {
-            console.log(err);
-          })
+            this.products = []
+            let jdata = JSON.stringify(res.data)
+            this.products = JSON.parse(jdata)
+          }).catch(error => {
+        console.log(error.messages)
+      })
+    },
+    async getProductList(){
+      var CategoryId = this.$route.params.categoryId
+      if(this.SearchName.length>0){return this.setSearchProduct()}
+      if(this.selected1 == '인기순' && this.selected2 == '가격대') {
+        axios.post("http://127.0.0.1:9090/ProductListPage/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '인기순' && this.selected2 == '1만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/1/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '인기순' && this.selected2 == '2만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/2/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 =='인기순' && this.selected2 == '5만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/3/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '인기순' && this.selected2 == '10만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/4/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }
+      if (this.selected1 == '추천순' && this.selected2 == '가격대'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/A/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '추천순' && this.selected2 == '1만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/A/1/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '추천순' && this.selected2 == '2만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/A/2/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '추천순' && this.selected2 == '5만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/A/3/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '추천순' && this.selected2 == '10만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/A/4/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }
+      if (this.selected1 == '높은가격순' && this.selected2 == '가격대'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/B/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '높은가격순' && this.selected2 == '1만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/B/1/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '높은가격순' && this.selected2 == '2만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/B/2/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '높은가격순' && this.selected2 == '5만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/B/3/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '높은가격순' && this.selected2 == '10만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/B/4/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }
+      if (this.selected1 == '낮은가격순' && this.selected2 == '가격대'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/C/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '낮은가격순' && this.selected2 == '1만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/C/1/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '낮은가겨순' && this.selected2 == '2만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/C/2/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '낮은가격순' && this.selected2 == '5만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/C/3/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '낮은가격순' && this.selected2 == '10만원대 이상'){
+        axios.post("http://127.0.0.1:9090/ProductListPage/C/4/"+ CategoryId, null)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }
+    },
+    async getSearchName(){
+      this.selected1='인기순'
+      this.selected2='가격대'
+      this.$refs.blur.blur()
+      this.SearchName = this.SearchName.trim()
+      this.SearchName = this.SearchName.replace(/\s/gi, "")
+      if(this.SearchName.length>0){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/${this.SearchName}` )
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }
+    },
+    async setSearchProduct(){
+      if(this.selected1 == '인기순' && this.selected2 == '가격대'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '인기순' && this.selected2 == '1만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/1/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '인기순' && this.selected2 == '2만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/2/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 =='인기순' && this.selected2 == '5만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/3/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '인기순' && this.selected2 == '10만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/4/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }
+      if (this.selected1 == '추천순' && this.selected2 == '가격대'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/A/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '추천순' && this.selected2 == '1만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/A/1/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '추천순' && this.selected2 == '2만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/A/2/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '추천순' && this.selected2 == '5만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/A/3/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '추천순' && this.selected2 == '10만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/A/4/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }
+      if (this.selected1 == '높은가격순' && this.selected2 == '가격대'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/B/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '높은가격순' && this.selected2 == '1만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/B/1/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '높은가격순' && this.selected2 == '2만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/B/2/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '높은가격순' && this.selected2 == '5만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/B/3/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '높은가격순' && this.selected2 == '10만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/B/4/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }
+      if (this.selected1 == '낮은가격순' && this.selected2 == '가격대'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/C/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '낮은가격순' && this.selected2 == '1만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/C/1/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '낮은가겨순' && this.selected2 == '2만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/C/2/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '낮은가격순' && this.selected2 == '5만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/C/3/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }else if(this.selected1 == '낮은가격순' && this.selected2 == '10만원대 이상'){
+        axios.get(`http://127.0.0.1:9090/ProductListPage/search/C/4/${this.SearchName}`)
+            .then(res => {
+              this.products = []
+              let jdata = JSON.stringify(res.data)
+              this.products = JSON.parse(jdata)
+            }).catch(error => {
+          console.log(error.messages)
+        })
+      }
     }
-
   },
-  mounted(){
-    // console.log("새로읽어옴 새로고침 해도 되네여....;;;;",this.$route.params.categoryId)
+  beforeMount(){
+    this.setProductList()
+  },
+  mounted() {
+    this.getSearchName()
   }
 }
 </script>

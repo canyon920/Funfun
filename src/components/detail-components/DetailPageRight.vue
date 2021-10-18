@@ -56,13 +56,14 @@
           </div>
 
           <!--        나에게 선물하기 클릭시 결재창으로 넘어가자!!!   상품 id , 멤버 id 넘기자    -->
-          <div class="button-box giveme-box">
-            <div class="my-2">
+          <div class="button-box giveme-box" >
+            <div class="my-2" >
               <v-btn
                   color="error"
                   dark
                   x-large
                   class="giveme-button"
+                  @click="$emit('presentMyself')"
               >
                 나에게 선물하기
               </v-btn>
@@ -103,7 +104,7 @@ export default {
     }
   },
   emits: [
-    'rightEvent','changeD' , 'likeChange'
+    'rightEvent','changeD' , 'likeChange', 'presentMyself'
   ],
 
   data () {

@@ -44,14 +44,14 @@
                           class="white--text align-end"
                           v-bind:src="merchan.fundingUrl">
 
-                      <v-card-title>{{ merchan.funndingTitle}}</v-card-title>
+                      <v-card-title>{{ merchan.fundingTitle}}</v-card-title>
 
                       <v-card-subtitle class="pb-0" id="v-card-subtitle-custom">
                         <div id="card-brand" style="font-size: 20px;">
-                        {{merchan.funndingBrand}}
+                        {{merchan.fundingBrand}}
                         </div>
                         <div id="card-price" style="font-size: 25px; color: rgb(229, 114, 0)">
-                        {{ merchan.fundingTartgetMoney}}
+                        {{ merchan.fundingTargetMoney}} 원
                         </div>
                       </v-card-subtitle>
 

@@ -103,7 +103,7 @@ export  default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .first-container .second-up{
   max-width:1100px;

@@ -21,7 +21,7 @@
           </template>
           <template v-slot:append>
             <v-progress-circular
-                v-if="loading"
+                v-show="loading"
                 size="24"
                 color="rgb(229, 114, 0)"
                 indeterminate />
@@ -32,12 +32,13 @@
             dense
             nav
             v-show="searchStart"
+            :class="{active: searchStart, deactive: !searchStart}"
         >
           <v-list-item
-              v-for="(item,fkey) in friends"
-              :key="fkey"
+              v-for="item in friends"
+              :key="item.friendId"
               link
-              @click="clickselect(item.username)"
+              @click="searchClickF(item.username)"
           >
             <v-list-item-icon>
               <img :src="item.profileImg" style="border-radius: 20%; width: 25px; height: 25px">
@@ -49,13 +50,12 @@
           </v-list-item>
         </v-list>
       </div>
-      <div class = "wishlist1" style="font-weight: 700"><span style="color: rgb(229, 114, 0)">{{funding.username }}</span>님의 위시리스트</div>
       <div class ="datalist">
-        <div v-if="friendListCard.length == 0" >
+        <div v-if="funding.fundinglist.length == 0" style="text-align: center; color: rgb(229,114,0)">
           펀딩중인 상품이 없어요.
         </div>
         <div class = "product" v-else>
-          <NormalListComponent :bringProductList="friendListCard.lists" :bringscript="friendtitle" />
+          <NormalListComponent  :class="{active : !searchStart, transy:searchStart}" :bringProductList="funding.fundinglist" :bringUserName="funding.username"/>
         </div>
       </div>
 
@@ -68,8 +68,8 @@
 </template>
 <script>
 
-import NormalListComponent from "../components/NormalListComponent";
-import Mainevent from '../components/layout/main/Main-event';
+import NormalListComponent from "@/components/NormalListComponent";
+import Mainevent from '@/components/layout/main/Main-event';
 
 
 
@@ -78,8 +78,8 @@ export default {
   components: {Mainevent, NormalListComponent},
   data() {
     return {
-      loading: true,
-      searchStart: true,
+      loading: false,
+      searchStart: false,
       friendListCard:{lists:[]},
 
       friendtitle: {
@@ -116,10 +116,10 @@ export default {
       ],
 
       friends: [
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이'},
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라이언'},
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코'},
-        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이'},
+        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이', friendId:1},
+        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라이언', friendId:2},
+        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코', friendId:3},
+        {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이', friendId:4},
       ],
       friendName: '',
 
@@ -131,16 +131,16 @@ export default {
     }
   },
   methods: {
-    clickselect(username) {
+    searchClickF(username) {
+      this.loading = false
+      this.searchStart = false
       this.funding.username = username
-      this.friendListCard.lists = [
+      this.funding.fundinglist = [
         {
           src: require("@/assets/example-img/chunsicthum.png"),
           title: '"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
           brand: '카카오프렌즈',
           price: 30000,
-          likeRate: 3.5,
-          fundingCount: 100,
           productId: 1
         },
         {
@@ -148,8 +148,6 @@ export default {
           title: '"언텍트시대" 춘식이와 라식이의 사랑이야기',
           brand: '카카오프렌즈',
           price: 17000,
-          likeRate: 4,
-          fundingCount: 25,
           productId: 2
         },
         {
@@ -157,8 +155,6 @@ export default {
           title: '"언텍트시대" 춘식이와 라식이의 사랑이야기',
           brand: '카카오프렌즈',
           price: 17000,
-          likeRate: 4,
-          fundingCount: 25,
           productId: 2
         },
       ]
@@ -178,7 +174,7 @@ export default {
 
 
 </script>
-<style>
+<style scoped>
 .first-container{
 
 }
@@ -191,5 +187,27 @@ export default {
   left:0; right:0; margin-left:auto; margin-right:auto;
   margin-bottom: 70px;
 }
-
+.active {
+  animation-name: searchin;
+  animation-duration: 1s;
+}
+.transy {
+  animation-name: transyin;
+  animation-duration: .5s;
+}
+@keyframes searchin {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+@keyframes transyin {
+  from{
+    transform: translateY(-200px);
+  }
+  to{
+  }
+}
 </style>

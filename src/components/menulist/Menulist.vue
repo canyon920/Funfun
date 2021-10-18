@@ -38,22 +38,22 @@
             </h2></router-link></div>
 
 
-          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'FriendList', params: {memberId: loginMember.memberId}}">
             <h2 class="display-1 font-weight-bold mb-2">
               친구 리스트 찾기
             </h2></router-link></div>
 
-          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'MywishList', params: {memberId: loginMember.memberId}}">
             <h2 class="display-1 font-weight-bold mb-2">
               내가 찜한 리스트
             </h2></router-link></div>
 
-          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'JoinedList', params: {memberId: loginMember.memberId}}">
             <h2 class="display-1 font-weight-bold mb-2">
               내가 참여한 펀딩 리스트
             </h2></router-link></div>
 
-          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
+          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'PurchaseList', params:{memberId: loginMember.memberId}}">
             <h2 class="display-1 font-weight-bold mb-2">
               구매목록
             </h2>
@@ -72,9 +72,9 @@
           </router-link></div>
 
 
-          <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" to="/">
+          <div class="link-div2" @click="logOut" style="cursor: pointer">
             <h2 class="display-1 font-weight-bold mb-2">
-              로그아웃</h2></router-link></div>
+              로그아웃</h2></div>
 
           </div>
         </v-col>
@@ -103,6 +103,26 @@ export default {
       if (!this.loginMember.memberProfile) {
         this.loginMember.memberProfile = require('@/assets/logo/img-normal.jpg')
       }
+    },
+    Flogout(){
+      window.localStorage.clear()
+      window.sessionStorage.clear()
+      this.$router.go(0)
+    },
+    Klogout() { // 카카오 로그아웃
+      let router = this.$router
+      window.Kakao.Auth.logout(function () {
+        window.localStorage.clear()
+        window.sessionStorage.clear()
+        router.go(0)
+      })
+    },
+    logOut() {
+      if (this.loginMember.memberApi === "Kakao") {
+        this.Klogout()
+      } else {
+        this.Flogout()
+      }
     }
   },
   mounted() {
@@ -120,17 +140,20 @@ export default {
       loginMember : {
         memberId : 1,
         memberEmail : '',
-        memberNicname : '춘식이',
+        memberNicname : '춘식이-현재 서버없이 예시만 출력됩니다.',
         memberApi : '',
         memberRole : '',
-        memberProfile : '',
+        memberProfile : require('@/assets/logo/img-normal.jpg'),
       },
     }
   },
 }
 
 </script>
-<style>
+<style scoped>
+span.profile {
+  margin-left: 10px;
+}
 .img-div .profile-img {
   border-radius: 50%;
   height: 70px;

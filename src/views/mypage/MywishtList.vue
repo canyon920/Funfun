@@ -1,32 +1,35 @@
 <template>
   <div class = "first-container">
     <div class = "second">
-      <NormalListComponent :bringProductList="joinedlistS" :bringscript="jointitle"/>
+
+      <NormalListComponent :bringProductList="Mywish" :bringscript="MywishTitle"/>
+
+
     </div>
     <div class = "second-bottom">
-      <Mainevent :bringmainEvent="joinedEvent" />
+      <!--      <Fundingsecondlist />-->
+      <Mainevent :bringmainEvent="wishEvent" />
     </div>
   </div>
 </template>
 <script>
 
-import Mainevent from '../components/layout/main/Main-event';
+import Mainevent from '../../components/layout/main/Main-event';
 import NormalListComponent from "@/components/NormalListComponent";
 
 
-
 export default {
-  name: 'JoinedList',
+  name: 'MywishList',
   components: {NormalListComponent, Mainevent},
   data(){
     return{
-      joinedlistS: [
+      Mywish:[
         {
           src: require("@/assets/example-img/chunsicthum.png"),
           title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
           brand: '카카오프렌즈',
           price: 30000,
-          likeRate: 3.5,
+          likeRate: 35,
           fundingCount: 100,
           productId:1
         },
@@ -44,7 +47,7 @@ export default {
           title:'아직 끝나지 않았당 그러므로 가보자하하',
           brand: '카카오프렌즈',
           price: 26000,
-          likeRate: 4.5,
+          likeRate: 55,
           fundingCount: 105,
           productId:3
         },
@@ -62,7 +65,7 @@ export default {
           title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당',
           brand: '카카오프렌즈',
           price: 19000,
-          likeRate: 3.5,
+          likeRate: 85,
           fundingCount: 110,
           productId:5
         },
@@ -71,7 +74,7 @@ export default {
           title:'"언텍트시대" 춘식이와 라식이',
           brand: '카카오프렌즈',
           price: 300000,
-          likeRate: 2.5,
+          likeRate: 200,
           fundingCount: 10,
           productId:6
         },
@@ -98,17 +101,15 @@ export default {
           title:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
           brand: '카카오프렌즈',
           price: 50000,
-          likeRate: 3.5,
+          likeRate: 35,
           fundingCount: 1,
           productId:9
         },
+
       ],
-      jointitle:{
-        Title: "내가 참여한 펀딩 리스트",
-      },
+      MywishTitle:"내가 찜한 리스트",
 
-
-      joinedEvent: [
+      wishEvent: [
         {
           presimgUrl:require("@/assets/event/main/light.png"),
           eventTitle:'"8월에 태어난 친구에게", "친구야" 넌 꽃처럼 아름다워!',
@@ -132,9 +133,7 @@ export default {
         },
 
       ],
-      joinedtitle:{
-        title:'나의 펀딩 리스트',
-      }
+
 
 
 
@@ -142,7 +141,11 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
+.layout.row.wrap {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 .first-container{
   max-width: 1400px;
   flex-direction: column;
@@ -151,7 +154,7 @@ export default {
   margin-bottom: 80px;
   margin-top: 50px;
   animation-name: fadeIn;
-  animation-duration: 3s;
+  animation-duration: 1s;
 
 }
 
@@ -160,7 +163,6 @@ export default {
   left:0; right:0; margin-left:auto; margin-right:auto;
   margin-bottom: 70px;
 }
-
 @keyframes fadeIn {
   from {
     opacity:0;
