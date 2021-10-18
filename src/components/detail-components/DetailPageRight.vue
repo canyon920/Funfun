@@ -148,10 +148,10 @@ export default {
   margin-top: 20px;
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 0 auto;
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  /*right: 0;*/
+  /*margin: 0 auto;*/
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center .category-box {
   font-size: 20px;

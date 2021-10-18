@@ -61,9 +61,8 @@
       </div>
 
 
-
       <div class="content-bottom">
-        <div v-show="completed" class="funding-button-div">
+        <div v-show="isCompletedTrue" class="funding-button-div">
           <div class="my-2">
             <v-btn
                 color="error"
@@ -77,7 +76,7 @@
             </v-btn>
           </div>
         </div>
-        <div v-show="!completed" class="funding-button-div">
+        <div v-show="!isCompletedTrue" class="funding-button-div">
           <div class="my-2">
             <v-btn
                 color="error"
@@ -93,7 +92,7 @@
         </div>
         <div class="bottom-button">
 
-          <div v-show="!completed" class="button-box funding-box">
+          <div v-show="!isCompletedTrue" class="button-box funding-box">
             <div class="my-2">
               <v-btn
                   color="error"
@@ -202,14 +201,6 @@ export default {
       selectUrl.select()
       document.execCommand("copy");
     },
-    isCompletedTrue() {
-      if (this.bringRightInfo.remainingPeriod <= 0) {
-        console.log("콘솔은 찍힌다.1")
-        this.completed = true
-      } else {
-        this.completed = false
-      }
-    },
     isPercent20() {
       if (this.bringRightInfo.progressBarPercent <= 20) {
         console.log("콘솔은 찍힌다.2")
@@ -219,7 +210,7 @@ export default {
       }
     },
     completedFunding(){
-      this.$router.push("/choose")
+      this.$router.push({name:"Choose", params:{assemblePrice:this.bringRightInfo.assemblePrice,productPrice:this.bringRightInfo.productPrice}})
     },
     // isFundingJoinMemberCount() {
     //   if (bringRightInfo.remainSuccessPercent >= 20) {
@@ -272,6 +263,16 @@ export default {
         ],
       })
     }
+  },
+  computed:{
+    isCompletedTrue() {
+      if (this.bringRightInfo.remainingPeriod <= 0) {
+        console.log("콘솔은 찍힌다.1")
+        return  true
+      } else {
+        return  false
+      }
+    },
   },
   mounted() {
     console.log("콘솔은 찍힌다.3")
@@ -326,6 +327,7 @@ export default {
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center .progressBar-div .progressBar {
   height: 8px;
   background-color: rgb(229, 114, 0);
+  max-width: 100%;
   /*width: 30%;*/
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center .reaminpercent-div {
@@ -342,10 +344,10 @@ export default {
 
 
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 0 auto;
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  /*right: 0;*/
+  /*margin: 0 auto;*/
 }
 
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button {

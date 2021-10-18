@@ -32,7 +32,7 @@
 
               <v-card-subtitle class="pb-0">
                 <div id="progress-bar-text">
-                  {{value.progressBarPercent}}% 달성
+                  {{Math.floor(value.progressBarPercent)}}% 달성
                 </div>
                 <div class="slush">
                   /

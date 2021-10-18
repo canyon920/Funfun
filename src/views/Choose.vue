@@ -85,12 +85,25 @@
 
         <div class="phone-check-div">
 
-
-
           <Phone style="width: 100%; margin-bottom: 40px" :bring-hint="'수정을 원하시면 입력해 주세요.'" @birngMethodPhoneIn="phoneInputDataVal"/>
 
+        </div>
 
-
+        <div v-show="extraPrice" class = "second inner">
+          <div style="color: red; font-size: 15px;margin: 5px">
+            초과된 금액이 존재합니다.{{extraPrice}} 원
+          </div>
+          <v-text-field
+              label="이름"
+              outlined
+              dense
+              v-model="name"
+          ></v-text-field>
+          <v-text-field
+              label="계좌번호"
+              outlined
+              dense
+          ></v-text-field>
         </div>
 
         <v-btn
@@ -167,9 +180,18 @@ export default {
       submitAddress3: '',
 
       checkAddress2 : false,
+
+      //초과된 금액 조회
+      extraPrice:0
     }
   },
   methods:{
+    computeExtraPrice() {
+      this.extraPrice = this.$route.params.assemblePrice-this.$route.params.productPrice
+      if (this.extraPrice <= 0) {
+        this.extraPrice = 0;
+      }
+    },
     onClickButton1(){
       this.give = true
       this.showDeInputId=true
@@ -265,6 +287,7 @@ export default {
   },
   mounted() {
     isLoginMemberCheck()
+    this.computeExtraPrice()
   }
 
 

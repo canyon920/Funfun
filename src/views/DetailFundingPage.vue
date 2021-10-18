@@ -170,10 +170,10 @@ export default {
 
       this.rightInfo.productTitle = data.fundingName
       this.rightInfo.joinSupporter = data.fundingPeopleCount
-      this.rightInfo.remainSuccessPercent =((data.fundingCollectedMoney /data.fundingTargetMoney ) *100)
+      this.rightInfo.remainSuccessPercent =Math.floor((data.fundingCollectedMoney /data.fundingTargetMoney ) *100)
       this.rightInfo.productPrice = data.fundingTargetMoney
       this.rightInfo.assemblePrice = data.fundingCollectedMoney
-      this.rightInfo.progressBarPercent = ((data.fundingCollectedMoney /data.fundingTargetMoney ) *100)
+      this.rightInfo.progressBarPercent = Math.floor((data.fundingCollectedMoney /data.fundingTargetMoney ) *100)
       this.rightInfo.productBrand = data.fundingProductBrand
       this.rightInfo.remainingPeriod = data.fundingBetweenTime+1
 

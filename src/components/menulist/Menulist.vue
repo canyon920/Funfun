@@ -125,8 +125,13 @@ export default {
       }
     }
   },
+  beforeCreate() {
+    if (!window.localStorage.getItem('login_member')) {
+      this.$router.push("/login")
+    }
+  },
   mounted() {
-    this.hideHeader()
+    this.hideHeader();
     this.loginInfoMatch()
   },
   beforeDestroy() {

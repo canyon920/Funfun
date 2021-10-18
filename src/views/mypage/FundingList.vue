@@ -18,6 +18,8 @@
 
 import Mainevent from '../../components/layout/main/Main-event';
 import FundingListComponent from "@/components/FundingListComponent";
+import {reServerSend} from "@/service/refreshForAccessToken";
+import Header from "@/components/layout/Header";
 import axios from "axios";
 
 export default {
@@ -171,12 +173,12 @@ export default {
           }).catch(e => {
             console.log("에러에러",e)
             console.log("에러에러",e.response)
-           /* if (e.response.status===403) {
+            if (e.response.status===403) {
               reServerSend();
               this.bringMyLikeList()
             }
             console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
-            this.$router.push("/login",Header.methods.isLogin)*/
+            this.$router.push("/login",Header.methods.isLogin)
           })
     },
 

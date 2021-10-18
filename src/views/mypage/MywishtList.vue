@@ -75,6 +75,11 @@ export default {
       })
     }
   },
+  beforeCreate() {
+    if (!window.localStorage.getItem('login_member')) {
+      this.$router.push("/login")
+    }
+  },
   beforeMount() {
     this.setProductList()
   }
