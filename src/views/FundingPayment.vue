@@ -1,6 +1,6 @@
 <template>
 <div class="FundingPayment-container">
-  <h1>결제</h1>
+  <h1>결제 - 펀딩하기</h1>
   <div class="fundingInfo">
     <v-img
         max-height="250"
@@ -89,8 +89,12 @@ export default {
   methods:{
     set(){
       this.fundingId=this.$route.params.fundingId
-      //axios 펀딩 정보
-      axios.get("http://127.0.0.1:9090/fundingPay/fundingInfo/"+this.fundingId)
+      this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
+      //axios 펀딩 정보 + 구매자 정보(=전화번호)
+      let setForm = new FormData();
+      setForm.append("fundingId",this.fundingId);
+      setForm.append("memberId",this.memberObj.memberId);
+      axios.post("http://127.0.0.1:9090/fundingPay/fundingInfo/",setForm)
       .then(res => {
         let jdata =  JSON.stringify(res.data);
         let joData = JSON.parse(jdata);
@@ -104,7 +108,6 @@ export default {
         if(joData.btel)
           this.buyer_tel = joData.btel;
       })
-
     },
     async payKakao(){
       //중복 클릭 방지
@@ -155,7 +158,7 @@ export default {
           alert(rsp.error_msg);
         }
         this.orderId=-1
-        router.push({name:"Main"})
+        await router.push({name:"Main"})
       }.bind(this))
     },
     async payKG(){
@@ -207,12 +210,11 @@ export default {
           alert(rsp.error_msg);
         }
         this.orderId=-1
-        router.push({name:"Main"})
+        await router.push({name:"Main"})
       }.bind(this))
     },
     async setPay(){
       let result = false;
-      this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
 
       let form = new FormData();
       form.append("fundingId",this.fundingId)
