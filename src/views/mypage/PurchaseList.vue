@@ -1,104 +1,113 @@
 <template>
   <div class = "Purchase-first">
-    <div class = "Purchase-second">
-      <NormalListComponent :bringProductList="purchaselistS" :bringscript="purchasetitle"/>
+    <div class = "Purchase-top">
+      <div class ="purchase-title1">
+    {{bringpurchaseList.title1}}
+      </div>
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+          <tr>
+          <th class = "text-left">
+            NO
+          </th>
+            <th class = "text-left">
+              img
+            </th>
+            <th class = "text-left">
+              상품이름
+            </th>
+            <th class = "text-left">
+              상품가격
+            </th>
+            <th class = "text-left">
+              상태
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for ="item in giftlist" :key="item.no">
+          <td>{{item.no}}</td>
+          <td><img v-bind:src="item.image" width="100" height="100"></td>
+          <td>{{item.title}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.state}}</td>
+          </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+
     </div>
+    <div class = "Purchase-bottom">
+      <div class ="purchase-title2">
+    {{bringpurchaseList.title2}}
+        </div>
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+          <tr>
+            <th class = "text-left">
+              NO
+            </th>
+            <th class = "text-left">
+              img
+            </th>
+            <th class = "text-left">
+              상품이름
+            </th>
+            <th class = "text-left">
+              상품가격
+            </th>
+            <th class = "text-left">
+              상태
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for ="item in deadlist" :key="item.no">
+            <td>{{item.no}}</td>
+            <td><img v-bind:src="item.image"></td>
+            <td>{{item.title}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.state}}</td>
+          </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+   </div>
+
   </div>
 </template>
 <script>
-import NormalListComponent from "@/components/NormalListComponent";
+
 
 export default {
-  name:"PurchaseList",
-  components: {NormalListComponent},
-  data(){
-    return{
-      purchaselistS: [
-            {
-              src: require("@/assets/example-img/chunsicthum.png"),
-              title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
-              brand: '카카오프렌즈',
-              price: 30000,
-              likeRate: 3.5,
-              fundingCount: 100,
-              productId:1
-            },
-            {
-              src: require("@/assets/example-img/chunsicsub1.png"),
-              title:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
-              brand: '카카오프렌즈',
-              price: 17000,
-              likeRate: 4,
-              fundingCount: 25,
-              productId:2
-            },
-            {
-              src: require("@/assets/example-img/chunsicsub2.png"),
-              title:'아직 끝나지 않았당 그러므로 가보자하하',
-              brand: '카카오프렌즈',
-              price: 26000,
-              likeRate: 4.5,
-              fundingCount: 105,
-              productId:3
-            },
-            {
-              src: require("@/assets/example-img/chunsicsub3.png"),
-              title:'"언텍트시대" 가보자하하',
-              brand: '카카오프렌즈',
-              price: 25600,
-              likeRate: 5,
-              fundingCount: 56,
-              productId:4
-            },
-            {
-              src: require("@/assets/example-img/chunsicsub2.png"),
-              title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당',
-              brand: '카카오프렌즈',
-              price: 19000,
-              likeRate: 3.5,
-              fundingCount: 110,
-              productId:5
-            },
-            {
-              src: require("@/assets/example-img/chunsicsub3.png"),
-              title:'"언텍트시대" 춘식이와 라식이',
-              brand: '카카오프렌즈',
-              price: 300000,
-              likeRate: 2.5,
-              fundingCount: 10,
-              productId:6
-            },
-            {
-              src: require("@/assets/example-img/chunsicthum.png"),
-              title:'"언텍트시대" 춘식이와 라식이의 사랑이야기 아직 끝나지 않았당 그러므로 가보자하하',
-              brand: '카카오프렌즈',
-              price: 350000,
-              likeRate: 0,
-              fundingCount: 0,
-              productId:7
-            },
-            {
-              src: require("@/assets/example-img/chunsicsub1.png"),
-              title:'"언텍트시대"',
-              brand: '카카오프렌즈',
-              price: 20000,
-              likeRate: 1,
-              fundingCount: 5,
-              productId:8
-            },
-            {
-              src: require("@/assets/example-img/chunsicthum.png"),
-              title:'"언텍트시대" 춘식이와 라식이의 사랑이야기',
-              brand: '카카오프렌즈',
-              price: 50000,
-              likeRate: 3.5,
-              fundingCount: 1,
-              productId:9
-            },
-          ],
-      purchasetitle:
-        '구매목록 리스트'
-      ,
+  name: "PurchaseList",
+  components: {},
+  data() {
+    return {
+      bringpurchaseList:{
+        title1:'나에게 선물한 상품리스트',
+        title2:'마감된 펀딩 리스트',
+      },
+      giftlist:[
+          {
+        no:1,
+        image: "https://ssl.pstatic.net/imgmovie/mdi/mit110/1619/161967_P153_134645.jpg",
+        title:'내가널이끄는 boss',
+        price:200000,
+        state:'펀딩 완료 확인을 회원이 확인후 정보입력 필요',
+           }
+      ],
+      deadlist:[
+      {
+        no:1,
+        image:"https://ssl.pstatic.net/imgmovie/mdi/mit110/1619/161967_P153_134645.jpg",
+        title:'내가널이끄는 boss',
+        price:200000,
+        state:'배송중',
+       }
+      ],
     }
   }
 }
@@ -117,8 +126,37 @@ export default {
   animation-duration: 1s;
 
 }
-.Purchase-second{
-  padding-bottom: 80px;
+.Purchase-top{
+  margin-bottom: 50px;
+  padding-bottom: 70px;
+
+
+}
+.purchase-title1{
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  padding-bottom: 15px;
+
+}
+.purchase-title2{
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  padding-bottom: 15px;
+
+}
+.Purchase-bottom{
+  padding-top: 70px;
+  padding-bottom:90px;
 }
 
 @keyframes fadeIn {

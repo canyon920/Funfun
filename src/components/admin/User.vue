@@ -36,7 +36,6 @@ export default {
           }
         ],
         friend:{
-          data2:'',
         },
 
         list: [
@@ -52,7 +51,6 @@ export default {
     }
   },
   methods: {
-
     async bringUser() {
       let access_token = window.sessionStorage.getItem('access_token')
       let config = {
@@ -78,6 +76,7 @@ export default {
             console.log(e.response)
           })
     },
+
     bringUserName(){
       for(let key in this.friend){
         if(this.friend.data2.includes(this.search)){
@@ -99,6 +98,25 @@ export default {
     watch: {
       page() {
         console.log(this.page)
+      },
+      search() {
+        let access_token = window.sessionStorage.getItem('access_token')
+        let config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${access_token}`
+          }
+        }
+        console.log("config: " + config)
+        this.search =this.search.trim();
+        if(this.search.length>0) {
+          axios.get("http://localhost:9090/user/admin/search/" + this.search, config)
+              .then(res => {
+                this.friend = res.data
+              }).catch(e => {
+            console.log(e.response)
+          })
+        }
       },
 
 
