@@ -38,7 +38,7 @@
           </div>
         </div>
 
-        <div class="reaminpercent-div" style="font-size: 35px">
+        <div class="reaminpercent-div" style="font-size: 35px" >
           {{ bringRightInfo.remainSuccessPercent }} <span style="font-size: 20px; font-weight: 700">% 달성</span>
         </div>
 
@@ -51,7 +51,7 @@
         <div class="join-support-div" >
 
           <div class="support-div" style="font-size: 35px">
-            <span v-show="!fundingJoinCount">{{ bringRightInfo.joinSupporter }}</span> <span v-show="fundingJoinCount">?</span> <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
+            <span v-show="!isPercent20">{{ bringRightInfo.joinSupporter }}</span> <span v-show="isPercent20">?</span> <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
           </div>
 
 
@@ -201,22 +201,11 @@ export default {
       selectUrl.select()
       document.execCommand("copy");
     },
-    isPercent20() {
-      if (this.bringRightInfo.progressBarPercent <= 20) {
-        console.log("콘솔은 찍힌다.2")
-        this.fundingJoinCount = true
-      } else {
-        this.fundingJoinCount = false
-      }
-    },
+
     completedFunding(){
       this.$router.push({name:"Choose", params:{assemblePrice:this.bringRightInfo.assemblePrice,productPrice:this.bringRightInfo.productPrice}})
     },
-    // isFundingJoinMemberCount() {
-    //   if (bringRightInfo.remainSuccessPercent >= 20) {
-    //     this.fundingJoinCount =
-    //   }
-    // }
+
     checkKakao(){
       let mdata = JSON.parse(localStorage.getItem("login_member"))
       if (mdata === null) {
@@ -262,12 +251,20 @@ export default {
 
         ],
       })
-    }
+    },
+
   },
   computed:{
+    isPercent20() {
+      if (this.bringRightInfo.remainSuccessPercent <= 20) {
+        return true;
+      } else {
+        return false;
+
+      }
+    },
     isCompletedTrue() {
       if (this.bringRightInfo.remainingPeriod <= 0) {
-        console.log("콘솔은 찍힌다.1")
         return  true
       } else {
         return  false
@@ -275,12 +272,7 @@ export default {
     },
   },
   mounted() {
-    console.log("콘솔은 찍힌다.3")
     this.checkKakao()
-    console.log("콘솔은 찍힌다.4")
-    this.isCompletedTrue()
-    console.log("콘솔은 찍힌다.5")
-    this.isPercent20()
   },
 }
 </script>

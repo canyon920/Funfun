@@ -55,7 +55,7 @@
 
           <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'PurchaseList', params:{memberId: loginMember.memberId}}">
             <h2 class="display-1 font-weight-bold mb-2">
-              구매목록
+              완료된 목록
             </h2>
           </router-link></div>
 

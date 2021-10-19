@@ -138,6 +138,7 @@
         <v-btn @click="onClickButton2()"
                class="ma-2"
                outlined
+               :disabled="isNo"
                style="color:rgb(229 114 0)"
         >
           상품으로받기
@@ -182,14 +183,16 @@ export default {
       checkAddress2 : false,
 
       //초과된 금액 조회
-      extraPrice:0
+      extraPrice:0,
+      //금액을 못채우면 상품으로는 받을 수 없도록
+      isNo:false
     }
   },
   methods:{
     computeExtraPrice() {
       this.extraPrice = this.$route.params.assemblePrice-this.$route.params.productPrice
-      if (this.extraPrice <= 0) {
-        this.extraPrice = 0;
+      if (this.extraPrice < 0) {
+        this.isNo = true
       }
     },
     onClickButton1(){

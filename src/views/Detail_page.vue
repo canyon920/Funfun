@@ -293,16 +293,16 @@ export default {
             Authorization : `Bearer ${access_token}`,
           }
         }
-        const datas = JSON.parse(sessionStorage.getItem("product_detail"));
-        const mdata = JSON.parse(localStorage.getItem("login_member"));
-        let productIdFromStorage = datas.productId
+      let productIdFromStorage = JSON.parse(sessionStorage.getItem("product_detail"));
+      const mdata = JSON.parse(localStorage.getItem("login_member"));
         let memberIdFromStorage = mdata.memberId
 
         let form = new FormData()
 
         form.append("like_up", this.rightInfo.likeIcon)
         form.append("member_id",memberIdFromStorage)
-        form.append("product_id",productIdFromStorage)
+        form.append("product_id",productIdFromStorage.productId)
+      console.log("아이디를 못담는건가?3?????"+productIdFromStorage.productId)
 
       await axios.post("http://localhost:9090/product/like/update",form,config)
             .then(res => {

@@ -10,7 +10,7 @@
         <div class="border-div">
           <div id="input-submit">
             <v-text-field
-                v-model="nickname"
+                v-model.trim="nickname"
                 label="닉네임: "
             >
             </v-text-field>
@@ -24,8 +24,8 @@
                 readonly
             ></v-text-field>
 
-            <div class="saved-phone-div" style="color: rgba(0,0,0,0.7); border-bottom:0.5px solid rgba(0,0,0,0.7)">
-              저장된 번호 : {{savedPhoneNumber}}
+            <div class="saved-phone-div" style="color: rgba(0,0,0,0.7); border-bottom:0.5px solid rgba(0,0,0,0.7); width: 50%;font-size: 15px">
+              설정된 번호 : {{savedPhoneNumber}}
             </div>
             <Phone style="width: 100%; margin-bottom: 40px" :bring-hint="'수정을 원하시면 입력해 주세요.'" @birngMethodPhoneIn="phoneInputDataVal"/>
 
@@ -34,9 +34,9 @@
                 v-model.trim="submitAddress1"
                 :label="address"
             ></v-text-field>
-<!--            <div v-show="errorAddress1Check" class="error-text address1-error">-->
-<!--              주소를 입력해 주세요.-->
-<!--            </div>-->
+            <!--            <div v-show="errorAddress1Check" class="error-text address1-error">-->
+            <!--              주소를 입력해 주세요.-->
+            <!--            </div>-->
 
             <div class="2">
               <v-text-field :label="address2"
@@ -47,9 +47,9 @@
             <div v-show="checkAddress2" class="error-address2" style="color: red;font-size: 10px">
               상세 주소를 입력해 주세요.
             </div>
-<!--            <div v-show="errorAddress2Check" class="error-text address2-error">-->
-<!--              상세주소를 입력해 주세요.-->
-<!--            </div>-->
+            <!--            <div v-show="errorAddress2Check" class="error-text address2-error">-->
+            <!--              상세주소를 입력해 주세요.-->
+            <!--            </div>-->
 
             <div class="div-3">
               <v-text-field :label="postNumber"
@@ -65,9 +65,9 @@
                 주소검색
               </v-btn>
             </div>
-<!--            <div v-show="errorFindCheck" class="error-text find-error">-->
-<!--              주소를 검색해 주세요.-->
-<!--            </div>-->
+            <!--            <div v-show="errorFindCheck" class="error-text find-error">-->
+            <!--              주소를 검색해 주세요.-->
+            <!--            </div>-->
 
           </div>
         </div>
@@ -87,6 +87,7 @@ import Phone from "@/components/login/Phone";
 import axios from "axios";
 import {isLoginMemberCheck} from "@/service/member-login";
 import {reServerSend} from "@/service/refreshForAccessToken";
+import Header from "@/components/layout/Header";
 
 export default {
   name:'Editpage',
@@ -102,11 +103,11 @@ export default {
       // 이메일
       email:'',
       // 저장 되어 있는 주소
-      address:'',
+      address:'주소',
       // 저장 되어 있는 상세주소
-      address2:'',
+      address2:'상세 주소',
       // 저장 되어 있는 집코드
-      postNumber:'',
+      postNumber:'우편번호',
 
       // 수정할 주소
       submitAddress1:'',
@@ -129,6 +130,15 @@ export default {
 
       countTry:0,
 
+      //저장완료되면 맴버정보 다시셋팅
+      memberObj : {
+        memberId : '',
+        memberEmail : '',
+        memberNicname : '',
+        memberApi : '',
+        memberRole : '',
+        memberProfile : ''
+      }
 
     }
   },
@@ -146,18 +156,18 @@ export default {
       form.append("memberId", this.memberId);
       //UserEditController 에서 받아오자
       await axios.post("http://localhost:9090/bring/member/edit/info",form, config)
-      .then(res =>{
-        console.log(res.data)
-        this.nickname = res.data.nic_name
-        this.email = res.data.email
-        this.savedPhoneNumber = res.data.phone_number
-        this.address = res.data.city
-        this.address2 = res.data.street
-        this.postNumber = res.data.zipcode
-        this.countTry=0
-      }).catch(error=>{
-            this.countTry++
+          .then(res =>{
+            console.log(res.data)
+            this.nickname = res.data.nic_name
+            this.email = res.data.email
+            this.savedPhoneNumber = res.data.phone_number
+            this.submitAddress1 = res.data.city
+            this.submitAddress2 = res.data.street
+            this.submitAddress3 = res.data.zipcode
+            this.countTry=0
+          }).catch(error=>{
             if (error.response.status===403) {
+              this.countTry++
               if (this.countTry == 1) {
                 reServerSend();
                 this.memberInfoMapping()
@@ -189,9 +199,9 @@ export default {
         }
       }
       let checkedPhone = this.savedPhoneNumber
-      let checkedAddress1 = this.address
-      let checkedAddress2 = this.address2
-      let checkedAddress3 = this.address3
+      let checkedAddress1 = this.submitAddress1
+      let checkedAddress2 = this.submitAddress2
+      let checkedAddress3 = this.submitAddress3
       if (this.submitPhoneNumber) {
         checkedPhone = this.submitPhoneNumber;
       }
@@ -214,37 +224,46 @@ export default {
       const submitEditMember={
         "id" : this.memberId,
         "email" : this.email,
-        "nic_name" : this.nic_name,
+        "nic_name" : this.nickname,
         "phone_number": checkedPhone,
         "city" : checkedAddress1,
         "street" : checkedAddress2,
         "zipcode" : checkedAddress3
       }
       await axios.post("http://localhost:9090/bring/member/edit/save", submitEditMember, config)
-      .then(res=>{
-        console.log(res.data)
-        this.countTry=0
-        if (res.data === true) {
-          this.$router.push()
-        }
-      })
-      .catch(error=>{
-        console.log(error)
-        // 여기 엑세스 만료시 세션으로 요청 로직 넣어주자@!!!!
-        if (error.response.status===403) {
-          this.countTry++
-          if (this.countTry == 1) {
-            reServerSend();
-            this.memberInfoMapping()
-          }
-          console.log("다시 오류인것 확인 로그")
-        }
-      })
+          .then(res=>{
+            console.log(res.data)
+            this.countTry=0
+
+            this.memberObj.memberId = res.data.id
+            this.memberObj.memberEmail = res.data.email
+            this.memberObj.memberNicname = res.data.nic_name
+            this.memberObj.memberApi = res.data.login_api
+            this.memberObj.memberRole = res.data.role
+            this.memberObj.memberProfile = res.data.profileImg
+            let login_member = JSON.stringify(this.memberObj)
+
+            window.localStorage.setItem('login_member', login_member)
+            this.backRouter()
+
+          })
+          .catch(error=>{
+            console.log(error)
+            // 여기 엑세스 만료시 세션으로 요청 로직 넣어주자@!!!!
+            if (error.response.status===403) {
+              this.countTry++
+              if (this.countTry == 1) {
+                reServerSend();
+                this.refreshRouter()
+              }
+              console.log("다시 오류인것 확인 로그")
+            }
+          })
 
       // this.$router.go(0)
     },
     backRouter() {
-      this.$router.go(-1)
+      this.$router.go(-1,Header.methods.isLogin())
     }
   },
   watch:{
