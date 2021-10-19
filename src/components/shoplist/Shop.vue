@@ -131,8 +131,8 @@ export default {
         },
         {
           id:2,
-          categorySrc: require("@/assets/category/2.jpg"),
-          title: '명절선물'
+          categorySrc: require("@/assets/category/5.jpg"),
+          title: '가벼운선물'
         },
         {
           id:3,
@@ -141,47 +141,47 @@ export default {
         },
         {
           id:4,
-          categorySrc: require("@/assets/category/4.jpg"),
-          title: '건강/회복'
-        },
-        {
-          id:5,
-          categorySrc: require("@/assets/category/5.jpg"),
-          title: '가벼운선물'
-        },
-        {
-          id:6,
           categorySrc: require("@/assets/category/6.jpg"),
           title: '툭!백화점'
         },
         {
-          id:7,
+          id:5,
+          categorySrc: require("@/assets/category/4.jpg"),
+          title: '건강회복'
+        },
+        {
+          id:6,
           categorySrc: require("@/assets/category/7.jpg"),
           title: '스몰럭셔리'
         },
         {
-          id:8,
+          id:7,
           categorySrc: require("@/assets/category/8.jpg"),
           title: '명품선물'
         },
         {
-          id:9,
+          id:8,
           categorySrc: require("@/assets/category/9.jpg"),
           title: '어른선물'
         },
         {
-          id:10,
+          id:9,
           categorySrc: require("@/assets/category/10.jpg"),
           title: '출산/백일돌'
         },
         {
-          id:11,
+          id:10,
           categorySrc: require("@/assets/category/11.jpg"),
           title: '쓸모없는선물'
-        },{
-          id:12,
+        },
+        {
+          id:11,
           categorySrc: require("@/assets/category/12.jpg"),
           title: '배달선물'
+        },{
+          id:12,
+          categorySrc: require("@/assets/category/13.jpg"),
+          title: '따뜻한선물'
         },
       ],
       // people: [],

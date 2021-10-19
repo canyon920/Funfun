@@ -43,21 +43,21 @@
         <div v-show="data.data2" class="text col2" >
           {{ data.data2 }}
         </div>
-        <div v-show="data.data3" class="text col3" >
+        <div class="text col3" >
           {{ data.data3 }}
         </div>
-        <div v-show="data.data4" class="text col4" >
+        <div class="text col4" >
           {{ data.data4 }}
         </div>
-        <div v-show="data.data5" class="text col5" >
-          {{ data.data5 }}
-        </div>
-        <div v-show="data.data6" class="text col4" >
-          {{ data.data6 }}
-        </div>
-        <div v-show="data.data7" class="text status" >
-          {{data.data7}}
-        </div>
+<!--        <div v-show="data.data5" class="text col5" >-->
+<!--          {{ data.data5 }}-->
+<!--        </div>-->
+<!--        <div v-show="data.data6" class="text col4" >-->
+<!--          {{ data.data6 }}-->
+<!--        </div>-->
+<!--        <div v-show="data.data7" class="text status" >-->
+<!--          {{data.data7}}-->
+<!--        </div>-->
         <div v-show="data.data8" class="text delete" @click="check(data.data1)">
           {{data.data8}}
         </div>
