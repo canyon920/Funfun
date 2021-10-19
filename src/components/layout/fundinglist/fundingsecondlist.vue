@@ -1,7 +1,10 @@
 <template>
   <div class = "secondinner">
+
     <carousel :autoplay="false" :nav="true">
       <template slot="prev"><span class="prev"></span></template>
+
+
       <v-card
           class="mx-auto"
           max-width="300"
@@ -40,18 +43,29 @@
 </template>
 <script>
 
+
 import carousel from "vue-owl-carousel";
 
 export  default {
   name: 'Fundingsecondlist',
-  components: {carousel},
+  components: { carousel,},
   props:{
+    bringfundinglist:{
+      type:Array
+    }
 
   },
+  data(){
+    return{
+
+
+
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .secondinner{
   max-width:1100px;
   left:0; right:0; margin-left:auto; margin-right:auto;

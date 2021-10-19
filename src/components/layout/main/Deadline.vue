@@ -1,7 +1,7 @@
 <template>
   <div class = "deadline">
 
-    <carousel id="shop-carousel" :autoplay="true" :nav="false" :responsive="{
+    <carousel id="shop-carousel" :autoplay="bringOuto" :nav="false" :responsive="{
               1024:{
                 items:3,
               },
@@ -20,7 +20,7 @@
             <v-card
                 id="v-card-custom"
                 class="mx-auto"
-                max-width="300px" >
+                max-width="275px" >
               <img
                   id="card-img"
                   class="white--text align-end"
@@ -78,6 +78,9 @@ export default {
   props: {
     bringmainDeadline : {
       type: Array
+    },
+    bringOuto:{
+      type:Boolean
     }
   },
   emits:[
@@ -118,7 +121,7 @@ export default {
 }
 #v-card-custom #card-img {
   height: 275px;
-  height: 275px;
+  width: 275px;
 
 }
 #v-card-custom .progress-bar-total-div {
@@ -133,12 +136,13 @@ export default {
   width: 90%;
   left: 5%;
   background-color: rgba(229, 114, 0, .2);
-  bottom: 22%;
+  bottom: 20%;
 
 }
 #v-card-custom .progress-bar-total-div .progressBar-div .progressBar {
   height: 8px;
   background-color: rgb(229, 114, 0);
+  max-width: 100%;
   /*width: 30%;*/
 }
 

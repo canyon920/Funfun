@@ -49,12 +49,15 @@ export default {
 
 }
 </script>
-<style>
+<style scoped>
 .event{
   margin-top: 20px;
   margin-bottom: 20px;
 
 
+}
+.event-main-title{
+  padding-bottom: 30px;
 }
 
 .event .event-content-list {

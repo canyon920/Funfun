@@ -69,12 +69,13 @@
                 nav
                 v-show="searchStart"
                 :class="{active: searchStart, deactive: !searchStart}"
+                style="max-height: 300px; overflow-y: scroll"
             >
               <v-list-item
-                  v-for="(item,fkey) in friends"
-                  :key="fkey"
+                  v-for="item in friends"
+                  :key="item.friendId"
                   link
-                  @click="searchFriendSelect(item.username,item.friendId)"
+                  @click="searchFriendSelect(item.username,item.memberid)"
               >
                 <v-list-item-icon>
                   <img :src="item.profileImg" style="border-radius: 20%; width: 25px; height: 25px">
@@ -82,6 +83,7 @@
 
                 <v-list-item-content>
                   <v-list-item-title>{{ item.username }}</v-list-item-title>
+                  <v-list-item-title>{{ item.email }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -119,7 +121,7 @@
           <div class="fonttext">
             <h2>마감예정인 펀딩</h2>
           </div>
-          <Deadline :bringmainDeadline="mainDeadline" />
+          <Deadline :bringmainDeadline="mainDeadline"  :bringOuto="true"/>
         </div>
 
         <v-divider
@@ -130,7 +132,7 @@
           <div class="textline">
             <h2>내가 참여한 선물</h2>
           </div>
-          <Deadline :bringmainDeadline="mainJoin" />
+          <Deadline :bringmainDeadline="mainJoin" :bringOuto="false" />
         </div>
         </div>
 
@@ -155,6 +157,8 @@ import Gibooline from '../components/layout/main/Gibooline'
 import Mainmenu from '../components/layout/main/Main-menu'
 import Mainevent from '../components/layout/main/Main-event'
 import MainSearch from "../components/layout/main/Main-search";
+import {reServerSend} from "@/service/refreshForAccessToken";
+import {getHeaders} from "@/service/header";
 import axios from "axios";
 export default {
   name: 'Main',
@@ -166,6 +170,8 @@ export default {
 
   data () {
     return {
+      countTry:0,
+
       memberObj : {
         memberId : '',
         memberEmail : '',
@@ -212,7 +218,7 @@ export default {
       // null,
           {
             username:"",
-            friendId: -1,
+            friendId: 0,
             fundinglist:[
               ],
           },
@@ -279,6 +285,21 @@ export default {
           expireDate: '2022-01-30',
           fundingId:4
         },
+        {
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub1.png"),
+          fundingTitle:'"우리 아이"가 정말 갖고 싶어 해요',
+          progressBarPercent: 50, fundingname: '곽두팔',fundingMoney: 3000,
+          expireDate: '2021-12-03',
+          fundingId:3
+        },
+        {
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
+          fundingTitle:'일단 가즈아',
+          progressBarPercent: 50, fundingname: '두팔',fundingMoney: 3000,
+          expireDate: '2022-01-30',
+          fundingId:4
+        },
+
 
       ],
 
@@ -287,54 +308,59 @@ export default {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
           fundingTitle:'"우리" 친구 맞지?^^',
           progressBarPercent: 20, fundingname: '두팔',fundingMoney: 3000,
-          expireDate: '2021-10-30',
+          expireDate: '2021-12-30',
           fundingId:1
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub1.png"),
           fundingTitle:'너의 마음을 보여줘! 제발~',
           progressBarPercent: 20, fundingname: '춘식',fundingMoney: 3000,
-          expireDate: '2021-09-30',
+          expireDate: '2021-11-30',
           fundingId:2
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
           fundingTitle:'"생일이양"',
           progressBarPercent: 50, fundingname: '라둥',fundingMoney: 3000,
-          expireDate: '2021-07-30',
+          expireDate: '2021-12-30',
           fundingId:3
         },
         {
           preFundingImgUrl:require("@/assets/example-img/chunsicsub2.png"),
           fundingTitle:'나! 이거이거',
           progressBarPercent: 80, fundingname: '라이언',fundingMoney: 3000,
-          expireDate: '2021-06-30',
+          expireDate: '2021-11-22',
+          fundingId:4
+        },
+        {
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub3.png"),
+          fundingTitle:'"이정도는 알지?"',
+          progressBarPercent: 30, fundingname: '라둥',fundingMoney: 30000,
+          expireDate: '2022-01-30',
+          fundingId:3
+        },
+        {
+          preFundingImgUrl:require("@/assets/example-img/chunsicsub2.png"),
+          fundingTitle:'나! 거이거이',
+          progressBarPercent: 10, fundingname: '라이언',fundingMoney: 200000,
+          expireDate: '2022-05-30',
           fundingId:4
         },
       ],
     }
   },
   methods: {
-    searchFriendSelect(username, friendId) {
+    searchFriendSelect(username, memberid) {
       this.loading = false;
       this.searchStart = false;
       this.mainSearch.username = username;
-      //여기에 axios 추가해 this.mainSearch.fundinglist 수정해줘야함
-      // this.mainSearch.fundinglist = [
-      //   {fundingId:1 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
-      //   {fundingId:2 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
-      //   {fundingId:3 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub2.png")},
-      //   {fundingId:4 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub3.png")},
-      //   {fundingId:5 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicthum.png")},
-      //   {fundingId:6 ,funndingTitle:'"언텍트 시대" 춘식이와 라이언의 사랑이야기' ,funndingBrand: '카카오프렌즈' ,fundingTartgetMoney: '36900 원',fundingUrl: require("@/assets/example-img/chunsicsub1.png")},
-      // ]
-      axios.get("http://127.0.0.1:9090/mainPage/friend/"+friendId)
+      axios.get("http://127.0.0.1:9090/mainPage/friend/"+memberid)
       .then(res => {
         let jdata =  JSON.stringify(res.data);
         this.mainSearch.fundinglist = JSON.parse(jdata);
         // console.log("#this.mainSearch.fundinglist",this.mainSearch.fundinglist);
       }).catch(error => {
-        alert("error",error);
+        console.log(error.messages)
       })
 
     },
@@ -365,23 +391,51 @@ export default {
     setDeadline(){
       axios.get("http://127.0.0.1:9090/mainPage/Deadline")
       .then(res => {
+        this.mainDeadline = [];
         let jdata =  JSON.stringify(res.data);
         this.mainDeadline = JSON.parse(jdata);
+        console.log(this.mainDeadline)
       })
     },
     setJoin(){
       this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
-      axios.get("http://127.0.0.1:9090/mainPage/mainJoin/"+ this.memberObj.memberId)
+      let access_token = window.sessionStorage.getItem("access_token")
+      console.log(access_token)
+      axios.get("http://127.0.0.1:9090/mainPage/mainJoin/"+ this.memberObj.memberId, getHeaders())
       .then(res => {
+        this.mainJoin = [];
         let jdata =  JSON.stringify(res.data);
         this.mainJoin = JSON.parse(jdata);
+        console.log(res.data)
+        if (!res.data.length) {
+          this.mainFriendSearchBar = false
+          return false
+        }
+        this.mainFriendSearchBar = true
+      }).catch(error=>{
+        console.log(error)
+        if (error.response.status===403) {
+          this.countTry++
+          if (this.countTry == 1) {
+            reServerSend();
+            this.setJoin()
+          }
+          console.log("다시 오류인것 확인 로그")
+        }
       })
     }
 
   },
   watch:{
     friendName(){
-      this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
+      if (!this.friendName) {
+        this.loading = false
+        this.searchStart = false
+        this.mainSearch.fundinglist = []
+        this.mainSearch.username = ''
+        return  false
+      }
+      this.memberObj = JSON.parse(window.localStorage.getItem('login_member'));
       // console.log(this.memberObj)
       // console.log(JSON.parse(window.localStorage.getItem('login_member')))
       this.loading = true
@@ -394,7 +448,7 @@ export default {
           let jdata =  JSON.stringify(response.data);
           this.friends = JSON.parse(jdata);
         }).catch(error => {
-          alert("에러",error);
+          console.log(error.messages)
         })
       }
 
@@ -410,6 +464,8 @@ export default {
 
 </script>
 <style scoped>
+.first {
+}
 
 .second{
 
@@ -469,9 +525,11 @@ export default {
 
 @keyframes transyin {
   from{
+    opacity: 0;
     transform: translateY(-200px);
   }
   to{
+    opacity: 1;
   }
 }
 

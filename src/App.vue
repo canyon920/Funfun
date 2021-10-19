@@ -6,12 +6,12 @@
     <router-view></router-view>
     </transition>
     </v-container>
-    <Footer/>
+    <Footer style="width: 100vw"/>
   </v-app>
 </template>
 
 <script>
-
+// json 변경전
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -30,7 +30,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 #container {
   max-width: 1100px;
 }

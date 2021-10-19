@@ -19,6 +19,7 @@
     <div class="navbar-menu2" :class="{active : booleanMenu2}">
       <div class="link-div" id="kakao-div" @click="Klogout()" hidden>Logout</div>
       <div class="link-div" id="email-div" @click="Flogout()" hidden>Logout</div>
+      <div class="link-div" id="mypage-div" @click="toggleDown" hidden><router-link to="/mypage-list" style="color: black;text-decoration: none">MyPage</router-link></div>
       <div class="link-div" id="login-div" @click="toggleDown"><router-link style="color: black" class="router-link" to="/login" >Login</router-link></div>
       <div class="link-div" id="join-div" @click="toggleDown"><router-link style="color: black" class="router-link" to="/join" >Join</router-link></div>
       <!--      <router-link to="#" v-on:click.native="unlink()"> Kakao Unlink</router-link>-->
@@ -47,7 +48,7 @@ export default {
   name:"Header",
   data()  {
     return{
-      normalImg:require("@/assets/logo/img-normal.jpg"),
+      normalImg:require('@/assets/logo/img-normal.jpg'),
       SearchName:'',
       memberInfo:{
         memberNicname : '',
@@ -94,16 +95,6 @@ export default {
         },
       });
     },
-    Glogout() {
-      let router = this.$router
-      const authInst = window.gapi.auth2.getAuthInstance();
-      authInst.signOut().then(() => {
-        console.log("User Signed Out!")
-        window.localStorage.clear()
-        window.sessionStorage.clear()
-        router.go(0)
-      })
-    },
     isLogin() {
       if (localStorage.getItem('login_member') !== null) {
         this.memberInfo = JSON.parse(localStorage.getItem('login_member'))
@@ -119,8 +110,10 @@ export default {
         }
         if (this.memberInfo.memberApi === 'Kakao') {
           document.getElementById("kakao-div").hidden = false
+          document.getElementById("mypage-div").hidden = false
         } else if (this.memberInfo.memberApi === 'Email') {
           document.getElementById("email-div").hidden = false
+          document.getElementById("mypage-div").hidden = false
         }
       } else if (localStorage.getItem('login_member') === null) {
         document.getElementById("join-div").hidden = false
@@ -128,6 +121,7 @@ export default {
         document.getElementById("login-info-div").style.display = 'none';
         document.getElementById("kakao-div").hidden = true
         document.getElementById("email-div").hidden = true
+        document.getElementById("mypage-div").hidden = true
       }
     }
   },

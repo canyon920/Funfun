@@ -4,13 +4,13 @@
 
     <h1 style="margin: 30px 0px; text-align: center">회원정보 설정</h1>
 
-    <div id="app">
+    <div id="app-edit">
 
       <v-app id="inspire">
         <div class="border-div">
           <div id="input-submit">
             <v-text-field
-                v-model="nickname"
+                v-model.trim="nickname"
                 label="닉네임: "
             >
             </v-text-field>
@@ -24,30 +24,36 @@
                 readonly
             ></v-text-field>
 
-            <Phone style="width: 100%; margin-bottom: 40px" :bring-hint="'*아이디 및 비밀번호 찾기에 활용됩니다.'" @birngMethodPhoneIn="phoneInputDataVal"/>
+            <div class="saved-phone-div" style="color: rgba(0,0,0,0.7); border-bottom:0.5px solid rgba(0,0,0,0.7); width: 50%;font-size: 15px">
+              설정된 번호 : {{savedPhoneNumber}}
+            </div>
+            <Phone style="width: 100%; margin-bottom: 40px" :bring-hint="'수정을 원하시면 입력해 주세요.'" @birngMethodPhoneIn="phoneInputDataVal"/>
 
 
             <v-text-field
-                v-model.trim="address"
-                label="주소: "
+                v-model.trim="submitAddress1"
+                :label="address"
             ></v-text-field>
-<!--            <div v-show="errorAddress1Check" class="error-text address1-error">-->
-<!--              주소를 입력해 주세요.-->
-<!--            </div>-->
+            <!--            <div v-show="errorAddress1Check" class="error-text address1-error">-->
+            <!--              주소를 입력해 주세요.-->
+            <!--            </div>-->
 
             <div class="2">
-              <v-text-field label="상세주소 "
-                            v-model.trim="address2"
+              <v-text-field :label="address2"
+                            v-model.trim="submitAddress2"
               ></v-text-field>
 
             </div>
-<!--            <div v-show="errorAddress2Check" class="error-text address2-error">-->
-<!--              상세주소를 입력해 주세요.-->
-<!--            </div>-->
+            <div v-show="checkAddress2" class="error-address2" style="color: red;font-size: 10px">
+              상세 주소를 입력해 주세요.
+            </div>
+            <!--            <div v-show="errorAddress2Check" class="error-text address2-error">-->
+            <!--              상세주소를 입력해 주세요.-->
+            <!--            </div>-->
 
             <div class="div-3">
-              <v-text-field label="우편번호 "
-                            v-model.trim="postNumber"
+              <v-text-field :label="postNumber"
+                            v-model.trim="submitAddress3"
               >
               </v-text-field>
               <v-btn
@@ -59,9 +65,9 @@
                 주소검색
               </v-btn>
             </div>
-<!--            <div v-show="errorFindCheck" class="error-text find-error">-->
-<!--              주소를 검색해 주세요.-->
-<!--            </div>-->
+            <!--            <div v-show="errorFindCheck" class="error-text find-error">-->
+            <!--              주소를 검색해 주세요.-->
+            <!--            </div>-->
 
           </div>
         </div>
@@ -77,8 +83,11 @@
 
 
 <script>
-import axios from "axios";
 import Phone from "@/components/login/Phone";
+import axios from "axios";
+import {isLoginMemberCheck} from "@/service/member-login";
+import {reServerSend} from "@/service/refreshForAccessToken";
+import Header from "@/components/layout/Header";
 
 export default {
   name:'Editpage',
@@ -88,57 +97,92 @@ export default {
   data (){
     return{
       // message1:'',
+      memberId:'',
       // 닉네임
       nickname:'',
       // 이메일
       email:'',
-      // 주소
-      address:'',
-      // 상세주소
-      address2:'',
-      // 집코드
-      postNumber:'',
+      // 저장 되어 있는 주소
+      address:'주소',
+      // 저장 되어 있는 상세주소
+      address2:'상세 주소',
+      // 저장 되어 있는 집코드
+      postNumber:'우편번호',
 
-      // submit:'',
-      // clear:'',
+      // 수정할 주소
+      submitAddress1:'',
+      submitAddress2:'',
+      submitAddress3:'',
+      // 수정할 상세주소
+      // 수정할 집코드
 
-      // 폰 번호
+      // 저장되어있는 폰 번호
+      savedPhoneNumber: '',
+      // 수정할 폰 번호
       submitPhoneNumber:'',
 
       //  error
       errorNicNameCheck:false,
+      checkAddress2: false,
       // errorAddress1Check: true,
       // errorAddress2Check: true,
       // errorFindCheck: true,
 
+      countTry:0,
+
+      //저장완료되면 맴버정보 다시셋팅
+      memberObj : {
+        memberId : '',
+        memberEmail : '',
+        memberNicname : '',
+        memberApi : '',
+        memberRole : '',
+        memberProfile : ''
+      }
+
     }
   },
   methods: {
-    async edit() {
-      await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=160f05c35f34aef167fabe796efb2a8e`)
-          .then(res => {
-            console.log("res : ",res)
-            // this.message1 = res.data.results[0].title
-            this.nickname = res.data.results[8].title
-            this.email = res.data.results[1].title
-            this.address = res.data.results[2].title
-            this.address2 = res.data.results[3].title
-            this.phoneNumber = res.data.results[4].title
-            this.postNumber = res.data.results[5].title
-            this.submit = res.data.results[6].title
-            this.clear = res.data.results[7].title
-            console.log(res);
+    async memberInfoMapping() {
+      this.memberId = this.$route.params.memberId
+      let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers:{
+          'Content-Type': 'application/json',
+          Authorization : `Bearer ${access_token}`,
+        }
+      }
+      var form = new FormData()
+      form.append("memberId", this.memberId);
+      //UserEditController 에서 받아오자
+      await axios.post("http://localhost:9090/bring/member/edit/info",form, config)
+          .then(res =>{
+            console.log(res.data)
+            this.nickname = res.data.nic_name
+            this.email = res.data.email
+            this.savedPhoneNumber = res.data.phone_number
+            this.submitAddress1 = res.data.city
+            this.submitAddress2 = res.data.street
+            this.submitAddress3 = res.data.zipcode
+            this.countTry=0
+          }).catch(error=>{
+            if (error.response.status===403) {
+              this.countTry++
+              if (this.countTry == 1) {
+                reServerSend();
+                this.memberInfoMapping()
+              }
+              console.log("다시 오류인것 확인 로그")
+            }
           })
-          .catch(err => {
-            console.log(err);
-          })
+
     },
     findAddr() {
       new window.daum.Postcode({
         oncomplete: (data) => {
           console.log(data)
-          this.address = data.roadAddress
-          this.postNumber = data.zonecode
+          this.submitAddress1 = data.roadAddress
+          this.submitAddress3 = data.zonecode
         }
       }).open()
     },
@@ -147,11 +191,79 @@ export default {
       this.submitPhoneNumber = val
       console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
     },
-    refreshRouter() {
-      this.$router.go(0)
+    async refreshRouter() {
+      if (this.submitAddress1) {
+        if (!this.submitAddress2) {
+          this.checkAddress2 = true
+          return false
+        }
+      }
+      let checkedPhone = this.savedPhoneNumber
+      let checkedAddress1 = this.submitAddress1
+      let checkedAddress2 = this.submitAddress2
+      let checkedAddress3 = this.submitAddress3
+      if (this.submitPhoneNumber) {
+        checkedPhone = this.submitPhoneNumber;
+      }
+      if (this.submitAddress1 && this.submitAddress2) {
+        checkedAddress1 = this.submitAddress1
+        checkedAddress2 = this.submitAddress2
+        checkedAddress3 = this.submitAddress3
+      }
+      console.log(this.submitPhoneNumber);
+      console.log(this.submitAddress1)
+      console.log(this.submitAddress2)
+      console.log(this.submitAddress3)
+      let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers:{
+          'Content-Type': 'application/json',
+          Authorization : `Bearer ${access_token}`,
+        }
+      }
+      const submitEditMember={
+        "id" : this.memberId,
+        "email" : this.email,
+        "nic_name" : this.nickname,
+        "phone_number": checkedPhone,
+        "city" : checkedAddress1,
+        "street" : checkedAddress2,
+        "zipcode" : checkedAddress3
+      }
+      await axios.post("http://localhost:9090/bring/member/edit/save", submitEditMember, config)
+          .then(res=>{
+            console.log(res.data)
+            this.countTry=0
+
+            this.memberObj.memberId = res.data.id
+            this.memberObj.memberEmail = res.data.email
+            this.memberObj.memberNicname = res.data.nic_name
+            this.memberObj.memberApi = res.data.login_api
+            this.memberObj.memberRole = res.data.role
+            this.memberObj.memberProfile = res.data.profileImg
+            let login_member = JSON.stringify(this.memberObj)
+
+            window.localStorage.setItem('login_member', login_member)
+            this.backRouter()
+
+          })
+          .catch(error=>{
+            console.log(error)
+            // 여기 엑세스 만료시 세션으로 요청 로직 넣어주자@!!!!
+            if (error.response.status===403) {
+              this.countTry++
+              if (this.countTry == 1) {
+                reServerSend();
+                this.refreshRouter()
+              }
+              console.log("다시 오류인것 확인 로그")
+            }
+          })
+
+      // this.$router.go(0)
     },
     backRouter() {
-      this.$router.go(-1)
+      this.$router.go(-1,Header.methods.isLogin())
     }
   },
   watch:{
@@ -162,26 +274,19 @@ export default {
         this.errorNicNameCheck = false
       }
     },
-    // address() {
-    //
-    // },
-    // address2() {
-    //
-    // },
-    // postNumber() {
-    //
-    // }
+
   },
 
   mounted() {
-    console.log("마운티드 실행")
-    this.edit()
+    isLoginMemberCheck()
+    this.memberInfoMapping()
   }
 
 }
 </script>
 
 <style scoped>
+
 
 .error-text {
   color: red;
@@ -192,6 +297,10 @@ export default {
   max-width:1100px;
   margin:auto;
   margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .div-3 {
   display: flex;

@@ -1,12 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from "@/views/Main";
-import Home from "@/views/Home";
-import About from "@/views/About";
 import Singup from "@/views/Singup";
 import AboutPage from "@/components/about/AboutPage";
 import Login from "@/views/Login";
-import FundingList from "@/views/FundingList";
+import FundingList from "@/views/mypage/FundingList";
 import DetailFundingPage from "@/views/DetailFundingPage";
 import Shop from "@/components/shoplist/Shop";
 import Menulist from "@/components/menulist/Menulist"
@@ -24,6 +22,12 @@ import Complete from "@/components/admin/Complete";
 import Editpage from "@/components/Mypage/Editpage";
 import FindId from "@/components/login/FindId";
 import FindPassword from "@/components/login/FindPassword";
+import FriendList from "@/views/mypage/FriendList";
+import MywishtList from "@/views/mypage/MywishtList";
+import JoinedmyList from "@/views/mypage/JoinedmyList";
+import Choose from "@/views/Choose";
+import PurchaseList from "@/views/mypage/PurchaseList";
+import Payment from "../views/Payment";
 import FundingPayment from "@/views/FundingPayment";
 import BuyPayment from "@/views/BuyPayment";
 
@@ -37,19 +41,9 @@ const routes = [
     component: Main
   },
   {
-    path: '/home',
-    name: 'Home',
-    component: Home
-  },
-  {
     path: '/aboutpage',
     name: 'AboutPage',
     component: AboutPage
-  },
-  {
-    path: '/menu',
-    name: 'about',
-    component: About
   },
   {
     path: '/join',
@@ -68,22 +62,44 @@ const routes = [
 
   },
   {
-    path: '/fundinglist',
-    name: 'FundingList',
-    component: FundingList
+    path: '/friendlist/:memberId',
+    name: 'FriendList',
+    component: FriendList
+  },
+  {
+    path: '/wishlist/:memberId',
+    name: 'MywishList',
+    component: MywishtList
+  },
+  {
+    path: '/joinlist/:memberId',
+    name: 'JoinedList',
+    component: JoinedmyList
+  },
+  {
+    path: '/choose/:assemblePrice/:productPrice',
+    name: 'Choose',
+    component: Choose
+  },
+  {
+    path: '/purchaselist/:memberId',
+    name: 'PurchaseList',
+    // component: () => import(/* webpackChunkName: "about" */ '../views/PurchaseList.vue')
+    component: PurchaseList
   },
   {
     path:'/funlogin',
     name:'LoginFunfun',
     component: LoginFunfun
   },
-
   {
     path: '/detail-page/:productId',
     name: 'detail_page',
 
     component: Detail_page
   },
+
+
   // //  라우터 쿼리 / 파람 예시
   // {
   //   path: '/detail-page',

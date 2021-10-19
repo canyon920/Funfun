@@ -38,7 +38,7 @@
           </div>
         </div>
 
-        <div class="reaminpercent-div" style="font-size: 35px">
+        <div class="reaminpercent-div" style="font-size: 35px" >
           {{ bringRightInfo.remainSuccessPercent }} <span style="font-size: 20px; font-weight: 700">% 달성</span>
         </div>
 
@@ -49,11 +49,9 @@
         </div>
 
         <div class="join-support-div" >
-          <div class="support-div" style="font-size: 35px" v-show="bringRightInfo.joinSupporter">
-            {{ bringRightInfo.joinSupporter }} <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
-          </div>
-          <div class="support-div" style="font-size: 35px" v-show="!bringRightInfo.joinSupporter">
-            ? <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
+
+          <div class="support-div" style="font-size: 35px">
+            <span v-show="!isPercent20">{{ bringRightInfo.joinSupporter }}</span> <span v-show="isPercent20">?</span> <span style="font-size: 20px; font-weight: 700">명의 서포터</span>
           </div>
 
 
@@ -63,9 +61,22 @@
       </div>
 
 
-
       <div class="content-bottom">
-        <div class="funding-button-div">
+        <div v-show="isCompletedTrue" class="funding-button-div">
+          <div class="my-2">
+            <v-btn
+                color="error"
+                dark
+                x-large
+                class="giveme-button"
+                style="width: 300px; margin-bottom: 50px"
+                @click="completedFunding"
+            >
+              😘 지급받기
+            </v-btn>
+          </div>
+        </div>
+        <div v-show="!isCompletedTrue" class="funding-button-div">
           <div class="my-2">
             <v-btn
                 color="error"
@@ -73,47 +84,23 @@
                 x-large
                 class="giveme-button"
                 style="width: 300px"
+                @click="$emit('payFunding')"
             >
               😍 참여하기
             </v-btn>
           </div>
         </div>
         <div class="bottom-button">
-          <div class="button-box like-box" >
-            <!--                    이버튼에 클릭하면 icon 사라지도록                    -->
-            <v-btn
-                color="error"
-                elevation="2"
-                :icon="bringRightInfo.likeIcon"
-                fab
-                large
-                tile
-                class="like-button"
-                @click="$emit('likeChange')"
-            >
-              <div class="like-button-box">
-                <div class="like-love" style="font-size: 25px">
-                  ❤
-                </div>
-                <div class="like-count" style="font-size: 10px">
-                  {{ bringRightInfo.likeCount }}
-                </div>
-              </div>
 
-
-            </v-btn>
-
-          </div>
-
-
-          <div class="button-box funding-box">
+          <div v-show="!isCompletedTrue" class="button-box funding-box">
             <div class="my-2">
               <v-btn
                   color="error"
                   dark
                   x-large
                   @click="dialog2 = true"
-                  class="funding-button"
+                  class="funding-button-confirm"
+                  style="width: 300px"
               >
                 📢 주변에 조르기
              </v-btn>
@@ -137,7 +124,7 @@
           <v-btn
               color="rgb(229, 114, 0)"
               dark
-              @click="dialog3 = !dialog3"
+              @click="share"
               v-show="isKakaoUser"
           >
             카카오톡 공유하기
@@ -189,15 +176,22 @@ export default {
     }
   },
   emits: [
-    'likeChange'
+    'likeChange','payFunding'
   ],
 
   data () {
     return{
+      //펀딩 완료 여부
+      completed: true,
+      //
+      fundingJoinCount:false,
+
       dialog2: false,
       isEditing: false,
       isKakaoUser: false,
       thisUrl: window.location.href,
+
+
     }
   },
   methods:{
@@ -206,10 +200,80 @@ export default {
       let selectUrl = document.getElementById("fundingThisPageUrl")
       selectUrl.select()
       document.execCommand("copy");
-    }
+    },
+
+    completedFunding(){
+      this.$router.push({name:"Choose", params:{assemblePrice:this.bringRightInfo.assemblePrice,productPrice:this.bringRightInfo.productPrice}})
+    },
+
+    checkKakao(){
+      let mdata = JSON.parse(localStorage.getItem("login_member"))
+      if (mdata === null) {
+        return false;
+      } else{
+        if (mdata.memberApi == "Kakao") {
+          // console.log("카카오로그인이다")
+          this.isKakaoUser = true;
+        } else {
+          return false;
+        }
+      }
+    },
+    share(){
+      let fdata = JSON.parse(sessionStorage.getItem("funding_detail"))
+      var list = fdata.fundingImg
+      for(var key in list){
+        if(list[key].includes('thumb')){
+          var imgUrl = list[key]
+          console.log(imgUrl)
+        }
+      }
+      window.Kakao.Link.sendDefault({
+
+        objectType: 'feed',
+        content: {
+          title: fdata.fundingName,
+          description: '목표금액 '+fdata.fundingTargetMoney+' '+(fdata.fundingBetweenTime+1)+'일 남았습니다',
+          imageUrl: 'https://funfunbucket.s3.ap-northeast-2.amazonaws.com/finfinbucket-static/product/111/thumbnail1.jpg',
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
+        },
+        buttons: [
+          {
+            title: '웹으로 보기',
+            link: {
+              mobileWebUrl: window.location.href,
+              webUrl: window.location.href,
+            },
+          },
+
+        ],
+      })
+    },
+
+  },
+  computed:{
+    isPercent20() {
+      if (this.bringRightInfo.remainSuccessPercent <= 20) {
+        return true;
+      } else {
+        return false;
+
+      }
+    },
+    isCompletedTrue() {
+      if (this.bringRightInfo.remainingPeriod <= 0) {
+        return  true
+      } else {
+        return  false
+      }
+    },
   },
   mounted() {
-  }
+    this.checkKakao()
+  },
 }
 </script>
 
@@ -255,6 +319,7 @@ export default {
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center .progressBar-div .progressBar {
   height: 8px;
   background-color: rgb(229, 114, 0);
+  max-width: 100%;
   /*width: 30%;*/
 }
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-center .reaminpercent-div {
@@ -271,10 +336,10 @@ export default {
 
 
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 0 auto;
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  /*right: 0;*/
+  /*margin: 0 auto;*/
 }
 
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button {
@@ -282,8 +347,12 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
 }
+.inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .funding-button-confirm {
+
+
+}
 .inner .container-content .content-head .head-detail .detail-right .right-content .content-bottom .bottom-button .button-box {
-  margin: 15px;
+  margin-bottom: 40px;
 }
 
 @media screen and (max-width: 800px){
