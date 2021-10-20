@@ -60,6 +60,7 @@ export default {
       var MemberId=this.$route.params.memberId
       axios.get("http://127.0.0.1:9090/WishListPage/"+MemberId, getHeaders())
           .then(res => {
+            this.countTry = 0
             this.Mywish =[]
             let jdata = JSON.stringify(res.data)
             this.Mywish = JSON.parse(jdata)

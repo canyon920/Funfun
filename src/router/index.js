@@ -75,7 +75,7 @@ const routes = [
     component: JoinedmyList
   },
   {
-    path: '/choose/:assemblePrice/:productPrice',
+    path: '/choose/:fundingId/:assemblePrice/:productPrice',
     name: 'Choose',
     component: Choose
   },

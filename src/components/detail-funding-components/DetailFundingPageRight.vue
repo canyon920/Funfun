@@ -203,7 +203,7 @@ export default {
     },
 
     completedFunding(){
-      this.$router.push({name:"Choose", params:{assemblePrice:this.bringRightInfo.assemblePrice,productPrice:this.bringRightInfo.productPrice}})
+      this.$router.push({name:"Choose", params:{fundingId:this.$route.params.fundingId,assemblePrice:this.bringRightInfo.assemblePrice,productPrice:this.bringRightInfo.productPrice}})
     },
 
     checkKakao(){
