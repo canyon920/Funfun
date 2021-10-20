@@ -27,7 +27,6 @@ import MywishtList from "@/views/mypage/MywishtList";
 import JoinedmyList from "@/views/mypage/JoinedmyList";
 import Choose from "@/views/Choose";
 import PurchaseList from "@/views/mypage/PurchaseList";
-import Payment from "../views/Payment";
 import FundingPayment from "@/views/FundingPayment";
 import BuyPayment from "@/views/BuyPayment";
 

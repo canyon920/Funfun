@@ -51,6 +51,7 @@
 <script>
 import axios from "axios";
 import router from "../router";
+import {getHeaders} from "../service/header";
 
 export default {
   name: "FundingPayment",
@@ -75,8 +76,6 @@ export default {
         if (val == '') this.amount = 0
         else this.amount = parseInt(val);
         if (val < 0) this.amount = 0
-        if(this.amount > this.fundingTMoney - this.fundingCMoney)
-          return '결제시 목표금액을 넘습니다'
         return true
       },
       buyer_tel:"000-0000-0000",
@@ -94,7 +93,7 @@ export default {
       let setForm = new FormData();
       setForm.append("fundingId",this.fundingId);
       setForm.append("memberId",this.memberObj.memberId);
-      axios.post("http://127.0.0.1:9090/fundingPay/fundingInfo/",setForm)
+      axios.post("http://127.0.0.1:9090/fundingPay/fundingInfo/",setForm,getHeaders())
       .then(res => {
         let jdata =  JSON.stringify(res.data);
         let joData = JSON.parse(jdata);
@@ -138,7 +137,7 @@ export default {
           //axios로 서버에서 결제 검증
           let form = new FormData();
           form.append("imp_uid", rsp.imp_uid)
-          await axios.post("http://127.0.0.1:9090/fundingPay/verifyIamport",form)
+          await axios.post("http://127.0.0.1:9090/fundingPay/verifyIamport",form,getHeaders())
           .then(async rsp2 => {
             // console.log("#검증성공");
             let jdata =  JSON.stringify(rsp2.data);
@@ -151,7 +150,7 @@ export default {
           //실패 처리 axios
           let fform = new FormData();
           fform.append("orderId",this.orderId);
-          await axios.post("http://127.0.0.1:9090/fundingPay/failPay",fform)
+          await axios.post("http://127.0.0.1:9090/fundingPay/failPay",fform,getHeaders())
               .then(rsp3 => { // eslint-disable-line no-unused-vars
                 // console.log("실패정보 등록")
               })
@@ -190,7 +189,7 @@ export default {
           //axios로 서버에서 결제 검증
           let form = new FormData();
           form.append("imp_uid", rsp.imp_uid)
-          await axios.post("http://127.0.0.1:9090/fundingPay/verifyIamport",form)
+          await axios.post("http://127.0.0.1:9090/fundingPay/verifyIamport",form,getHeaders())
               .then(async rsp2 => {
                 // console.log("#검증성공");
                 let jdata =  JSON.stringify(rsp2.data);
@@ -203,7 +202,7 @@ export default {
           //실패 처리 axios
           let fform = new FormData();
           fform.append("orderId",this.orderId);
-          await axios.post("http://127.0.0.1:9090/fundingPay/failPay",fform)
+          await axios.post("http://127.0.0.1:9090/fundingPay/failPay",fform,getHeaders())
               .then(rsp3 => { // eslint-disable-line no-unused-vars
                 // console.log("실패정보 등록")
               })
@@ -219,7 +218,7 @@ export default {
       let form = new FormData();
       form.append("fundingId",this.fundingId)
       form.append("memberId", this.memberObj.memberId)
-      await axios.post("http://127.0.0.1:9090/fundingPay/setPay",form)
+      await axios.post("http://127.0.0.1:9090/fundingPay/setPay",form,getHeaders())
       .then(rsp => {
         let jdata =  JSON.stringify(rsp.data);
         let jodata = JSON.parse(jdata);
@@ -248,7 +247,7 @@ export default {
         sform.append("amount",this.amount);
         sform.append("imp_uid",rsp2.response.impUid);
         sform.append("pg_id",this.pg_id);
-        await axios.post("http://127.0.0.1:9090/fundingPay/successPay",sform)
+        await axios.post("http://127.0.0.1:9090/fundingPay/successPay",sform,getHeaders())
             .then(rsp3 => {
               // console.log("#성공 정보 등록")
               if(rsp3){
@@ -264,7 +263,7 @@ export default {
         //실패시의 axios 통신
         let fform = new FormData();
         fform.append("orderId",this.orderId);
-        await axios.post("http://127.0.0.1:9090/fundingPay/failPay",fform)
+        await axios.post("http://127.0.0.1:9090/fundingPay/failPay",fform,getHeaders())
             .then(rsp3 => { // eslint-disable-line no-unused-vars
               // console.log("실패정보 등록")
               alert("결제를 실패했습니다");
