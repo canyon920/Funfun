@@ -1,7 +1,12 @@
 <template>
 <div class="FundingPayment-container">
   <h1>결제 - 펀딩하기</h1>
+
+  <v-divider
+  ></v-divider>
+
   <div class="fundingInfo">
+    <h2>펀딩 정보</h2>
     <v-img
         max-height="250"
         max-width="250"
@@ -11,11 +16,18 @@
       {{ this.fundingTitle }}
     </div>
     <div class="moneyInfo">
-      모인금액/목표금액<br/>
-      {{this.fundingCMoney}} / {{this.fundingTMoney}}
+      <p id="money-text">모인금액/목표금액</p>
+      <p id="money-num">&#8361; {{this.fundingCMoney}} / {{this.fundingTMoney}}</p>
     </div>
+    <div class="ws"></div>
   </div>
+
+
+  <v-divider
+  ></v-divider>
+
   <div class="pay">
+    <h2>입력 정보</h2>
     <v-text-field
         v-model="amount"
         type="number"
@@ -23,28 +35,29 @@
         :rules="[numberRule]"
         label="결제 금액"
     ></v-text-field>
-    <br/><br/><br/><br/>
-    <v-btn
-        max-width="100"
-        max-height="40"
-        v-on:click="payKakao()"
-    >
-      <v-img
+    <div class="ws"></div>
+    <div class="btns">
+      <v-btn
           max-width="100"
           max-height="40"
-          :src="this.kakaoPayBtnImg"
-      ></v-img>
-    </v-btn>
-    &nbsp;&nbsp;
-    <v-btn
-        v-on:click="payKG()"
+          v-on:click="payKakao()"
+      >
+        <v-img
+            max-width="100"
+            max-height="40"
+            :src="this.kakaoPayBtnImg"
+        ></v-img>
+      </v-btn>
+      &nbsp;&nbsp;
+      <v-btn
+          v-on:click="payKG()"
       >카드 결제</v-btn>
-    &nbsp;&nbsp;
-    <v-btn
-        v-on:click="cancelBtn()"
+      &nbsp;&nbsp;
+      <v-btn
+          v-on:click="cancelBtn()"
       >취소</v-btn>
+    </div>
   </div>
-  <br/><br/><br/><br/><br/>
 </div>
 </template>
 
@@ -109,8 +122,6 @@ export default {
       })
     },
     async payKakao(){
-      //중복 클릭 방지
-      if(this.clickOLP()) return;
       if(this.checkBI()) return;
 
       var IMP = window.IMP;
@@ -161,8 +172,6 @@ export default {
       }.bind(this))
     },
     async payKG(){
-      //중복 클릭 방지
-      if(this.clickOLP()) return;
       if(this.checkBI()) return;
 
       var IMP = window.IMP;
@@ -270,14 +279,14 @@ export default {
             })
       }
     },
-    clickOLP(){
-      if(this.doublePrevention){
-        return this.doublePrevention;
-      }else{
-        this.doublePrevention=true;
-        return false;
-      }
-    },
+    // clickOLP(){
+    //   if(this.doublePrevention){
+    //     return this.doublePrevention;
+    //   }else{
+    //     this.doublePrevention=true;
+    //     return false;
+    //   }
+    // },
     cancelBtn(){
       router.go(-1);
     },
@@ -302,5 +311,65 @@ export default {
 </script>
 
 <style scoped>
+.fundingInfo{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top:15px;
+  padding-bottom: 15px;
+}
+
+.fundingTitle{
+  font-size: 25px;
+  font-weight: 900;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.pay{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top:15px;
+  padding-bottom: 15px;
+}
+
+.ws{
+  margin-bottom:60px;
+}
+
+h1{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+h2{
+  margin-bottom: 10px;
+}
+
+#money-text{
+  font-size: 20px;
+  font-weight:400;
+  margin-top:5px;
+  margin-bottom:3px;
+}
+
+#money-num{
+  font-size: 20px;
+  font-weight:700;
+  margin-top:1px;
+  margin-bottom:5px;
+}
+
+.v-text-field{
+  font-size: 25px;
+  width: 250px;
+  margin-bottom:10px;
+}
+
+.v-btn{
+  font-size:13px;
+  font-weight:900;
+  margin-right:6px;
+  margin-bottom:10px;
+}
 
 </style>

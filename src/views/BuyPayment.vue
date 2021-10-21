@@ -1,22 +1,31 @@
 <template>
 <div class="BuyPayment-container">
   <h1>결제 - 나에게 선물하기</h1>
+
+  <v-divider
+  ></v-divider>
+
   <div class="productInfo">
+    <h2>상품 정보</h2>
     <v-img
         max-height="250"
         max-width="250"
         :src="this.productImage"
     ></v-img>
-    <div class="fundingTitle">
+    <div class="productTitle">
       {{ this.productTitle }}
     </div>
     <div class="moneyInfo">
-      결제할 금액<br/>
-      {{this.amount}}
+      <p id="money-text">결제할 금액</p>
+      <p id="money-num">&#8361; {{this.amount}}</p>
     </div>
+    <div class="ws"></div>
   </div>
-  <div class="pay">
-    <br/><br/><br/><br/>
+
+  <v-divider
+  ></v-divider>
+
+  <div class="btns">
     <v-btn
         max-width="100"
         max-height="40"
@@ -275,5 +284,56 @@ export default {
 </script>
 
 <style scoped>
+.productInfo{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top:15px;
+  padding-bottom: 15px;
+}
+
+.productTitle{
+  font-size: 25px;
+  font-weight: 900;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.btns{
+  margin-top:30px;
+}
+
+.ws{
+  margin-bottom:60px;
+}
+
+h1{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+h2{
+  margin-bottom: 10px;
+}
+
+#money-text{
+  font-size: 20px;
+  font-weight:400;
+  margin-top:5px;
+  margin-bottom:3px;
+}
+
+#money-num{
+  font-size: 20px;
+  font-weight:700;
+  margin-top:1px;
+  margin-bottom:5px;
+}
+
+.v-btn{
+  font-size:13px;
+  font-weight:900;
+  margin-right:6px;
+  margin-bottom:10px;
+}
 
 </style>
