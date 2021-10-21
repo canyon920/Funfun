@@ -16,6 +16,8 @@
 
 <script>
 import Table from "@/components/admin/component/Table";
+import axios from "axios";
+
 
 export default {
   name: "Product",
@@ -42,13 +44,30 @@ export default {
           {
             data1:1,
             data2:'춘식이와 라이언의 사랑이야기',
-            data3: 555,
-            data4:555,
+            data3: 10,
+            data4:10,
             data8:'delete',
           },
         ]
       }
     }
+  },
+  methods:{
+    async setProductList(){
+      axios.post("http://127.0.0.1:9090/AdminProductList/test")
+          .then(res => {
+            this.productData.list = []
+            let jdata = JSON.stringify(res.data)
+            this.productData.list = JSON.parse(jdata)
+            this.productData.total = this.productData.list.length
+            console.log(this.productData.list)
+          }).catch(error => {
+        console.log(error.messages)
+      })
+    }
+  },
+  beforeMount() {
+     this.setProductList()
   }
 }
 </script>

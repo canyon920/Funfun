@@ -15,7 +15,7 @@
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:2}}">
         <div class = "item-box-item item-box-inner1">
           <img class="item img" :src="categoryImg2">
-          <div class="img-text">명절선물</div>
+          <div class="img-text">가벼운선물</div>
         </div>
       </router-link>
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:3}}">
@@ -27,55 +27,55 @@
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:4}}">
         <div class = "item-box-item item-box-inner1">
           <img class="item img" :src="categoryImg4">
-          <div class="img-text">건강/회복</div>
+          <div class="img-text">툭!백화점</div>
         </div>
       </router-link>
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:5}}">
         <div class = "item-box-item item-box-inner1">
           <img class="item img" :src="categoryImg5">
-          <div class="img-text">가벼운선물</div>
+          <div class="img-text">건강/회복</div>
         </div>
       </router-link>
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:6}}">
         <div class = "item-box-item item-box-inner1">
           <img class="item img" :src="categoryImg6">
-          <div class="img-text">툭!백화점</div>
+          <div class="img-text">스몰럭셔리</div>
         </div>
       </router-link>
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:7}}">
         <div class = "item-box-item item-box-inner1">
           <img class="item img" :src="categoryImg7">
-          <div class="img-text">스몰럭셔리</div>
+          <div class="img-text">명품선물</div>
         </div>
       </router-link>
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:8}}">
         <div class = "item-box-item item-box-inner1">
           <img class="item img" :src="categoryImg8">
-          <div class="img-text">명품선물</div>
+          <div class="img-text">어른선물</div>
         </div>
       </router-link>
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:9}}">
         <div class = "item-box-item item-box-inner1">
           <img class="item img" :src="categoryImg9">
-          <div class="img-text">어른선물</div>
+          <div class="img-text">출산/백일돌</div>
         </div>
       </router-link>
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:10}}">
         <div class = "item-box-item item-box-inner1">
           <img class="item img" :src="categoryImg10">
-          <div class="img-text">출산/백일돌</div>
+          <div class="img-text">쓸모없는선물</div>
         </div>
       </router-link>
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:11}}">
         <div class = "item-box-item item-box-inner1">
           <img class="item img" :src="categoryImg11">
-          <div class="img-text">쓸모없는선물</div>
+          <div class="img-text">배달선물</div>
         </div>
       </router-link>
       <router-link class="category-link" :to="{name: 'Shop', params:{categoryId:12}}">
         <div class = "item-box-item item-box-inner1">
           <img class="item img" :src="categoryImg12">
-          <div class="img-text">배달선물</div>
+          <div class="img-text">따뜻한선물</div>
         </div>
       </router-link>
 
@@ -96,17 +96,17 @@ export default {
   data(){
     return{
       categoryImg1 : require("@/assets/category/1.jpg"),
-      categoryImg2 : require("@/assets/category/2.jpg"),
+      categoryImg2 : require("@/assets/category/5.jpg"),
       categoryImg3 : require("@/assets/category/3.png"),
-      categoryImg4 : require("@/assets/category/4.jpg"),
-      categoryImg5 : require("@/assets/category/5.jpg"),
-      categoryImg6 : require("@/assets/category/6.jpg"),
-      categoryImg7 : require("@/assets/category/7.jpg"),
-      categoryImg8 : require("@/assets/category/8.jpg"),
-      categoryImg9 : require("@/assets/category/9.jpg"),
-      categoryImg10 : require("@/assets/category/10.jpg"),
-      categoryImg11 : require("@/assets/category/11.jpg"),
-      categoryImg12 : require("@/assets/category/12.jpg"),
+      categoryImg4 : require("@/assets/category/6.jpg"),
+      categoryImg5 : require("@/assets/category/4.jpg"),
+      categoryImg6 : require("@/assets/category/7.jpg"),
+      categoryImg7 : require("@/assets/category/8.jpg"),
+      categoryImg8 : require("@/assets/category/9.jpg"),
+      categoryImg9 : require("@/assets/category/10.jpg"),
+      categoryImg10 : require("@/assets/category/11.jpg"),
+      categoryImg11 : require("@/assets/category/12.jpg"),
+      categoryImg12 : require("@/assets/category/13.jpg"),
     }
   },
 
