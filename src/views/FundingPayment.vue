@@ -110,7 +110,6 @@ export default {
     },
     async payKakao(){
       //중복 클릭 방지
-      if(this.clickOLP()) return;
       if(this.checkBI()) return;
 
       var IMP = window.IMP;
@@ -162,7 +161,6 @@ export default {
     },
     async payKG(){
       //중복 클릭 방지
-      if(this.clickOLP()) return;
       if(this.checkBI()) return;
 
       var IMP = window.IMP;
@@ -270,14 +268,14 @@ export default {
             })
       }
     },
-    clickOLP(){
-      if(this.doublePrevention){
-        return this.doublePrevention;
-      }else{
-        this.doublePrevention=true;
-        return false;
-      }
-    },
+    // clickOLP(){
+    //   if(this.doublePrevention){
+    //     return this.doublePrevention;
+    //   }else{
+    //     this.doublePrevention=true;
+    //     return false;
+    //   }
+    // },
     cancelBtn(){
       router.go(-1);
     },
@@ -293,6 +291,12 @@ export default {
       }
 
       return false;
+    }
+  },
+  beforeMount() {
+    if (!JSON.parse(window.localStorage.getItem('login_member'))) {
+      alert("로그인이 필요한 서비스 입니다.")
+      this.$router.push("/login")
     }
   },
   mounted() {

@@ -14,37 +14,39 @@
                 sm="6"
             >
               <div class = "fundingtitle" style=" font-size: 25px; font-weight: 700;">
-               {{bringjoin.title}}
+                {{bringjoin.title}}
               </div>
 
             </v-col>
-<!--            <v-col cols="12"-->
-<!--                   sm="6">-->
-<!--              <div class="navbar-search">-->
-<!--                <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>-->
-<!--                <v-text-field class="mt-lg-5 mt-md-5"-->
-<!--                              placeholder="친구검색"-->
-<!--                              rounded-->
-<!--                              filled="#ffcc99"-->
-<!--                              dense-->
-<!--                ></v-text-field>-->
-<!--              </div>-->
-<!--            </v-col>-->
+            <!--            <v-col cols="12"-->
+            <!--                   sm="6">-->
+            <!--              <div class="navbar-search">-->
+            <!--                <v-btn x-small fab plain><v-icon>mdi-magnify</v-icon></v-btn>-->
+            <!--                <v-text-field class="mt-lg-5 mt-md-5"-->
+            <!--                              placeholder="친구검색"-->
+            <!--                              rounded-->
+            <!--                              filled="#ffcc99"-->
+            <!--                              dense-->
+            <!--                ></v-text-field>-->
+            <!--              </div>-->
+            <!--            </v-col>-->
           </v-row>
         </v-container>
 
-        <div class ="moreandmore1"><router-link to="/wishlist" style="text-decoration: none; color: rgb(229, 114, 0)">더보기</router-link></div>
-         <div class = "nofunding" style="color: #e57200;">
+<!--        <div class ="moreandmore1">-->
+<!--          <router-link to="/wishlist" style="text-decoration: none; color: rgb(229, 114, 0)">더보기</router-link>-->
+<!--        </div>-->
+        <div class = "nofunding" style="color: #e57200;">
           <div v-if="findline.length ==0" class ="merchandise">
             펀딩중인 상품이 없어요
           </div>
           <div class = "existfunding" v-else>
             <Deadline :bringmainDeadline="findline" />
           </div>
-         </div>
-          <div class="text-center" >
-            <v-btn v-show="bringfundingsearch.shareFriend" depressed elevation="2"><router-link to="/showfriend" style="text-decoration: none; color: rgb(229, 114, 0); font-size: 15px">♡친구에게 보여주기</router-link></v-btn>
-          </div>
+        </div>
+        <div class="text-center" >
+          <v-btn v-show="bringfundingsearch.shareFriend" depressed elevation="2"><router-link to="/showfriend" style="text-decoration: none; color: rgb(229, 114, 0); font-size: 15px">♡친구에게 보여주기</router-link></v-btn>
+        </div>
 
 
       </div>
@@ -61,9 +63,9 @@ export  default {
     bringfundingsearch:{
       type:Object,
     },
-  bringjoin:{
-     type: String,
-  }
+    bringjoin:{
+      type: String,
+    }
   },
   components:{Deadline},
   data(){

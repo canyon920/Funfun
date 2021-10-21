@@ -196,7 +196,7 @@ export default{
 
 <style scoped>
 .container_list {
-  max-width: 1100px;
+  /*max-width: 1100px;*/
   display: flex;
   flex-direction: column;
   align-items: center;

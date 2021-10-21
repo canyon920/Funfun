@@ -7,9 +7,9 @@
           <Detail-page-left  :bringLeftInfo="leftInfo" @bringsub01Click="sub01Click" @bringsub02Click="sub02Click" @bringsub03Click="sub03Click" @bringsub04Click="sub04Click"
                              @bringError1="errorImg1"/>
           <!--          여기 동적 처리   상품 내용 보여줌        -->
-          <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork" :bringRightInfo="rightInfo" :class="{active:productView}"/>
+          <Detail-page-right v-show="productView" @rightEvent="changeRight" @likeChange="likeWork"  @presentMyself="goPresent" :bringRightInfo="rightInfo" :class="{active:productView}"/>
           <!--          여기 펀딩 등록 위한 것들 보여줌          -->
-          <Detail-page-right-setting v-if="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" @presentMyself="goPresent" :bringRightInfo="rightInfo" :class="{active:settingView}"/>
+          <Detail-page-right-setting v-if="settingView"  @rightEvent="changeRight" @rightEventBack="changeRightBack" @likeChange="likeWork" @registFunding="transmitFundingRegist" :bringRightInfo="rightInfo" :class="{active:settingView}"/>
         </div>
       </div>
       <!--      여기 동적 처리 바디 이미지 바디 상세이미지 넘겨줘야함      -->
@@ -206,8 +206,9 @@ export default {
 
     },
     goPresent(){
+      console.log("클릭함")
       let pdata = JSON.parse(sessionStorage.getItem("product_detail"));
-      console.log("#pdata",pdata)
+      console.log("#pdata",pdata);
       this.$router.push({name: 'BuyPayment', params:{productId: pdata.productId}})
     },
 
@@ -218,7 +219,7 @@ export default {
         this.productView = false
         this.settingView = true
       }else{
-        alert("로그인하세요")
+        alert("로그인이 필요한 서비스입니다.")
         this.$router.push("/login",Header.methods.isLogin)
       }
     },
@@ -295,7 +296,10 @@ export default {
         }
       let productIdFromStorage = JSON.parse(sessionStorage.getItem("product_detail"));
       const mdata = JSON.parse(localStorage.getItem("login_member"));
-        let memberIdFromStorage = mdata.memberId
+      if (!mdata) {
+        return false
+      }
+        let memberIdFromStorage = mdata.memberId;
 
         let form = new FormData()
 

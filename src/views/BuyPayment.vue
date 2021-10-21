@@ -268,6 +268,12 @@ export default {
       return false;
     }
   },
+  beforeMount() {
+    if (!JSON.parse(window.localStorage.getItem('login_member'))) {
+      alert("로그인이 필요한 서비스 입니다.")
+      this.$router.push("/login")
+    }
+  },
   mounted() {
     this.set()
   }

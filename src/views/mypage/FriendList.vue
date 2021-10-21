@@ -1,18 +1,22 @@
 <template>
   <div class = "first-container">
     <div class = "second">
-      <div class ="list">
-        친구 리스트 찾기
-      </div>
+<!--      <div class ="list">-->
+<!--        User 리스트 찾기-->
+<!--      </div>-->
       <div class ="search-second">
         <div class="title-div" style="display: flex; flex-direction: row; align-items: center; margin-bottom: 10px">
           <img :src="require('@/assets/logo/img-normal.jpg')" style="height: 50px; width: 50px; border-radius: 15px; margin-right: 10px;">
-          <div style="font-weight: 700; font-size: 25px">
-            친구를 검색해 주세요.
+          <div style="display: flex; flex-direction: column">
+            <div style="font-weight: 700; font-size: 25px">
+              User 검색
+            </div>
+            <div style="font-size: 15px; font-weight: 700;">
+              이름을 검색해서 펀딩중인 상품이 있는지 확인해보세요.
+            </div>
           </div>
         </div>
         <v-text-field
-            @click=reset
             outlined
             rounded
             label="친구찾기"
@@ -139,13 +143,12 @@ export default {
     }
   },
   methods: {
-    reset(){
-      this.friendName=''
-    },
+
     searchClickF(username, memberid) {
       this.loading = false;
       this.searchStart = false;
       this.funding.username = username;
+      this.funding.fundinglist = []
       axios.get("http://127.0.0.1:9090/mainPage/friend/"+memberid, getHeaders())
           .then(res => {
             let jdata =  JSON.stringify(res.data);
@@ -173,14 +176,13 @@ export default {
         this.funding.username = ''
         return  false
       }
-      var MemberId = this.$route.params.memberId
       this.loading = true
       this.searchStart = true
       //axios 로 친구리스트가져오기
       this.friendName = this.friendName.trim();
       this.friendName = this.friendName.replace(/\s/gi, "")
       if(this.friendName.length>0){
-        axios.get("http://127.0.0.1:9090/mainPage/"+MemberId+"/"+this.friendName) //1-> member_id
+        axios.get("http://127.0.0.1:9090/mainPage/"+this.friendName) //1-> member_id
             .then(response => {
               let jdata =  JSON.stringify(response.data);
               this.friends = JSON.parse(jdata);
@@ -201,11 +203,7 @@ export default {
 </script>
 <style scoped>
 .first-container{
-
-}
-.first-container .list{
   margin-top: 70px;
-  font-size:30px
 }
 .second-bottom{
   max-width:1100px;

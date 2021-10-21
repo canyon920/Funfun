@@ -135,6 +135,7 @@ export default {
 
 <style scoped>
 #nav {
+
 }
 body{
   margin: 0;

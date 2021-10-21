@@ -294,7 +294,7 @@ export default {
   margin-bottom: 10px;
 }
 .MyPage {
-  max-width:1100px;
+  /*max-width:1100px;*/
   margin:auto;
   margin-bottom: 50px;
   display: flex;

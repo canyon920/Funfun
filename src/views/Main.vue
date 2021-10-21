@@ -16,33 +16,25 @@
         <router-link :to="{name: 'EventPage', params:{ eventId: slide.eventId }}">
           <div style="width: 100%; height: 100%; cursor: pointer"></div>
         </router-link>
-        <!--        <v-sheet-->
-        <!--            :color="colors[i]"-->
-        <!--            height="100%"-->
-        <!--        >-->
-        <!--          <v-row-->
-        <!--              class="fill-height"-->
-        <!--              align="center"-->
-        <!--              justify="center"-->
-        <!--          >-->
-        <!--            <div class="text-h2">-->
-        <!--              {{ slide }}-->
-        <!--            </div>-->
-        <!--          </v-row>-->
-        <!--        </v-sheet>-->
+
       </v-carousel-item>
     </v-carousel>
     <v-container>
       <!-- 사이즈 조정 디브  -->
       <div class = "second">
 
-        <div class ="search" v-show="mainFriendSearchBar">
+        <div class ="search">
 
           <div class ="search-second">
-            <div class="title-div" style="display: flex; flex-direction: row; align-items: center; margin-bottom: 10px">
+            <div class="title-div" style="display: flex; flex-direction: row; align-items: center; margin-bottom: 10px;">
               <img :src="require('@/assets/logo/img-normal.jpg')" style="height: 50px; width: 50px; border-radius: 15px; margin-right: 10px;">
+              <div style="display: flex; flex-direction: column">
               <div style="font-weight: 700; font-size: 25px">
-                친구를 검색해 주세요.
+                User 검색
+              </div>
+              <div style="font-size: 15px; font-weight: 700;">
+                이름을 검색해서 펀딩중인 상품이 있는지 확인해보세요.
+              </div>
               </div>
             </div>
             <v-text-field
@@ -88,13 +80,6 @@
               </v-list-item>
             </v-list>
 
-            <!--            여기 해주자!!!!!!!!!!!!!           -->
-            <!--            <ul>-->
-            <!--              &lt;!&ndash; eslint-disable vue/no-use-v-if-with-v-for,vue/no-confusing-v-for-v-if &ndash;&gt;-->
-            <!--              <div v-for="(friend, fkey) in friends" :key="fkey" v-if="friend.name.includes(friendName)">-->
-            <!--                {{friend.name}}-->
-            <!--              </div>-->
-            <!--            </ul>-->
 
           </div>
 
@@ -129,8 +114,9 @@
 
         <div class ="search" v-show="mainFriendSearchBar">
         <div class = "join">
-          <div class="textline">
+          <div class="textline" style="display: flex; flex-direction: row; align-items: center">
             <h2>내가 참여한 선물</h2>
+            <span style="margin-left: 30px; color: rgb(229,114,0); font-size: 15px; cursor: pointer" @click="goLink">더보기</span>
           </div>
           <Deadline :bringmainDeadline="mainJoin" :bringOuto="false" />
         </div>
@@ -223,10 +209,6 @@ export default {
               ],
           },
       friends: [
-        // {profileImg: require("@/assets/logo/img-normal.jpg"), username: '춘식이', friendId: 2},
-        // {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라이언', friendId: 3},
-        // {profileImg: require("@/assets/logo/img-normal.jpg"), username: '티코', friendId: 4},
-        // {profileImg: require("@/assets/logo/img-normal.jpg"), username: '라둥이', friendId: 5},
       ],
       friendName: '',
 
@@ -354,6 +336,7 @@ export default {
       this.loading = false;
       this.searchStart = false;
       this.mainSearch.username = username;
+      this.mainSearch.fundinglist = []
       axios.get("http://127.0.0.1:9090/mainPage/friend/"+memberid)
       .then(res => {
         let jdata =  JSON.stringify(res.data);
@@ -362,7 +345,6 @@ export default {
       }).catch(error => {
         console.log(error.messages)
       })
-
     },
     topEventImg() {
       var wmm1 = window.matchMedia("screen and (max-width: 500px)");
@@ -417,12 +399,15 @@ export default {
         if (error.response.status===403) {
           this.countTry++
           if (this.countTry == 1) {
-            reServerSend();
+            reServerSend()
             this.setJoin()
           }
           console.log("다시 오류인것 확인 로그")
         }
       })
+    },
+    goLink() {
+      this.$router.push(`/joinlist/${this.memberObj.memberId}`)
     }
 
   },
@@ -443,7 +428,7 @@ export default {
       //axios 로 친구리스트가져오기
       this.friendName = this.friendName.trim();
       if(this.friendName.length>0){
-        axios.get("http://127.0.0.1:9090/mainPage/"+this.memberObj.memberId+"/"+this.friendName) //1-> member_id
+        axios.get("http://127.0.0.1:9090/mainPage/"+this.friendName) //1-> member_id
         .then(response => {
           let jdata =  JSON.stringify(response.data);
           this.friends = JSON.parse(jdata);
@@ -469,12 +454,17 @@ export default {
 
 .second{
 
-  max-width:1100px; left:0; right:0; margin-left:auto; margin-right:auto;
+  /*max-width:1100px;*/
+  /*max-width:100vw;*/
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
 
 }
 
 .v-window v-item-group theme--dark v-carousel{
-  height: 250px;
+  /*height: 250px;*/
 }
 .menu{
   text-align: center;

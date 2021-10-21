@@ -65,7 +65,12 @@ export default {
         this.funlogintransform = !this.funlogintransform;
       }
     }
-  }
+  },
+  beforeMount() {
+    if (JSON.parse(window.localStorage.getItem('login_member'))) {
+      this.$router.push("")
+    }
+  },
 }
 
 

@@ -3,7 +3,9 @@
 
     <div class =line style=" box-shadow: 0.5px 0.5px 5px rgba(229, 114, 0, 0.4)">
       <div class = "wishlist" style="font-weight: 700"><span style="color: rgb(229, 114, 0)">{{ bringmainsearch.username}}</span>님의 위시리스트</div>
-      <div class="moreandmore" ><router-link to="/wishlist" style="text-decoration: none; color: rgb(229, 114, 0)">더보기</router-link> </div>
+<!--      <div class="moreandmore" >-->
+<!--        <router-link to="/wishlist" style="text-decoration: none; color: rgb(229, 114, 0)">더보기</router-link>-->
+<!--      </div>-->
       <div class = no-merchandise>
         <div class ="datalist">
           <div v-if="bringmainsearch.fundinglist.length === 0" >
@@ -29,7 +31,7 @@
                 items:1,
               }
             }">
-<!--              <carousel id="shop-carousel" :autoplay="true" :nav="false" >-->
+              <!--              <carousel id="shop-carousel" :autoplay="true" :nav="false" >-->
               <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
               <div v-for="(merchan, idx) in bringmainsearch.fundinglist" :key="idx">
                 <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: merchan.fundingId}}" style="text-decoration: none">
@@ -48,10 +50,10 @@
 
                       <v-card-subtitle class="pb-0" id="v-card-subtitle-custom">
                         <div id="card-brand" style="font-size: 20px;">
-                        {{merchan.fundingBrand}}
+                          {{merchan.fundingBrand}}
                         </div>
                         <div id="card-price" style="font-size: 25px; color: rgb(229, 114, 0)">
-                        {{ merchan.fundingTargetMoney}} 원
+                          {{ merchan.fundingTargetMoney}} 원
                         </div>
                       </v-card-subtitle>
 

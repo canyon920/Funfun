@@ -218,11 +218,5 @@ export default {
 </script>
 <style scoped>
 
-#app {
-  display: flex;
-  flex-direction:column;
-  flex-wrap: wrap;
-  align-items: center;
-  font-family: 'Source Sans Pro', sans-serif;
-}
+
 </style>

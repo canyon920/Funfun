@@ -40,7 +40,7 @@
 
           <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'FriendList', params: {memberId: loginMember.memberId}}">
             <h2 class="display-1 font-weight-bold mb-2">
-              친구 리스트 찾기
+              User 리스트 찾기
             </h2></router-link></div>
 
           <div class="link-div2"><router-link style="color: black; text-decoration: none" class="router-link" :to="{name: 'MywishList', params: {memberId: loginMember.memberId}}">

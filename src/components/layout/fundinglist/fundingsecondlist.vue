@@ -67,7 +67,7 @@ export  default {
 
 <style scoped>
 .secondinner{
-  max-width:1100px;
+  /*max-width:1100px;*/
   left:0; right:0; margin-left:auto; margin-right:auto;
   padding-top: 100px;
   padding-bottom: 100px;

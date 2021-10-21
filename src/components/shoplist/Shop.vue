@@ -595,6 +595,35 @@ export default {
           console.log(error.messages)
         })
       }
+    },
+    settingTitle() {
+      let categoryIdNum = this.$route.params.categoryId
+      if (categoryIdNum == 1) {
+        this.producttitle = "생일날 이건 꼭 받아야해!"
+      } else if (categoryIdNum == 2) {
+        this.producttitle = "이정도는 간단하지!"
+      } else if (categoryIdNum == 3) {
+        this.producttitle = "받고싶은게 애매할땐 상품권!"
+      } else if (categoryIdNum == 4) {
+        this.producttitle = "놓치고 싶지않은 백화점!"
+      } else if (categoryIdNum == 5) {
+        this.producttitle = "역시 건강이 최고더라!"
+      } else if (categoryIdNum == 6) {
+        this.producttitle = "작지만 강한 선물!"
+      } else if (categoryIdNum == 7) {
+        this.producttitle = "야! 명품, 내꺼하자!"
+      } else if (categoryIdNum == 8) {
+        this.producttitle = "난 실용적인게 좋드라!"
+      } else if (categoryIdNum == 9) {
+        this.producttitle = "우리아이를 위해서!"
+      } else if (categoryIdNum == 10) {
+        this.producttitle = "쓸모없다하지말자..슬프잖아..내가 Get해줄게!"
+      } else if (categoryIdNum == 11) {
+        this.producttitle = "요즘은 선물도 배달이다!"
+      } else if (categoryIdNum == 12) {
+        this.producttitle = "받는사람도 따뜻, 주는사람도 따뜻해지는 선물!"
+      }
+
     }
   },
   beforeMount(){
@@ -602,6 +631,7 @@ export default {
   },
   mounted() {
     this.getSearchName()
+    this.settingTitle()
   }
 }
 </script>
