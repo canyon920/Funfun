@@ -27,7 +27,8 @@ import MywishtList from "@/views/mypage/MywishtList";
 import JoinedmyList from "@/views/mypage/JoinedmyList";
 import Choose from "@/views/Choose";
 import PurchaseList from "@/views/mypage/PurchaseList";
-import Payment from "../views/Payment";
+import FundingPayment from "@/views/FundingPayment";
+import BuyPayment from "@/views/BuyPayment";
 
 
 Vue.use(VueRouter)
@@ -187,9 +188,14 @@ const routes = [
     component: FindPassword
   },
   {
-    path: '/payment/:memberId',
-    name: 'Payment',
-    component: Payment
+    path: '/fundingpayment/:fundingId',
+    name: 'FundingPayment',
+    component: FundingPayment
+  },
+  {
+    path: '/buypayment/:productId',
+    name: 'BuyPayment',
+    component: BuyPayment
   }
 ]
 
