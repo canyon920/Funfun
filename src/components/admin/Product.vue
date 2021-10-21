@@ -54,7 +54,7 @@ export default {
   },
   methods:{
     async setProductList(){
-      axios.post("http://127.0.0.1:9090/AdminProductList/test")
+      axios.post("http://127.0.0.1:9090/AdminProductList/admin")
           .then(res => {
             this.productData.list = []
             let jdata = JSON.stringify(res.data)
