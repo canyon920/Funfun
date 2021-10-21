@@ -7,6 +7,8 @@
         :length="bringPageData.totalLength"
         :total-visible="bringPageData.visualTotalNum"
     ></v-pagination>
+
+
   </div>
   </div>
 </template>
