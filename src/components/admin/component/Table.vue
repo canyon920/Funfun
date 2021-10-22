@@ -8,8 +8,7 @@
       총 : {{bringData.total}}
     </div>
 
-
-    <div class="table"  id="my-table">
+    <div class="table" id="my-table">
       <div class="column" v-for="(col,ckey) in bringData.column" :key="ckey">
         <div v-show="col.col1" class="text col1">
           {{ col.col1 }}
@@ -30,7 +29,7 @@
           {{ col.col6 }}
         </div>
         <div  v-show="col.col7" class="text status-col">
-          상태
+          {{col.col7}}
         </div>
         <div v-show="col.col8" class="text delete-col">
           삭제
@@ -54,15 +53,15 @@
         <div class="text col4" >
           {{ data.data4 }}
         </div>
-<!--        <div v-show="data.data5" class="text col5" >-->
-<!--          {{ data.data5 }}-->
-<!--        </div>-->
-<!--        <div v-show="data.data6" class="text col4" >-->
-<!--          {{ data.data6 }}-->
-<!--        </div>-->
-<!--        <div v-show="data.data7" class="text status" >-->
-<!--          {{data.data7}}-->
-<!--        </div>-->
+        <div v-show="data.data5" class="text col5" >
+          {{ data.data5 }}
+        </div>
+        <div v-show="data.data6" class="text col6" >
+          {{ data.data6 }}
+        </div>
+        <div v-show="data.data7" class="text status" >
+          <img v-if="data.img" class="item img" :src="data.data7" >
+        </div>
         <div v-show="data.data8" class="text delete" @click="check(data.data1)">
           {{data.data8}}
         </div>
@@ -116,11 +115,11 @@ export default {
       return this. bringData.list.slice((this.page - 1)*this.perPage,
           this.page*this.perPage)
     },
-    watch: {
-      page() {
-        console.log(this.page)
-      }
-    },
+    // watch: {
+    //   page() {
+    //     console.log(this.page)
+    //   }
+    // },
 
 
   }
@@ -175,6 +174,10 @@ export default {
 }
 .text.status {
   cursor: pointer;
+}
+.text.status .item.img {
+  width: 50px;
+  height: 50px;
 }
 .text.status:hover {
   background-color: rgba(229, 114, 0, .1);
