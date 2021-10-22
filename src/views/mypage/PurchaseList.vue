@@ -16,7 +16,7 @@
             <v-card-title class="text-h5 grey lighten-2">
               나에게 선물한 상품 (SELF GIFT)
             </v-card-title>
-            <v-img src= @/assets/logo/img-normal.jpg>
+            <v-img src= @/assets/logo/statecode.jpg>
             </v-img>
 
             <v-divider></v-divider>
@@ -93,7 +93,7 @@
             <v-card-title class="text-h5 grey lighten-2">
               마감된 펀딩리스트
             </v-card-title>
-            <v-img src= @/assets/logo/img-normal.jpg>
+            <v-img src= @/assets/logo/statecode.jpg>
             </v-img>
 
             <v-divider></v-divider>
@@ -155,14 +155,25 @@
                     <div class="form-group">
                       <input type="hidden" class="form-control" id="t_key" name="t_key" value="mjYqQ7gQ4ZB7QAHYOlWb0w">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group1">
                       <input type="hidden" class="form-control" name="t_code" id="t_code" value="04">
                     </div>
-                    <div class="form-group">
-                      <label for="t_invoice">운송장 번호</label>
+                    <div class="form-group2">
+                      <label class="label-div" for="t_invoice">운송장 번호 : </label>
                       <input type="text" class="form-control" name="t_invoice" id="t_invoice" v-bind:value="item.delnum">
                     </div>
-                    <button type="submit" class="btn btn-default">조회하기</button>
+                    <div class ="button-div">
+                      <v-btn @click="dialog3 =false"
+                             class="ma-2"
+                             outlined
+                             style="color:rgb(229 114 0)"
+                      >닫기</v-btn>
+                        <v-btn  type="submit"
+                               class="ma-2"
+                               outlined
+                               style="color:rgb(229 114 0)"
+                        > 조회하기</v-btn>
+                    </div>
                   </form>
                 </v-card>
               </v-dialog>
@@ -181,8 +192,8 @@
 </template>
 <script>
 import axios from "axios";
-import {reServerSend} from "../../service/refreshForAccessToken";
 import Header from "../../components/layout/Header";
+import {reServerSend} from "../../service/refreshForAccessToken";
 
 export default {
   name: "PurchaseList",
@@ -193,6 +204,8 @@ export default {
       dialog: false,
       dialog2: false,
       dialog3:false,
+
+
       page: 1,
       pages:1,
       perPage: 4,
@@ -222,60 +235,64 @@ export default {
           delnum:'123123123'
         },
       ],
+      countTry : 0,
     }
   },
   methods:{
     async bringFundingTypeBuy(){
-      let mdata = JSON.parse(localStorage.getItem('login_member'));
+      let memberId = this.$route.params.memberId
       let access_token = window.sessionStorage.getItem('access_token')
       let config = {
         headers:{
           Authorization : `Bearer ${access_token}`,
         }
       }
-      await axios.get("http://localhost:9090/myPurchase/selfGift/"+mdata.memberId,config)
+      await axios.get("http://localhost:9090/myPurchase/selfGift/"+memberId,config)
           .then(res =>{
-            console.log("##res",res)
-            // var thumbImg =""
-            /*for(var i in res.data){
-              // console.log("##test",res.data[i])
+            console.log("##res1",res)
+            var thumbImg =""
+            this.giftlist=[]
+            var j = 0
+            for(let i in res.data){
               var list = res.data[i].fundingImg
               for(var key in list){
                 if(list[key].includes('thumb')){
                   thumbImg = list[key]
                 }
               }
+              if(res.data[i].delivery_num == 0){
+                var delstate = '송장번호가 등록되지 않았습니다'
+              }else{
+                delstate = res.data[i].delivery_num
+              }
+              this.giftlist.push({
+                no: ++j,
+                image: thumbImg,
+                title: res.data[i].funding_title,
+                price: res.data[i].funding_target_money,
+                state: res.data[i].funding_status,
+                delnum:delstate
+              })
+            }
 
-              this.deadlist.push({
-                no:this.no+1,
-                img:thumbImg,
-                title:res.data[i].funding_title,
-                price:res.data[i].funding_target_money,
-                state:res.data[i].funding_status}
-              )}
-*/
           }).catch(e => {
             console.log("에러에러",e)
             console.log("에러에러",e.response)
             console.log(e.message)
-            /* if (e.response.status===403) {
-               reServerSend();
-               this.bringMyLikeList()
-             }
-             console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
-             this.$router.push("/login",Header.methods.isLogin)*/
+
           })
     },
     async bringFundingTypeFunding(){
-      let mdata = JSON.parse(localStorage.getItem('login_member'));
+      let memberId = this.$route.params.memberId
       let access_token = window.sessionStorage.getItem('access_token')
       let config = {
         headers:{
           Authorization : `Bearer ${access_token}`,
         }
       }
-      await axios.get("http://localhost:9090/myPurchase/expiredFunding/"+mdata.memberId,config)
+      await axios.get("http://localhost:9090/myPurchase/expiredFunding/"+memberId,config)
           .then(res =>{
+            this.countTry =0
             console.log("##res",res)
             var thumbImg =""
             this.deadlist=[]
@@ -303,12 +320,16 @@ export default {
             }
           }).catch(e => {
             console.log("에러에러",e.response)
-            if (e.response.status===403) {
-              reServerSend()
-              this.bringFundingTypeFunding()
+            alert("403이 아닌 에러")
+            if (e.response.status === 403) {
+              this.countTry++
+              if (this.countTry == 1) {
+                reServerSend();
+                this.bringFundingTypeFunding();
+              }
+              console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
+              this.$router.push("/",Header.methods.isLogin)
             }
-            console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
-            this.$router.push("/login",Header.methods.isLogin)
           })
     },
     onClickRedirect(){
@@ -385,6 +406,33 @@ export default {
 .Purchase-bottom{
   padding-top: 70px;
   padding-bottom:70px;
+}
+.text-h5{
+  text-align: center;
+  padding-top:20px;
+}
+.form-group1{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.form-group2{
+  text-align:center;
+  font-size: 1.5em;
+
+}
+#t_invoice{
+  border: 0.5px solid rgb(229 114 0);
+  padding-left: 10px;
+}
+.button-div{
+  padding-top: 50px;
+  padding-bottom: 20px;
+  text-align:center;
+  align: center;
+
+}
+.label-div{
+  padding-right: 15px;
 }
 
 @keyframes fadeIn {

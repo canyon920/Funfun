@@ -14,9 +14,7 @@
 
     </div>
     <Table :bring-data="userData" />
-    <div class="paginataion-div">
 
-    </div>
   </div>
 </template>
 
