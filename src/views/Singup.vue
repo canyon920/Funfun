@@ -168,9 +168,9 @@ export default {
   methods:{
     // 폰 넘버 인증하면 여기서 폰넘버 담게됨
     phoneInputDataVal(val) {
-      console.log("아래서 받은 폰넘버값 : ",val)
+      // console.log("아래서 받은 폰넘버값 : ",val)
       this.submitPhoneNumber = val
-      console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
+      // console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
     },
 
     // 멤버 회원가입 요청
@@ -184,7 +184,7 @@ export default {
       }
       await axios.post("http://localhost:9090/api/join/save/member",form)
           .then(res=>{
-            console.log(res)
+            // console.log(res)
             memberObj.memberId = res.data.id
             memberObj.memberEmail = res.data.email
             memberObj.memberNicname = res.data.nic_name
@@ -196,7 +196,7 @@ export default {
             bringFunTokens()
           })
           .catch(error=>{
-            console.log(error)
+            console.log(error.message)
           })
     },
     // 멤버 회원가입 트렌젝션
@@ -212,14 +212,13 @@ export default {
       var form = new FormData()
       form.append("email", this.email+this.select)
       await axios.post("http://localhost:9090/api/join/email/check",form)
-          .then(res=>{
-            console.log(res)
+          .then(()=>{
             this.errorEmailCheck1 = false
             this.submitJoin2()
 
           })
           .catch(error=>{
-            console.log(error)
+            console.log(error.message)
             this.errorEmailCheck1 = true
           })
     },
@@ -270,7 +269,6 @@ export default {
   watch:{
     email() {
       if (this.email.match(/[@]/)) {
-        console.log("이메일 끝 빼주세요")
         this.errorEmailCheck2 = true
       } else {
         this.errorEmailCheck2 = false

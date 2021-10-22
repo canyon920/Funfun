@@ -89,8 +89,8 @@ export default {
           logout()
         },
         fail: function (error) {
-          console.log(error)
-          alert(error)
+          console.log(error.message)
+          // alert(error)
           return
         },
       });

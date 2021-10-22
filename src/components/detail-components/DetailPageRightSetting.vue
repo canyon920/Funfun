@@ -120,15 +120,15 @@ export default {
   methods:{
     //전송할 날짜 여기에 조건 이 충족되었다면 여기에 넣고 변화 시켜보자
     registDateAsEmit(dateAllOb) {
-      console.log("일단 실행은된다")
+      // console.log("일단 실행은된다")
       if (this.checkNullTitle === false && this.checkAfterTitle === false && this.checkDate === false &&
           this.checkDateEqual === false && this.checkDateStartDay === false) {
         this.dateSetting.funding_create_time = dateAllOb.startD.replaceAll("-","")
         this.dateSetting.funding_expired_time = dateAllOb.expireD.replaceAll("-", "")
-        console.log("넘어온 시작날 : ", dateAllOb.startD)
-        console.log("넘어온 종료날 : ", dateAllOb.expireD)
-        console.log("담은 시작날 : ",this.dateSetting.funding_create_time)
-        console.log("담은 종료날 : ",this.dateSetting.funding_expired_time)
+        // console.log("넘어온 시작날 : ", dateAllOb.startD)
+        // console.log("넘어온 종료날 : ", dateAllOb.expireD)
+        // console.log("담은 시작날 : ",this.dateSetting.funding_create_time)
+        // console.log("담은 종료날 : ",this.dateSetting.funding_expired_time)
       }
     },
 
@@ -168,8 +168,8 @@ export default {
     },
     setProductName(){
       let datas = JSON.parse(sessionStorage.getItem("product_detail"));
-      console.log("실행된 값",datas)
-      console.log(datas.productName)
+      // console.log("실행된 값",datas)
+      // console.log(datas.productName)
       this.setTitle.value = datas.productName
     }
 

@@ -71,7 +71,7 @@ export default {
           if (this.countTry == 1) {
             reServerSend();
           }
-          console.log("다시 오류인것 확인 로그")
+          console.log(error.message)
         }
       })
     }

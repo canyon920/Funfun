@@ -293,9 +293,9 @@ export default {
       this.$router.go(0)
     },
     phoneInputDataVal(val) {
-      console.log("아래서 받은 폰넘버값 : ",val)
+      // console.log("아래서 받은 폰넘버값 : ",val)
       this.submitPhoneNumber = val
-      console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
+      // console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
     },
     findAddr() {
       new window.daum.Postcode({
@@ -307,13 +307,10 @@ export default {
       }).open()
     },
     async deliveryInfoSubmit() {
-      console.log("0번")
       if (!this.name || !this.submitAddress1 || !this.submitAddress2 || !this.submitAddress3 || !this.submitPhoneNumber) {
-        console.log("0.0번")
         this.errorFullInput = true
         return false
       }
-      console.log("1번")
       if (this.submitAddress1) {
         if (!this.submitAddress2) {
           this.checkAddress2 = true
@@ -322,7 +319,6 @@ export default {
           this.checkAddress2 = false
         }
       }
-      console.log("2번")
 
       if (!this.submitPhoneNumber) {
         this.errorInputPhone = true
@@ -330,11 +326,8 @@ export default {
       } else {
         this.errorInputPhone = false
       }
-      console.log("3번")
 
       if (this.extraPrice) {
-        console.log("이름 : "+this.name.trim().toString())
-        console.log("계좌 : "+this.account.trim().toString())
         if (this.name.trim().toString().length == 0 || this.account.trim().toString().length == 0) {
           this.errorFullInput = true;
           return false;
@@ -345,7 +338,6 @@ export default {
         this.transObjectPayment.real_name = this.name
         this.transObjectPayment.account = this.account
       }
-      console.log("4번")
 
       this.transObjectPayment.funding_id = this.$route.params.fundingId
       this.transObjectPayment.phone_number = this.submitPhoneNumber
@@ -353,10 +345,7 @@ export default {
       this.transObjectPayment.street = this.submitAddress2
       this.transObjectPayment.zipcode = this.submitAddress3
 
-      console.log("this.transObj : "+ this.transObjectPayment)
       let form = JSON.stringify(this.transObjectPayment)
-      console.log("form : "+ form)
-      console.log("5번")
       let config = {
         headers:{
           'Content-Type': 'application/json',
@@ -365,7 +354,6 @@ export default {
       }
       await axios.post("http://localhost:9090/post/payment/delivery", form, config)
           .then(res=>{
-            console.log(res.data)
             this.countTry=0
             if (res.data === true) {
               this.$router.push(`/purchaselist/${JSON.parse(window.localStorage.getItem("login_member")).memberId}`);
@@ -374,7 +362,7 @@ export default {
             }
           })
           .catch(error=>{
-            console.log(error)
+            console.log(error.message)
             // 여기 엑세스 만료시 세션으로 요청 로직 넣어주자@!!!!
             if (error.response.status===403) {
               this.countTry++

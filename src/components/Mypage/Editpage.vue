@@ -157,7 +157,7 @@ export default {
       //UserEditController 에서 받아오자
       await axios.post("http://localhost:9090/bring/member/edit/info",form, config)
           .then(res =>{
-            console.log(res.data)
+            // console.log(res.data)
             this.nickname = res.data.nic_name
             this.email = res.data.email
             this.savedPhoneNumber = res.data.phone_number
@@ -172,7 +172,7 @@ export default {
                 reServerSend();
                 this.memberInfoMapping()
               }
-              console.log("다시 오류인것 확인 로그")
+              console.log(error.message)
             }
           })
 
@@ -180,16 +180,16 @@ export default {
     findAddr() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          console.log(data)
+          // console.log(data)
           this.submitAddress1 = data.roadAddress
           this.submitAddress3 = data.zonecode
         }
       }).open()
     },
     phoneInputDataVal(val) {
-      console.log("아래서 받은 폰넘버값 : ",val)
+      // console.log("아래서 받은 폰넘버값 : ",val)
       this.submitPhoneNumber = val
-      console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
+      // console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
     },
     async refreshRouter() {
       if (this.submitAddress1) {
@@ -210,10 +210,10 @@ export default {
         checkedAddress2 = this.submitAddress2
         checkedAddress3 = this.submitAddress3
       }
-      console.log(this.submitPhoneNumber);
-      console.log(this.submitAddress1)
-      console.log(this.submitAddress2)
-      console.log(this.submitAddress3)
+      // console.log(this.submitPhoneNumber);
+      // console.log(this.submitAddress1)
+      // console.log(this.submitAddress2)
+      // console.log(this.submitAddress3)
       let access_token = window.sessionStorage.getItem('access_token')
       let config = {
         headers:{
@@ -232,7 +232,7 @@ export default {
       }
       await axios.post("http://localhost:9090/bring/member/edit/save", submitEditMember, config)
           .then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
             this.countTry=0
 
             this.memberObj.memberId = res.data.id
@@ -248,7 +248,7 @@ export default {
 
           })
           .catch(error=>{
-            console.log(error)
+            console.log(error.message)
             // 여기 엑세스 만료시 세션으로 요청 로직 넣어주자@!!!!
             if (error.response.status===403) {
               this.countTry++
@@ -256,7 +256,7 @@ export default {
                 reServerSend();
                 this.refreshRouter()
               }
-              console.log("다시 오류인것 확인 로그")
+              console.log(error.message)
             }
           })
 

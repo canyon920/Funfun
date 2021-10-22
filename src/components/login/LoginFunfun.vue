@@ -90,8 +90,8 @@ export default {
             this.bringEmailLoginMemberInfo()
 
           })
-          .catch(e=>{
-            console.log(e)
+          .catch(error=>{
+            console.log(error.message)
             alert("로그인 할 수 없습니다.")
             this.$router.push("/",Header.methods.isLogin())
           })
@@ -118,8 +118,8 @@ export default {
 
         this.$router.push("/",Header.methods.isLogin())
 
-      }).catch(e=>{
-            console.log(e)
+      }).catch(error=>{
+            console.log(error.message)
             alert("로그인 할 수 없습니다.")
             this.$router.push("/",Header.methods.isLogin())
           }

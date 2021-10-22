@@ -72,8 +72,8 @@ export default {
               }
             })
 
-          }).catch(e => {
-            console.log(e.response)
+          }).catch(error => {
+            console.log(error.message)
           })
     },
 
@@ -113,8 +113,8 @@ export default {
           axios.get("http://localhost:9090/user/admin/search/" + this.search, config)
               .then(res => {
                 this.friend = res.data
-              }).catch(e => {
-            console.log(e.response)
+              }).catch(error => {
+            console.log(error.message)
           })
         }
       },

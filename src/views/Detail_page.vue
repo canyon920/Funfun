@@ -120,10 +120,8 @@ export default {
             productObj.productCategory = res.data.product_categoryId
             productObj.productLikeList = res.data.product_like_list
 
-
-
             let product_detail = JSON.stringify(productObj)
-            console.log('#res',res)
+            // console.log('#res',res)
             window.sessionStorage.setItem('product_detail',product_detail)
 
             this.postDetail()
@@ -143,11 +141,9 @@ export default {
       let mdata = JSON.parse(localStorage.getItem("login_member"));
       // console.log("mdata",mdata)
       var likelist = datas.productLikeList
-      console.log("likelist",likelist)
 
       for(var key in likelist){
         if(likelist[key].includes(mdata.memberEmail)){
-          console.log("나다",mdata.memberEmail)
           this.rightInfo.likeIcon = true
         }
       }
@@ -158,7 +154,6 @@ export default {
       let mdata = JSON.parse(localStorage.getItem("login_member"));
       // console.log("mdata",mdata)
       var likelist = datas.productLikeList
-      console.log("likelist",likelist)
 
       for(var key in likelist){
         if(likelist[key].includes(mdata.memberEmail)){
@@ -184,8 +179,6 @@ export default {
       // console.log('#img',res.data.productImg[1])
 
       var list = datas.productImg
-      console.log("list",list)
-      console.log("list[0]",list[0])
       this.leftInfo.subImg = []
       this.bodyInfo.premainImgUrl=[]
 
@@ -201,14 +194,10 @@ export default {
           this.bodyInfo.premainImgUrl.push(list[key])
         }
       }
-      console.log("sub",this.leftInfo.subImg)
-      console.log("main",this.bodyInfo.premainImgUrl)
 
     },
     goPresent(){
-      console.log("클릭함")
       let pdata = JSON.parse(sessionStorage.getItem("product_detail"));
-      console.log("#pdata",pdata);
       this.$router.push({name: 'BuyPayment', params:{productId: pdata.productId}})
     },
 
@@ -277,17 +266,15 @@ export default {
     // 생각해보니 수로 넘기면 사용자간 충돌 일어날 수 있으니 tru false로 넘겨서 백에서 true 면은  증가시키는게 좋을듯
     async transmitLike() {
       if (this.rightInfo.beforeLikeCount < this.rightInfo.likeCount) {
-        console.log("라이크 수 : ", this.rightInfo.likeCount, typeof this.rightInfo.likeCount);
         this.rightInfo.likeIcon = true
-        console.log("true",this.rightInfo.likeIcon)
 
-      }else if(this.rightInfo.beforeLikeCount > this.rightInfo.likeCount){
-        console.log("라이크 수 : ", this.rightInfo.likeCount, typeof this.rightInfo.likeCount);
-        this.rightInfo.likeIcon = false
-        console.log("false",this.rightInfo.likeIcon)
-        this.handleLike2()
+      }else if (this.rightInfo.beforeLikeCount > this.rightInfo.likeCount) {
+        this.rightInfo.likeIcon = false;
+        this.handleLike2();
+      } else {
+        return false;
       }
-      let access_token = window.sessionStorage.getItem('access_token')
+      let access_token = window.sessionStorage.getItem('access_token');
         let config = {
           headers:{
             'Content-Type': 'application/json',
@@ -306,15 +293,12 @@ export default {
         form.append("like_up", this.rightInfo.likeIcon)
         form.append("member_id",memberIdFromStorage)
         form.append("product_id",productIdFromStorage.productId)
-      console.log("아이디를 못담는건가?3?????"+productIdFromStorage.productId)
 
       await axios.post("http://localhost:9090/product/like/update",form,config)
-            .then(res => {
-              console.log(res)
-            }).catch(e =>{
-              console.log("s",e.response.status)
-              console.log("e",e.response)
-              if (e.response.status===403) {
+            .then(() => {
+            }).catch(error =>{
+              console.log(error.message)
+              if (error.response.status===403) {
                 reServerSend();
                 this.transmitLike();
               }
@@ -324,8 +308,6 @@ export default {
     // 펀딩하기 누르면 전송될 값들 axios <!-- 상품 id(상위 컴포넌트서 받아야함) , 멤버 id(store 에서 꺼내자) , 제목 , 시작일 , 만료일 , 목표금액 , 펀딩타입(이거는 컨트롤러서?) 넘기자 -->
 // ---> 리스펀스로 저장이되었다면 펀딩 아이디를 받아서 라우터 파람으로 다음페이지 넘어가도록 해야할듯
     async transmitFundingRegist(data) {
-      console.log("하위 컴포넌트로 넘어온 값 : ", data)
-      console.log("값 주워담기 전 : ", this.transeDataForFunding)
       const mdata = JSON.parse(localStorage.getItem("login_member"));
       var bringRouteProductId = this.$route.params.productId
       let access_token = window.sessionStorage.getItem('access_token')
@@ -353,18 +335,15 @@ export default {
               this.$router.push({name: 'DetailFundingPage', params:{fundingId: res.data}})
             }
           }).catch(error=>{
-            console.log("error code",error.response.status)
-            console.log("error res",error.response)
+            console.log("error res",error.message)
             if (error.response.status===403) {
                 reServerSend();
                 this.transmitFundingRegist(data)
             }
-            console.log("세션이 모두 만료되었습니다. 로그인을 다시 해 주세요")
             this.$router.push("/login",Header.methods.isLogin)
           })
     },
     errorImg1() {
-      console.log("썸네일에러")
       this.leftInfo.prethumbUrl = require("@/assets/example-img/chunsicthum.png")
       this.leftInfo.subImg[0] = require("@/assets/example-img/chunsicsub1.png")
       this.leftInfo.subImg[1] = require("@/assets/example-img/chunsicsub2.png")
@@ -373,7 +352,7 @@ export default {
       this.bodyInfo.premainImgUrl[0] = require("@/assets/example-img/chunsic.png")
     },
   },
-  mounted() {
+  beforeMount() {
     this.bringProductDetailInfo()
   },
 

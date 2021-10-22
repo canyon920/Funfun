@@ -376,33 +376,31 @@ export default {
         this.mainDeadline = [];
         let jdata =  JSON.stringify(res.data);
         this.mainDeadline = JSON.parse(jdata);
-        console.log(this.mainDeadline)
+        // console.log(this.mainDeadline)
       })
     },
     setJoin(){
       this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
-      let access_token = window.sessionStorage.getItem("access_token")
-      console.log(access_token)
       axios.get("http://127.0.0.1:9090/mainPage/mainJoin/"+ this.memberObj.memberId, getHeaders())
       .then(res => {
         this.mainJoin = [];
         let jdata =  JSON.stringify(res.data);
         this.mainJoin = JSON.parse(jdata);
-        console.log(res.data)
+        // console.log(res.data)
         if (!res.data.length) {
           this.mainFriendSearchBar = false
           return false
         }
         this.mainFriendSearchBar = true
       }).catch(error=>{
-        console.log(error)
+        console.log(error.message)
         if (error.response.status===403) {
           this.countTry++
           if (this.countTry == 1) {
             reServerSend()
             this.setJoin()
           }
-          console.log("다시 오류인것 확인 로그")
+          console.log(error.message)
         }
       })
     },

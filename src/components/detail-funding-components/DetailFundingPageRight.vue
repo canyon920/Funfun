@@ -224,8 +224,8 @@ export default {
       var list = fdata.fundingImg
       for(var key in list){
         if(list[key].includes('thumb')){
-          var imgUrl = list[key]
-          console.log(imgUrl)
+          // var imgUrl = list[key]
+          // console.log(imgUrl)
         }
       }
       window.Kakao.Link.sendDefault({

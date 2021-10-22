@@ -101,7 +101,7 @@ export default {
       this.leftInfo.subImg[3] = this.leftInfo.preforchangUrl
     },
     errorImg1() {
-      console.log("썸네일에러")
+      // console.log("썸네일에러")
       this.leftInfo.prethumbUrl = require("@/assets/example-img/chunsicthum.png")
       this.leftInfo.subImg[0] = require("@/assets/example-img/chunsicsub1.png")
       this.leftInfo.subImg[1] = require("@/assets/example-img/chunsicsub2.png")
@@ -133,7 +133,7 @@ export default {
     },*/
     async bringFundingDetail(){
       var bringRouteFundingId = this.$route.params.fundingId
-      console.log("bringRouteFundingId",bringRouteFundingId)
+      // console.log("bringRouteFundingId",bringRouteFundingId)
       let form = new FormData();
       form.append('funding_id',bringRouteFundingId)
       /*let access_token = window.sessionStorage.getItem('access_token')
@@ -162,13 +162,13 @@ export default {
         fundingObj.fundingBeforeStartDays = res.data.funding_beforeStartDays
 
         let funding_detail = JSON.stringify(fundingObj)
-        console.log("#res1",res)
+        // console.log("#res1",res)
         window.sessionStorage.setItem('funding_detail',funding_detail)
 
         this.postFunding()
-      }).catch(e=> {
-        console.log("에러에러",e)
-        console.log("에러에러",e.response)
+      }).catch(error=> {
+        console.log(error.message)
+        console.log(error.message)
         // reServerSend()
 
       })
@@ -176,7 +176,7 @@ export default {
     },
     postFunding(){
       let data = JSON.parse(sessionStorage.getItem("funding_detail"));
-      console.log("data",data)
+      // console.log("data",data)
 
       this.rightInfo.productTitle = data.fundingName
       this.rightInfo.joinSupporter = data.fundingPeopleCount

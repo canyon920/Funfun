@@ -41,8 +41,8 @@ export default{
             let jdata = JSON.stringify(res.data)
             this.products = JSON.parse(jdata)
           })
-          .catch(err => {
-            console.log(err);
+          .catch(error => {
+            console.log(error.message);
           })
     },
     // normalProducts() {
