@@ -1,13 +1,20 @@
 <template>
   <div class="user-container">
     <div class="search-div">
-        <input type="text" v-model="search" placeholder="사용사명 검색" @click="bringUserName()"/>
+      <v-text-field class="search-bar"
+          dense
+          outlined
+          rounded
+          label="사용자명 검색"
+          v-model="search" >
+        <template v-slot:prepend-inner>
+          <v-icon>mdi-magnify</v-icon>
+        </template>
+      </v-text-field>
 
     </div>
     <Table :bring-data="userData" />
-    <div class="paginataion-div">
 
-    </div>
   </div>
 </template>
 
@@ -30,13 +37,13 @@ export default {
           {
             col1: '사용자ID',
             col2: '사용자',
-            col3: '역할',
-            col4: '펀딩수',
+            col3: '이메일',
+            col4: '역할',
+            col5: '펀딩수',
             // col8:'삭제',
           }
         ],
-        friend:{
-        },
+
 
         list: [
           {
@@ -44,6 +51,7 @@ export default {
             data2: '',
             data3: '',
             data4: '',
+            data5: '',
             // data8:'delete'
           },
         ],
@@ -67,65 +75,79 @@ export default {
             this.userData.list = res.data;
             this.userData.total = res.data.length;
             res.data.map((res) => {
-              if (res.data4 == 0) {
-                res.data4 = 0 + ""
+              if (res.data5 == 0) {
+                res.data5 = 0 + ""
               }
             })
 
-          }).catch(error => {
-            console.log(error.message)
+          }).catch(e => {
+            console.log(e.response)
           })
     },
 
-    bringUserName(){
-      for(let key in this.friend){
-        if(this.friend.data2.includes(this.search)){
-          this.friend.data2=this.userData.list[key]
-        }
-      }
-
-    },
 
   },
   computed: {
-    FilterList(){
+    /*FilterList(){
       return this.userData.list.filter((list )=> {
         return list.data3.toLowerCase().includes(this.keyword.toLowerCase());
       });
-      }
+    }*/
 
   },
-    watch: {
-      page() {
-        console.log(this.page)
-      },
-      search() {
-        let access_token = window.sessionStorage.getItem('access_token')
-        let config = {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${access_token}`
-          }
+  watch: {
+    search() {
+      let access_token = window.sessionStorage.getItem('access_token')
+      let config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${access_token}`
         }
-        console.log("config: " + config)
-        this.search =this.search.trim();
-        if(this.search.length>0) {
-          axios.get("http://localhost:9090/user/admin/search/" + this.search, config)
-              .then(res => {
-                this.friend = res.data
-              }).catch(error => {
-            console.log(error.message)
-          })
-        }
-      },
+      }
+      console.log("config: " + config)
+      this.search =this.search.trim();
+      if(this.search.length>0) {
+        axios.get("http://localhost:9090/user/admin/search/" + this.search, config)
+            .then(res => {
+              this.userData.list=[];
+              for(let i in res.data){
+                if (res.data[i].data5 == 0){
+                  res.data[i].data5 = 0 + ""
+                }
 
+                this.userData.list.push({
+                  data1: res.data[i].data1,
+                  data2: res.data[i].data2,
+                  data3: res.data[i].data3,
+                  data4: res.data[i].data4,
+                  data5: res.data[i].data5,
+                })
+              }
 
+              console.log(res.data)
+              this.friend = res.data
+              this.userData.total = this.userData.list.length;
+            }).catch(e => {
+          console.log(e.response)
+        })
+      }
     },
-    mounted() {
-      this.bringUser()
-    }
+
+
+  },
+  mounted() {
+    this.bringUser()
+  }
 
 }
 
 </script>
-
+<style>
+.search-div{
+  padding-top:50px;
+  padding-bottom: 20px;
+}
+.search-bar{
+  max-width: 400px;
+}
+</style>
