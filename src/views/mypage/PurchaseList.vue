@@ -64,8 +64,42 @@
             <td><img v-bind:src="item.image" style="width: 100px"></td>
             <td>{{item.title}}</td>
             <td>{{item.price}}</td>
-            <td><v-btn plain @click="onClickRedirect()" :disabled="item.buttonShow !== true">{{item.state}}</v-btn></td>
-            <td>{{item.delnum}}</td>
+            <td><v-btn  @click="onClickRedirect()" :disabled="item.buttonShow !== true">{{item.state}}</v-btn></td>
+            <td>
+              <v-dialog v-model="dialog4" persistent max-width="600px">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn :disabled="item.deliveryShow !== true" v-bind="attrs" v-on="on">{{item.delnum}}</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title class="text-h5">
+                    대한통운 택배조회
+                  </v-card-title>
+                  <form action="http://info.sweettracker.co.kr/tracking/5" method="post">
+                    <div class="form-group">
+                      <input type="hidden" class="form-control" id="t2_key" name="t2_key" value="mjYqQ7gQ4ZB7QAHYOlWb0w">
+                    </div>
+                    <div class="form-group1">
+                      <input type="hidden" class="form-control" name="t2_code" id="t2_code" value="04">
+                    </div>
+                    <div class="form-group2">
+                      <label class="label-div" for="t_invoice">운송장 번호 : </label>
+                      <input type="text" class="form-control" name="t2_invoice" id="t2_invoice" v-bind:value="item.delnum">
+                    </div>
+                    <div class ="button-div">
+                      <v-btn @click="dialog4 =false"
+                             class="ma-2"
+                             outlined
+                             style="color:rgb(229 114 0)"
+                      >닫기</v-btn>
+                      <v-btn  type="submit"
+                              class="ma-2"
+                              outlined
+                              style="color:rgb(229 114 0)"
+                      > 조회하기</v-btn>
+                    </div>
+                  </form>
+                </v-card>
+              </v-dialog></td>
           </tr>
           </tbody>
         </template>
@@ -141,11 +175,11 @@
             <td><img v-bind:src="item.image" style="width: 100px"></td>
             <td>{{item.title}}</td>
             <td>{{item.price}}</td>
-            <td><v-btn  @click="onClickRedirect()" :disabled="item.buttonShow !== true">{{item.state}}</v-btn></td>
+            <td><v-btn @click="onClickRedirect()" :disabled="item.buttonShow !== true">{{item.state}}</v-btn></td>
             <td>
               <v-dialog v-model="dialog3" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
-                 <v-btn v-bind="attrs" v-on="on">{{item.delnum}}</v-btn>
+                 <v-btn :disabled="item.deliveryShow !== true" v-bind="attrs" v-on="on">{{item.delnum}}</v-btn>
                 </template>
                 <v-card>
                   <v-card-title class="text-h5">
@@ -155,14 +189,25 @@
                     <div class="form-group">
                       <input type="hidden" class="form-control" id="t_key" name="t_key" value="mjYqQ7gQ4ZB7QAHYOlWb0w">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group1">
                       <input type="hidden" class="form-control" name="t_code" id="t_code" value="04">
                     </div>
-                    <div class="form-group">
-                      <label for="t_invoice">운송장 번호</label>
+                    <div class="form-group2">
+                      <label class="label-div" for="t_invoice">운송장 번호 : </label>
                       <input type="text" class="form-control" name="t_invoice" id="t_invoice" v-bind:value="item.delnum">
                     </div>
-                    <button type="submit" class="btn btn-default">조회하기</button>
+                    <div class ="button-div">
+                      <v-btn @click="dialog3 =false"
+                             class="ma-2"
+                             outlined
+                             style="color:rgb(229 114 0)"
+                      >닫기</v-btn>
+                      <v-btn  type="submit"
+                              class="ma-2"
+                              outlined
+                              style="color:rgb(229 114 0)"
+                      > 조회하기</v-btn>
+                    </div>
                   </form>
                 </v-card>
               </v-dialog>
@@ -193,7 +238,7 @@ export default {
       dialog: false,
       dialog2: false,
       dialog3:false,
-
+      dialog4:false,
       page: 1,
       pages:1,
       perPage: 4,
@@ -212,6 +257,7 @@ export default {
           state:'펀딩 완료 확인을 회원이 확인후 정보입력 필요',
           delnum:'123123123',
           buttonShow: false,
+          deliveryShow: false,
 
         }
       ],
@@ -224,6 +270,7 @@ export default {
           state:'배송중',
           delnum: 0,
           buttonShow: false,
+          deliveryShow: false,
         },
       ],
       countTry : 0,
@@ -244,6 +291,7 @@ export default {
             var thumbImg =""
             this.giftlist=[]
             var j = 0
+            var deliveryStatus = false
             for(let i in res.data){
               var list = res.data[i].fundingImg
               for(var key in list){
@@ -253,16 +301,34 @@ export default {
               }
               if(res.data[i].delivery_num === 0){
                 var delstate = '송장번호가 등록되지 않았습니다'
+                deliveryStatus = false
               }else{
                 delstate = res.data[i].delivery_num
+                deliveryStatus = true
               }
+
+              var buttonStatus2 = false
+              var statelist = []
+              statelist.push(res.data[i].funding_status)
+              // console.log("123",statelist)
+
+              for(var key2 in statelist){
+                if(statelist[key2].includes('CHECKING')){
+                  buttonStatus2 = true
+                }else{
+                  buttonStatus2 = false
+                }
+              }
+
               this.giftlist.push({
                 no: ++j,
                 image: thumbImg,
                 title: res.data[i].funding_title,
                 price: res.data[i].funding_target_money,
                 state: res.data[i].funding_status,
-                delnum:delstate
+                delnum:delstate,
+                buttonShow: buttonStatus2,
+                deliveryShow:deliveryStatus
               })
             }
 
@@ -288,7 +354,7 @@ export default {
             var thumbImg =""
             this.deadlist=[]
             var j = 0
-
+            var deliveryStatus = false
 
             for(let i in res.data){
               var list = res.data[i].fundingImg
@@ -299,8 +365,10 @@ export default {
               }
               if(res.data[i].delivery_num === 0){
                 var delstate = '송장번호가 등록되지 않았습니다'
+                deliveryStatus = false
               }else{
                 delstate = res.data[i].delivery_num
+                deliveryStatus = true
               }
 
               var buttonStatus = false
@@ -322,7 +390,8 @@ export default {
                 price: res.data[i].funding_target_money,
                 state: res.data[i].funding_status,
                 delnum:delstate,
-                buttonShow: buttonStatus
+                buttonShow: buttonStatus,
+                deliveryShow:deliveryStatus
               })
             }
           }).catch(e => {
@@ -414,6 +483,34 @@ export default {
   padding-top: 70px;
   padding-bottom:70px;
 }
+.text-h5{
+  text-align: center;
+  padding-top:20px;
+}
+.form-group1{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.form-group2{
+  text-align:center;
+  font-size: 1.5em;
+
+}
+#t_invoice{
+  border: 0.5px solid rgb(229 114 0);
+  padding-left: 10px;
+}
+.button-div{
+  padding-top: 50px;
+  padding-bottom: 20px;
+  text-align:center;
+  align: center;
+
+}
+.label-div{
+  padding-right: 15px;
+}
+
 
 @keyframes fadeIn {
   from {
