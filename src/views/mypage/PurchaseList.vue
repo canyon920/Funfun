@@ -16,7 +16,7 @@
             <v-card-title class="text-h5 grey lighten-2">
               나에게 선물한 상품 (SELF GIFT)
             </v-card-title>
-            <v-img src= @/assets/logo/statecode.jpg>
+            <v-img src="@/assets/logo/statecode.jpg">
             </v-img>
 
             <v-divider></v-divider>
@@ -44,7 +44,7 @@
             <th class = "text-left">
               img
             </th>
-            <th class = "text-left">
+            <th class = "text-left" style="max-width: 300px">
               상품이름
             </th>
             <th class = "text-left">
@@ -62,13 +62,13 @@
           <tr v-for ="item in paging2" :key="item.no">
             <td>{{item.no}}</td>
             <td><img v-bind:src="item.image" style="width: 100px"></td>
-            <td>{{item.title}}</td>
-            <td>{{item.price}}</td>
-            <td><v-btn  @click="onClickRedirect()" :disabled="item.buttonShow !== true">{{item.state}}</v-btn></td>
+            <td style="max-width: 300px">{{item.title}}</td>
+            <td>{{item.productPrice}}</td>
+            <td><v-btn  @click="onClickRedirect(item.fundingId, item.assemblePrice, item.productPrice)" :disabled="item.buttonShow !== true">{{item.state}}</v-btn></td>
             <td>
               <v-dialog v-model="dialog4" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn :disabled="item.deliveryShow !== true" v-bind="attrs" v-on="on">{{item.delnum}}</v-btn>
+                  <v-btn :disabled="item.deliveryShow !== true" v-bind="attrs" v-on="on" @click="delnumChange(item.delnum)">{{item.delnum}}</v-btn>
                 </template>
                 <v-card>
                   <v-card-title class="text-h5">
@@ -76,14 +76,14 @@
                   </v-card-title>
                   <form action="http://info.sweettracker.co.kr/tracking/5" method="post">
                     <div class="form-group">
-                      <input type="hidden" class="form-control" id="t2_key" name="t2_key" value="mjYqQ7gQ4ZB7QAHYOlWb0w">
+                      <input type="hidden" class="form-control" name="t_key" value="mjYqQ7gQ4ZB7QAHYOlWb0w">
                     </div>
                     <div class="form-group1">
-                      <input type="hidden" class="form-control" name="t2_code" id="t2_code" value="04">
+                      <input type="hidden" class="form-control" name="t_code" value="04">
                     </div>
                     <div class="form-group2">
-                      <label class="label-div" for="t_invoice">운송장 번호 : </label>
-                      <input type="text" class="form-control" name="t2_invoice" id="t2_invoice" v-bind:value="item.delnum">
+                      <label class="label-div">운송장 번호 : </label>
+                      <input type="text" class="form-control" name="t_invoice" v-bind:value="changeDel">
                     </div>
                     <div class ="button-div">
                       <v-btn @click="dialog4 =false"
@@ -155,11 +155,11 @@
             <th class = "text-left">
               img
             </th>
-            <th class = "text-left">
+            <th class = "text-left" style="max-width: 300px">
               상품이름
             </th>
             <th class = "text-left">
-              상품가격
+              모인금액
             </th>
             <th class = "text-left" >
               상태
@@ -173,13 +173,13 @@
           <tr v-for ="item in paging" :key="item.no">
             <td>{{item.no}}</td>
             <td><img v-bind:src="item.image" style="width: 100px"></td>
-            <td>{{item.title}}</td>
-            <td>{{item.price}}</td>
-            <td><v-btn @click="onClickRedirect()" :disabled="item.buttonShow !== true">{{item.state}}</v-btn></td>
+            <td style="max-width: 300px">{{item.title}}</td>
+            <td>{{item.assemblePrice}}</td>
+            <td><v-btn @click="onClickRedirect(item.fundingId, item.assemblePrice, item.productPrice)" :disabled="item.buttonShow !== true">{{item.state}}</v-btn></td>
             <td>
               <v-dialog v-model="dialog3" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
-                 <v-btn :disabled="item.deliveryShow !== true" v-bind="attrs" v-on="on">{{item.delnum}}</v-btn>
+                  <v-btn :disabled="item.deliveryShow !== true" v-bind="attrs" v-on="on" @click="delnumChange(item.delnum)">{{item.delnum}}</v-btn>
                 </template>
                 <v-card>
                   <v-card-title class="text-h5">
@@ -187,14 +187,14 @@
                   </v-card-title>
                   <form action="http://info.sweettracker.co.kr/tracking/5" method="post">
                     <div class="form-group">
-                      <input type="hidden" class="form-control" id="t_key" name="t_key" value="mjYqQ7gQ4ZB7QAHYOlWb0w">
+                      <input type="hidden" class="form-control" name="t_key" value="mjYqQ7gQ4ZB7QAHYOlWb0w">
                     </div>
                     <div class="form-group1">
-                      <input type="hidden" class="form-control" name="t_code" id="t_code" value="04">
+                      <input type="hidden" class="form-control" name="t_code" value="04">
                     </div>
                     <div class="form-group2">
-                      <label class="label-div" for="t_invoice">운송장 번호 : </label>
-                      <input type="text" class="form-control" name="t_invoice" id="t_invoice" v-bind:value="item.delnum">
+                      <label class="label-div">운송장 번호 : </label>
+                      <input type="text" class="form-control" name="t_invoice" v-bind:value="changeDel">
                     </div>
                     <div class ="button-div">
                       <v-btn @click="dialog3 =false"
@@ -228,7 +228,6 @@
 import axios from "axios";
 import Header from "../../components/layout/Header";
 import {reServerSend} from "../../service/refreshForAccessToken";
-
 export default {
   name: "PurchaseList",
   components: {},
@@ -244,6 +243,9 @@ export default {
       perPage: 4,
       perPage2: 4,
 
+      changeDel:"",
+
+
       bringpurchaseList:{
         title1:'나에게 선물한 상품리스트',
         title2:'마감된 펀딩 리스트',
@@ -253,12 +255,13 @@ export default {
           no:1,
           image: require("@/assets/event/main/light.png"),
           title:'내가널이끄는 boss',
-          price:200000,
+          productPrice:200000,
+          assemblePrice:200000,
+          fundingId:1,
           state:'펀딩 완료 확인을 회원이 확인후 정보입력 필요',
           delnum:'123123123',
           buttonShow: false,
           deliveryShow: false,
-
         }
       ],
       deadlist:[
@@ -266,7 +269,9 @@ export default {
           no:1,
           image:require("@/assets/event/main/light.png"),
           title:'내가널이끄는 boss',
-          price:200000,
+          productPrice:200000,
+          assemblePrice:200000,
+          fundingId:1,
           state:'배송중',
           delnum: 0,
           buttonShow: false,
@@ -306,12 +311,10 @@ export default {
                 delstate = res.data[i].delivery_num
                 deliveryStatus = true
               }
-
               var buttonStatus2 = false
               var statelist = []
               statelist.push(res.data[i].funding_status)
               // console.log("123",statelist)
-
               for(var key2 in statelist){
                 if(statelist[key2].includes('CHECKING')){
                   buttonStatus2 = true
@@ -319,24 +322,23 @@ export default {
                   buttonStatus2 = false
                 }
               }
-
               this.giftlist.push({
                 no: ++j,
                 image: thumbImg,
                 title: res.data[i].funding_title,
-                price: res.data[i].funding_target_money,
+                productPrice: res.data[i].funding_target_money,
+                assemblePrice: res.data[i].funding_collected_money,
+                fundingId: res.data[i].funding_id,
                 state: res.data[i].funding_status,
                 delnum:delstate,
                 buttonShow: buttonStatus2,
                 deliveryShow:deliveryStatus
               })
             }
-
           }).catch(e => {
             console.log("에러에러",e)
             console.log("에러에러",e.response)
             console.log(e.message)
-
           })
     },
     async bringFundingTypeFunding(){
@@ -355,7 +357,6 @@ export default {
             this.deadlist=[]
             var j = 0
             var deliveryStatus = false
-
             for(let i in res.data){
               var list = res.data[i].fundingImg
               for(var key in list){
@@ -370,12 +371,10 @@ export default {
                 delstate = res.data[i].delivery_num
                 deliveryStatus = true
               }
-
               var buttonStatus = false
               var statelist = []
               statelist.push(res.data[i].funding_status)
               // console.log("123",statelist)
-
               for(var key2 in statelist){
                 if(statelist[key2].includes('CHECKING')){
                   buttonStatus = true
@@ -387,7 +386,9 @@ export default {
                 no: ++j,
                 image: thumbImg,
                 title: res.data[i].funding_title,
-                price: res.data[i].funding_target_money,
+                productPrice: res.data[i].funding_target_money,
+                assemblePrice: res.data[i].funding_collected_money,
+                fundingId: res.data[i].funding_id,
                 state: res.data[i].funding_status,
                 delnum:delstate,
                 buttonShow: buttonStatus,
@@ -407,19 +408,22 @@ export default {
             }
           })
     },
-    onClickRedirect(){
+    onClickRedirect(fundingId,assemblePrice,productPrice){
       console.log("############")
       for(var i in this.deadlist){
         console.log("#",this.deadlist[i].state)
       }
       if(this.deadlist[i].state === 'CHECKING'){
         this.buttonShow = true
-        this.$router.push("/choose")
+        this.$router.push(`/choose/${fundingId}/${assemblePrice}/${productPrice}`)
       }else{
         this.buttonShow = false
       }
     },
-
+    delnumChange(val) {
+      console.log(val)
+      this.changeDel = val
+    }
   },
   mounted() {
     this.bringFundingTypeBuy()
@@ -434,6 +438,7 @@ export default {
       return this.giftlist.slice((this.pages - 1) * this.perPage2,
           this.pages * this.perPage2)
     },
+
   }
 }
 </script>
@@ -449,13 +454,10 @@ export default {
   -webkit-animation-duration: 1s;
   animation-name: fadeIn;
   animation-duration: 1s;
-
 }
 .Purchase-top{
   margin-bottom: 50px;
   padding-bottom: 70px;
-
-
 }
 .purchase-title1{
   display: block;
@@ -466,7 +468,6 @@ export default {
   margin-inline-end: 0px;
   font-weight: bold;
   padding-bottom: 15px;
-
 }
 .purchase-title2{
   display: block;
@@ -477,7 +478,6 @@ export default {
   margin-inline-end: 0px;
   font-weight: bold;
   padding-bottom: 15px;
-
 }
 .Purchase-bottom{
   padding-top: 70px;
@@ -494,7 +494,6 @@ export default {
 .form-group2{
   text-align:center;
   font-size: 1.5em;
-
 }
 #t_invoice{
   border: 0.5px solid rgb(229 114 0);
@@ -505,13 +504,10 @@ export default {
   padding-bottom: 20px;
   text-align:center;
   align: center;
-
 }
 .label-div{
   padding-right: 15px;
 }
-
-
 @keyframes fadeIn {
   from {
     opacity:0;
