@@ -70,11 +70,12 @@
       </div>
 
     </div>
-    <v-pagination
-        v-model="page"
-        :length="Math.ceil( bringData.list.length/perPage)"
-    ></v-pagination>
-
+    <div class = "page-div">
+      <v-pagination
+          v-model="page"
+          :length="Math.ceil( bringData.list.length/perPage)"
+      ></v-pagination>
+    </div>
 
   </div>
 
@@ -177,6 +178,9 @@ export default {
 .text.status:hover {
   background-color: rgba(229, 114, 0, .1);
   transition: .5s;
+}
+.page-div{
+  padding-top: 30px;
 }
 
 </style>

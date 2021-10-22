@@ -1,7 +1,16 @@
 <template>
   <div class="user-container">
     <div class="search-div">
-      <input type="text" v-model="search" placeholder="사용사명 검색"/>
+      <v-text-field class="search-bar"
+          dense
+          outlined
+          rounded
+          label="사용자명 검색"
+          v-model="search" >
+        <template v-slot:prepend-inner>
+          <v-icon>mdi-magnify</v-icon>
+        </template>
+      </v-text-field>
 
     </div>
     <Table :bring-data="userData" />
@@ -102,7 +111,7 @@ export default {
       if(this.search.length>0) {
         axios.get("http://localhost:9090/user/admin/search/" + this.search, config)
             .then(res => {
-              this.userData.list=[]
+              this.userData.list=[];
               for(let i in res.data){
                 if (res.data[i].data5 == 0){
                   res.data[i].data5 = 0 + ""
@@ -119,6 +128,7 @@ export default {
 
               console.log(res.data)
               this.friend = res.data
+              this.userData.total = this.userData.list.length;
             }).catch(e => {
           console.log(e.response)
         })
@@ -134,4 +144,12 @@ export default {
 }
 
 </script>
-
+<style>
+.search-div{
+  padding-top:50px;
+  padding-bottom: 20px;
+}
+.search-bar{
+  max-width: 400px;
+}
+</style>
