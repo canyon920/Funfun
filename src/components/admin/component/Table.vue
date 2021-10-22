@@ -116,14 +116,12 @@ export default {
       return this. bringData.list.slice((this.page - 1)*this.perPage,
           this.page*this.perPage)
     },
-    watch: {
-      page() {
-        console.log(this.page)
-      }
-    },
-
-
-  }
+  },
+  watch: {
+    page() {
+      console.log(this.page)
+    }
+  },
 }
 </script>
 
