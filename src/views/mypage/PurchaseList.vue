@@ -38,9 +38,9 @@
         <template v-slot:default>
           <thead>
           <tr>
-          <th class = "text-left">
-            NO
-          </th>
+            <th class = "text-left">
+              NO
+            </th>
             <th class = "text-left">
               img
             </th>
@@ -64,8 +64,42 @@
             <td><img v-bind:src="item.image" style="width: 100px"></td>
             <td>{{item.title}}</td>
             <td>{{item.price}}</td>
-            <td><router-link to="/choose">{{item.state}}</router-link></td>
-            <td>{{item.delnum}}</td>
+            <td><v-btn  @click="onClickRedirect()" :disabled="item.buttonShow !== true">{{item.state}}</v-btn></td>
+            <td>
+              <v-dialog v-model="dialog4" persistent max-width="600px">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn :disabled="item.deliveryShow !== true" v-bind="attrs" v-on="on">{{item.delnum}}</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title class="text-h5">
+                    대한통운 택배조회
+                  </v-card-title>
+                  <form action="http://info.sweettracker.co.kr/tracking/5" method="post">
+                    <div class="form-group">
+                      <input type="hidden" class="form-control" id="t2_key" name="t2_key" value="mjYqQ7gQ4ZB7QAHYOlWb0w">
+                    </div>
+                    <div class="form-group1">
+                      <input type="hidden" class="form-control" name="t2_code" id="t2_code" value="04">
+                    </div>
+                    <div class="form-group2">
+                      <label class="label-div" for="t_invoice">운송장 번호 : </label>
+                      <input type="text" class="form-control" name="t2_invoice" id="t2_invoice" v-bind:value="item.delnum">
+                    </div>
+                    <div class ="button-div">
+                      <v-btn @click="dialog4 =false"
+                             class="ma-2"
+                             outlined
+                             style="color:rgb(229 114 0)"
+                      >닫기</v-btn>
+                      <v-btn  type="submit"
+                              class="ma-2"
+                              outlined
+                              style="color:rgb(229 114 0)"
+                      > 조회하기</v-btn>
+                    </div>
+                  </form>
+                </v-card>
+              </v-dialog></td>
           </tr>
           </tbody>
         </template>
@@ -141,11 +175,11 @@
             <td><img v-bind:src="item.image" style="width: 100px"></td>
             <td>{{item.title}}</td>
             <td>{{item.price}}</td>
-            <td><v-btn @click="onClickRedirect()">{{item.state}}</v-btn></td>
+            <td><v-btn @click="onClickRedirect()" :disabled="item.buttonShow !== true">{{item.state}}</v-btn></td>
             <td>
               <v-dialog v-model="dialog3" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn   v-bind="attrs" v-on="on">{{item.delnum}}</v-btn>
+                 <v-btn :disabled="item.deliveryShow !== true" v-bind="attrs" v-on="on">{{item.delnum}}</v-btn>
                 </template>
                 <v-card>
                   <v-card-title class="text-h5">
@@ -168,11 +202,11 @@
                              outlined
                              style="color:rgb(229 114 0)"
                       >닫기</v-btn>
-                        <v-btn  type="submit"
-                               class="ma-2"
-                               outlined
-                               style="color:rgb(229 114 0)"
-                        > 조회하기</v-btn>
+                      <v-btn  type="submit"
+                              class="ma-2"
+                              outlined
+                              style="color:rgb(229 114 0)"
+                      > 조회하기</v-btn>
                     </div>
                   </form>
                 </v-card>
@@ -204,12 +238,12 @@ export default {
       dialog: false,
       dialog2: false,
       dialog3:false,
-
-
+      dialog4:false,
       page: 1,
       pages:1,
       perPage: 4,
       perPage2: 4,
+
       bringpurchaseList:{
         title1:'나에게 선물한 상품리스트',
         title2:'마감된 펀딩 리스트',
@@ -221,7 +255,9 @@ export default {
           title:'내가널이끄는 boss',
           price:200000,
           state:'펀딩 완료 확인을 회원이 확인후 정보입력 필요',
-          delnum:'123123123'
+          delnum:'123123123',
+          buttonShow: false,
+          deliveryShow: false,
 
         }
       ],
@@ -232,7 +268,9 @@ export default {
           title:'내가널이끄는 boss',
           price:200000,
           state:'배송중',
-          delnum:'123123123'
+          delnum: 0,
+          buttonShow: false,
+          deliveryShow: false,
         },
       ],
       countTry : 0,
@@ -253,6 +291,7 @@ export default {
             var thumbImg =""
             this.giftlist=[]
             var j = 0
+            var deliveryStatus = false
             for(let i in res.data){
               var list = res.data[i].fundingImg
               for(var key in list){
@@ -260,18 +299,36 @@ export default {
                   thumbImg = list[key]
                 }
               }
-              if(res.data[i].delivery_num == 0){
+              if(res.data[i].delivery_num === 0){
                 var delstate = '송장번호가 등록되지 않았습니다'
+                deliveryStatus = false
               }else{
                 delstate = res.data[i].delivery_num
+                deliveryStatus = true
               }
+
+              var buttonStatus2 = false
+              var statelist = []
+              statelist.push(res.data[i].funding_status)
+              // console.log("123",statelist)
+
+              for(var key2 in statelist){
+                if(statelist[key2].includes('CHECKING')){
+                  buttonStatus2 = true
+                }else{
+                  buttonStatus2 = false
+                }
+              }
+
               this.giftlist.push({
                 no: ++j,
                 image: thumbImg,
                 title: res.data[i].funding_title,
                 price: res.data[i].funding_target_money,
                 state: res.data[i].funding_status,
-                delnum:delstate
+                delnum:delstate,
+                buttonShow: buttonStatus2,
+                deliveryShow:deliveryStatus
               })
             }
 
@@ -297,6 +354,8 @@ export default {
             var thumbImg =""
             this.deadlist=[]
             var j = 0
+            var deliveryStatus = false
+
             for(let i in res.data){
               var list = res.data[i].fundingImg
               for(var key in list){
@@ -304,10 +363,25 @@ export default {
                   thumbImg = list[key]
                 }
               }
-              if(res.data[i].delivery_num == 0){
+              if(res.data[i].delivery_num === 0){
                 var delstate = '송장번호가 등록되지 않았습니다'
+                deliveryStatus = false
               }else{
                 delstate = res.data[i].delivery_num
+                deliveryStatus = true
+              }
+
+              var buttonStatus = false
+              var statelist = []
+              statelist.push(res.data[i].funding_status)
+              // console.log("123",statelist)
+
+              for(var key2 in statelist){
+                if(statelist[key2].includes('CHECKING')){
+                  buttonStatus = true
+                }else{
+                  buttonStatus = false
+                }
               }
               this.deadlist.push({
                 no: ++j,
@@ -315,12 +389,13 @@ export default {
                 title: res.data[i].funding_title,
                 price: res.data[i].funding_target_money,
                 state: res.data[i].funding_status,
-                delnum:delstate
+                delnum:delstate,
+                buttonShow: buttonStatus,
+                deliveryShow:deliveryStatus
               })
             }
           }).catch(e => {
             console.log("에러에러",e.response)
-            alert("403이 아닌 에러")
             if (e.response.status === 403) {
               this.countTry++
               if (this.countTry == 1) {
@@ -338,9 +413,10 @@ export default {
         console.log("#",this.deadlist[i].state)
       }
       if(this.deadlist[i].state === 'CHECKING'){
+        this.buttonShow = true
         this.$router.push("/choose")
       }else{
-        this.$router.push("/checkDelivery")
+        this.buttonShow = false
       }
     },
 
@@ -434,6 +510,7 @@ export default {
 .label-div{
   padding-right: 15px;
 }
+
 
 @keyframes fadeIn {
   from {
