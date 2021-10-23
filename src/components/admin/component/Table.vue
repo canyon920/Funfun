@@ -8,7 +8,8 @@
       총 : {{bringData.total}}
     </div>
 
-    <div class="table" id="my-table">
+
+    <div class="table"  id="my-table">
       <div class="column" v-for="(col,ckey) in bringData.column" :key="ckey">
         <div v-show="col.col1" class="text col1">
           {{ col.col1 }}
@@ -69,11 +70,12 @@
       </div>
 
     </div>
-    <v-pagination
-        v-model="page"
-        :length="Math.ceil( bringData.list.length/perPage)"
-    ></v-pagination>
-
+    <div class = "page-div">
+      <v-pagination
+          v-model="page"
+          :length="Math.ceil( bringData.list.length/perPage)"
+      ></v-pagination>
+    </div>
 
   </div>
 
@@ -115,14 +117,12 @@ export default {
       return this. bringData.list.slice((this.page - 1)*this.perPage,
           this.page*this.perPage)
     },
-    // watch: {
-    //   page() {
-    //     console.log(this.page)
-    //   }
-    // },
-
-
-  }
+  },
+  watch: {
+    page() {
+      console.log(this.page)
+    }
+  },
 }
 </script>
 
@@ -182,6 +182,9 @@ export default {
 .text.status:hover {
   background-color: rgba(229, 114, 0, .1);
   transition: .5s;
+}
+.page-div{
+  padding-top: 30px;
 }
 
 </style>

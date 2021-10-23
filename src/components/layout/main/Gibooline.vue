@@ -9,7 +9,7 @@
           :key="i"
           :src="item.src"
       >
-        <router-link :to="{name: 'DetailFundingPage', params:{ fundingId: item.fundingId }}">
+        <router-link :to="{name: 'DetailFundingPage', params:{ fundingId: 61 }}">
           <div style="width: 100%; height: 100%; cursor: pointer"></div>
         </router-link>
       </v-carousel-item>

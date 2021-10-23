@@ -61,8 +61,8 @@ export default {
             },
           })
         },
-        fail: function(err) {
-          console.log(JSON.stringify(err))
+        fail: function(error) {
+          console.log(JSON.stringify(error.message))
         },
       })
     },

@@ -117,10 +117,10 @@ export default {
         return (time < 10 ? '0' : '') + time
       },
       async startPhoneVerify() {
-        console.log("그냥",this.phoneNumber)
-        console.log("그냥",this.phoneNumber.toString().trim())
-        console.log(this.verifyNumber.toString().trim())
-        console.log(this.verifyCode.toString().trim())
+        // console.log("그냥",this.phoneNumber)
+        // console.log("그냥",this.phoneNumber.toString().trim())
+        // console.log(this.verifyNumber.toString().trim())
+        // console.log(this.verifyCode.toString().trim())
         if (this.errorPhoneNumberCheck === false && this.phoneNumber.toString().trim().length !== 0) {
           this.errorPhoneNumberCheck = false
           let form = new FormData();

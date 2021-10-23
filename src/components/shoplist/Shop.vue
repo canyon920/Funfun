@@ -198,6 +198,7 @@ export default {
       var CategoryId = this.$route.params.categoryId
       axios.post("http://127.0.0.1:9090/ProductListPage/"+ CategoryId)
           .then(res => {
+            this.settingTitle()
             this.products = []
             let jdata = JSON.stringify(res.data)
             this.products = JSON.parse(jdata)
@@ -609,7 +610,7 @@ export default {
       } else if (categoryIdNum == 5) {
         this.producttitle = "역시 건강이 최고더라!"
       } else if (categoryIdNum == 6) {
-        this.producttitle = "작지만 강한 선물!"
+        this.producttitle = "작지만 강한 상품!"
       } else if (categoryIdNum == 7) {
         this.producttitle = "야! 명품, 내꺼하자!"
       } else if (categoryIdNum == 8) {
@@ -621,7 +622,7 @@ export default {
       } else if (categoryIdNum == 11) {
         this.producttitle = "요즘은 선물도 배달이다!"
       } else if (categoryIdNum == 12) {
-        this.producttitle = "받는사람도 따뜻, 주는사람도 따뜻해지는 선물!"
+        this.producttitle = "받는사람도 따뜻, 주는사람도 따뜻해지는 상품!"
       }
 
     }

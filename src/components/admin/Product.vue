@@ -60,7 +60,7 @@ export default {
             let jdata = JSON.stringify(res.data)
             this.productData.list = JSON.parse(jdata)
             this.productData.total = this.productData.list.length
-            console.log(this.productData.list)
+            // console.log(this.productData.list)
           }).catch(error => {
         console.log(error.messages)
       })

@@ -74,7 +74,7 @@
         비밀번호가 같지 않습니다.
       </div>
       <div v-show="errorPasswordCheck2" class="error-font-color error-password-box">
-        비밀번호는 영문 , 숫자 조합 8~12자 여야 합니다.
+        비밀번호는 영문 , 숫자 조합 8~16자 여야 합니다.
       </div>
       <div v-show="errorMustCheck2" class="error-font-color error-must-div">
         필수 항목 입니다.
@@ -119,9 +119,9 @@ export default {
   },
   methods:{
     phoneInputDataVal(val) {
-      console.log("아래서 받은 폰넘버값 : ",val)
+      // console.log("아래서 받은 폰넘버값 : ",val)
       this.submitPhoneNumber = val
-      console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
+      // console.log("제출할 폰넘버 : ",this.submitPhoneNumber)
     },
     async submitInfoId() {
       //아이디 인증 성공여부 로직 온뒤
@@ -132,7 +132,7 @@ export default {
       form.append("email",this.submitId)
       await axios.post("http://localhost:9090/api/find/id/from/email",form)
       .then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         if (this.submitId === res.data) {
           this.showDeInputId = true;
           this.showChoose = true;
@@ -141,7 +141,7 @@ export default {
         }
       })
       .catch(error=>{
-        console.log(error)
+        console.log(error.message)
       })
 
     },
@@ -158,16 +158,16 @@ export default {
       form.append("email", this.submitId)
       await axios.post("http://localhost:9090/api/message/email/send", form)
       .then(res=>{
-        console.log(res)
+        // console.log(res)
         this.serverEVerifyCode = res.data
-        console.log("받은 코드 : ",this.serverEVerifyCode)
+        // console.log("받은 코드 : ",this.serverEVerifyCode)
         this.loading = false
         this.showChoose = false;
         this.showEmail = true
       })
       .catch(error=>{
         this.loading = false
-        console.log(error)
+        console.log(error.message)
         return false
       })
     },
@@ -180,14 +180,14 @@ export default {
       form.append("inputCode",this.eVerifyCode)
       await axios.post("http://localhost:9090/api/message/verify/code",form)
           .then(res=>{
-            console.log(res)
+            // console.log(res)
             if (res.data === true) {
               this.showEmail = false
               this.showModify = true
             }
           })
           .catch(error=>{
-            console.log(error)
+            console.log(error.message)
           })
     },
     async passwordConfigStart() {
@@ -199,14 +199,14 @@ export default {
       form.append("phone", this.submitPhoneNumber)
       await axios.post("http://localhost:9090/api/find/id/from/emailandphone",form)
       .then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data === true) {
           this.showPhone = false;
           this.showModify =true
         }
       })
       .catch(error=>{
-        console.log(error)
+        console.log(error.message)
       })
     },
     async submitFinal() {
@@ -222,10 +222,11 @@ export default {
       form.append("email", this.submitId)
       form.append("password", this.checkPassword)
       await axios.post("http://localhost:9090/api/find/password/change", form)
-      .then(res => {
-        console.log(res)
-        this.$router.push("/login")
-      })
+      .then(()=>{
+            this.$router.push("/login")
+
+          }
+      )
     }
   },
   watch:{
@@ -235,7 +236,7 @@ export default {
       } else {
         this.errorMustCheck1 = true
       }
-      if (this.prePassword.match(/^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,12}$/)) {
+      if (this.prePassword.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/)) {
         this.errorPasswordCheck2 = false;
       } else {
         this.errorPasswordCheck2 = true;
