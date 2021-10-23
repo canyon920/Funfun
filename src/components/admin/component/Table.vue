@@ -35,6 +35,9 @@
         <div v-show="col.col8" class="text delete-col">
           삭제
         </div>
+        <div v-show="col.col9" class="text">
+          {{ col.col9 }}
+        </div>
       </div>
 
 
@@ -61,10 +64,19 @@
           {{ data.data6 }}
         </div>
         <div v-show="data.data7" class="text status" >
-          <img v-if="data.img" class="item img" :src="data.data7" >
+          <v-select class="select"
+                    @change="test(data.data1, data.data7)"
+                    v-model=data.data7
+                    :items="items1"
+                    solo
+                    error
+          ></v-select>
         </div>
         <div v-show="data.data8" class="text delete" @click="check(data.data1)">
           {{data.data8}}
+        </div>
+        <div v-show="data.data9" class="text" >
+          <img class="item img" :src="data.data9" >
         </div>
 
       </div>
@@ -84,6 +96,10 @@
 </template>
 
 <script>
+import axios from "axios";
+import {getHeaders} from "@/service/header";
+import {reServerSend} from "@/service/refreshForAccessToken";
+
 export default {
   name: "Table",
   props:{
@@ -100,13 +116,44 @@ export default {
       userName:'',
       userRole:'',
       userFundingCount:0,
+
+      items1: ['CHECKING', 'WAITING', 'PROCESSING', 'DEPOSIT_COMPLETED_SHIPPING', 'SHIPPING','COMPLETED'],
+      selected1 : 'CHECKING',
+
+      SearchName:''
     }
   },
-  methods:{
-    check(id){
+  methods: {
+    check(id) {
       // id 값을 이용한 삭제
       console.log(id)
+    },
+    test(id, status) {
+      console.log(id, status)
+      axios.post("http://127.0.0.1:9090/admin/update/"+id+"/"+status)
+          .then(
+          ).catch(error => {
+        console.log(error.messages)
+      })
     }
+  },
+  async getList(){
+    axios.get("http://127.0.0.1:9090/admin/expiredlist", getHeaders())
+        .then(res => {
+          this.productData.list = []
+          this.productData.list = res.data
+          this.productData.total = this.productData.list.length
+          console.log(this.productData.list)
+        }).catch(error => {
+      console.log(error.messages)
+      if (error.response.status===403) {
+        this.countTry++
+        if (this.countTry == 1) {
+          reServerSend()
+        }
+        console.log("다시 오류인것 확인 로그")
+      }
+    })
   },
   mounted() {
 
@@ -167,6 +214,10 @@ export default {
 .text.delete {
   cursor: pointer;
 }
+.text.status .select{
+  height: 30px;
+  width: 133px;
+}
 .text.delete:hover {
   background-color: rgba(229, 114, 0, .1);
   border-radius: 0px 0px 20px 0px;
@@ -175,7 +226,7 @@ export default {
 .text.status {
   cursor: pointer;
 }
-.text.status .item.img {
+.text .item.img {
   width: 50px;
   height: 50px;
 }

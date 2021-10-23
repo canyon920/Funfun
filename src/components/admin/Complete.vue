@@ -3,12 +3,12 @@
   <Table :bring-data="productData"/>
 
     <div class="paginataion-div">
-      <v-pagination
-          v-model="page"
-          class="my-4"
-          :length="totalLength"
-          :total-visible="visualTotalNum"
-      ></v-pagination>
+<!--      <v-pagination-->
+<!--          v-model="page"-->
+<!--          class="my-4"-->
+<!--          :length="totalLength"-->
+<!--          :total-visible="visualTotalNum"-->
+<!--      ></v-pagination>-->
     </div>
 
   </div>
@@ -16,6 +16,9 @@
 
 <script>
 import Table from "@/components/admin/component/Table";
+import axios from "axios";
+import {reServerSend} from "@/service/refreshForAccessToken";
+import {getHeaders} from "@/service/header";
 
 export default {
   name: "Complete",
@@ -24,6 +27,7 @@ export default {
   },
   data(){
     return{
+      countTry:0,
       page:1,
       totalLength:5,
       visualTotalNum:10,
@@ -40,29 +44,42 @@ export default {
             col5:'모인금액',
             col6:'만료일',
             col7:'상태',// 펀딩 만료후 확인중(사용자 정보 입력전) 인경우 => 대기중 (관리자 확인전) -> 처리중( 관리자확인 ) -> 입금완료/배송중 (입금완료되고 배송중인것) / 배송중( 배송중인것) / 완료(모든것이완료)
-            col8:'삭제',// 삭제 =>
+            col9:'상품이미지',// 삭제 =>
           }
         ],
         list:[
-          {
-            data1:1,
-            data2:'이것 좀 사주라',
-            data3:'kmh1@naver.com',
-            data4:3,
-            data5: 35000,
-            data6:'2021-10-05',
-            data7:'확인중',
-            data8:'delete',
-          },
         ]
       }
     }
   },
   methods:{
-    conform1(){
+    async getList(){
+      axios.get("http://127.0.0.1:9090/admin/expiredlist", getHeaders())
+          .then(res => {
+            this.productData.list = []
+            this.productData.list = res.data
+            this.productData.total = this.productData.list.length
+            console.log(this.productData.list)
+          }).catch(error => {
+        console.log(error.messages)
+        if (error.response.status===403) {
+          this.countTry++
+          if (this.countTry == 1) {
+            reServerSend()
+          }
+          console.log("다시 오류인것 확인 로그")
+        }
+      })
+    },
+  },
+  beforeMount() {
+    this.getList()
+  },
+  beforeCreate() {
+    if (!window.localStorage.getItem('login_member')) {
+      this.$router.push("/login")
     }
   }
-
 }
 </script>
 

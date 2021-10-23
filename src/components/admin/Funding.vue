@@ -11,13 +11,13 @@
       <template v-slot:prepend-inner>
         <v-icon>mdi-magnify</v-icon>
       </template>
-      <template v-slot:append>
-        <v-progress-circular
-            v-if="loading"
-            size="24"
-            color="rgb(229, 114, 0)"
-            indeterminate />
-      </template>
+<!--      <template v-slot:append>-->
+<!--        <v-progress-circular-->
+<!--            v-if="loading"-->
+<!--            size="24"-->
+<!--            color="rgb(229, 114, 0)"-->
+<!--            indeterminate />-->
+<!--      </template>-->
     </v-text-field>
   <Table :bring-data="productData"/>
 
@@ -36,6 +36,7 @@
 import Table from "@/components/admin/component/Table";
 import axios from "axios";
 import {reServerSend} from "@/service/refreshForAccessToken";
+import {getHeaders} from "@/service/header";
 export default {
   name: "Funding",
   components:{
@@ -60,7 +61,7 @@ export default {
             col4:'펀딩참여수',
             col5:'시작일',
             col6:'종료일',
-            col7:'상품이미지'
+            col9:'상품이미지'
           }
         ],
         list:[
@@ -70,11 +71,10 @@ export default {
   },
   methods:{
     async getList(){
-      axios.post("http://127.0.0.1:9090/admin/fundinglist")
+      axios.get("http://127.0.0.1:9090/admin/fundinglist",getHeaders())
           .then(res => {
             this.productData.list = []
-            let jdata = JSON.stringify(res.data)
-            this.productData.list = JSON.parse(jdata)
+            this.productData.list = res.data
             this.productData.total = this.productData.list.length
             console.log(this.productData.list)
           }).catch(error => {
@@ -93,11 +93,10 @@ export default {
       this.SearchName = this.SearchName.trim()
       this.SearchName = this.SearchName.replace(/\s/gi, "")
       if(this.SearchName.length>0){
-        axios.get(`http://127.0.0.1:9090/admin/fundinglist/search/${this.SearchName}` )
+        axios.get(`http://127.0.0.1:9090/admin/fundinglist/search/${this.SearchName}`,getHeaders() )
             .then(res => {
               this.productData.list = []
-              let jdata = JSON.stringify(res.data)
-              this.productData.list = JSON.parse(jdata)
+              this.productData.list = res.data
             }).catch(error => {
           console.log(error.messages)
           if (error.response.status===403) {
