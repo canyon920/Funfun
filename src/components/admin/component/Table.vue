@@ -109,6 +109,8 @@ export default {
   },
   data(){
     return{
+      countTry:0,
+
       page: 1,
       perPage: 3,
       search:'',
@@ -130,30 +132,19 @@ export default {
     },
     test(id, status) {
       console.log(id, status)
-      axios.post("http://127.0.0.1:9090/admin/update/"+id+"/"+status)
+      axios.post("http://127.0.0.1:9090/admin/update/"+id+"/"+status, getHeaders())
           .then(
           ).catch(error => {
         console.log(error.messages)
+        if (error.response.status===403) {
+          this.countTry++
+          if (this.countTry == 1) {
+            reServerSend()
+          }
+          console.log("다시 오류인것 확인 로그")
+        }
       })
     }
-  },
-  async getList(){
-    axios.get("http://127.0.0.1:9090/admin/expiredlist", getHeaders())
-        .then(res => {
-          this.productData.list = []
-          this.productData.list = res.data
-          this.productData.total = this.productData.list.length
-          console.log(this.productData.list)
-        }).catch(error => {
-      console.log(error.messages)
-      if (error.response.status===403) {
-        this.countTry++
-        if (this.countTry == 1) {
-          reServerSend()
-        }
-        console.log("다시 오류인것 확인 로그")
-      }
-    })
   },
   mounted() {
 
