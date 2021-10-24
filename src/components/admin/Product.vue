@@ -67,6 +67,10 @@ export default {
     }
   },
   beforeMount() {
+    if (JSON.parse(window.localStorage.getItem('login_member')).memberRole !== "ROLE_ADMIN") {
+      alert("관리자가 아닙니다.")
+      this.$router.push("/")
+    }
      this.setProductList()
   }
 }

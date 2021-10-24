@@ -5,12 +5,11 @@
         <div class="content">
           <div class="top-text">
             <div class="text">
-              사용자수
+              사용자
             </div>
           </div>
           <div class="middle-text">
             <div class="count">
-              {{userCount}}
             </div>
           </div>
           <router-link to="/admin/user" style="text-decoration: none;">
@@ -24,12 +23,11 @@
         <div class="content">
           <div class="top-text">
             <div class="text">
-              상품수
+              상품
             </div>
           </div>
           <div class="middle-text">
             <div class="count">
-              {{productCount}}
             </div>
           </div>
           <router-link to="/admin/product" style="text-decoration: none;">
@@ -43,12 +41,11 @@
         <div class="content">
           <div class="top-text">
             <div class="text">
-              펀딩수
+              펀딩
             </div>
           </div>
           <div class="middle-text">
             <div class="count">
-              {{fundingCount}}
             </div>
           </div>
           <router-link to="/admin/funding" style="text-decoration: none;">
@@ -62,12 +59,11 @@
         <div class="content">
           <div class="top-text">
             <div class="text">
-              완료된 펀딩수
+              완료된 펀딩
             </div>
           </div>
           <div class="middle-text">
             <div class="count">
-              {{completeCount}}
             </div>
           </div>
           <router-link to="/admin/complete-funding" style="text-decoration: none;">

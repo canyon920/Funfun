@@ -21,6 +21,7 @@ import FundingListComponent from "@/components/FundingListComponent";
 import {reServerSend} from "@/service/refreshForAccessToken";
 import Header from "@/components/layout/Header";
 import axios from "axios";
+import {isLoginMemberCheck} from "@/service/member-login";
 
 export default {
   name: 'FundingList',
@@ -184,6 +185,7 @@ export default {
 
   },
   mounted() {
+    isLoginMemberCheck
     this.bringMyFundingList()
   }
 

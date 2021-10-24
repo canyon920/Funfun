@@ -15,6 +15,7 @@ import FundingListComponent from "@/components/FundingListComponent";
 import axios from "axios";
 import {reServerSend} from "../../service/refreshForAccessToken";
 import Header from "../../components/layout/Header";
+import {isLoginMemberCheck} from "@/service/member-login";
 
 
 export default {
@@ -183,6 +184,7 @@ export default {
 
   },
   mounted() {
+    isLoginMemberCheck
     this.bringMyJoinList()
   }
 

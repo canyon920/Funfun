@@ -33,7 +33,7 @@
             }">
               <!--              <carousel id="shop-carousel" :autoplay="true" :nav="false" >-->
               <!--    <template slot="prev"><span class="prev" >prev</span></template>-->
-              <div v-for="(merchan, idx) in bringmainsearch.fundinglist" :key="idx">
+              <div v-for="(merchan, idx) in bringmainsearch.fundinglist" :key="idx" style="width: 275px !important;">
                 <router-link :to="{name: 'DetailFundingPage' ,params: {fundingId: merchan.fundingId}}" style="text-decoration: none">
                   <div class="card-div" style="border: 0.5px solid rgba(0,0,0,0);">
 
@@ -97,6 +97,7 @@ export default {
 }
 </script>
 <style scoped>
+
 
 .search{
   max-width:1100px;
@@ -167,6 +168,7 @@ export default {
   margin: 10px 0px;
 }
 #shop-carousel {
+  width: 1000px;
 }
 @media screen and (min-width: 850px) and (max-width: 1300px){
   #v-card-custom {

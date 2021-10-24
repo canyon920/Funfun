@@ -65,6 +65,7 @@
 import axios from "axios";
 import router from "../router";
 import {getHeaders} from "../service/header";
+import {isLoginMemberCheck} from "@/service/member-login";
 
 export default {
   name: "FundingPayment",
@@ -295,7 +296,7 @@ export default {
         alert("100원 이상의 금액으로만 결제 가능합니다");
         return true;
       }
-      if(!this.fundingId || !this.fundingTitle || !this.fundingCMoney || !this.fundingTMoney){
+      if(!this.fundingId || !this.fundingTitle || !this.fundingTMoney){
         alert("펀딩 정보를 제대로 가져오지 못했습니다");
         router.go(-1);
         return true;
@@ -305,6 +306,7 @@ export default {
     }
   },
   mounted() {
+    isLoginMemberCheck
     this.set()
   }
 }

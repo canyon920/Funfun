@@ -228,6 +228,7 @@
 import axios from "axios";
 import Header from "../../components/layout/Header";
 import {reServerSend} from "../../service/refreshForAccessToken";
+import {isLoginMemberCheck} from "@/service/member-login";
 export default {
   name: "PurchaseList",
   components: {},
@@ -413,16 +414,17 @@ export default {
           })
     },
     onClickRedirect(fundingId,assemblePrice,productPrice){
-      console.log("############")
-      for(var i in this.deadlist){
-        console.log("#",this.deadlist[i].state)
-      }
-      if(this.deadlist[i].state === 'CHECKING'){
-        this.buttonShow = true
+      // console.log("############")
+      // for(var i in this.deadlist){
+      //   console.log("#",this.deadlist[i].state)
+      // }
+      // if(this.deadlist[i].state === 'CHECKING'){
+      //   this.buttonShow = true
         this.$router.push(`/choose/${fundingId}/${assemblePrice}/${productPrice}`)
-      }else{
-        this.buttonShow = false
-      }
+      // }
+      // else{
+      //   this.buttonShow = false
+      // }
     },
     delnumChange(val) {
       console.log(val)
@@ -430,6 +432,7 @@ export default {
     }
   },
   mounted() {
+    isLoginMemberCheck
     this.bringFundingTypeBuy()
     this.bringFundingTypeFunding()
   },

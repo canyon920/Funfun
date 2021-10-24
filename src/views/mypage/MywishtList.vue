@@ -19,6 +19,7 @@ import NormalListComponent from "@/components/NormalListComponent";
 import axios from "axios";
 import {getHeaders} from "@/service/header";
 import {reServerSend} from "@/service/refreshForAccessToken";
+import {isLoginMemberCheck} from "@/service/member-login";
 
 
 export default {
@@ -77,9 +78,7 @@ export default {
     }
   },
   beforeCreate() {
-    if (!window.localStorage.getItem('login_member')) {
-      this.$router.push("/login")
-    }
+    isLoginMemberCheck
   },
   beforeMount() {
     this.setProductList()

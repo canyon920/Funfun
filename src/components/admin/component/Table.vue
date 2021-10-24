@@ -63,6 +63,7 @@
         <div v-show="data.data6" class="text col6" >
           {{ data.data6 }}
         </div>
+
         <div v-show="data.data7" class="text status" >
           <v-select class="select"
                     @change="test(data.data1, data.data7)"
@@ -71,6 +72,52 @@
                     solo
                     error
           ></v-select>
+
+          <template>
+            <v-row justify="center">
+              <v-dialog
+                  v-model="dialog"
+                  persistent
+                  max-width="300px"
+              >
+
+                <v-card>
+                  <v-card-title>
+                    <span class="text-h5">택배등록</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-text-field
+                            label="운송장번호를 등록해주세요."
+                            required
+                            v-model="deliveryNum"
+                        ></v-text-field>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="dialog = false"
+                    >
+                      Close
+                    </v-btn>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="insertDelivery(data.data1)"
+                    >
+                      Save
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-row>
+          </template>
+
         </div>
         <div v-show="data.data8" class="text delete" @click="check(data.data1)">
           {{data.data8}}
@@ -109,6 +156,8 @@ export default {
   },
   data(){
     return{
+      dialog : false,
+      deliveryNum:'',
       countTry:0,
 
       page: 1,
@@ -130,10 +179,27 @@ export default {
       // id 값을 이용한 삭제
       console.log(id)
     },
+    insertDelivery(id) {
+      let form = new FormData()
+      form.append("funding_id", id)
+      form.append("delivery_num",this.deliveryNum)
+      axios.post("http://127.0.0.1:9090/admin/update/shipping",form,getHeaders())
+      .then(()=>{
+        this.dialog = false
+      })
+      .catch(()=>{
+        this.dialog = false
+        alert("서버와의 연결상태를 확인해주세요.")
+      })
+    },
     test(id, status) {
       console.log(id, status)
       axios.post("http://127.0.0.1:9090/admin/update/"+id+"/"+status, getHeaders())
-          .then(
+          .then(()=>{
+            if (status === "SHIPPING") {
+              this.dialog = true
+            }
+              }
           ).catch(error => {
         console.log(error.messages)
         if (error.response.status===403) {

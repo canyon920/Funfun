@@ -70,7 +70,7 @@ export default {
     Flogout(){
       window.localStorage.clear()
       window.sessionStorage.clear()
-      this.$router.go(0)
+      this.$router.push("/",this.isLogin())
     },
     Klogout() { // 카카오 로그아웃
       let router = this.$router
