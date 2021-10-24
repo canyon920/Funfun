@@ -2,7 +2,7 @@
 <div class="normal-list">
   <div v-if="bringUserName" class = "wishlist1" style="font-weight: 700"><span style="color: rgb(229, 114, 0)">{{ bringUserName }}</span>님의 위시리스트</div>
   <div v-if="bringscript" class = "listscript">
-    {{bringscript}}
+    {{setInitPage}}
   </div>
 
 
@@ -94,13 +94,20 @@ export default {
     },
     computedMaxPage() {
       return Math.ceil( this.bringProductList.length/this.perPage)
+    },
+    setInitPage() {
+      return this.bringscript
     }
+
   },
   watch:{
     page(){
       window.scrollTo({top:0, left:0, behavior:'smooth'})
     },
     computedMaxPage() {
+      this.page = 1
+    },
+    setInitPage() {
       this.page = 1
     }
   }
