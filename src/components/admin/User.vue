@@ -71,15 +71,14 @@ export default {
 
       await axios.get("http://localhost:9090/user/admin", config)
           .then(res => {
-            console.log(res.data);
-            this.userData.list = res.data;
+            // console.log(res.data);
             this.userData.total = res.data.length;
             res.data.map((res) => {
-              if (res.data5 == 0) {
+              if (res.data5 === 0) {
                 res.data5 = 0 + ""
               }
             })
-
+            this.userData.list = res.data
           }).catch(e => {
             console.log(e.response)
           })
@@ -114,7 +113,6 @@ export default {
                 if (res.data[i].data5 == 0){
                   res.data[i].data5 = 0 + ""
                 }
-
                 this.userData.list.push({
                   data1: res.data[i].data1,
                   data2: res.data[i].data2,
@@ -123,7 +121,6 @@ export default {
                   data5: res.data[i].data5,
                 })
               }
-
               console.log(res.data)
               this.friend = res.data
               this.userData.total = this.userData.list.length;

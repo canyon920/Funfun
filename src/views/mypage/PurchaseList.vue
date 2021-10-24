@@ -318,8 +318,10 @@ export default {
               for(var key2 in statelist){
                 if(statelist[key2].includes('CHECKING')){
                   buttonStatus2 = true
-                }else{
-                  buttonStatus2 = false
+                } else if (statelist[key2].includes('COMPLETED')) {
+                  deliveryStatus = false;
+                } else {
+                  buttonStatus2 = false;
                 }
               }
               this.giftlist.push({
@@ -378,7 +380,9 @@ export default {
               for(var key2 in statelist){
                 if(statelist[key2].includes('CHECKING')){
                   buttonStatus = true
-                }else{
+                } else if (statelist[key2].includes('COMPLETED')) {
+                  deliveryStatus = false;
+                } else{
                   buttonStatus = false
                 }
               }
