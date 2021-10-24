@@ -30,10 +30,13 @@
           {{ col.col6 }}
         </div>
         <div  v-show="col.col7" class="text status-col">
-          상태
+          {{col.col7}}
         </div>
         <div v-show="col.col8" class="text delete-col">
           삭제
+        </div>
+        <div v-show="col.col9" class="text">
+          {{ col.col9 }}
         </div>
       </div>
 
@@ -57,14 +60,23 @@
         <div v-show="data.data5" class="text col5" >
           {{ data.data5 }}
         </div>
-        <div v-show="data.data6" class="text col4" >
+        <div v-show="data.data6" class="text col6" >
           {{ data.data6 }}
         </div>
         <div v-show="data.data7" class="text status" >
-          {{data.data7}}
+          <v-select class="select"
+                    @change="test(data.data1, data.data7)"
+                    v-model=data.data7
+                    :items="items1"
+                    solo
+                    error
+          ></v-select>
         </div>
         <div v-show="data.data8" class="text delete" @click="check(data.data1)">
           {{data.data8}}
+        </div>
+        <div v-show="data.data9" class="text" >
+          <img class="item img" :src="data.data9" >
         </div>
 
       </div>
@@ -84,6 +96,10 @@
 </template>
 
 <script>
+import axios from "axios";
+import {getHeaders} from "@/service/header";
+import {reServerSend} from "@/service/refreshForAccessToken";
+
 export default {
   name: "Table",
   props:{
@@ -93,6 +109,8 @@ export default {
   },
   data(){
     return{
+      countTry:0,
+
       page: 1,
       perPage: 3,
       search:'',
@@ -100,12 +118,32 @@ export default {
       userName:'',
       userRole:'',
       userFundingCount:0,
+
+      items1: ['CHECKING', 'WAITING', 'PROCESSING', 'DEPOSIT_COMPLETED_SHIPPING', 'SHIPPING','COMPLETED'],
+      selected1 : 'CHECKING',
+
+      SearchName:''
     }
   },
-  methods:{
-    check(id){
+  methods: {
+    check(id) {
       // id 값을 이용한 삭제
       console.log(id)
+    },
+    test(id, status) {
+      console.log(id, status)
+      axios.post("http://127.0.0.1:9090/admin/update/"+id+"/"+status, getHeaders())
+          .then(
+          ).catch(error => {
+        console.log(error.messages)
+        if (error.response.status===403) {
+          this.countTry++
+          if (this.countTry == 1) {
+            reServerSend()
+          }
+          console.log("다시 오류인것 확인 로그")
+        }
+      })
     }
   },
   mounted() {
@@ -167,6 +205,10 @@ export default {
 .text.delete {
   cursor: pointer;
 }
+.text.status .select{
+  height: 30px;
+  width: 133px;
+}
 .text.delete:hover {
   background-color: rgba(229, 114, 0, .1);
   border-radius: 0px 0px 20px 0px;
@@ -174,6 +216,10 @@ export default {
 }
 .text.status {
   cursor: pointer;
+}
+.text .item.img {
+  width: 50px;
+  height: 50px;
 }
 .text.status:hover {
   background-color: rgba(229, 114, 0, .1);
