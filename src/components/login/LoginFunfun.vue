@@ -78,7 +78,7 @@ export default {
       let form = new FormData()
       form.append('username', this.email)
       form.append('password', this.password)
-      await axios.post("http://localhost:9090/api/login",form)
+      await axios.post("http://192.168.0.165:9090/api/login",form)
           .then(res=>{
             funTokens.access_token = res.data.access_token
             funTokens.refresh_token = res.data.refresh_token
@@ -105,7 +105,7 @@ export default {
           Authorization : `Bearer ${access_token}`
         }
       }
-      await axios.post("http://localhost:9090/api/fun/get/memberInfo",form,config).then(res => {
+      await axios.post("http://192.168.0.165:9090/api/fun/get/memberInfo",form,config).then(res => {
         memberObj.memberId = res.data.id
         memberObj.memberEmail = res.data.email
         memberObj.memberNicname = res.data.nic_name

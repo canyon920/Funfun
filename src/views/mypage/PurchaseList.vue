@@ -291,7 +291,7 @@ export default {
           Authorization : `Bearer ${access_token}`,
         }
       }
-      await axios.get("http://localhost:9090/myPurchase/selfGift/"+memberId,config)
+      await axios.get("http://192.168.0.165:9090/myPurchase/selfGift/"+memberId,config)
           .then(res =>{
             console.log("##res1",res)
             var thumbImg =""
@@ -352,7 +352,7 @@ export default {
           Authorization : `Bearer ${access_token}`,
         }
       }
-      await axios.get("http://localhost:9090/myPurchase/expiredFunding/"+memberId,config)
+      await axios.get("http://192.168.0.165:9090/myPurchase/expiredFunding/"+memberId,config)
           .then(res =>{
             this.countTry =0
             console.log("##res",res)

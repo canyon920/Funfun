@@ -352,7 +352,7 @@ export default {
           Authorization : `Bearer ${window.sessionStorage.getItem("access_token")}`,
         }
       }
-      await axios.post("http://localhost:9090/post/payment/delivery", form, config)
+      await axios.post("http://192.168.0.165:9090/post/payment/delivery", form, config)
           .then(res=>{
             this.countTry=0
             if (res.data === true) {
@@ -382,7 +382,7 @@ export default {
       this.loading = true
       var form = new FormData()
       form.append("email", member.memberEmail)
-      await axios.post("http://localhost:9090/api/message/email/send", form)
+      await axios.post("http://192.168.0.165:9090/api/message/email/send", form)
           .then(res=>{
             this.countTry = 0
             this.isSendMail = false
@@ -411,7 +411,7 @@ export default {
       var form = new FormData();
       form.append("issuerCode", this.serverEVerifyCode)
       form.append("inputCode",this.eVerifyCode)
-      await axios.post("http://localhost:9090/api/message/verify/code",form)
+      await axios.post("http://192.168.0.165:9090/api/message/verify/code",form)
           .then(res=>{
             console.log(res)
             if (res.data === true) {
@@ -451,7 +451,7 @@ export default {
       form.append("funding_id",this.$route.params.fundingId)
       form.append("real_name", this.name)
       form.append("acount", this.account)
-      await axios.post("http://localhost:9090/post/payment/account",form,getHeaders())
+      await axios.post("http://192.168.0.165:9090/post/payment/account",form,getHeaders())
       .then(res=>{
         this.countTry = 0;
         console.log(res.data)

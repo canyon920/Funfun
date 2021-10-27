@@ -126,7 +126,7 @@ export default {
           let form = new FormData();
           form.append('phoneNum', this.phoneNumber);
 
-          await axios.post("http://localhost:9090/api/message/phone/verify", form)
+          await axios.post("http://192.168.0.165:9090/api/message/phone/verify", form)
               .then(res => {
                 console.log(res)
                 this.errorSendMsgToServer = false
@@ -152,7 +152,7 @@ export default {
         var form = new FormData();
         form.append("issuerCode", this.verifyCode)
         form.append("inputCode",this.verifyNumber)
-        await axios.post("http://localhost:9090/api/message/verify/code",form)
+        await axios.post("http://192.168.0.165:9090/api/message/verify/code",form)
         .then(res=>{
           console.log(res)
           if (res.data === true) {

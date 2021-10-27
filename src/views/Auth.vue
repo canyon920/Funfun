@@ -17,7 +17,7 @@
 <!--&lt;!&ndash;//     const data = {&ndash;&gt;-->
 <!--&lt;!&ndash;//       grant_type: 'authorization_code',&ndash;&gt;-->
 <!--&lt;!&ndash;//       client_id: '08cab2069b3bd09e1d21ad0b6746e4d9',&ndash;&gt;-->
-<!--&lt;!&ndash;//       redirect_uri: 'http://localhost:8080/login',&ndash;&gt;-->
+<!--&lt;!&ndash;//       redirect_uri: 'http://192.168.0.165:8080/login',&ndash;&gt;-->
 <!--&lt;!&ndash;//       code: code,&ndash;&gt;-->
 <!--&lt;!&ndash;//     }&ndash;&gt;-->
 <!--&lt;!&ndash;//     const queryString = Object.keys(data)&ndash;&gt;-->
@@ -71,13 +71,13 @@
 <!--&lt;!&ndash;      // const data = {&ndash;&gt;-->
 <!--&lt;!&ndash;      //   grant_type: 'authorization_code',&ndash;&gt;-->
 <!--&lt;!&ndash;      //   client_id: '08cab2069b3bd09e1d21ad0b6746e4d9',&ndash;&gt;-->
-<!--&lt;!&ndash;      //   redirect_uri: 'http://localhost:8080/login',&ndash;&gt;-->
+<!--&lt;!&ndash;      //   redirect_uri: 'http://192.168.0.165:8080/login',&ndash;&gt;-->
 <!--&lt;!&ndash;      //   code: this.access_code,&ndash;&gt;-->
 <!--&lt;!&ndash;      // }&ndash;&gt;-->
 <!--&lt;!&ndash;      await axios.post("https://kauth.kakao.com/oauth/token?" +&ndash;&gt;-->
 <!--&lt;!&ndash;          "grant_type=authorization_code&" +&ndash;&gt;-->
 <!--&lt;!&ndash;          "client_id=08cab2069b3bd09e1d21ad0b6746e4d9&" +&ndash;&gt;-->
-<!--&lt;!&ndash;          "redirect_uri=http://localhost:8080/login&" +&ndash;&gt;-->
+<!--&lt;!&ndash;          "redirect_uri=http://192.168.0.165:8080/login&" +&ndash;&gt;-->
 <!--&lt;!&ndash;          `code=${this.access_code}`, {headers:kakaoHeader})&ndash;&gt;-->
 <!--&lt;!&ndash;        .then(res=>{&ndash;&gt;-->
 <!--&lt;!&ndash;          console.log(res.access_token)&ndash;&gt;-->

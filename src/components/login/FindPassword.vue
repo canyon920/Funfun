@@ -130,7 +130,7 @@ export default {
       }
       var form = new FormData()
       form.append("email",this.submitId)
-      await axios.post("http://localhost:9090/api/find/id/from/email",form)
+      await axios.post("http://192.168.0.165:9090/api/find/id/from/email",form)
       .then(res=>{
         // console.log(res.data)
         if (this.submitId === res.data) {
@@ -156,7 +156,7 @@ export default {
       this.loading = true
       var form = new FormData()
       form.append("email", this.submitId)
-      await axios.post("http://localhost:9090/api/message/email/send", form)
+      await axios.post("http://192.168.0.165:9090/api/message/email/send", form)
       .then(res=>{
         // console.log(res)
         this.serverEVerifyCode = res.data
@@ -178,7 +178,7 @@ export default {
       var form = new FormData();
       form.append("issuerCode", this.serverEVerifyCode)
       form.append("inputCode",this.eVerifyCode)
-      await axios.post("http://localhost:9090/api/message/verify/code",form)
+      await axios.post("http://192.168.0.165:9090/api/message/verify/code",form)
           .then(res=>{
             // console.log(res)
             if (res.data === true) {
@@ -197,7 +197,7 @@ export default {
       var form = new FormData()
       form.append("email", this.submitId)
       form.append("phone", this.submitPhoneNumber)
-      await axios.post("http://localhost:9090/api/find/id/from/emailandphone",form)
+      await axios.post("http://192.168.0.165:9090/api/find/id/from/emailandphone",form)
       .then(res=>{
         // console.log(res.data)
         if (res.data === true) {
@@ -221,7 +221,7 @@ export default {
       var form = new FormData()
       form.append("email", this.submitId)
       form.append("password", this.checkPassword)
-      await axios.post("http://localhost:9090/api/find/password/change", form)
+      await axios.post("http://192.168.0.165:9090/api/find/password/change", form)
       .then(()=>{
             this.$router.push("/login")
 

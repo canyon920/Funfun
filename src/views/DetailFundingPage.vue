@@ -125,7 +125,7 @@ export default {
         console.log("라이크 수 : ", this.rightInfo.likeCount, typeof this.rightInfo.likeCount);
         let form = new FormData()
         form.append("like_up", true)
-        await axios.post("http://localhost:9090/api/like/update", form)
+        await axios.post("http://192.168.0.165:9090/api/like/update", form)
             .then(res => {
               console.log(res)
             })
@@ -142,7 +142,7 @@ export default {
           Authorization : `Bearer ${access_token}`
         }
       }*/
-      await axios.post("http://localhost:9090/funding/fundingDetail",form)
+      await axios.post("http://192.168.0.165:9090/funding/fundingDetail",form)
       .then(res =>{
         this.leftInfo.subImg=[]
 

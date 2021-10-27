@@ -41,7 +41,7 @@ export default {
             form.append("nic_name", memberNicname)
             form.append("login_api", memberApi)
             form.append("file_src", memberProfile)
-            await axios.post("http://localhost:9090/api/login/oauth/save/member", form)
+            await axios.post("http://192.168.0.165:9090/api/login/oauth/save/member", form)
                 .then(res => {
                     console.log(res)
                     context.commit('setMember',res)
@@ -61,7 +61,7 @@ export default {
         //     form.append("username", memberEmail)
         //     form.append("password", memberPwd)
         //     console.log("아시오스 전송 전")
-        //     await axios.post("http://localhost:9090/api/login",form,
+        //     await axios.post("http://192.168.0.165:9090/api/login",form,
         //     ).then(res =>{
         //         console.log(res)
         //         commit('setMember', res)
@@ -95,7 +95,7 @@ export default {
             let form = new FormData();
             form.append("username", memberEmail)
             form.append("password", memberPwd)
-            await axios.post("http://localhost:9090/api/login",form,
+            await axios.post("http://192.168.0.165:9090/api/login",form,
             ).then(res =>{
                 context.commit('setMember', {
                     accessToken : res.data.access_token,
@@ -124,7 +124,7 @@ export default {
         //     let form = new FormData();
         //     form.append("username", this.memberEmail)
         //     form.append("password", this.memberPwd)
-        //     await axios.post("http://localhost:9090/api/login",form,
+        //     await axios.post("http://192.168.0.165:9090/api/login",form,
         //     ).then(res => {
         //         console.log("응답: "+ res.data.access_token)
         //         console.log("응답: "+ res.data.refresh_token)

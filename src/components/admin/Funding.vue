@@ -71,7 +71,7 @@ export default {
   },
   methods:{
     async getList(){
-      axios.get("http://127.0.0.1:9090/admin/fundinglist",getHeaders())
+      axios.get("http://192.168.0.165:9090/admin/fundinglist",getHeaders())
           .then(res => {
             this.productData.list = []
             this.productData.list = res.data
@@ -93,7 +93,7 @@ export default {
       this.SearchName = this.SearchName.trim()
       this.SearchName = this.SearchName.replace(/\s/gi, "")
       if(this.SearchName.length>0){
-        axios.get(`http://127.0.0.1:9090/admin/fundinglist/search/${this.SearchName}`,getHeaders() )
+        axios.get(`http://192.168.0.165:9090/admin/fundinglist/search/${this.SearchName}`,getHeaders() )
             .then(res => {
               this.productData.list = []
               this.productData.list = res.data

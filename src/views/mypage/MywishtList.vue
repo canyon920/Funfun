@@ -59,7 +59,7 @@ export default {
   methods:{
     async setProductList(){
       var MemberId=this.$route.params.memberId
-      axios.get("http://127.0.0.1:9090/WishListPage/"+MemberId, getHeaders())
+      axios.get("http://192.168.0.165:9090/WishListPage/"+MemberId, getHeaders())
           .then(res => {
             this.countTry = 0
             this.Mywish =[]

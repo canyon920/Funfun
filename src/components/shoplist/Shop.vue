@@ -196,7 +196,7 @@ export default {
       this.selected1='인기순'
       this.selected2='가격대'
       var CategoryId = this.$route.params.categoryId
-      axios.post("http://127.0.0.1:9090/ProductListPage/"+ CategoryId)
+      axios.post("http://192.168.0.165:9090/ProductListPage/"+ CategoryId)
           .then(res => {
             this.settingTitle()
             this.products = []
@@ -210,7 +210,7 @@ export default {
       var CategoryId = this.$route.params.categoryId
       if(this.SearchName.length>0){return this.setSearchProduct()}
       if(this.selected1 == '인기순' && this.selected2 == '가격대') {
-        axios.post("http://127.0.0.1:9090/ProductListPage/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -219,7 +219,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '인기순' && this.selected2 == '1만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/1/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/1/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -228,7 +228,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '인기순' && this.selected2 == '2만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/2/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/2/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -237,7 +237,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 =='인기순' && this.selected2 == '5만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/3/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/3/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -246,7 +246,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '인기순' && this.selected2 == '10만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/4/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/4/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -256,7 +256,7 @@ export default {
         })
       }
       if (this.selected1 == '추천순' && this.selected2 == '가격대'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/A/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/A/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -265,7 +265,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '추천순' && this.selected2 == '1만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/A/1/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/A/1/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -274,7 +274,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '추천순' && this.selected2 == '2만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/A/2/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/A/2/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -283,7 +283,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '추천순' && this.selected2 == '5만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/A/3/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/A/3/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -292,7 +292,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '추천순' && this.selected2 == '10만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/A/4/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/A/4/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -302,7 +302,7 @@ export default {
         })
       }
       if (this.selected1 == '높은가격순' && this.selected2 == '가격대'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/B/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/B/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -311,7 +311,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '높은가격순' && this.selected2 == '1만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/B/1/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/B/1/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -320,7 +320,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '높은가격순' && this.selected2 == '2만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/B/2/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/B/2/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -329,7 +329,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '높은가격순' && this.selected2 == '5만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/B/3/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/B/3/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -338,7 +338,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '높은가격순' && this.selected2 == '10만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/B/4/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/B/4/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -348,7 +348,7 @@ export default {
         })
       }
       if (this.selected1 == '낮은가격순' && this.selected2 == '가격대'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/C/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/C/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -357,7 +357,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '낮은가격순' && this.selected2 == '1만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/C/1/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/C/1/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -366,7 +366,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '낮은가겨순' && this.selected2 == '2만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/C/2/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/C/2/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -375,7 +375,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '낮은가격순' && this.selected2 == '5만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/C/3/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/C/3/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -384,7 +384,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '낮은가격순' && this.selected2 == '10만원대 이상'){
-        axios.post("http://127.0.0.1:9090/ProductListPage/C/4/"+ CategoryId, null)
+        axios.post("http://192.168.0.165:9090/ProductListPage/C/4/"+ CategoryId, null)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -401,7 +401,7 @@ export default {
       this.SearchName = this.SearchName.trim()
       this.SearchName = this.SearchName.replace(/\s/gi, "")
       if(this.SearchName.length>0){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/${this.SearchName}` )
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/${this.SearchName}` )
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -413,7 +413,7 @@ export default {
     },
     async setSearchProduct(){
       if(this.selected1 == '인기순' && this.selected2 == '가격대'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -422,7 +422,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '인기순' && this.selected2 == '1만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/1/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/1/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -431,7 +431,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '인기순' && this.selected2 == '2만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/2/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/2/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -440,7 +440,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 =='인기순' && this.selected2 == '5만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/3/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/3/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -449,7 +449,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '인기순' && this.selected2 == '10만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/4/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/4/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -459,7 +459,7 @@ export default {
         })
       }
       if (this.selected1 == '추천순' && this.selected2 == '가격대'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/A/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/A/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -468,7 +468,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '추천순' && this.selected2 == '1만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/A/1/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/A/1/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -477,7 +477,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '추천순' && this.selected2 == '2만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/A/2/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/A/2/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -486,7 +486,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '추천순' && this.selected2 == '5만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/A/3/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/A/3/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -495,7 +495,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '추천순' && this.selected2 == '10만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/A/4/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/A/4/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -505,7 +505,7 @@ export default {
         })
       }
       if (this.selected1 == '높은가격순' && this.selected2 == '가격대'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/B/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/B/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -514,7 +514,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '높은가격순' && this.selected2 == '1만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/B/1/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/B/1/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -523,7 +523,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '높은가격순' && this.selected2 == '2만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/B/2/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/B/2/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -532,7 +532,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '높은가격순' && this.selected2 == '5만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/B/3/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/B/3/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -541,7 +541,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '높은가격순' && this.selected2 == '10만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/B/4/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/B/4/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -551,7 +551,7 @@ export default {
         })
       }
       if (this.selected1 == '낮은가격순' && this.selected2 == '가격대'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/C/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/C/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -560,7 +560,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '낮은가격순' && this.selected2 == '1만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/C/1/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/C/1/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -569,7 +569,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '낮은가겨순' && this.selected2 == '2만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/C/2/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/C/2/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -578,7 +578,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '낮은가격순' && this.selected2 == '5만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/C/3/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/C/3/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)
@@ -587,7 +587,7 @@ export default {
           console.log(error.messages)
         })
       }else if(this.selected1 == '낮은가격순' && this.selected2 == '10만원대 이상'){
-        axios.get(`http://127.0.0.1:9090/ProductListPage/search/C/4/${this.SearchName}`)
+        axios.get(`http://192.168.0.165:9090/ProductListPage/search/C/4/${this.SearchName}`)
             .then(res => {
               this.products = []
               let jdata = JSON.stringify(res.data)

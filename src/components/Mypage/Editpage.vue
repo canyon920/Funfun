@@ -155,7 +155,7 @@ export default {
       var form = new FormData()
       form.append("memberId", this.memberId);
       //UserEditController 에서 받아오자
-      await axios.post("http://localhost:9090/bring/member/edit/info",form, config)
+      await axios.post("http://192.168.0.165:9090/bring/member/edit/info",form, config)
           .then(res =>{
             // console.log(res.data)
             this.nickname = res.data.nic_name
@@ -230,7 +230,7 @@ export default {
         "street" : checkedAddress2,
         "zipcode" : checkedAddress3
       }
-      await axios.post("http://localhost:9090/bring/member/edit/save", submitEditMember, config)
+      await axios.post("http://192.168.0.165:9090/bring/member/edit/save", submitEditMember, config)
           .then(res=>{
             // console.log(res.data)
             this.countTry=0

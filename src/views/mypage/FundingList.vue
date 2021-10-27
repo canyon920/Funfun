@@ -144,7 +144,7 @@ export default {
           Authorization : `Bearer ${access_token}`,
         }
       }
-      await axios.get("http://localhost:9090/myFunding/"+mdata.memberId,config)
+      await axios.get("http://192.168.0.165:9090/myFunding/"+mdata.memberId,config)
           .then(res =>{
             console.log("##res",res)
             var thumbImg =""

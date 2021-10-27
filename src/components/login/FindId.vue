@@ -75,7 +75,7 @@ export default {
         var form = new FormData()
         form.append("phone", this.submitPhoneNumber)
         //찾아라 아이디
-        await axios.post("http://localhost:9090/api/find/id", form)
+        await axios.post("http://192.168.0.165:9090/api/find/id", form)
         .then(res=>{
           this.isFindResult = true
           this.errorInputPhone = false

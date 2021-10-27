@@ -23,13 +23,13 @@ export default {
   methods: {
     // loginWithKakao:function () {
     //   window.Kakao.Auth.authorize({
-    //     redirectUri:"http://localhost:8080/auth",
+    //     redirectUri:"http://192.168.0.165:8080/auth",
     //   });
     //   console.log('카카오 인증 코드', this.$route.query.code);
     // },
     // loginWithKakao() {
     //   const params = {
-    //     redirectUri: "http://localhost:8080/auth"
+    //     redirectUri: "http://192.168.0.165:8080/auth"
     //   }
     //   window.Kakao.Auth.authorize(params)
     // },

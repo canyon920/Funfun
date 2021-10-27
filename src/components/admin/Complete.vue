@@ -54,7 +54,7 @@ export default {
   },
   methods:{
     async getList(){
-      axios.get("http://127.0.0.1:9090/admin/expiredlist", getHeaders())
+      axios.get("http://192.168.0.165:9090/admin/expiredlist", getHeaders())
           .then(res => {
             this.productData.list = []
             this.productData.list = res.data

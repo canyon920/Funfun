@@ -183,7 +183,7 @@ export default {
       let form = new FormData()
       form.append("funding_id", id)
       form.append("delivery_num",this.deliveryNum)
-      axios.post("http://127.0.0.1:9090/admin/update/shipping",form,getHeaders())
+      axios.post("http://192.168.0.165:9090/admin/update/shipping",form,getHeaders())
       .then(()=>{
         this.dialog = false
       })
@@ -194,7 +194,7 @@ export default {
     },
     getUpdate(id, status) {
       console.log(id, status)
-      axios.post("http://127.0.0.1:9090/admin/update/"+id+"/"+status, getHeaders())
+      axios.post("http://192.168.0.165:9090/admin/update/"+id+"/"+status, getHeaders())
           .then(()=>{
             if (status === "SHIPPING") {
               this.dialog = true

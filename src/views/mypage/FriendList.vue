@@ -149,7 +149,7 @@ export default {
       this.searchStart = false;
       this.funding.username = username;
       this.funding.fundinglist = []
-      axios.get("http://127.0.0.1:9090/mainPage/friend/"+memberid, getHeaders())
+      axios.get("http://192.168.0.165:9090/mainPage/friend/"+memberid, getHeaders())
           .then(res => {
             let jdata =  JSON.stringify(res.data);
             this.funding.fundinglist = JSON.parse(jdata);
@@ -182,7 +182,7 @@ export default {
       this.friendName = this.friendName.trim();
       this.friendName = this.friendName.replace(/\s/gi, "")
       if(this.friendName.length>0){
-        axios.get("http://127.0.0.1:9090/mainPage/"+this.friendName) //1-> member_id
+        axios.get("http://192.168.0.165:9090/mainPage/"+this.friendName) //1-> member_id
             .then(response => {
               let jdata =  JSON.stringify(response.data);
               this.friends = JSON.parse(jdata);

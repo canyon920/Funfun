@@ -337,7 +337,7 @@ export default {
       this.searchStart = false;
       this.mainSearch.username = username;
       this.mainSearch.fundinglist = []
-      axios.get("http://127.0.0.1:9090/mainPage/friend/"+memberid)
+      axios.get("http://192.168.0.165:9090/mainPage/friend/"+memberid)
       .then(res => {
         let jdata =  JSON.stringify(res.data);
         this.mainSearch.fundinglist = JSON.parse(jdata);
@@ -371,7 +371,7 @@ export default {
       }
     },
     setDeadline(){
-      axios.get("http://127.0.0.1:9090/mainPage/Deadline")
+      axios.get("http://192.168.0.165:9090/mainPage/Deadline")
       .then(res => {
         this.mainDeadline = [];
         let jdata =  JSON.stringify(res.data);
@@ -381,7 +381,7 @@ export default {
     },
     setJoin(){
       this.memberObj = JSON.parse(window.localStorage.getItem('login_member'))
-      axios.get("http://127.0.0.1:9090/mainPage/mainJoin/"+ this.memberObj.memberId, getHeaders())
+      axios.get("http://192.168.0.165:9090/mainPage/mainJoin/"+ this.memberObj.memberId, getHeaders())
       .then(res => {
         this.mainJoin = [];
         let jdata =  JSON.stringify(res.data);
@@ -426,7 +426,7 @@ export default {
       //axios 로 친구리스트가져오기
       this.friendName = this.friendName.trim();
       if(this.friendName.length>0){
-        axios.get("http://127.0.0.1:9090/mainPage/"+this.friendName) //1-> member_id
+        axios.get("http://192.168.0.165:9090/mainPage/"+this.friendName) //1-> member_id
         .then(response => {
           let jdata =  JSON.stringify(response.data);
           this.friends = JSON.parse(jdata);

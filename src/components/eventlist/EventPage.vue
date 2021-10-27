@@ -35,7 +35,7 @@ export default{
   methods: {
     async getEventProduct(){
       var EventId = this.$route.params.eventId
-      await axios.get(`http://127.0.0.1:9090/EventProduct/`+EventId)
+      await axios.get(`http://192.168.0.165:9090/EventProduct/`+EventId)
           .then(res => {
             this.products = []
             let jdata = JSON.stringify(res.data)

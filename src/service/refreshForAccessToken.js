@@ -20,7 +20,7 @@ export async function reServerSend() {
             Authorization : `Bearer ${memberRefreshToken}`
         }
     }
-    await axios.post("http://localhost:9090/api/login/oauth/get/tokens/refresh_token",form,config)
+    await axios.post("http://192.168.0.165:9090/api/login/oauth/get/tokens/refresh_token",form,config)
         .then(res=>{
             //세션스토리지에 다시발급 받은 -> 엑세스토큰저장
             window.sessionStorage.setItem('access_token',res.data.access_token)

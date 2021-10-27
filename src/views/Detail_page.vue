@@ -104,7 +104,7 @@ export default {
           Authorization : `Bearer ${access_token}`
         }
       }*/
-      axios.post("http://localhost:9090/product/productDetail",form)
+      axios.post("http://192.168.0.165:9090/product/productDetail",form)
 
           .then(res =>{
 
@@ -294,7 +294,7 @@ export default {
         form.append("member_id",memberIdFromStorage)
         form.append("product_id",productIdFromStorage.productId)
 
-      await axios.post("http://localhost:9090/product/like/update",form,config)
+      await axios.post("http://192.168.0.165:9090/product/like/update",form,config)
             .then(() => {
             }).catch(error =>{
               console.log(error.message)
@@ -328,7 +328,7 @@ export default {
         "funding_collected_money":0
       };
 
-      await axios.post("http://localhost:9090/funding/create",funding,config)
+      await axios.post("http://192.168.0.165:9090/funding/create",funding,config)
           .then(res => {
             if (res.status === 200) {
               // 응답 코드가 OK 이면 이동할 곳 ( 펀딩 상세페이지로 )

@@ -33,7 +33,7 @@ export async function bringMemberLoginDataFromServer() {
     form.append("file_src", OauthSendServerData.sendMemberProfile)
 
 
-    await axios.post("http://localhost:9090/api/login/oauth/save/member",form)
+    await axios.post("http://192.168.0.165:9090/api/login/oauth/save/member",form)
         .then(res=>{
             memberObj.memberId = res.data.id
             memberObj.memberEmail = res.data.email
@@ -61,7 +61,7 @@ export async function bringMemberLoginDataFromServer() {
 export async function bringFunTokens() {
     let form = new FormData()
     form.append('email', memberObj.memberEmail);
-    await axios.post("http://localhost:9090/api/login/oauth/get/tokens",form)
+    await axios.post("http://192.168.0.165:9090/api/login/oauth/get/tokens",form)
         .then(res => {
             funTokens.access_token = res.data.access_token
             funTokens.refresh_token = res.data.refresh_token

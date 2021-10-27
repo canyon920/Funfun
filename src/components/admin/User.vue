@@ -69,7 +69,7 @@ export default {
       }
       console.log("config: " + config)
 
-      await axios.get("http://localhost:9090/user/admin", config)
+      await axios.get("http://192.168.0.165:9090/user/admin", config)
           .then(res => {
             // console.log(res.data);
             this.userData.total = res.data.length;
@@ -106,7 +106,7 @@ export default {
       console.log("config: " + config)
       this.search =this.search.trim();
       if(this.search.length>0) {
-        axios.get("http://localhost:9090/user/admin/search/" + this.search, config)
+        axios.get("http://192.168.0.165:9090/user/admin/search/" + this.search, config)
             .then(res => {
               this.userData.list=[];
               for(let i in res.data){

@@ -182,7 +182,7 @@ export default {
       if (this.submitPhoneNumber) {
         form.append("phone",this.submitPhoneNumber);
       }
-      await axios.post("http://localhost:9090/api/join/save/member",form)
+      await axios.post("http://192.168.0.165:9090/api/join/save/member",form)
           .then(res=>{
             // console.log(res)
             memberObj.memberId = res.data.id
@@ -211,7 +211,7 @@ export default {
       //  axios 로 이메일 중복 체크해서 errorEmailCheck true or false
       var form = new FormData()
       form.append("email", this.email+this.select)
-      await axios.post("http://localhost:9090/api/join/email/check",form)
+      await axios.post("http://192.168.0.165:9090/api/join/email/check",form)
           .then(()=>{
             this.errorEmailCheck1 = false
             this.submitJoin2()

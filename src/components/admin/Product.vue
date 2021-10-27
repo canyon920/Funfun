@@ -63,7 +63,7 @@ export default {
   },
   methods:{
     async setProductList(){
-      axios.get("http://127.0.0.1:9090/admin/product", getHeaders())
+      axios.get("http://192.168.0.165:9090/admin/product", getHeaders())
           .then(res => {
             this.productData.list = []
             this.productData.list = res.data
@@ -81,7 +81,7 @@ export default {
       })
     },
     async getSearchName(){
-      axios.get("http://127.0.0.1:9090/admin/product/"+this.SearchName, getHeaders())
+      axios.get("http://192.168.0.165:9090/admin/product/"+this.SearchName, getHeaders())
           .then(res => {
             this.productData.list = []
             this.productData.list = res.data

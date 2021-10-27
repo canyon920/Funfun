@@ -22,7 +22,7 @@ export default {
     naverService().setNaver();
   },
   /*mounted(){
-    const naver_id_login = new window.naver_id_login("JQ9euvEXzku2NPp27QzO", "http://localhost:8080/loginnaver");
+    const naver_id_login = new window.naver_id_login("JQ9euvEXzku2NPp27QzO", "http://192.168.0.165:8080/loginnaver");
     const state = naver_id_login.getUniqState();
     naver_id_login.setButton("white", 1,60); // 버튼 설정
     naver_id_login.setState(state);
