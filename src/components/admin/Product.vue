@@ -1,15 +1,27 @@
 <template>
   <div class="product-container">
+    <v-text-field @keyup.enter="getSearchName"
+                  @click="clear"
+                  dense
+                  outlined
+                  rounded
+                  label="상품 검색"
+                  v-model="SearchName"
+                  ref="blur">
+      <template v-slot:prepend-inner>
+        <v-icon>mdi-magnify</v-icon>
+      </template>
+    </v-text-field>
   <Table :bring-data="productData"/>
 
-    <div class="paginataion-div">
-      <v-pagination
-          v-model="page"
-          class="my-4"
-          :length="totalLength"
-          :total-visible="visualTotalNum"
-      ></v-pagination>
-    </div>
+<!--    <div class="paginataion-div">-->
+<!--      <v-pagination-->
+<!--          v-model="page"-->
+<!--          class="my-4"-->
+<!--          :length="totalLength"-->
+<!--          :total-visible="visualTotalNum"-->
+<!--      ></v-pagination>-->
+<!--    </div>-->
 
   </div>
 </template>
@@ -17,6 +29,8 @@
 <script>
 import Table from "@/components/admin/component/Table";
 import axios from "axios";
+import {getHeaders} from "../../service/header";
+import {reServerSend} from "../../service/refreshForAccessToken";
 
 
 export default {
@@ -24,6 +38,8 @@ export default {
   components: {Table},
   data(){
     return{
+      countTry:0,
+      SearchName:'',
       page:1,
       totalLength:5,
       visualTotalNum:10,
@@ -41,29 +57,50 @@ export default {
           }
         ],
         list:[
-          {
-            data1:1,
-            data2:'춘식이와 라이언의 사랑이야기',
-            data3: 10,
-            data4:10,
-            data8:'delete',
-          },
         ]
       }
     }
   },
   methods:{
     async setProductList(){
-      axios.post("http://127.0.0.1:9090/AdminProductList/test")
+      axios.get("http://127.0.0.1:9090/admin/product", getHeaders())
           .then(res => {
             this.productData.list = []
-            let jdata = JSON.stringify(res.data)
-            this.productData.list = JSON.parse(jdata)
+            this.productData.list = res.data
             this.productData.total = this.productData.list.length
             // console.log(this.productData.list)
           }).catch(error => {
         console.log(error.messages)
+        if (error.response.status===403) {
+          this.countTry++
+          if (this.countTry == 1) {
+            reServerSend()
+          }
+          console.log("다시 오류인것 확인 로그")
+        }
       })
+    },
+    async getSearchName(){
+      axios.get("http://127.0.0.1:9090/admin/product/"+this.SearchName, getHeaders())
+          .then(res => {
+            this.productData.list = []
+            this.productData.list = res.data
+            this.productData.total = this.productData.list.length
+            // console.log(this.productData.list)
+          }).catch(error => {
+        console.log(error.messages)
+        if (error.response.status===403) {
+          this.countTry++
+          if (this.countTry == 1) {
+            reServerSend()
+          }
+          console.log("다시 오류인것 확인 로그")
+        }
+      })
+    },
+    clear(){
+      this.SearchName=''
+      return this.setProductList()
     }
   },
   beforeMount() {

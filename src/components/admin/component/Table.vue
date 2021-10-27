@@ -32,9 +32,9 @@
         <div  v-show="col.col7" class="text status-col">
           {{col.col7}}
         </div>
-        <div v-show="col.col8" class="text delete-col">
-          삭제
-        </div>
+<!--        <div v-show="col.col8" class="text delete-col">-->
+<!--          삭제-->
+<!--        </div>-->
         <div v-show="col.col9" class="text">
           {{ col.col9 }}
         </div>
@@ -66,7 +66,7 @@
 
         <div v-show="data.data7" class="text status" >
           <v-select class="select"
-                    @change="test(data.data1, data.data7)"
+                    @change="getUpdate(data.data1, data.data7)"
                     v-model=data.data7
                     :items="items1"
                     solo
@@ -192,7 +192,7 @@ export default {
         alert("서버와의 연결상태를 확인해주세요.")
       })
     },
-    test(id, status) {
+    getUpdate(id, status) {
       console.log(id, status)
       axios.post("http://127.0.0.1:9090/admin/update/"+id+"/"+status, getHeaders())
           .then(()=>{

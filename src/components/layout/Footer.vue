@@ -7,7 +7,7 @@
       </div>
       <v-spacer></v-spacer>
       <div class="footer_btn">
-        <v-btn class="btn btn1" to="/home" text rounded plain color="grey">Home</v-btn>
+        <v-btn class="btn btn1" to="/" text rounded plain color="grey">Home</v-btn>
         <v-btn class="btn" x-small plain disabled color="black">|</v-btn>
         <v-btn class="btn" text rounded plain color="grey" @click="onClickRedirect1">Trello</v-btn>
         <v-btn class="btn" x-small plain disabled color="black">|</v-btn>
